@@ -1,0 +1,1439 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0
+END
+start.f_old
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/start.f_old
+END
+makwmo.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/makwmo.f
+END
+gtbits.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/gtbits.f
+END
+orders.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/orders.f
+END
+getgbens.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbens.f
+END
+w3utcdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3utcdat.f
+END
+w3fa01.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa01.f
+END
+makelibw3.sh
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/makelibw3.sh
+END
+w3fb03.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb03.f
+END
+w3fi63.f_pre2010_05_25
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi63.f_pre2010_05_25
+END
+w3fc05.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fc05.f
+END
+w3fb07.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb07.f
+END
+w3fa09.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa09.f
+END
+w3fi01.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi01.f
+END
+w3ft204.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft204.f
+END
+getgbem.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbem.f
+END
+w3ai18.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai18.f
+END
+w3ft208.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft208.f
+END
+w3ft06v.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft06v.f
+END
+w3ai39.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai39.f
+END
+w3fi64.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi64.f
+END
+errexit.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/errexit.f
+END
+w3fi47.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi47.f
+END
+w3fi85.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi85.f
+END
+w3ft03.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft03.f
+END
+w3fi68.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi68.f
+END
+aea.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/aea.f
+END
+w3tagb.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3tagb.f
+END
+w3ft41.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft41.f
+END
+w3fs26.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fs26.f
+END
+summary.c
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/summary.c
+END
+w3ft07.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft07.f
+END
+summary.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/summary.f
+END
+pdseup.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/pdseup.f
+END
+fparser.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/fparser.f
+END
+w3fb12.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb12.f
+END
+w3movdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3movdat.f
+END
+w3ai40.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai40.f
+END
+w3trnarg.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3trnarg.f
+END
+w3ft213.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft213.f
+END
+gbyte.f
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/gbyte.f
+END
+w3fi52.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi52.f
+END
+w3fi18.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi18.f
+END
+w3fi73.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi73.f
+END
+w3fp12.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fp12.f
+END
+xstore.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/xstore.f
+END
+w3valdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3valdat.f
+END
+sbyte.f
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/sbyte.f
+END
+w3ft12.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft12.f
+END
+putgbens.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/putgbens.f
+END
+w3ft33.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft33.f
+END
+w3ft16.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft16.f
+END
+pdsens.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/pdsens.f
+END
+w3fb00.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb00.f
+END
+putgb.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/putgb.f_orig
+END
+getgbexm.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbexm.f
+END
+make.sh
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/make.sh
+END
+w3fi74.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi74.f_orig
+END
+w3fc02.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fc02.f
+END
+w3fb04.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb04.f
+END
+w3fa06.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa06.f
+END
+w3ft201.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft201.f
+END
+w3fc06.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fc06.f
+END
+instrument.f
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/instrument.f
+END
+errexit.f.org
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/errexit.f.org
+END
+sbytes.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/sbytes.f
+END
+w3ai15.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai15.f
+END
+w3fb08.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb08.f
+END
+w3ft205.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft205.f
+END
+w3fi02.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi02.f
+END
+w3ai19.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai19.f
+END
+w3ft209.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft209.f
+END
+w3fi61.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi61.f
+END
+w3locdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3locdat.f
+END
+w3aq15.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3aq15.f
+END
+w3fi82.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi82.f
+END
+w3ft00.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft00.f
+END
+w3fp04.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fp04.f
+END
+w3fi65.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi65.f
+END
+w3nogds.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3nogds.f
+END
+w3fi48.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi48.f
+END
+CHANGES
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/CHANGES
+END
+w3ft21.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft21.f
+END
+w3fi69.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi69.f
+END
+getgbemn.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbemn.f
+END
+gblevents.f
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/gblevents.f
+END
+w3ft08.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft08.f
+END
+mersenne_twister.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/mersenne_twister.f
+END
+w3ymdh4.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ymdh4.f
+END
+errmsg.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/errmsg.f
+END
+iw3unp29.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/iw3unp29.f
+END
+getgbh.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbh.f
+END
+w3fi63.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi63.f_orig
+END
+w3fa11.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa11.f
+END
+putgben.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/putgben.f
+END
+mkfldsep.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/mkfldsep.f
+END
+w3ft210.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft210.f
+END
+getgbp.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbp.f
+END
+w3ai41.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai41.f
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/README
+END
+getgb1.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgb1.f
+END
+w3ai24.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai24.f
+END
+w3ft214.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft214.f
+END
+w3fi32.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi32.f
+END
+w3fi70.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi70.f
+END
+w3fi19.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi19.f
+END
+w3fp13.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fp13.f
+END
+w3fi74.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi74.f
+END
+skgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/skgb.f
+END
+w3fi78.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi78.f
+END
+w3fs15.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fs15.f
+END
+gbytes_char.f
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/gbytes_char.f
+END
+mova2i.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/mova2i.c
+END
+w3ft17.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft17.f
+END
+mova2i.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/mova2i.f
+END
+w3doxdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3doxdat.f
+END
+w3ft38.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft38.f
+END
+w3fi72.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi72.f_orig
+END
+w3fb01.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb01.f
+END
+w3fa03.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa03.f
+END
+iw3mat.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/iw3mat.f
+END
+w3prrdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3prrdat.f
+END
+w3fb05.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb05.f
+END
+w3ft202.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft202.f
+END
+w3fc07.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fc07.f
+END
+w3fi20.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi20.f
+END
+w3fb09.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb09.f
+END
+gblevents.f_s
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/gblevents.f_s
+END
+w3fi03.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi03.f
+END
+w3ft206.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft206.f
+END
+q9ie32.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/q9ie32.f
+END
+lengds.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/lengds.f
+END
+getbit.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getbit.f
+END
+w3fi62.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi62.f
+END
+getgir.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgir.f
+END
+w3fi83.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi83.f
+END
+w3fm07.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fm07.f
+END
+grib1.doc
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/grib1.doc
+END
+w3fi66.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi66.f
+END
+w3fp05.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fp05.f
+END
+w3ft01.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft01.f
+END
+putgbe.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/putgbe.f
+END
+w3fq07.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fq07.f
+END
+w3fi63.f.ccs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi63.f.ccs
+END
+w3ft05.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft05.f
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/Makefile
+END
+getgb1r.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgb1r.f
+END
+args_mod.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/args_mod.f
+END
+w3ft26.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft26.f
+END
+w3ft09.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft09.f
+END
+getgbe.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbe.f
+END
+xdopen.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/xdopen.f
+END
+iw3jdn.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/iw3jdn.f
+END
+getgi.f
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgi.f
+END
+w3fi71.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi71.f_orig
+END
+w3fb10.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb10.f
+END
+w3fa12.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa12.f
+END
+w3ctzdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ctzdat.f
+END
+w3ai00.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai00.f
+END
+w3difdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3difdat.f
+END
+getgbm.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbm.f
+END
+w3ft211.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft211.f
+END
+w3ai08.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai08.f
+END
+clib.h
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/clib.h
+END
+makefile_4
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/makefile_4
+END
+w3as00.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3as00.f
+END
+w3reddat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3reddat.f
+END
+hostname.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/hostname.f
+END
+w3ft05v.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft05v.f
+END
+w3fi71.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi71.f
+END
+w3fp10.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fp10.f
+END
+putgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/putgb.f
+END
+w3fi92.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi92.f
+END
+w3fi75.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi75.f
+END
+w3ft10.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft10.f
+END
+w3miscan.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3miscan.f
+END
+getgbm.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbm.f_orig
+END
+w3fi58.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi58.f
+END
+w3fi72.f.ccs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi72.f.ccs
+END
+ixgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/ixgb.f
+END
+isrchne.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/isrchne.f
+END
+w3log.f
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3log.f
+END
+gbytes.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/gbytes.f
+END
+w3ft39.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft39.f
+END
+getgb1re.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgb1re.f
+END
+W3ADD.f
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/W3ADD.f
+END
+w3fb02.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb02.f
+END
+w3fa04.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa04.f
+END
+getgbeh.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbeh.f
+END
+w3unpk77.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3unpk77.f
+END
+w3fb06.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb06.f
+END
+w3ft203.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft203.f
+END
+w3fc08.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fc08.f
+END
+r63w72.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/r63w72.f
+END
+w3fi04.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi04.f
+END
+w3ft207.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft207.f
+END
+getgbep.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbep.f
+END
+getgbmh.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbmh.f
+END
+w3ai38.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai38.f
+END
+w3fi63.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi63.f
+END
+getgbemh.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbemh.f
+END
+compile.log
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/compile.log
+END
+w3fm08.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fm08.f
+END
+getgbex.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbex.f
+END
+getgbmp.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbmp.f
+END
+w3fi67.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi67.f
+END
+w3fp06.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fp06.f
+END
+w3fs21.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fs21.f
+END
+w3ft02.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft02.f
+END
+w3pradat.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3pradat.f
+END
+dbn_alert.c
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/dbn_alert.c
+END
+w3ft40.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft40.f
+END
+getgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgb.f
+END
+w3fi88.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi88.f
+END
+fparsei.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/fparsei.f
+END
+w3ft06.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft06.f
+END
+getgbemp.f
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgbemp.f
+END
+getgb1s.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/getgb1s.f
+END
+makefile_d
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/makefile_d
+END
+idsdef.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/idsdef.f
+END
+putgbn.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/putgbn.f
+END
+README.w3
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/README.w3
+END
+w3fb11.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fb11.f
+END
+w3fa13.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa13.f
+END
+w3ai01.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ai01.f
+END
+w3ft212.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft212.f
+END
+iw3pds.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/iw3pds.f
+END
+putgbex.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/putgbex.f
+END
+w3ft43v.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft43v.f
+END
+w3fi72.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi72.f
+END
+w3fp11.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fp11.f
+END
+w3fi71.f_prep2010_05_25
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi71.f_prep2010_05_25
+END
+w3fi76.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi76.f
+END
+w3ft11.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft11.f
+END
+w3fi59.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fi59.f
+END
+w3fs13.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fs13.f
+END
+xmovex.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/xmovex.f
+END
+w3ft32.f
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3ft32.f
+END
+w3fa03v.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/w3lib-2.0/w3fa03v.f
+END

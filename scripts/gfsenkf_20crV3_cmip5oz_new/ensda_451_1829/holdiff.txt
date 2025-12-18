@@ -1,0 +1,27 @@
+3,4c3,5
+< #SBATCH -p regular  
+< #SBATCH --qos=debug
+---
+> ##SBATCH -p regular  
+> ##SBATCH --qos=debug
+> #SBATCH -p debug
+7,8c8,9
+< #SBATCH -t 00:16:15
+< #SBATCH -J gfsenkf_425_1915
+---
+> #SBATCH -t 00:17:15
+> #SBATCH -J 1915_gfsenkf_425_1915
+38a40
+> #setenv nhosts 6480# = 80*81
+40c42
+< 
+---
+> #setenv nhosts 10400# = 160*65
+90c92
+< setenv NNODES_clean3 26 # set this so 3 times it will less than the total number of NODES
+---
+> setenv NNODES_clean3 $NNODESd3 # set this so 3 times it will less than the total number of NODES
+713c715
+< echo "`date +%Y%m%d%H%M` ncycles=$ncycles $analdate $walltime $NNODES $nhosts $corespernode $corespermpitask $enkf_taskspernode $OMP_NUM_THREADS $fg_omp_threads" >> ${enkfscripts}/walltime.out
+---
+> echo "$SLURM_JOB_ID `date +%Y%m%d%H%M` ncycles=$ncycles $analdate $walltime $NNODES $nhosts $corespernode $corespermpitask $enkf_taskspernode $OMP_NUM_THREADS $fg_omp_threads" >> ${enkfscripts}/walltime.out

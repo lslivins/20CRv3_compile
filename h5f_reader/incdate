@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+use Date::Manip;
+
+my $date = $ARGV[0];
+
+unless($date =~ /^\d{10}$/){
+    print "format yyyymmddhh\n";
+    exit;
+}
+
+    print "$date\n";
+   $date=&DateCalc($date,"$ARGV[1]hours ",\$err);
+    print "$date\n";
+
+    $date=&UnixDate($date,"%Y%m%d%H");
+
+    print "$date\n";

@@ -1,0 +1,2 @@
+20CRv3_scripts/ensda_499_1915> cat $CSCRATCH/gfsenkf_20crV3_cmip5oz_CoriII/ensda_499_1915/analdate.csh 
+setenv analdate 1915090912

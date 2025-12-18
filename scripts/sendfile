@@ -1,0 +1,2 @@
+#!/bin/bash
+echo  " " | mail -s $1 -a $1 ${USER}@noaa.gov

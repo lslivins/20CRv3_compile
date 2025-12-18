@@ -1,0 +1,18 @@
+--- sfc_sice.f.orig	2016-07-01 12:41:44.000000000 -0400
++++ sfc_sice.f	2016-07-01 12:42:30.000000000 -0400
+@@ -151,11 +151,11 @@
+ !
+ !  --- ...  set minimum ice concentration required
+ 
+-      if (mom4ice) then
++      !if (mom4ice) then
+          cimin = 0.15          ! mom4ice and mask
+-      else
+-         cimin = 0.50          ! gfs only
+-      endif
++      !else
++      !   cimin = 0.50          ! gfs only
++      !endif
+ 
+ !  --- ...  set flag for sea-ice
+ 

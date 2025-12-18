@@ -1,0 +1,902 @@
+--- ../EXP-4densvarupdates/compns.f	2015-09-28 11:43:30.470897000 -0700
++++ compns.f	2015-06-08 10:21:24.000000000 -0700
+@@ -155,6 +155,7 @@
+      & fhstoch,stochini,vc,skeb_varspect_opt,sppt_sfclimit,
+      & skeb,skeb_tau,skeb_lscale,iseed_skeb,skeb_vfilt,skeb_diss_smooth,
+      & skeb_sigtop1,skeb_sigtop2,sppt_sigtop1,sppt_sigtop2,
++     & vc_sigtop1,vc_sigtop2,
+      & shum_sigefold,iau,iaufiles_fg,iaufiles_anl,iaufhrs,iau_delthrs ! for IAU
+ !
+ !     integer n_rule,rule(8)
+@@ -326,6 +327,8 @@
+       sppt_sigtop2 = 0.025
+       skeb_sigtop1 = 0.1
+       skeb_sigtop2 = 0.025
++      vc_sigtop1 =   0.1 
++      vc_sigtop2 =   0.025
+       shum_sigefold = 0.2
+ ! reduce amplitude of sppt near surface (lowest 2 levels)
+       sppt_sfclimit = .false.
+--- ../EXP-4densvarupdates/dotstep_tracers.f	2015-09-28 11:42:51.393229000 -0700
++++ dotstep_tracers.f	2015-06-08 10:21:24.000000000 -0700
+@@ -267,7 +267,7 @@
+             if (nscyc > 0 .and. mod(kdt,nscyc) == 1) then
+ !             if (me == 0) print*,' calling gcycle at kdt=',kdt
+                 call gcycle(me,lats_node_r,lonsperlar,global_lats_r,
+-     &                      ipt_lats_node_r,idate,fhour,fhcyc,
++     &                      ipt_lats_node_r,idate,phour,fhcyc,
+      &                      xlon ,xlat  , sfc_fld, ialb)
+             endif
+ !
+@@ -643,7 +643,7 @@
+           if(.not. adiab) then
+             if (nscyc > 0 .and. mod(kdt,nscyc) == 1) then
+              call gcycle(me,lats_node_r,lonsperlar,global_lats_r,
+-     &                  ipt_lats_node_r,idate,fhour,fhcyc,
++     &                  ipt_lats_node_r,idate,phour,fhcyc,
+      &                  xlon ,xlat  , sfc_fld, ialb)
+             endif
+ !
+--- ../EXP-4densvarupdates/gbphys.f	2015-09-28 11:44:03.897578000 -0700
++++ gbphys.f	2015-06-08 11:43:14.000000000 -0700
+@@ -24,7 +24,7 @@
+ !           pdfcld,shcnvcw,flipv,cnvgwd,shal_cnv,                       !
+ !           redrag,hybedmf,dspheat,cal_pre,                             !
+ !           mom4ice,trans_trac,nst_fcst,fscav,                          !
+-!           thermodyn_id, sfcpress_id, gen_coord_hybrid, adjtrc,nnp,    !
++!          thermodyn_id,sfcpress_id,gen_coord_hybrid,adjtrc,sppt_wt,nnp,!
+ !       input/outputs:                                                  !
+ !           hice,fice,tisfc,tsea,tprcp,cv,cvb,cvt,                      !
+ !           srflag,snwdph,weasd,sncovr,zorl,canopy,                     !
+@@ -216,6 +216,7 @@
+ !     sfcpress_id  - integer, valid for gfs only for get_prs/phi   1    !
+ !     gen_coord_hybrid - logical for henry's gen coord             1    !
+ !     adjtrc       - real, dynamics adjustments to tracers       ntrac  !
++!     sppt_wt      - real, stochastic physics weights              im   !
+ !     nnp      - integer, physics substep number                   1    !
+ !                                                                       !
+ !  input/outputs:                                                       !
+@@ -368,7 +369,8 @@
+      &      pdfcld,shcnvcw,flipv,cnvgwd,shal_cnv,                       &
+      &      redrag,hybedmf,dspheat,cal_pre,                             &
+      &      mom4ice,trans_trac,nst_fcst,fscav,                          &
+-     &      thermodyn_id, sfcpress_id, gen_coord_hybrid, adjtrc,nnp,    &
++     &      thermodyn_id, sfcpress_id, gen_coord_hybrid, adjtrc,sppt_wt,&
++     &      nnp,                                                        &
+ !  ---  input/outputs:
+      &      hice,fice,tisfc,tsea,tprcp,cv,cvb,cvt,                      &
+      &      srflag,snwdph,weasd,sncovr,zorl,canopy,                     &
+@@ -449,7 +451,7 @@
+      &      sinlat, coslat, pgr,    dpshc,  xlon,   xlat,               &
+      &      slope,  shdmin, shdmax, snoalb, tg3,    slmsk,  vfrac,      &
+      &      vtype,  stype,  uustar, oro,    coszen, sfcnsw, sfcdsw,     &
+-     &      sfcdlw, tsflw,  sfalb,  sfcemis, oro_uf
++     &      sfcdlw, tsflw,  sfalb,  sfcemis, oro_uf ,sppt_wt
+ 
+       real(kind=kind_phys), dimension(ix,levs),       intent(in) ::     &
+      &      ugrs, vgrs, tgrs, vvel, prsl, prslk, phil, swh,swhc,hlw,hlwc
+@@ -1715,6 +1717,9 @@
+       endif   ! end if_not_ras
+ !
+       do i = 1, im
++        rain1(i) = rain1(i) * sppt_wt(i)
++      enddo
++      do i = 1, im
+         rainc(i) = frain * rain1(i)
+       enddo
+ 
+@@ -1970,6 +1975,9 @@
+           endif 
+ 
+           do i = 1, im
++             rain1(i) = rain1(i) * sppt_wt(i)
++          enddo
++          do i = 1, im
+             raincs(i) = frain * rain1(i)
+           enddo
+ 
+@@ -2144,6 +2152,9 @@
+ !     if (lprnt) print *,' rain1=',rain1(ipr),' rainc=',rainc(ipr)
+ 
+       do i = 1, im
++        rain1(i) = rain1(i) * sppt_wt(i)
++      enddo
++      do i = 1, im
+         rainl(i) = frain    * rain1(i)
+         rain(i)  = rainc(i) + rainl(i)
+       enddo
+--- ../EXP-4densvarupdates/gloopb.f	2015-09-28 11:45:39.826029000 -0700
++++ gloopb.f	2015-06-08 11:45:56.000000000 -0700
+@@ -61,7 +61,8 @@
+ !--------
+      &,                                iau
+ 
+-      use iau_module, only: init_iau,getiauforcing,iau_initialized
++      use iau_module, only: init_iau,getiauforcing,iau_initialized,
++     &                      iauforcing
+       use coordinate_def      , only : ak5,bk5,vertcoord_id               ! hmhj
+       use bfilt_def           , only : bfilte,bfilto
+       use module_ras          , only : ras_init
+@@ -117,13 +118,6 @@
+ !! iau stuff
+ !-----------
+       real(kind_evod) dtiau
+-      real(kind_evod),allocatable,dimension(:,:)     :: 
+-     &                      lnpsspeciau_e,lnpsspeciau_o
+-      real(kind_evod),allocatable,dimension(:,:,:)   ::
+-     &                      vrtspeciau_e,divspeciau_e,virtempspeciau_e,
+-     &                      vrtspeciau_o,divspeciau_o,virtempspeciau_o
+-      real(kind_evod),allocatable,dimension(:,:,:,:) :: 
+-     &                      tracerspeciau_e,tracerspeciau_o
+ 
+ !     real(kind_io8), allocatable, dimension(:,:)    :: glolal
+ !     integer, allocatable, dimension(:,:)           :: kmsk0
+@@ -133,7 +127,7 @@
+ !! iau stuff over
+ !!
+       real(kind=kind_phys)    typdel(levs), batah
+-      real(kind=kind_phys)    prsl(ngptc,levs)
++      real(kind=kind_phys)    prsl(ngptc,levs),sppt_wts2(ngptc)
+       real(kind=kind_phys)   prslk(ngptc,levs),dpshc(ngptc)
+       real(kind=kind_phys)    prsi(ngptc,levs+1),phii(ngptc,levs+1)
+       real(kind=kind_phys)   prsik(ngptc,levs+1),phil(ngptc,levs)
+@@ -507,8 +501,8 @@
+               iseedl = global_lats_r(ipt_lats_node_r-1+j) + seed0
+               call random_setseed(iseedl)
+               call random_number(rannum)
+-!!$omp parallel do  shared(j,lonr,lonrbm,rannum,rannum_tank)
+-!!$omp+private(nrc,nn,i,ii,k,kk)
++!$omp parallel do  shared(j,lonr,lonrbm,rannum,rannum_tank)
++!$omp+private(nrc,nn,i,ii,k,kk)
+               do nrc=1,maxrs
+                 nn = (nrc-1)*lonr
+                 do k=1,maxsub
+@@ -546,6 +540,13 @@
+       endif                  ! if (first) done
+ !
+ 
++!     Initialize IAU stuff
++      if ( iau ) then
++         if (.not. iau_initialized) then 
++             call init_iau(ls_node,ls_nodes,max_ls_nodes)
++         endif
++      endif
++
+       if (semilag) then
+ !       dtphys = 300.0
+         nsphys = max(int(tstep/dtphys),1)
+@@ -837,7 +838,7 @@
+ !$omp+private(det_mf_v)
+ !$omp+private(njeff,item,jtem,ktem,i,j,k,kss,n,nn,nnr)
+ !$omp+private(uphys,vphys,tphys,qphys)
+-!$omp+private(sppt_wts)
++!$omp+private(sppt_wts,sppt_wts2)
+ !$omp+private(dtdt)
+ 
+ !!!$omp+private(temlon,temlat,lprnt,ipt)
+@@ -1119,7 +1120,7 @@
+ !     for tracer fixer
+ 
+           do ntr=1,ntrac
+-            if (fixtrc(ntr) .and. .not. iau) then
++            if (fixtrc(ntr) .and. .not. iauforcing) then
+               do k=1,levs
+                 do i=1,njeff
+                   trcp(lon+i-1,ntr,1) = trcp(lon+i-1,ntr,1)
+@@ -1128,6 +1129,13 @@
+               enddo
+             endif
+           enddo
++         if (stochphys .and. sppt(1) > 0) then ! stoch. perturbed physics tend.
++           do i=1,njeff
++              sppt_wts2(i)=sppt_wt(lon+i-1,lan,4)
++           enddo
++         else
++           sppt_wts2(:)=1.0
++         endif
+           do nn=1,nsphys
+             nnr = mod((nn-1)*nnrcm, nrcm) + 1
+             call gbphys                                                 &
+@@ -1157,7 +1165,8 @@
+      &      flipv,cnvgwd,shal_cnv,                                      &
+      &      redrag,hybedmf,dspheat,cal_pre,                             &
+      &      mom4ice,trans_trac,nst_fcst,fscav,                          &
+-     &      thermodyn_id, sfcpress_id, gen_coord_hybrid,  adjtrc, nn,   &
++     &      thermodyn_id,sfcpress_id,gen_coord_hybrid,adjtrc,sppt_wts2, &
++     &      nn,                                                         &
+ !  ---  input/outputs:
+      &      sfc_fld%hice  (lon,lan),    sfc_fld%fice  (lon,lan),        &
+      &      sfc_fld%tisfc (lon,lan),    sfc_fld%tsea  (lon,lan),        &
+@@ -1230,7 +1239,7 @@
+               vgrd = adv
+             else
+               do ntr=1,ntrac
+-                if (fixtrc(ntr) .and. .not. iau) then
++                if (fixtrc(ntr) .and. .not. iauforcing) then
+                   do k=1,levs
+                     do i=1,njeff
+                       trcp(lon+i-1,ntr,2) = trcp(lon+i-1,ntr,2)
+@@ -1520,7 +1529,7 @@
+         ptotj(lan) = ptotj(lan) * tem
+ !
+         do ntr=1,ntrac
+-          if (fixtrc(ntr) .and. .not. iau) then
++          if (fixtrc(ntr) .and. .not. iauforcing) then
+             trcj(lan,ntr,1) = 0.0
+             trcj(lan,ntr,2) = 0.0
+             do j=1,lons_lat
+@@ -1587,7 +1596,7 @@
+          sumwa = sumwa + wgt_r(min(lat,latr-lat+1))*pwatg(lat)
+       enddo
+       do ntr=1,ntrac
+-        if (fixtrc(ntr) .and. .not. iau) then
++        if (fixtrc(ntr) .and. .not. iauforcing) then
+           sumtrc(ntr,1) = 0.0
+           sumtrc(ntr,2) = 0.0
+           do lat=1,latr
+@@ -1615,7 +1624,7 @@
+         endif
+       enddo
+       if (fixtrc(2) .and. me == 0) 
+-     &print *,'adjtrc oz',phour*3600,iau,adjtrc(2)
++     &print *,'adjtrc oz',phour*3600,iauforcing,adjtrc(2)
+       pdryg = sumto - sumwa
+ !!
+       if(pdryini == 0.) pdryini = pdryg
+@@ -2019,66 +2028,23 @@
+ ! p_y is updated (virt) temp
+ 
+       if (iau) then
+-         if (.not. iau_initialized) then 
+-             call init_iau(ls_node,ls_nodes,max_ls_nodes,
+-     &                     lats_nodes_r,lats_nodes_a,global_lats_r,
+-     &                     global_lats_a,lonsperlar,lonsperlat,snnp1ev,
+-     &                     snnp1od,plnev_r,plnod_r,plnew_r,plnow_r)
+-         endif
+-         allocate(vrtspeciau_e(len_trie_ls,2,levs))
+-         allocate(divspeciau_e(len_trie_ls,2,levs))
+-         allocate(virtempspeciau_e(len_trie_ls,2,levs))
+-         allocate(tracerspeciau_e(len_trie_ls,2,levs,ntrac))
+-         allocate(lnpsspeciau_e(len_trie_ls,2))
+-         allocate(vrtspeciau_o(len_trio_ls,2,levs))
+-         allocate(divspeciau_o(len_trio_ls,2,levs))
+-         allocate(virtempspeciau_o(len_trio_ls,2,levs))
+-         allocate(tracerspeciau_o(len_trio_ls,2,levs,ntrac))
+-         allocate(lnpsspeciau_o(len_trio_ls,2))
+          if (semilag) then
+             dtiau = tstep
+          else
+             dtiau = 2.*tstep
+          endif
+          if (me == 0) print *,'call getiauforcing',phour*3600.,dtiau
+-         call getiauforcing(vrtspeciau_e,divspeciau_e,
+-     &                      virtempspeciau_e,tracerspeciau_e,
+-     &                      lnpsspeciau_e,
+-     &                      vrtspeciau_o,divspeciau_o,
+-     &                      virtempspeciau_o,tracerspeciau_o,
+-     &                      lnpsspeciau_o,phour*3600.)
++         call getiauforcing(
++     &         trie_ls(:,:,p_w:p_w+levs-1),trie_ls(:,:,p_x:p_x+levs-1),
++     &         trie_ls(:,:,p_y:p_y+levs-1),
++     &         trie_ls(:,:,p_rt:p_rt+ntrac*levs-1),
++     &         trie_ls(:,:,p_q),
++     &         trio_ls(:,:,p_w:p_w+levs-1),trio_ls(:,:,p_x:p_x+levs-1),
++     &         trio_ls(:,:,p_y:p_y+levs-1),
++     &         trio_ls(:,:,p_rt:p_rt+ntrac*levs-1),
++     &         trio_ls(:,:,p_q),dtiau,phour*3600.)
+          if (me == 0) 
+      &   print *,'after call getiauforcing',phour*3600,iau,adjtrc(2)
+-         trie_ls(:,:,p_w:p_w+levs-1) = trie_ls(:,:,p_w:p_w+levs-1)
+-     &                               + vrtspeciau_e*dtiau
+-         trie_ls(:,:,p_x:p_x+levs-1) = trie_ls(:,:,p_x:p_x+levs-1)
+-     &                               + divspeciau_e*dtiau
+-         trie_ls(:,:,p_y:p_y+levs-1) = trie_ls(:,:,p_y:p_y+levs-1)
+-     &                               + virtempspeciau_e*dtiau
+-         trie_ls(:,:,p_q)            = trie_ls(:,:,p_q)
+-     &                               + lnpsspeciau_e*dtiau
+-         trio_ls(:,:,p_w:p_w+levs-1) = trio_ls(:,:,p_w:p_w+levs-1)
+-     &                               + vrtspeciau_o*dtiau
+-         trio_ls(:,:,p_x:p_x+levs-1) = trio_ls(:,:,p_x:p_x+levs-1)
+-     &                               + divspeciau_o*dtiau
+-         trio_ls(:,:,p_y:p_y+levs-1) = trio_ls(:,:,p_y:p_y+levs-1)
+-     &                               + virtempspeciau_o*dtiau
+-         trio_ls(:,:,p_q)            = trio_ls(:,:,p_q)
+-     &                               + lnpsspeciau_o*dtiau
+-         do i=1,ntrac
+-            trie_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) =
+-     &      trie_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) +
+-     &      tracerspeciau_e(:,:,:,i)*dtiau
+-
+-            trio_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) = 
+-     &      trio_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) + 
+-     &      tracerspeciau_o(:,:,:,i)*dtiau
+-         enddo
+-!
+-         deallocate(vrtspeciau_e,divspeciau_e,virtempspeciau_e)
+-         deallocate(vrtspeciau_o,divspeciau_o,virtempspeciau_o)
+-         deallocate(tracerspeciau_e,lnpsspeciau_e)
+-         deallocate(tracerspeciau_o,lnpsspeciau_o)
+       endif                                           !  end of iau step
+                                                       !-----------------
+ !!
+--- ../EXP-4densvarupdates/grrad.f	2015-09-28 11:43:46.753090000 -0700
++++ grrad.f	2015-09-30 14:28:49.765129574 -0700
+@@ -1165,7 +1165,7 @@
+ 
+         do k = 1, lmk
+           do i = 1, im
+-            olyrpred(i,k) = max( qmin, tracer1(i,k,1) )
++            olyrpred(i,k) = max( qmin, tracer1(i,k,ntoz) )
+           enddo
+         enddo
+ 
+@@ -1182,20 +1182,17 @@
+ 
+       !endif                            ! end_if_ntoz
+ 
+-!      if (kdt == 10 .and. me == 0) then
+ !       do k = 1, lmk
+ !         sumo3pred = 0.
+ !         sumo3 = 0.
+ !         sumcoslat = 0.
+ !         do i = 1, im
+-!           sumo3pred = sumo3pred + olyrpred(i,k)/1.655e-6
+-!           sumo3 = sumo3 + olyr(i,k)/1.655e-6
++!           sumo3pred = sumo3pred + olyrpred(i,k)
++!           sumo3 = sumo3 + olyr(i,k)
+ !           sumcoslat = sumcoslat + coslat(i)
+ !         enddo
+-!         print *, 'k,meanoz pred,meanoz clim',
+-!    &    k,kdt,sumo3pred/sumcoslat,sumo3/sumcoslat
++!         print*,'me,k,meanoz',me,k,sumo3pred/sumcoslat,sumo3/sumcoslat
+ !       enddo
+-!     endif
+ 
+       if (ntoz .ne. 0) olyr=olyrpred
+ 
+--- ../EXP-4densvarupdates/gwdc.f	2015-09-28 11:43:50.607115000 -0700
++++ gwdc.f	2015-06-08 10:21:00.000000000 -0700
+@@ -174,7 +174,7 @@
+       real(kind=kind_phys), parameter ::
+      &                      c1=1.41,          c2=-0.38,     ricrit=0.25
+      &,                     n2min=1.e-32,     zero=0.0,     one=1.0
+-     &,                     taumin=1.0e-20,   tauctmax=-20.
++     &,                     taumin=1.0e-20,   tauctmax=-5.
+      &,                     qmin=1.0e-10,     shmin=1.0e-20
+      &,                     rimax=1.0e+20,    rimaxm=0.99e+20
+      &,                     rimaxp=1.01e+20,  rilarge=0.9e+20
+@@ -678,6 +678,7 @@
+ !      calculation in current horizontal grid is skipped.
+ !
+ !  h : maximum cloud top stress, tauctmax =  -20 n m^(-2),
++!  h : max stress -5 (*j*)5/2015 tauctmax =  - 5 n m^(-2),
+ !      in order to prevent numerical instability.
+ !
+ !-----------------------------------------------------------------------
+--- ../EXP-4densvarupdates/namelist_def.f	2015-09-28 11:43:32.190420000 -0700
++++ namelist_def.f	2015-06-08 10:21:05.000000000 -0700
+@@ -24,7 +24,8 @@
+      &,                                     vcamp,vc_lscale,vc_tau
+      &,                                     shum,shum_lscale,shum_tau
+       real(kind=kind_evod) :: skeb_sigtop1,skeb_sigtop2, 
+-     &                   sppt_sigtop1,sppt_sigtop2,shum_sigefold
++     &                       sppt_sigtop1,sppt_sigtop2,shum_sigefold,
++     &                       vc_sigtop1,vc_sigtop2
+       integer,              dimension(5) :: skeb_vfilt
+       integer(8),           dimension(5) :: iseed_sppt,iseed_vc
+      &,                                     iseed_shum,iseed_skeb
+--- ../EXP-4densvarupdates/radiation_aerosols.f	2015-09-28 11:43:49.588094000 -0700
++++ radiation_aerosols.f	2015-06-08 10:21:00.000000000 -0700
+@@ -219,7 +219,7 @@
+ ! --------------------------------------------------------------------- !
+ 
+ !  ---  parameter constants:
+-      integer, parameter :: minvyr = 1810    ! lower lim (year) data available
++      integer, parameter :: minvyr = 1850    ! lower lim (year) data available
+       integer, parameter :: maxvyr = 1999    ! upper lim (year) data available
+ 
+ !  ---  monthly, 45-deg lat-zone aerosols data set in subroutine 'aer_init'
+--- ../EXP-4densvarupdates/radiation_gases.f	2015-09-28 11:44:03.654179000 -0700
++++ radiation_gases.f	2015-09-30 14:30:33.781017873 -0700
+@@ -339,6 +339,7 @@
+           print *,' - using climatology ozone distribution'
+           print *,'   found ozone data for levels pstr=',               &
+      &            (pstr(k),k=1,loz)
++!         print *,' o3=',(o3r(15,k,1),k=1,loz)
+           print *,' o3=',(o3r(jmr,k,12)/1.655e-6,k=1,loz)
+         endif
+ 
+--- ../EXP-4densvarupdates/sfcsub.f	2015-09-28 11:42:56.345622000 -0700
++++ sfcsub.f	2015-07-01 07:57:18.000000000 -0700
+@@ -1619,7 +1619,7 @@
+      &              snojmx,snojmn,snosmx,snosmn,epssno,
+      &              rla,rlo,len,kqcm,percrit,lgchek,me)
+         call getscv(snoanl,scvanl,len)
+-        call qcmxmn('sncva'   ,scvanl,slianl,snoanl,icefl1,
++        call qcmxmn('sncva   ',scvanl,slianl,snoanl,icefl1,
+      &              scvlmx,scvlmn,scvomx,scvomn,scvimx,scvimn,
+      &              scvjmx,scvjmn,scvsmx,scvsmn,epsscv,
+      &              rla,rlo,len,kqcm,percrit,lgchek,me)
+@@ -2070,11 +2070,13 @@
+ !
+ !     if(lprnt) print *,'tsfclm=',tsfclm(iprnt),' tsfcl2=',tsfcl2(iprnt)
+ !    *,' tsffcs=',tsffcs(iprnt),' slianl=',slianl(iprnt)
+-      do i=1,len
+-        if(slianl(i) .eq. 0.0) then
+-          tsffcs(i)=tsffcs(i) + (tsfclm(i) - tsfcl2(i))
+-        endif
+-      enddo
++      if (fh > 0.0) then
++        do i=1,len
++          if(slianl(i) .eq. 0.0) then
++            tsffcs(i)=tsffcs(i) + (tsfclm(i) - tsfcl2(i))
++          endif
++        enddo
++      endif
+ !
+ !  quality control analysis using forecast guess
+ !
+@@ -2097,7 +2099,7 @@
+ !  merge analysis and forecast.  note tg3, ais are not merged
+ !
+ 
+-      call merge(len,lsoil,iy,im,id,ih,fh,
++      call merge(len,lsoil,iy,im,id,ih,fh,deltsfc,
+ !cwu [+1l] add ()fcs for sih, sic
+      &           sihfcs,sicfcs,
+ !clu [+1l] add ()fcs for vmn, vmx, slp, abs
+@@ -3777,7 +3779,7 @@
+ !
+ ! tsf
+ !
+-      irttsf=0
++      irttsf=1
+       if(fntsfa(1:8).ne.'        ') then
+         call fixrda(lugb,fntsfa,kpdtsf,slmask,
+      &             iy,im,id,ih,fh,tsfanl,len,iret
+@@ -4614,7 +4616,7 @@
+       enddo
+       return
+       end
+-      subroutine merge(len,lsoil,iy,im,id,ih,fh,
++      subroutine merge(len,lsoil,iy,im,id,ih,fh,deltsfc,
+ !cwu [+1l] add sihfcs & sicfcs
+      &                 sihfcs,sicfcs,
+ !clu [+1l] add ()fcs for vmn, vmx, slp, abs
+@@ -4666,7 +4668,7 @@
+      &                     qvetl,rtsfl,calbs,caiss,ctsfs,czorl,cvegl,
+      &                     csnos,ccvb,ccvt,ccv,czors,cvegs,caisl,csnol,
+      &                     calbl,fh,ctsfl,ccnp,csots,calfl,csotl,cvetl,
+-     &                     cvets,calfs
++     &                     cvets,calfs,deltsfc
+ !cwu [+3l] add c(), q(), r() for sih, sic
+      &,                    csihl,csihs,csicl,csics,
+      &                     rsihl,rsihs,rsicl,rsics,
+@@ -4779,6 +4781,18 @@
+         rstcl(k) = cstcl(k)
+         rstcs(k) = cstcs(k)
+       enddo
++      if (fh-deltsfc < -0.001 .and. irttsf == 1) then
++        rtsfs = 1.0
++        rtsfl = 1.0
++!       do k=1,lsoil
++!         rsmcl(k) = 1.0
++!         rsmcs(k) = 1.0
++!         rstcl(k) = 1.0
++!         rstcs(k) = 1.0
++!       enddo
++      endif
++!     if (me == 0) print *,' fh=',fh,' rtsfs=',rtsfs
++!    &,' irttsf=',irttsf,' fh=',fh
+ !
+ !  if analysis file name is given but no matching analysis date found,
+ !  use guess (these are flagged by irt???=1).
+@@ -8090,7 +8104,7 @@
+ !
+       real (kind=kind_io8) fha(5)
+       integer ida(8),jda(8)
+-!
++
+       iret   = 0
+       monend = 9999
+ !
+@@ -8187,8 +8201,9 @@
+       jpds( 8)=mod(iyr-1,100)+1
+       jpds( 9)=imo
+       jpds(10)=idy
+-!     jpds(11)=ihr
++      jpds(11)=ihr
+       jpds(21)=(iyr-1)/100+1
++      if (me .eq. 0) write(6,*) ' Will search for date ',jpds(8:11)
+       call getgb(lugb,lugi,mdata,lskip,jpds,jgds,ndata,lskip,
+      &           kpds,kgds,lbms,data4,jret)
+       if (me .eq. 0) write(6,*) ' input grib file dates=',
+@@ -8220,14 +8235,8 @@
+ !
+ !  no matching ih found. search nearest hour
+ !
+-        if(ihr.eq.6) then
+-          ihr=0
+-          go to 50
+-        elseif(ihr.eq.12) then
+-          ihr=0
+-          go to 50
+-        elseif(ihr.eq.18) then
+-          ihr=12
++        if(ihr.ge.1.and.ihr.le.23) then
++          ihr=ihr-1
+           go to 50
+         elseif(ihr.eq.0.or.ihr.eq.-1) then
+           idy=idy-1
+--- ../EXP-4densvarupdates/treadeo.io.f	2015-09-28 11:42:58.509909000 -0700
++++ treadeo.io.f	2015-06-08 10:21:24.000000000 -0700
+@@ -105,6 +105,7 @@
+       real(kind=kind_evod), target ::  buff1a(lonf*latg)
+       real(kind=kind_io8) buffoa(lonf,lats_node_a)
+      &,                   buff2a(lonf,lats_node_a)
++      logical read_on_every_task
+  
+       include 'function_indlsev'
+       include 'function_indlsod'
+@@ -112,6 +113,7 @@
+ c$$$      common /z00_com/z
+ !!
+ !     print *,' enter treadeo.io_fd '					! hmhj
++      read_on_every_task = .false.
+ 
+       call sigio_rropen(nft,cfile,iret)
+       call sigio_alhead(head,iret)
+@@ -356,27 +358,53 @@
+       endif
+       dati%i = 2                               ! surface pressure
+       dati%f => trisca                       
++      if (read_on_every_task) then
+       call sigio_rrdbti(nft,head,dati,iret)
++      else
++        if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++        if (.not.liope.or.icolor.ne.2) then
++          call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++        endif
++      endif
+       if (me == 0) print *,' sfcpres=',trisca(1:10)
+       call triseori(trisca,qe,qo,1,ls_node)
+       do k=1,levs
+         dati%i = k + 2                        ! virtual temperature or cpt
+         dati%f => trisca                       
+-
++        if (read_on_every_task) then
+         call sigio_rrdbti(nft,head,dati,iret)
+-
++        else
++          if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++          if (.not.liope.or.icolor.ne.2) then
++            call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++          endif
++        endif
+         call triseori(trisca,tee(1,1,k),teo(1,1,k),1,ls_node)
+       enddo
+ !
+       do k=1,levs
+          dati%i = levs + 2 + (k-1) * 2 + 1     ! divergence
+          dati%f => trisca
++         if (read_on_every_task) then
+          call sigio_rrdbti(nft,head,dati,iret)
++         else
++           if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++           if (.not.liope.or.icolor.ne.2) then
++             call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++           endif
++         endif
+          call triseori(trisca,die(1,1,k),dio(1,1,k),1,ls_node)
+ !
+          dati%i = levs + 2 + (k-1) * 2 + 2     ! vorticity
+          dati%f => trisca
++         if (read_on_every_task) then
+          call sigio_rrdbti(nft,head,dati,iret)
++         else
++           if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++           if (.not.liope.or.icolor.ne.2) then
++             call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++           endif
++         endif
+          call triseori(trisca,zee(1,1,k),zeo(1,1,k),1,ls_node)
+       end do
+ csela print*,' levh=',levh
+@@ -401,7 +429,14 @@
+         do lv=1,levs
+           dati%i = levs * (2+k) + 2 + lv             ! tracers starting with q
+           dati%f => trisca
++          if (read_on_every_task) then
+           call sigio_rrdbti(nft,head,dati,iret)
++          else
++            if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++            if (.not.liope.or.icolor.ne.2) then
++              call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++            endif
++          endif
+           call triseori(trisca,rqe(1,1,lv,kk),rqo(1,1,lv,kk),1,ls_node)
+         end do
+       end do
+@@ -591,3 +626,282 @@
+ 
+       return
+       end
++      subroutine treadeo_iau(nft,nft2,fhour,idate,
++     x                   qe,tee,die,zee,rqe,
++     x                   qo,teo,dio,zeo,rqo,
++     x                   ls_node,ls_nodes,max_ls_nodes,
++     &                   cfile,cfile2,iauinc)
++ 
++      use resol_def
++      use layout1
++      use coordinate_def
++      use sig_io
++      use namelist_def
++      use vert_def
++      use mpi_def
++      use sigio_module
++      use sigio_r_module
++!
++      implicit none
++      character*(*) cfile,cfile2
++      integer              nft,nft2
++      real(kind=kind_evod) fhour
++      integer              idate(4),ntraci, ntozi, ntcwi, ncldi, 
++     &                     nt0, direction
++!
++      real(kind=kind_evod) qe(len_trie_ls,2)
++     &,                    tee(len_trie_ls,2,levs)
++     &,                    die(len_trie_ls,2,levs)
++     &,                    zee(len_trie_ls,2,levs)
++     &,                    rqe(len_trie_ls,2,levs*ntrac)
++     &,                     qo(len_trio_ls,2)
++     &,                    teo(len_trio_ls,2,levs)
++     &,                    dio(len_trio_ls,2,levs)
++     &,                    zeo(len_trio_ls,2,levs)
++     &,                    rqo(len_trio_ls,2,levs*ntrac)
++
++!
++      integer              ls_node(ls_dim,3)
++      logical              iauinc
++!
++!cmr  ls_node(1,1) ... ls_node(ls_max_node,1) : values of l
++!cmr  ls_node(1,2) ... ls_node(ls_max_node,2) : values of jbasev
++!cmr  ls_node(1,3) ... ls_node(ls_max_node,3) : values of jbasod
++!
++      integer              ls_nodes(ls_dim,nodes)
++      integer              max_ls_nodes(nodes)
++      integer              j,k,l,locl,n,lv,kk
++      integer              i,lan,lat,lons_lat,nn
++      integer              icount
++      integer              ifield,lev,nloops,iproc,maxlev,ll
++      integer,dimension(5) :: ivar,ilev
++      integer,allocatable,dimension(:,:) :: jlev,jproc,jout,jvar
++      real(kind=kind_evod), target :: trisca(lnt2),trisca2(lnt2)
++!
++      type(sigio_head) head,head2
++      type(sigio_dbti) dati,dati2
++!
++      integer              iret
++!
++ 
++!!
++!     print *,' enter treadeo.io_fd '					! hmhj
++
++
++      ifield=1
++      lev=0
++      nloops=((3+ntrac)*levs+1)/nodes_comp+1
++
++
++      call sigio_rropen(nft,cfile,iret)
++      call sigio_alhead(head,iret)
++      call sigio_rrhead(nft,head,iret)
++
++      if(me == 0)
++     &   print *,' in treadeo iret=',iret,' cfile=',cfile
++     &   ,' ivs=',head%ivs,' levs=',head%levs
++      if (iret .ne. 0) then
++         print *,' unable to read from unit ',nft,' job aborted'
++     &   ,' iret=',iret,' me=',me
++         call mpi_quit(7777)
++      endif
++
++      if(.not. iauinc)then
++         call sigio_rropen(nft2,cfile2,iret)
++         call sigio_alhead(head2,iret)
++         call sigio_rrhead(nft2,head2,iret)
++         if(me == 0)
++     &   print *,' in treadeo iret=',iret,' cfile2=',cfile2
++     &      ,' ivs=',head%ivs,' levs=',head%levs
++         if (iret .ne. 0) then
++           print *,' unable to read from unit ',nft2,' job aborted'
++     &      ,' iret=',iret,' me=',me
++           call mpi_quit(8777)
++         endif
++      end if
++!
++!
++      if(levs /= head%levs .or. jcap /= head%jcap)then
++         print *,' in treadeo_iau error in levs or jcap',levs,jcap
++         call mpi_quit (7780)
++      end if
++      if(ntrac /= head%ntrac)then
++         print *,' in treadeo_iau error in ntrac ',ntrac,head%ntrac
++         call mpi_quit (7781)
++      end if
++      fhour       = head%fhour
++
++      ntraci = ntrac
++      if (idvt .gt. 0) then
++        nt0   = mod(idvt,10)
++        if (nt0 > 0) then
++          ntcwi = idvt / 10
++          ntozi = idvt - ntcwi * 10 + 1
++          ntcwi = ntcwi + 1
++        else
++          ntcwi = ntcw
++          ntozi = ntoz
++        endif
++        ncldi = head%ncldt
++      elseif(ntraci .eq. 2) then
++        ntozi = 2
++        ntcwi = 0
++        ncldi = 0
++      elseif(ntraci .eq. 3) then
++        ntozi = 2
++        ntcwi = 3
++        ncldi = 1
++      else
++        ntozi = 0
++        ntcwi = 0
++        ncldi = 0
++      endif
++
++!   Create mapping from file structure to variable/level structure
++
++!                 ! surface height (currently not used)
++      ivar(1)=1   ! surface pressure
++      ivar(2)=2   ! temperature
++      ivar(3)=3   ! divergence
++      ivar(4)=4   ! vorticity
++      ivar(5)=5   ! tracers
++!  Number of levels for each variable
++      ilev(1)=1       
++      ilev(2)=levs
++      ilev(3)=levs
++      ilev(4)=levs
++      ilev(5)=levs*ntrac
++
++      allocate(jlev(nodes_comp,nloops),jvar(nodes_comp,nloops),
++     &     jproc(nodes_comp,nloops),jout(nodes_comp,nloops))
++      icount=0
++      k = 0
++      iproc=-1
++      do ll=1,nloops
++        maxlev=min(nodes_comp,(3+ntrac)*levs+1-icount)
++        if(me == 0)print *,' in treadeo ',maxlev,nodes_comp,nloops
++        do i=1,maxlev
++           icount=icount+1
++           iproc=iproc+1
++           if(iproc == nodes_comp)iproc=0
++           lev = lev+1
++           if(lev > ilev(ifield))then
++              ifield=ifield+1
++              lev = 1
++           end if
++           if(ifield == 5)then
++              if(lev == 1)k=k+1
++              kk = 0
++              if (k .eq. 1) then
++                 kk = 1
++              elseif (k .eq. ntozi) then
++                 kk = ntoz
++              elseif (k .ge. ntcwi .and. k .lt. ntcwi+ncldi-1) then
++                 do n=1,ncldi
++                   if (k .eq. ntcwi+n-1) kk = ntcw+n-1
++                 enddo
++              else
++                 kk = k
++              end if
++              jout(i,ll)=(kk-1)*levs+lev
++           else
++              jout(i,ll)=lev
++           end if
++           jlev(i,ll)=lev
++           jvar(i,ll)=ifield
++           jproc(i,ll)=iproc
++!          if(me == 0) 
++!    &     print *,'in treadeo j values ',i,ll,jout(i,ll),jlev(i,ll),
++!    &     jvar(i,ll),jproc(i,ll)
++         end do
++      end do
++!
++      if (me.eq.0) then
++        write(*,*)'nfile,in treadeo fhour,idate=',nft,fhour,idate
++     &, ' ntozi=',ntozi,' ntcwi=',ntcwi,' ncldi=',ncldi
++     &, ' ntrac =',ntrac,' vtid=',head%idvt
++     &, ' idvc=',head%idvc,' jcap=',jcap
++      endif
++
++      icount=0
++      dati%f => trisca                       
++      dati2%f => trisca2
++      do ll=1,nloops
++        maxlev=min(nodes_comp,(3+ntrac)*levs+1-icount)
++        do i=1,maxlev
++          icount=icount+1
++          if(me == jproc(i,ll))then
++             if(jvar(i,ll) == 1)then
++                dati%i = 2                 ! surface pressure
++             else if (jvar(i,ll) == 2)then
++                dati%i = jlev(i,ll) + 2       ! virtual temperature or cpt
++             else if (jvar(i,ll) == 3)then
++                dati%i = levs + 2 + (jlev(i,ll)-1) * 2 + 1     ! divergence
++             else if (jvar(i,ll) == 4)then
++                dati%i = levs + 2 + (jlev(i,ll)-1) * 2 + 2     ! vorticity
++             else if (jvar(i,ll) == 5)then
++                dati%i = 3*levs + 2 + jlev(i,ll)          ! tracer
++             end if
++               
++             dati2%i = dati%i
++             call sigio_rrdbti(nft,head,dati,iret)
++             if(.not. iauinc)then
++                call sigio_rrdbti(nft2,head2,dati2,iret)
++                trisca=trisca-trisca2
++             end if
++          end if
++        end do
++        do i=1,maxlev
++          if(me == jproc(i,ll))trisca2=trisca
++          call mpi_bcast(trisca2,lnt2,mpi_real8,jproc(i,ll),mc_comp,
++     &       iret)
++          k=jout(i,ll)
++          if(jvar(i,ll) == 1)then
++            call triseori(trisca2,qe,qo,1,ls_node)
++          else if(jvar(i,ll) == 2)then
++            call triseori(trisca2,tee(1,1,k),teo(1,1,k),1,ls_node)
++          else if(jvar(i,ll) == 3)then
++            call triseori(trisca2,die(1,1,k),dio(1,1,k),1,ls_node)
++          else if(jvar(i,ll) == 4)then
++            call triseori(trisca2,zee(1,1,k),zeo(1,1,k),1,ls_node)
++          else if(jvar(i,ll) == 5)then
++            call triseori(trisca2,rqe(1,1,k),rqo(1,1,k),1,ls_node)
++          end if
++        end do
++      end do
++      call sigio_rclose(nft,iret)
++      if(.not. iauinc)call sigio_rclose(nft2,iret)
++
++      deallocate(jlev,jvar,jproc,jout)
++
++!
++!
++ 
++100   format(1h0, 12   (e10.3))
++!!!!
++!
++!   convert from virtual temperature to enthalpy if need
++!
++      if( thermodyn_id.le.1 .and. sfcpress_id.le.1
++     &    .and. gen_coord_hybrid ) then
++
++!
++        if (.not.liope.or.icolor.ne.2) then
++!
++!  Conversion to Enthalpy not allowed for iau update(not linear)
++          print *,' Conversion to Entahlpy not allowed for iau '
++          call mpi_quit (7790)
++!         direction=1               ! from (tv,lnps) to (enthalpy,ps)
++!         call spect_tv_enthalpy_ps
++!    &       (direction,
++!    &        qe,qo,tee,teo,rqe,rqo,
++!    &        ls_node,ls_nodes,max_ls_nodes,
++!    &        lats_nodes_r,global_lats_r,lonsperlar,
++!    &        plnev_r,plnod_r,plnew_r,plnow_r)
++
++        endif                     ! .not.liope.or.icolor.ne.2
++!
++      endif
++
++      return
++      end subroutine treadeo_iau

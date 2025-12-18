@@ -1,0 +1,509 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3
+END
+start.f
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/start.f
+END
+mova2i.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/mova2i.f
+END
+w3doxdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3doxdat.f
+END
+w3utcdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3utcdat.f
+END
+getgbens.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbens.f
+END
+bacio.v1.3.c.orig
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/bacio.v1.3.c.orig
+END
+w3fi01.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi01.f
+END
+getgbem.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbem.f
+END
+lengds.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/lengds.f
+END
+Makefile4
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/Makefile4
+END
+getbit.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getbit.f
+END
+getgir.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgir.f
+END
+errexit.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/errexit.f
+END
+bacio_module.f
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/bacio_module.f
+END
+w3fi83.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi83.f
+END
+grib1.doc
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/grib1.doc
+END
+w3fi68.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi68.f
+END
+putgbe.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/putgbe.f
+END
+w3tagb.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3tagb.f
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/Makefile
+END
+w3fs26.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fs26.f
+END
+getgb1r.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgb1r.f
+END
+README.port
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/README.port
+END
+getgbe.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbe.f
+END
+summary.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/summary.f
+END
+iw3jdn.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/iw3jdn.f
+END
+getgi.f
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgi.f
+END
+pdseup.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/pdseup.f
+END
+fparser.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/fparser.f
+END
+w3movdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3movdat.f
+END
+getgbm.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbm.f
+END
+w3difdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3difdat.f
+END
+make.log
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/make.log
+END
+clib.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/clib.h
+END
+w3reddat.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3reddat.f
+END
+w3fi71.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi71.f
+END
+putgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/putgb.f
+END
+w3fi73.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi73.f
+END
+baciof.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/baciof.f
+END
+w3fi75.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi75.f
+END
+w3fi58.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi58.f
+END
+baciof.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/baciof.h
+END
+sbyte.f
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/sbyte.f
+END
+putgbens.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/putgbens.f
+END
+ixgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/ixgb.f
+END
+w3log.f
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3log.f
+END
+pdsens.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/pdsens.f
+END
+getgb1re.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgb1re.f
+END
+bacio.v1.3.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/bacio.v1.3.c
+END
+getgbexm.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbexm.f
+END
+getgbeh.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbeh.f
+END
+instrument.f
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/instrument.f
+END
+errexit.f.org
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/errexit.f.org
+END
+sbytes.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/sbytes.f
+END
+r63w72.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/r63w72.f
+END
+getgbep.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbep.f
+END
+getgbmh.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbmh.f
+END
+Makefile.org
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/Makefile.org
+END
+w3locdat.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3locdat.f
+END
+w3fi63.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi63.f
+END
+w3fi82.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi82.f
+END
+getgbemh.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbemh.f
+END
+getgbex.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbex.f
+END
+w3fs21.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fs21.f
+END
+getgbmp.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbmp.f
+END
+getgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgb.f
+END
+fparsei.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/fparsei.f
+END
+getgbemp.f
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbemp.f
+END
+getgb1s.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgb1s.f
+END
+idsdef.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/idsdef.f
+END
+putgbn.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/putgbn.f
+END
+errmsg.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/errmsg.f
+END
+getgbh.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbh.f
+END
+putgben.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/putgben.f
+END
+getgbp.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/getgbp.f
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/README
+END
+putgbex.f
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/putgbex.f
+END
+w3fi72.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi72.f
+END
+w3fi74.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi74.f
+END
+w3fi76.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi76.f
+END
+skgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/skgb.f
+END
+w3fi59.f
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/w3fi59.f
+END
+mova2i.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/mova2i.c
+END
+gbytes_char.f
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/153/branches/ensda/lib/w3lib-1.3/gbytes_char.f
+END

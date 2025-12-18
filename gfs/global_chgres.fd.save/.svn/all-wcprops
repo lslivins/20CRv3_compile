@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd
+END
+chgres.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/chgres.f_orig
+END
+chgresp.f
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/chgresp.f
+END
+README.port
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/README.port
+END
+gfsio_rst.f
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/gfsio_rst.f
+END
+funcphys.f
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/funcphys.f
+END
+surface_chgres.F_orig
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/surface_chgres.F_orig
+END
+machine.f
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/machine.f
+END
+physcons.f
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/physcons.f
+END
+sfcio_module.f.orig
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/sfcio_module.f.orig
+END
+sfcio_module.f
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/sfcio_module.f
+END
+make.log
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/make.log
+END
+Makefilep
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/Makefilep
+END
+chgres.f.orig
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/chgres.f.orig
+END
+chgres.f
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/chgres.f
+END
+gfsio_module.f.orig
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/gfsio_module.f.orig
+END
+gfsio_module.f
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/gfsio_module.f
+END
+surface_chgres.F
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/surface_chgres.F
+END
+surface_chgres.f
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/surface_chgres.f
+END
+sfcsub.f.orig
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/sfcsub.f.orig
+END
+sfcsub.f
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/sfcsub.f
+END
+surface_chgres.i
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/surface_chgres.i
+END
+rsearch.f
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/rsearch.f
+END
+makefile.orig
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/makefile.orig
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/Makefile
+END
+Fsurface_chgres.f
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/Fsurface_chgres.f
+END
+USERS_GUIDE
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/154/branches/ensda/global_chgres.fd/USERS_GUIDE
+END

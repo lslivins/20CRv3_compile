@@ -1,0 +1,58 @@
+#!/bin/ksh
+#export LIBDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
+#export ESMFDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
+
+export LIBDIR=../../nwprod/lib
+export ESMFDIR=../../nwprod/lib
+#export ESMFDIR=/sw/xt6/esmf/esmf_3_1_0rp2/lib/libO/Linux.pgi.64.mpiuni.default/
+NATIVE_ENDIAN=${NATIVE_ENDIAN:-NO}
+sorc_dir=$(pwd)
+exec_dir=$(pwd)
+mkdir -p $exec_dir
+
+export LIBDIR=${LIBDIR:-../../lib}
+#rm *.o
+#rm *.mod
+
+if [ $NATIVE_ENDIAN = YES ] ; then
+ cp $sorc_dir/sigio_r_module_native.f sigio_r_module.f
+ cp $sorc_dir/bafrio_native.f         bafrio.f
+fi
+
+#export EXECM=global_fcst_predoz
+export EXECM=global_fcst_cmip5
+
+export W3LIB=w3lib-2.0_d
+export CFLAGS="-DLINUX"
+export FINCM=-I$LIBDIR/incmod/$W3LIB
+export ARCHM=
+export PGSZM=
+export FRRM=-FR
+export FXXM=
+#export OPTSB="-g -O3 -convert big_endian -fp-model strict -heap-arrays -xHost"  #raghu.reddy:prod
+export OPTSB="-O3 -fp-model precise -convert big_endian"
+# -ftrapuv (trap unitialized vars) - causes model to crash in gfidi_hyb
+# where unitialized values are used. Check to see if -zero produces
+# identical results?
+# -warn all catches a lot of interface errors .
+export OPTSBT="$OPTSB -implicitnone -traceback"
+export OPTSM="$OPTSBT -r8"       # -openmp"    # raghu.reddy
+export OPTSIOM="$OPTSBT -r8 "
+export OPTSIOX="$OPTSBT -r8 "
+export OPTS_SERM="$OPTSBT -r8 $ARCHM"
+export OPTS90M="$OPTSBT   -r8 "
+export OPTS90AM="$OPTSBT  -r8 "
+export LDFLAGSM=$PGSZM
+export F77M="ftn -qopenmp"  #-recursive"
+export F90M="ftn -qopenmp"  #-recursive"
+export F77B="ftn "         #-recursive" #-openmp"  #-recursive"
+export F90B="ftn "         #-recursive" #-openmp"  #-recursive"
+export LDRM="ftn"
+export FCC=cc
+#remove -lmemkind, bug in mkl fixed in mid 2017
+export LDFLAGSM="$PGSZM -qopenmp -mkl "            #raghu.reddy
+export FINC=-I$ESMFDIR/incmod/esmf_3_1_0rp5      #raghu.reddy
+#export FINC=-I/sw/xt6/esmf/esmf_3_1_0rp2/mod/modO/Linux.pgi.64.mpiuni.default/
+export LIBSM="-L$LIBDIR  -lbacio_4 -lnemsio -lsp_d -l$W3LIB -lrt -L$ESMFDIR -lesmf_3_1_0rp5 -lstdc++ -mkl"
+#export LIBSM="-L$LIBDIR  -lbacio_4 -lnemsio -lsp_d -l$W3LIB -lrt -L$ESMFDIR -lesmf -lstdc++ -mkl"
+make -f Makefile

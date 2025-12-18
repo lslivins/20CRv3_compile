@@ -1,0 +1,263 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd
+END
+nsst_chgres.o
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/nsst_chgres.o
+END
+machine_8.f
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/machine_8.f
+END
+machine.mod
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/machine.mod
+END
+sfcsub.o
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/sfcsub.o
+END
+gfsio_rst.f
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/gfsio_rst.f
+END
+physcons.mod
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/physcons.mod
+END
+machine_8.o
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/machine_8.o
+END
+machine.f
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/machine.f
+END
+nrlmsise00_sub.f
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/nrlmsise00_sub.f
+END
+physcons.f
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/physcons.f
+END
+gfsio_rst.o
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/gfsio_rst.o
+END
+sfccyc_module.mod
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/sfccyc_module.mod
+END
+vintg_idea.f
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/vintg_idea.f
+END
+surface_chgres.mod
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/surface_chgres.mod
+END
+nrlmsise00_sub.o
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/nrlmsise00_sub.o
+END
+physcons.o
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/physcons.o
+END
+wnew.f
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/wnew.f
+END
+makefile.sh_o
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/makefile.sh_o
+END
+vintg_idea.o
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/vintg_idea.o
+END
+surface_chgres.f
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/surface_chgres.f
+END
+num_parthds.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/num_parthds.f
+END
+funcphys.mod
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/funcphys.mod
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/Makefile
+END
+Fsurface_chgres.f
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/Fsurface_chgres.f
+END
+nstio_module.mod
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/nstio_module.mod
+END
+surface_chgres.o
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/surface_chgres.o
+END
+num_parthds.o
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/num_parthds.o
+END
+funcphys.f
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/funcphys.f
+END
+nstio_module.f
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/nstio_module.f
+END
+makefile.sh
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/makefile.sh
+END
+makefile_o
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/makefile_o
+END
+global_chgres
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/global_chgres
+END
+funcphys.o
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/funcphys.o
+END
+nstio_module.o
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/nstio_module.o
+END
+chgres.f
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/chgres.f
+END
+chgres.f_debug
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/chgres.f_debug
+END
+nsst_chgres.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/nsst_chgres.f
+END
+surface_chgres.F
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/surface_chgres.F
+END
+chgres.o
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/chgres.o
+END
+sfcsub.f
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/sorc/global_chgres.fd/sfcsub.f
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/makefile
+END
+gfsio_rst.mod
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/projects/!svn/ver/17251/gfs/branches/moorthi/para/sorc/global_chgres.fd/gfsio_rst.mod
+END
+USERS_GUIDE
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/sorc/global_chgres.fd/USERS_GUIDE
+END

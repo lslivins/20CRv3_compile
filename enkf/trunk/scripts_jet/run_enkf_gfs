@@ -1,0 +1,298 @@
+#!/bin/csh
+#set verbose
+
+
+# create hostfile that skips cores
+setenv HOSTFILEX $TMPDIR/machinesx
+# every other core
+awk "NR%2 == 1" $TMPDIR/machines >&! $HOSTFILEX
+# one core per node
+#cat $TMPDIR/machines | uniq > $HOSTFILEX
+#cat $HOSTFILEX
+
+date
+cd ${datapath2}
+setenv OMP_NUM_THREADS 1
+
+echo $enkfbin
+
+cat <<EOF1 >! enkf.nml
+ &nam_enkf
+  datestring="$analdate",datapath="$datapath2",ntrac_update=$ntrac_update,
+  analpertwtnh=$analpertwtnh,analpertwtsh=$analpertwtsh,analpertwttr=$analpertwttr,
+  lupd_satbiasc=$lupd_satbiasc,zhuberleft=$zhuberleft,zhuberright=$zhuberright,huber=$huber,varqc=$varqc,
+  covinflatemax=$covinflatemax,covinflatemin=$covinflatemin,pseudo_rh=$pseudo_rh,
+  corrlengthnh=$corrlengthnh,corrlengthsh=$corrlengthsh,corrlengthtr=$corrlengthtr,
+  obtimelnh=$obtimelnh,obtimelsh=$obtimelsh,obtimeltr=$obtimeltr,iassim_order=$iassim_order,
+  lnsigcutoffnh=$lnsigcutoffnh,lnsigcutoffsh=$lnsigcutoffsh,lnsigcutofftr=$lnsigcutofftr,
+  lnsigcutoffsatnh=$lnsigcutoffsatnh,lnsigcutoffsatsh=$lnsigcutoffsatsh,lnsigcutoffsattr=$lnsigcutoffsattr,
+  lnsigcutoffpsnh=$lnsigcutoffpsnh,lnsigcutoffpssh=$lnsigcutoffpssh,lnsigcutoffpstr=$lnsigcutoffpstr,
+  nlons=$LONA,nlats=$LATA,smoothparm=$SMOOTHINF,
+  saterrfact=$saterrfact,numiter=$numiter,
+  sprd_tol=$sprd_tol,paoverpb_thresh=$paoverpb_thresh,
+  npts=$npts,nlevs=$LEVS,nanals=$nanals,ntrac=$NTRAC,nvars=$nvars,deterministic=$deterministic,
+  sortinc=$sortinc
+ /
+ &END
+EOF1
+
+# check to see if output files already created.
+set nanal=1
+set filemissing='no'
+while ($nanal <= $nanals)
+ set charnanal="mem"`printf %03i $nanal`
+ set analfile="${datapath2}/sanl_${analdate}_${charnanal}"
+ if ( ! -s $analfile) set filemissing='yes'
+ @ nanal = $nanal + 1
+end
+
+if ( ! -s $ABIAS) set filemissing='yes'
+
+if ($filemissing == 'yes') then
+
+
+   cat enkf.nml
+
+   setenv HOSTFILE $TMPDIR/hostfile
+   #awk "NR%2 == 1" $TMPDIR/machines >&! $HOSTFILE
+   #set nprocs=`expr $NSLOTS \/ 2`
+
+   # only use every other core for first $nanals cores.
+   # (IO is done on these cores, so they use twice as much
+   # memory).
+   #head -512 $TMPDIR/machines > $TMPDIR/machines2
+   #set cores = `cat $TMPDIR/machines22`
+   set cores = `cat $TMPDIR/machines`
+   set ncores = $#cores
+   set ncore=1
+   set nanal=0
+   set nprocs=0
+   while ($ncore <= $ncores) 
+      set core = `echo $cores[$ncore]`
+      if ($nanal > $nanals) then
+         echo "${core}" >> ${HOSTFILE}
+         @ nprocs = $nprocs + 1
+      else
+         set rem=`expr $ncore \% 2` 
+         if ($rem == 0) then
+            @ nanal = $nanal + 1
+            if ($nanal <= $nanals) then
+               echo "${core}" >> ${HOSTFILE}
+               @ nprocs = $nprocs + 1
+            endif
+         endif
+      endif
+      @ ncore = $ncore + 1
+   end
+   echo "${nprocs} cores"
+   #cat $HOSTFILE
+   #wc -l $HOSTFILE
+
+   #module switch mvapich2 mvapich2/1.5-intel-11.1
+   echo "$MPICH/bin/mpirun_rsh -hostfile $HOSTFILE -np $nprocs OMP_NUM_THREADS="$OMP_NUM_THREADS" $enkfbin"
+   time $MPICH/bin/mpirun_rsh -hostfile $HOSTFILE -np $nprocs OMP_NUM_THREADS="$OMP_NUM_THREADS" $enkfbin
+   # test openmp
+   #set nprocs2=`expr $NSLOTS \/ 2`
+   #setenv OMP_NUM_THREADS 2
+   #echo "$MPICH/bin/mpirun_rsh -hostfile $HOSTFILEX -np $nprocs2 OMP_NUM_THREADS=$OMP_NUM_THREADS MV2_ENABLE_AFFINITY=0 $enkfbin"
+   #echo $nprocs2
+   #wc -l $HOSTFILEX
+   #time $MPICH/bin/mpirun_rsh -hostfile $HOSTFILEX -np $nprocs2 OMP_NUM_THREADS="$OMP_NUM_THREADS" MV2_ENABLE_AFFINITY=0 $enkfbin
+   #setenv OMP_NUM_THREADS 1
+   #echo "exit status $status"
+   #module switch mvapich2 mvapich2/1.4.1-intel-11.1
+
+   /bin/cp -f ${datapath2}/satbias_out $ABIAS
+ 
+   # compute ensemble mean analysis files.
+   time ${enkfexec}/getsigensmean.x ${datapath2}/ sanl_${analdate}_ensmean sanl_${analdate} ${nanals}
+
+   # set global mean ps increment to zero.
+   #time $MPICH/bin/mpirun_rsh -hostfile $HOSTFILE -np $nanals OMP_NUM_THREADS=$OMP_NUM_THREADS MV2_ENABLE_AFFINITY=0 ${enkfexec}/zeromean.x $nanals $analdate $LONA $LATA
+
+   if ($scalefact > 0) then
+      cd ${enkfscripts}
+      set date=$analdate
+      if ($hr == '06' || $hr == '18') then
+      set date=`incdate $date -6`
+      endif 
+      set date1=`incdate $date -1440` # +/- 60 days from analdate
+      set date2=`incdate $date 1440`
+      echo "date1=$date1 date2=$date2"
+      # non-evolved additive noise.
+      if ($backuphrs == 0) then
+         python randates.py $date1 $date2 $nanals $addpertinc >&! ${datapath2}/dates.dat
+
+         cd ${datapath2}
+         /bin/rm -f adderrspec.log
+         echo "$MPICH/bin/mpirun_rsh -hostfile $HOSTFILEX -np $nanals ${enkfexec}/adderrspec_nmcmeth.x $nanals $analdate $LONA $LATA $scalefact $addpertpath $lonscramble $runprefix"
+         time $MPICH/bin/mpirun_rsh -hostfile $HOSTFILEX -np $nanals ${enkfexec}/adderrspec_nmcmeth.x $nanals $analdate $LONA $LATA $scalefact $addpertpath $lonscramble $runprefix 
+         if ($status != 0 || ! -s adderrspec.log) exit 1
+         # recenter perturbed ensemble on original mean
+         time ${enkfexec}/getsigensmean.x ${datapath2}/ sanlp_${analdate}_ensmean sanl_${analdate} ${nanals}
+         if ($status != 0) exit 1
+         set filename_meanin=${datapath2}/sanlp_${analdate}_ensmean
+         set filename_meanout=${datapath2}/sanl_${analdate}_ensmean
+         set filenamein="${datapath2}/sanl_${analdate}"
+         set filenameout="${datapath2}/sanl_${analdate}"
+         time $MPICH/bin/mpirun_rsh -hostfile ${datapath2}/hostfileall -np $nanals ${enkfexec}/recentersigp.x $filenamein $filename_meanin $filename_meanout $filenameout $nanals
+         if ($status != 0) exit 1
+
+      # evolved additive noise.
+      else
+         setenv datapathin $datapath/$analdate_adderr
+         cd ${enkfscripts}
+         python randates.py $date1 $date2 $nanals $addpertinc >&! ${datapathin}/dates.dat
+         cd ${datapathin}
+         #tar -xvf sanl_ens_${analdate_adderr}.tar
+         tar -xvf sfcanl_ens_${analdate_adderr}.tar.gz
+         echo "running adderrspec"
+         /bin/rm -f adderrspec.log
+         time $MPICH/bin/mpirun_rsh -hostfile $HOSTFILEX -np $nanals ${enkfexec}/adderrspec_nmcmeth.x $nanals $analdate_adderr $LONA $LATA $scalefact $addpertpath $lonscramble $runprefix 1
+         if ($status != 0 || ! -s adderrspec.log) exit 1
+         # recenter perturbed ensemble on original mean
+         echo "running getsigensmean"
+         time ${enkfexec}/getsigensmean.x ${datapathin}/ sanlp_${analdate_adderr}_ensmean sanl_${analdate_adderr} ${nanals}
+         if ($status != 0) exit 1
+         set filename_meanin=${datapathin}/sanlp_${analdate_adderr}_ensmean
+         set filename_meanout=${datapathin}/sanl_${analdate_adderr}_ensmean
+         set filenamein="${datapathin}/sanl_${analdate_adderr}"
+         set filenameout="${datapathin}/sanl_${analdate_adderr}"
+         $MPICH/bin/mpirun_rsh -hostfile ${datapath2}/hostfileall -np $nanals ${enkfexec}/recentersigp.x $filenamein $filename_meanin $filename_meanout $filenameout $nanals
+         if ($status != 0) exit 1
+         cd ${enkfscripts}
+         # run that ensemble forward to the current time.
+         setenv POSTPROC NO
+         setenv FHMAX $backuphrs
+         setenv FHMIN $backuphrs
+         setenv FHOUT $backuphrs
+         setenv datapathout $datapath2
+         setenv analdate_save $analdate
+         setenv analdate $analdate_adderr
+         setenv fgprefix "sfgadderr"
+         setenv fgprefix2 ""
+         setenv fgprefix3 ""
+         set niter=1
+         set alldone='no'
+         echo "${analdate} compute first guesses `date`"
+         while ($alldone == 'no' && $niter <= $nitermax)
+             if ($niter == 1) then
+             csh ${enkfscripts}/${fg_gfs_adderr} >&! ${current_logdir}/run_${fgprefix}.out
+             set exitstat=$status
+             else
+             csh ${enkfscripts}/${fg_gfs_adderr} >>& ${current_logdir}/run_${fgprefix}.out
+             set exitstat=$status
+             endif
+             if ($exitstat == 0) then
+                set alldone='yes'
+             else
+                echo "some files missing, try again .."
+                @ niter = $niter + 1
+             endif
+         end
+         if($alldone == 'no') then
+             echo "Tried ${nitermax} times to run run_fg and failed: ${analdate}"
+             exit 1
+         endif
+         echo "${analdate} done computing first guesses `date`"
+         cd ${datapath2}
+         /bin/rm -f ${datapathin}/sanl_${analdate_adderr}_mem*
+         /bin/rm -f ${datapathin}/sfcanl_${analdate_adderr}_mem*
+         /bin/rm -f ${datapathin}/sanlp_${analdate_adderr}_*
+         # compute the ensemble mean of the evolved states.
+         echo "running getsigensmean on $backuphrs forecasts..."
+         set charfhr=`printf %02i $backuphrs`
+         ${enkfexec}/getsigensmean.x ${datapathout}/ ${fgprefix}_${analdate}_fhr${charfhr}_ensmean ${fgprefix}_${analdate}_fhr${charfhr} ${nanals}
+         if ($status != 0) exit 1
+         # add perturbations to analysis at current time.
+         set filename_mean=${datapathout}/${fgprefix}_${analdate}_fhr${charfhr}_ensmean
+         set nanal=1
+         echo "add evolved perts.."
+         while ($nanal <= $nanals) 
+            set charnanal="mem`printf %03i $nanal`"
+            set filenamein="${datapath2}/sanl_${analdate_save}_${charnanal}"
+            set filename2="${datapathout}/${fgprefix}_${analdate}_fhr${charfhr}_${charnanal}"
+            set filenameout="${datapath2}/sanl_${analdate_save}_${charnanal}"
+            # $filenameout overwrites $filenamein!
+            # read in filename_mean and filename2, compute difference, add to filenamein, write to filenameout.
+            ${enkfexec}/recentersig.x $filename2 $filename_mean $filenamein $filenameout
+            if ($status != 0) exit 1
+            @ nanal = $nanal + 1
+         end
+         /bin/rm -f ${datapathout}/${fgprefix}_${analdate}_*
+         /bin/rm -f ${datapathout}/${fgprefix2}_${analdate}_*
+         /bin/rm -f ${datapathout}/${fgprefix3}_${analdate}_*
+         setenv analdate $analdate_save
+      endif
+
+   endif
+
+   # recenter 20 member ensemble around $nanals ensemble mean.
+   if ($longer_ens == 'true' && $nanals2 > 0) then 
+   set JCAP_orig=$JCAP
+   set LEVS_orig=$LEVS
+   setenv JCAP $JCAP_ens
+   setenv LEVS $LEVS_ens
+   setenv LONB $LONB_ens
+   setenv LATB $LATB_ens
+   setenv SIGLEVEL ${FIXGLOBAL}/global_hyblev.l${LEVS}.txt
+   echo "recentering $nanals2 member ensemble"
+   mkdir $datapath2/ens${nanals2}
+   time ${enkfexec}/getsigensmean.x ${datapath2}/ ens${nanals2}/sanl${nanals2}_${analdate}_ensmean sanl_${analdate} $nanals2
+   set filename_meanin=${datapath2}/ens${nanals2}/sanl${nanals2}_${analdate}_ensmean
+   set filename_meanout=${datapath2}/sanl_${analdate}_ensmean
+   /bin/cp -f $filename_meanout ${datapath2}/ens${nanals2}/sanl${nanals}_${analdate}_ensmean
+   /bin/cp -f ${datapath2}/sfcanl_${analdate}_ensmean ${datapath2}/ens${nanals2}/sfcanl${nanals}_${analdate}_ensmean
+   if ($JCAP_orig != $JCAP || $LEVS_orig != $LEVS) then
+      setenv HOSTFILEX ${datapath2}/hostfileall
+      set nanal=1
+      while ($nanal <= $nanals2) 
+         set charnanal="mem`printf %03i $nanal`"
+         set filenamein="${datapath2}/sanl_${analdate}_${charnanal}"
+         set filenameout="${datapath2}/ens${nanals2}/sanl_${analdate}_${charnanal}"
+         ${enkfexec}/recentersig.x $filenamein $filename_meanin $filename_meanout $filenameout
+         /bin/cp -f ${datapath2}/sfcanl_${analdate}_${charnanal} ${datapath2}/ens${nanals2}
+         # change resolution to that of operational NCEP ensemble.
+         $CHGRESSH ${datapath2}/ens${nanals2}/sanl_${analdate}_${charnanal} ${datapath2}/ens${nanals2}/sfcanl_${analdate}_${charnanal} ${datapath2}/ens${nanals2}/sanl_${analdate}_${charnanal} ${datapath2}/ens${nanals2}/sfcanl_${analdate}_${charnanal}
+         @ nanal = $nanal + 1
+      end
+      $CHGRESSH ${datapath2}/sanl_${analdate}_ensmean ${datapath2}/sfcanl_${analdate}_ensmean ${datapath2}/ens${nanals2}/sanl_${analdate}_ensmean ${datapath2}/ens${nanals2}/sfcanl_${analdate}_ensmean
+      /bin/rm -f $${datapath2}/ens${nanals2}/*anl${nanals2}*ensmean
+      /bin/rm -f $${datapath2}/ens${nanals2}/*anl${nanals}*ensmean
+   else
+      set filenamein="${datapath2}/sanl_${analdate}"
+      set filenameout="${datapath2}/ens${nanals2}/sanl_${analdate}"
+      time $MPICH/bin/mpirun_rsh -hostfile ${datapath2}/hostfileall -np $nanals2 ${enkfexec}/recentersigp.x $filenamein $filename_meanin $filename_meanout $filenameout $nanals2
+      set nanal=1
+      while ($nanal <= $nanals2) 
+         set charnanal="mem`printf %03i $nanal`"
+         /bin/cp -f ${datapath2}/sfcanl_${analdate}_${charnanal} ${datapath2}/ens${nanals2}/sfcanl_${analdate}_${charnanal}
+         @ nanal = $nanal + 1
+      end
+      /bin/mv -f ${datapath2}/ens${nanals2}/sfcanl${nanals}_${analdate}_ensmean ${datapath2}/ens${nanals2}/sfcanl_${analdate}_ensmean
+      /bin/mv -f ${datapath2}/ens${nanals2}/sanl${nanals}_${analdate}_ensmean ${datapath2}/ens${nanals2}/sanl_${analdate}_ensmean
+      /bin/rm -f $${datapath2}/ens${nanals2}/*anl${nanals2}*ensmean
+      /bin/rm -f $${datapath2}/ens${nanals2}/*anl${nanals}*ensmean
+   endif
+   endif
+
+   # check output files again.
+   set nanal=1
+   set filemissing='no'
+   while ($nanal <= $nanals)
+      set charnanal="mem"`printf %03i $nanal`
+      set analfile1="${datapath2}/sanl_${analdate}_${charnanal}"
+      set analfile2="${datapath2}/sfcanl_${analdate}_${charnanal}"
+      if ( ! -s $analfile1 && ! -s $analfile2) set filemissing='yes'
+      @ nanal = $nanal + 1
+   end
+
+endif
+
+if ($filemissing == 'yes') then
+    echo "there are output files missing!"
+    exit 1
+else
+    echo "all output files seem OK `date`"
+    exit 0
+endif

@@ -1,0 +1,1469 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/bufr
+END
+bufrlib.PRM
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/bufrlib.PRM
+END
+stndrd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/stndrd.f
+END
+ipkm.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ipkm.f
+END
+chrtrn.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/chrtrn.f
+END
+ibfms.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ibfms.f
+END
+posapn.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/posapn.f
+END
+invmrg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/invmrg.f
+END
+subupd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/subupd.f
+END
+ufbstp.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbstp.f
+END
+readmm.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readmm.f
+END
+nevn.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nevn.f
+END
+wrdxtb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/wrdxtb.f
+END
+wrdlen.F_orig
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/bufr/wrdlen.F_orig
+END
+nwords.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nwords.f
+END
+parusr.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/parusr.f
+END
+tabent.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/tabent.f
+END
+restd.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/restd.c
+END
+ufbsp.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbsp.f
+END
+gets1loc.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/gets1loc.f
+END
+nxtwin.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nxtwin.f
+END
+getabdb.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/getabdb.f
+END
+bort2.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/bort2.f
+END
+cpdxmm.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cpdxmm.f
+END
+invtag.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/invtag.f
+END
+makebufrlib.sh_orig
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/bufr/makebufrlib.sh_orig
+END
+ufbmms.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbmms.f
+END
+readlc.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readlc.f
+END
+idxmsg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/idxmsg.f
+END
+pkftbv.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/pkftbv.f
+END
+lcmgdf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/lcmgdf.f
+END
+README.libbufr
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/README.libbufr
+END
+msgini.f_J
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/bufr/msgini.f_J
+END
+iupbs3.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iupbs3.f
+END
+cpbfdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cpbfdx.f
+END
+nemtbb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nemtbb.f
+END
+makebufrlib.sh
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/bufr/makebufrlib.sh
+END
+wrtree.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/wrtree.f
+END
+i4dy.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/i4dy.f
+END
+pkb.f
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/pkb.f
+END
+sntbde.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/sntbde.f
+END
+tabsub.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/tabsub.f
+END
+cobfl.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cobfl.c
+END
+msgwrt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/msgwrt.f
+END
+iupbs01.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iupbs01.f
+END
+rsvfvm.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rsvfvm.f
+END
+pkvs01.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/pkvs01.f
+END
+datebf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/datebf.f
+END
+rdtree.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdtree.f
+END
+ufbevn.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbevn.f
+END
+ufbin3.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbin3.f
+END
+bufrlib.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/bufrlib.h
+END
+cmsgini.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cmsgini.f
+END
+stbfdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/stbfdx.f
+END
+wrdlen.F
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/bufr/wrdlen.F
+END
+nemtbax.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nemtbax.f
+END
+dxdump.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/dxdump.f
+END
+stntbi.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/stntbi.f
+END
+ufbovr.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbovr.f
+END
+adn30.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/adn30.f
+END
+strcln.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/strcln.f
+END
+string.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/string.f
+END
+upftbv.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/upftbv.f
+END
+ichkstr.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ichkstr.f
+END
+writcp.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/writcp.f
+END
+icopysb.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/icopysb.f
+END
+cadn30.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cadn30.f
+END
+rdbfdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdbfdx.f
+END
+openbf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16580/gfs/branches/moorthi/para/lib/sorc/bufr/openbf.f
+END
+bfrini.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/bfrini.f
+END
+ufbget.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbget.f
+END
+nemock.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nemock.f
+END
+idn30.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/idn30.f
+END
+rdmsgb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdmsgb.f
+END
+elemdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/elemdx.f
+END
+strcpt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/strcpt.f
+END
+rdmemm.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdmemm.f
+END
+addate.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/addate.f
+END
+wrdesc.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/wrdesc.c
+END
+ufbcup.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbcup.f
+END
+chekstab.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/chekstab.f
+END
+errwrt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/errwrt.f
+END
+ireadns.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ireadns.f
+END
+wtstat.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/wtstat.f
+END
+cmpia.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cmpia.c
+END
+makestab.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/makestab.f
+END
+nmwrd.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nmwrd.f
+END
+upbb.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/upbb.f
+END
+getntbe.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/getntbe.f
+END
+igettdi.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/igettdi.f
+END
+jstchr.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/jstchr.f
+END
+ufbpos.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbpos.f
+END
+dxinit.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/dxinit.f
+END
+msgupd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/msgupd.f
+END
+stdmsg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/stdmsg.f
+END
+ljust.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ljust.f
+END
+mrginv.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/mrginv.f
+END
+writlc.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/writlc.f
+END
+stntbia.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/stntbia.f
+END
+rbytes.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rbytes.c
+END
+readdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readdx.f
+END
+invwin.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/invwin.f
+END
+iupm.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iupm.f
+END
+parstr.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/parstr.f
+END
+padmsg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/padmsg.f
+END
+rdmtbd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdmtbd.f
+END
+sntbbe.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/sntbbe.f
+END
+pkc.f
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/pkc.f
+END
+dumpbf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/dumpbf.f
+END
+maxout.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/maxout.f
+END
+rtrcpt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rtrcpt.f
+END
+ireadmm.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ireadmm.f
+END
+pkbs1.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/pkbs1.f
+END
+openmb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/openmb.f
+END
+iok2cpy.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iok2cpy.f
+END
+copybf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/copybf.f
+END
+cnved4.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cnved4.f
+END
+ufbrw.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbrw.f
+END
+crbmg.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/crbmg.c
+END
+dxmini.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/dxmini.f
+END
+ufbmns.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbmns.f
+END
+parseq.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/parseq.f
+END
+atrcpt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/atrcpt.f
+END
+readmg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readmg.f
+END
+nummtb.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nummtb.c
+END
+readsb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readsb.f
+END
+ishrdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ishrdx.f
+END
+trybump.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/trybump.f
+END
+mesgbf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/mesgbf.f
+END
+ufbqcd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbqcd.f
+END
+msgini.f_orig
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/bufr/msgini.f_orig
+END
+bort.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/bort.f
+END
+closbf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/closbf.f
+END
+writsa.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/writsa.f
+END
+posapx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/posapx.f
+END
+drfini.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/drfini.f
+END
+ufbmem.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbmem.f
+END
+datelen.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/datelen.f
+END
+ufbtam.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbtam.f
+END
+jstnum.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/jstnum.f
+END
+ufbqcp.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbqcp.f
+END
+reads3.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/reads3.f
+END
+isize.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/isize.f
+END
+icmpdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/icmpdx.f
+END
+cktaba.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cktaba.f
+END
+ufbseq.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbseq.f
+END
+cmpmsg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cmpmsg.f
+END
+upb.f
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/upb.f
+END
+invcon.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/invcon.f
+END
+cwbmg.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cwbmg.c
+END
+getwin.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/getwin.f
+END
+lstjpb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/lstjpb.f
+END
+ufbrms.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbrms.f
+END
+iupb.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iupb.f
+END
+capit.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/capit.f
+END
+ufdump.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufdump.f
+END
+getlens.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/getlens.f
+END
+parutg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/parutg.f
+END
+iupbs1.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iupbs1.f
+END
+rdmsgw.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdmsgw.f
+END
+cpyupd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cpyupd.f
+END
+ccbfl.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ccbfl.c
+END
+newwin.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/newwin.f
+END
+igetntbl.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/igetntbl.f
+END
+nemtbd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nemtbd.f
+END
+wrcmps.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/wrcmps.f
+END
+ufbrp.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbrp.f
+END
+uptdd.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/uptdd.f
+END
+bvers.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/bvers.f
+END
+ufbcnt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbcnt.f
+END
+writdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/writdx.f
+END
+icvidx.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/icvidx.c
+END
+openmg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/openmg.f
+END
+iupvs1.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iupvs1.f
+END
+ufbint.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbint.f
+END
+rdcmps.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdcmps.f
+END
+ufbcpy.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbcpy.f
+END
+numtbd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/numtbd.f
+END
+cpymem.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/cpymem.f
+END
+ufbinx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbinx.f
+END
+bort_exit.c
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/bort_exit.c
+END
+istdesc.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/istdesc.f
+END
+mesgbc.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/mesgbc.f
+END
+ifbget.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ifbget.f
+END
+makebufrlib.sh_notgood
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/bufr/makebufrlib.sh_notgood
+END
+chrtrna.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/chrtrna.f
+END
+ufbtab.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbtab.f
+END
+wrdlen.F_J
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/bufr/wrdlen.F_J
+END
+nemtab.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nemtab.f
+END
+pktdd.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/pktdd.f
+END
+iupvs01.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/iupvs01.f
+END
+rcstpl.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rcstpl.f
+END
+drstpl.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/drstpl.f
+END
+rdusdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdusdx.f
+END
+valx.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/valx.f
+END
+writsb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/writsb.f
+END
+nenubd.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nenubd.f
+END
+readmt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readmt.f
+END
+ufbdmp.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbdmp.f
+END
+rdmgsb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdmgsb.f
+END
+numbck.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/numbck.f
+END
+nvnwin.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nvnwin.f
+END
+minimg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/minimg.f
+END
+status.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/status.f
+END
+ufbrep.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ufbrep.f
+END
+mvb.f
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/mvb.f
+END
+msgini.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16344/gfs/branches/moorthi/para/lib/sorc/bufr/msgini.f
+END
+igetdate.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/igetdate.f
+END
+numtab.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/numtab.f
+END
+openbt.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/openbt.f
+END
+rdmems.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdmems.f
+END
+upc.f
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/upc.f
+END
+usrtpl.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/usrtpl.f
+END
+mtinfo.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/mtinfo.f
+END
+stseq.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/stseq.c
+END
+conwin.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/conwin.f
+END
+copymg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/copymg.f
+END
+upds3.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/upds3.f
+END
+copysb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/copysb.f
+END
+inctab.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/inctab.f
+END
+digit.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/digit.f
+END
+lmsg.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/lmsg.f
+END
+pad.f
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/pad.f
+END
+irev.F
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/irev.F
+END
+igetntbi.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/igetntbi.f
+END
+nemtba.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nemtba.f
+END
+lstrpc.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/lstrpc.f
+END
+rjust.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rjust.f
+END
+seqsdx.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/seqsdx.f
+END
+ireadmg.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ireadmg.f
+END
+msgfull.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/msgfull.f
+END
+ireadsb.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ireadsb.f
+END
+rdmtbb.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rdmtbb.f
+END
+readns.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readns.f
+END
+gettbh.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/gettbh.f
+END
+igetsc.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/igetsc.f
+END
+ifxy.f
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/ifxy.f
+END
+igetfxy.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/igetfxy.f
+END
+rewnbf.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/rewnbf.f
+END
+strsuc.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/strsuc.f
+END
+nmsub.f
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/nmsub.f
+END
+closmg.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/closmg.f
+END
+readerme.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/readerme.f
+END
+lstrps.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/lstrps.f
+END
+strnum.f
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bufr/strnum.f
+END

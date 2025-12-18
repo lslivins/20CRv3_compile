@@ -1,0 +1,5 @@
+gfs version 14.0.1 with patches added for:
+* perturbing precip as part of SPPT
+* using CMIP climo ozone in radiation.
+* patch to num_parthds.f, sfc_sice.f
+* total patch: global_fcst.diff

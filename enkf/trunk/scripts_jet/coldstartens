@@ -1,0 +1,58 @@
+#!/bin/csh
+
+#$ -j y
+#$ -cwd
+#$ -l h_rt=00:30:00
+#$ -A fim-njet
+#$ -pe thfip 168  
+#$ -N coldstartens
+#$ -o coldstartens.out
+set nanals=80   
+set LONA=512  
+set LATA=256 
+set analdate=2011042700
+set analdatep1=`incdate $analdate 6`
+set yr=`echo $analdate | cut -c1-4`
+set mon=`echo $analdate | cut -c5-6`
+set day=`echo $analdate | cut -c7-8`
+set hr=`echo $analdate | cut -c9-10`
+set hrp1=`echo $analdatep1 | cut -c9-10`
+set datapath2=/lfs1/projects/fim/whitaker/gfsenkf_hybrid_test/${analdate}
+mkdir -p $datapath2
+set date1=`incdate $analdate -1440`
+set date2=`incdate $analdate 1440`
+set WORK=/lfs1/projects/fim/whitaker
+set enkfscripts=$WORK/gfsenkf/scripts/realtime2011
+set enkfexec=$WORK/ncepsvn/enkf/enkf_reducedgrid/src
+set scalefact=100
+set lonscramble=1
+set addpertpath="$WORK/adderr/t574l64/"
+cd ${datapath2}
+setenv OMP_NUM_THREADS 1
+
+#ln -fs $datapath2/sanl_${analdate}_ensmean $datapath2/sfg_${analdate}_fhr06_ensmean
+echo $datapath2
+cd ${enkfscripts}
+echo "python randates.py $date1 $date2 $nanals >&! ${datapath2}/dates.dat"
+python randates.py $date1 $date2 $nanals >&! ${datapath2}/dates.dat
+cd ${datapath2}
+# create hostfile that skips cores
+setenv HOSTFILEX $TMPDIR/machinesx
+# every other core
+awk "NR%2 == 1" $TMPDIR/machines >&! $HOSTFILEX
+#time $MPICH/bin/mpirun_rsh -hostfile $HOSTFILEX -np $nanals ${enkfexec}/adderrspec_nmcmeth.x $nanals $analdate $LONA $LATA $scalefact $addpertpath $lonscramble 1
+#recenter perturbed ensemble on original mean
+#time ${enkfexec}/getsigensmean.x ${datapath2}/ sanlp_${analdate}_ensmean sanl_${analdate} ${nanals}
+set filename_meanin=${datapath2}/sanlp_${analdate}_ensmean
+set filename_meanout=${datapath2}/sanl_${analdate}_ensmean
+set filenamein="${datapath2}/sanl_${analdate}"
+set filenameout="${datapath2}/sanl_${analdate}"
+#time $MPICH/bin/mpirun_rsh -hostfile ${TMPDIR}/machines -np $nanals ${enkfexec}/recentersigp.x $filenamein $filename_meanin $filename_meanout $filenameout $nanals
+time $MPICH/bin/mpirun_rsh -hostfile $TMPDIR/machines -np $nanals ${enkfexec}/calc_corrlength.x $nanals ${analdate} $LONA $LATA 125
+#set nanal=1
+#while ($nanal <= $nanals)
+#   set charnanal="mem"`printf %03i $nanal`
+#   /bin/mv -f ${datapath2}/sanl_${analdate}_${charnanal} ${datapath2}/sanlgdas1_${analdate}_${charnanal}
+#   /bin/ln -fs ${datapath2}/sanlgdas1_${analdate}_${charnanal} ${datapath2}/sanl_${analdate}_${charnanal}
+#   @ nanal = $nanal + 1
+#end

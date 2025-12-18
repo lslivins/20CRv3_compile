@@ -1,0 +1,7 @@
+* use standalone sgetmo.f
+* remove rsearch1 from postgp, use standalone version that does not use
+  xlf intrinsic extension.
+* namelist read in from file in postgp.f, not from stdin (reading
+  from stdin problematic with mpirun).
+* use MPI_LOGICAL in mptran.f, have logical*1's copied to logical temp arrays
+  before calling alltoall.

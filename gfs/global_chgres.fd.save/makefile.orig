@@ -1,0 +1,42 @@
+SHELL	=/bin/sh
+TOPDIR  =/global/save
+INCMOD1 =/nwprod/lib/incmod/sigio_4
+INCMOD3	=/nwprod/lib/incmod/landsfcutil_4
+
+SRCM	=chgres.f
+SRCS	=
+OBJS	=sfcio_module.o gfsio_rst.o gfsio_module.o funcphys.o physcons.o machine.o surface_chgres.o sfcsub.o 
+FC	=ncepxlf
+FC90	=ncepxlf90
+FFLAGS	= -g -qnosave -qsmp=noauto -O2 -qmaxmem=-1
+LDFLAGS	= -lesslsmp
+LIBS	= -L/nwprod/lib -lbacio_4 -lw3_4 -lsp_4 -lip_4 -lsigio_4 -lsfcio_4 -llandsfcutil_4
+
+CMD	=global_chgres
+
+$(CMD):	$(SRCM) $(OBJS)
+	$(FC) -I $(INCMOD1) -I $(INCMOD3) $(FFLAGS) $(LDFLAGS) $(SRCM) $(OBJS) $(LIBS) -o $(CMD)
+
+sfcio_module.o:      sfcio_module.f
+	$(FC90) $(FFLAGS) -c sfcio_module.f
+gfsio_rst.o:      gfsio_rst.f
+	$(FC90) $(FFLAGS) -c gfsio_rst.f
+gfsio_module.o:      gfsio_module.f
+	$(FC90) $(FFLAGS) -c gfsio_module.f
+funcphys.o:     funcphys.f physcons.o machine.o
+	$(FC) $(FFLAGS) -qfree=f90 -c funcphys.f
+physcons.o:     physcons.f machine.o
+	$(FC) $(FFLAGS) -qfree=f90 -c physcons.f
+machine.o:      machine.f
+	$(FC) $(FFLAGS) -qfree=f90 -c machine.f
+sfcsub.o:      sfcsub.f
+	$(FC) $(FFLAGS) -c sfcsub.f
+
+surface_chgres.o: sfcsub.o
+	$(FC) $(FFLAGS) -d -WF,-DGFS=1 -I $(INCMOD3) -g -qfree=f90 -c surface_chgres.F
+clean:
+	-rm -f $(OBJS) *.mod
+clobber:        clean
+	-rm -f $(CMD)
+void:   clobber
+	-rm -f $(SRCS) $(SRCM) makefile

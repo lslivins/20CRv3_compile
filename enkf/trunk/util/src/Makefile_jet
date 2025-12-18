@@ -1,0 +1,76 @@
+FCP           = mpif90
+FCS           = ifort
+FFLAGS        = -O3 -xHOST -assume byterecl -warn all -implicitnone -traceback -openmp 
+FREEFLAG      = -FR
+OMPFLAG       = 
+COREINC       = ../../../../nwprod/incmod
+INCsigio      = $(COREINC)/sigio_4
+INCsfcio      = $(COREINC)/sfcio_4
+LIBncep       = ../../../../nwprod/lib
+EXECdir	      = ../../../../bin
+
+.SUFFIXES: .o .f90 .F90
+
+all: getsigensmean getsfcensmean adderrspec recentersigp recentersig gribmean pstend getsigensmeanp getsigensmeanp_smooth adderrspec_smooth
+
+OBJS_GETSIGENSMEAN=specmod.o
+OBJS_GRDTOSPEC=specmod.o rnorm.o constants.o
+
+getsigensmean: $(OBJS_GETSIGENSMEAN)
+	$(FCS) $(FFLAGS) $(FREEFLAG) $(OMPFLAG) -I $(INCsigio) -assume byterecl -o $(EXECdir)/getsigensmean.x getsigensmean.f $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4
+
+ 
+getsigensmeanp: $(OBJS_GETSIGENSMEAN)
+	$(FCP) $(FFLAGS) $(FREEFLAG) $(OMPFLAG) -I $(INCsigio) -assume byterecl -o $(EXECdir)/getsigensmeanp.x getsigensmeanp.f90 $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4
+
+getsigensmeanp_smooth: $(OBJS_GETSIGENSMEAN)
+	$(FCP) $(FFLAGS) $(FREEFLAG) $(OMPFLAG) -I $(INCsigio) -assume byterecl -o $(EXECdir)/getsigensmeanp_smooth.x getsigensmeanp_smooth.f90 $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4
+
+pstend: $(OBJS_GETSIGENSMEAN)
+	$(FCS) $(FFLAGS) $(FREEFLAG) $(OMPFLAG) -I $(INCsigio) -assume byterecl -o $(EXECdir)/getpstend.x getpstend.f90 $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4
+
+getsfcensmean: $(OBJS_GETSFCENSMEAN)
+	$(FCS) $(FFLAGS) $(FREEFLAG) -I $(INCsfcio) -o $(EXECdir)/getsfcensmean.x getsfcensmean.f -L$(LIBncep) -lsfcio_4
+
+adderrspec: $(OBJS_GRDTOSPEC)
+	$(FCP) $(FFLAGS) -I $(INCsigio) -assume byterecl -o $(EXECdir)/adderrspec_nmcmeth_simple.x adderrspec_nmcmeth_simple.f90 $(OBJS_GRDTOSPEC) -L$(LIBncep) -lsp_4 -lsigio_4
+
+calc_corrlength: $(OBJS_GRDTOSPEC)
+	$(FCP) $(FFLAGS) -I $(INCsigio) -assume byterecl -o $(EXECdir)/calc_corrlength.x calc_corrlength.f90 $(OBJS_GRDTOSPEC) -L$(LIBncep) -lsp_4 -lsigio_4
+
+adderrspec_smooth: $(OBJS_GRDTOSPEC)
+	$(FCP) $(FFLAGS) -I $(INCsigio) -assume byterecl -o $(EXECdir)/adderrspec_nmcmeth_smooth.x adderrspec_nmcmeth_smooth_new.f90 $(OBJS_GRDTOSPEC) -L$(LIBncep) -lsp_4 -lsigio_4
+
+gribmean:
+	$(FCS) $(FFLAGS) -o $(EXECdir)/gribmean.x gribmean.f90 -L$(LIBncep) -lw3lib-1.9_4
+
+recentersig: $(OBJS_GETSIGENSMEAN)
+	$(FCS)  $(FFLAGS) $(FREEFLAG) -I $(INCsigio) -o $(EXECdir)/recentersig.x recentersig.f $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4
+
+recentersig_dualres: $(OBJS_GETSIGENSMEAN)
+	$(FCS)  $(FFLAGS) -I $(INCsigio) -o $(EXECdir)/recentersig_dualres.x recentersig_dualres.f90 $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4
+
+recentersigp: $(OBJS_GETSIGENSMEAN)
+	$(FCP)  $(FFLAGS) $(FREEFLAG) -I $(INCsigio) -o $(EXECdir)/recentersigp.x recentersigp.f $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4
+
+clean:
+	rm -f $(OBJS_GETSIGENSMEAN)  $(OBJS_GETSFCENSMEAN) $(OBJS_GRDTOSPEC) *.o *.mod *.x 
+
+.f90.o:
+	$(FCP) $(FFLAGS) -c $< 
+
+.F90.o:
+	$(FCP) $(FFLAGS) -c $< 
+
+.f.o:
+	$(FCP) $(FFLAGS) -free -c $< 
+
+%.o : %.mod
+
+kinds.o:	kinds.f90
+
+constants.o:	constants.f90 kinds.o
+
+specmod.o:	specmod.f90 kinds.o
+
+rnorm.o:	rnorm.f90 kinds.o

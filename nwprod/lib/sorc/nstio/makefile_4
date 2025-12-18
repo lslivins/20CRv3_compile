@@ -1,0 +1,11 @@
+LIB	= $(LIBDIR)/libnstio_4.a
+INCMOD	= $(LIBDIR)/incmod/nstio_4
+FC	= $(FCMP)
+FFLAGS  = $(FFLAGSM)
+
+$(LIB):	$(LIB)(nstio_module.o)
+.f.a:
+	$(FC) -c $(FFLAGS) $<
+	$(AR) $(ARFLAGS) $@ $*.o
+	rm -f $*.o
+	mv $*.mod $(INCMOD)

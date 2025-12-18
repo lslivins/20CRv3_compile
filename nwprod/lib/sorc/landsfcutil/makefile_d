@@ -1,0 +1,10 @@
+#!/bin/sh
+export LIBDIR=../..
+export LIB=../../liblandsfcutil_d.a
+export MOD_DIR=$LIBDIR/incmod/landsfcutil_d
+export FCMP=ftn
+export FFLAGS=" -O3 -r8 -convert big_endian -traceback -FR"
+export AFLAGS=" "
+export FCOMP="ftn"
+make -f makefile
+/bin/mv -f *.mod $MOD_DIR

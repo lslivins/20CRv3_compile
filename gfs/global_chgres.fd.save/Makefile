@@ -1,0 +1,39 @@
+SHELL	=/bin/sh
+INCMOD  =../incmod
+
+SRCM	=chgres.f
+SRCS	=
+OBJS	=sfcio_module.o gfsio_rst.o gfsio_module.o funcphys.o physcons.o machine.o surface_chgres.o sfcsub.o rsearch.o
+FC	=$(FCS)
+FC90	=$(FCS)
+FFLAGSF90 =$(OPTFLAGS) $(FREEFLAG)
+FFLAGS = $(OPTFLAGS) $(OMPFLAG)
+LDFLAGS	= $(OMPFLAG)
+LIBS	= -L../lib -lw3_4 -llandsfcutil_4 -lip_4 -lsp_4 -lsigio_4 -lsfcio_4 
+
+CMD	=../bin/global_chgres
+
+$(CMD):	$(SRCM) $(OBJS)
+	$(FC) -I $(INCMOD) $(FFLAGS) $(LDFLAGS) $(SRCM) $(OBJS) $(LIBS) -o $(CMD)
+
+sfcio_module.o:      sfcio_module.f
+	$(FC90) $(FFLAGSF90) -c sfcio_module.f
+gfsio_rst.o:      gfsio_rst.f
+	$(FC90) $(FFLAGSF90) -c gfsio_rst.f
+gfsio_module.o:      gfsio_module.f
+	$(FC90) $(FFLAGSF90) -c gfsio_module.f
+funcphys.o:     funcphys.f physcons.o machine.o
+	$(FC) $(FFLAGSF90)  -c funcphys.f
+physcons.o:     physcons.f machine.o
+	$(FC) $(FFLAGSF90)  -c physcons.f
+machine.o:      machine.f
+	$(FC) $(FFLAGSF90)  -c machine.f
+sfcsub.o:      sfcsub.f
+	$(FC) $(FFLAGS) -c sfcsub.f
+rsearch.o:      rsearch.f
+	$(FC) $(FFLAGSF90) -c rsearch.f
+
+surface_chgres.o: sfcsub.o
+	$(FC) $(FFLAGSF90) -I $(INCMOD) -g  -c surface_chgres.f
+clean:
+	-rm -f $(OBJS) *.mod  $(CMD)

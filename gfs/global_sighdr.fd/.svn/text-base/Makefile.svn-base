@@ -1,0 +1,18 @@
+SHELL	=/bin/sh
+INCMOD	=../incmod
+SRCM	=sighdr.f
+INCM	=
+SRCS	=
+OBJS	=
+MODS	=
+FC	=$(FCS)
+FFLAGS	=$(OPTFLAGS) $(FREEFLAG)
+LDFLAGS	=   
+LIBS    =  -L../lib -lsigio_4 -L../lib -lw3_4
+CMD	=../bin/global_sighdr
+$(CMD):	$(SRCM) $(OBJS)
+	$(FC) -I $(INCMOD) $(FFLAGS) $(LDFLAGS) $(SRCM) $(OBJS) $(LIBS) -o $(CMD)
+clean:
+	-rm -f $(OBJS) $(MODS) $(CMD)
+clobber:        clean
+	-rm -f $(CMD)

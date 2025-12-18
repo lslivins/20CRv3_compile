@@ -1,0 +1,16 @@
+SHELL	=/bin/sh
+INCMOD	=../incmod
+SRCM	=sfchdr.f
+INCM	=
+SRCS	=
+OBJS	=
+MODS	=
+FC	=$(FCS)
+FFLAGS	=$(OPTFLAGS) $(FREEFLAG)
+LDFLAGS	=   
+LIBS    = -L../lib -lsfcio_4  -L../lib -lw3_4
+CMD	=../bin/global_sfchdr
+$(CMD):	$(SRCM) $(OBJS)
+	$(FC) -I $(INCMOD) $(FFLAGS) $(LDFLAGS) $(SRCM) $(OBJS) $(LIBS) -o $(CMD)
+clean:
+	-rm -f $(OBJS) $(MODS) $(CMD)

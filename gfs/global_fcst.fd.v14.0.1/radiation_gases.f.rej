@@ -1,0 +1,17 @@
+***************
+*** 322,328 ****
+            print *,' - using climatology ozone distribution'
+            print *,'   found ozone data for levels pstr=',               &
+       &            (pstr(k),k=1,loz)
+-           print *,' o3=',(o3r(15,k,1),k=1,loz)
+          endif
+  
+          do k = 1, loz
+--- 339,345 ----
+            print *,' - using climatology ozone distribution'
+            print *,'   found ozone data for levels pstr=',               &
+       &            (pstr(k),k=1,loz)
++           print *,' o3=',(o3r(jmr,k,12)/1.655e-6,k=1,loz)
+          endif
+  
+          do k = 1, loz

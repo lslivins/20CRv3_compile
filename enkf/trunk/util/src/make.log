@@ -1,0 +1,87 @@
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -o getpstend.x getpstend.f -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsp_4 -lsigio_4
+ftn    -O3 -assume byterecl -warn all -implicitnone -traceback -o gribmean.x gribmean.f90 -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lw3lib-2.0_4 -lbacio_4
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -FR -o getsigensmean.x getsigensmean.f -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsp_4 -lsigio_4
+ftn    -O3 -assume byterecl -warn all -implicitnone -traceback -FR -I/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -o getsigensmean_smooth.x getsigensmean_smooth_ncep.f90 -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsigio_4 -lsp_4
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sfcio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -FR -o getsfcensmean.x getsfcensmean.f -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsfcio_4
+ftn    -O3 -assume byterecl -warn all -implicitnone -traceback -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -o adderrspec_nmcmeth_spec.x adderrspec_nmcmeth_ncep_spec.f90 -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsigio_4 -lsp_4 
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -FR -o recentersigp.x recentersigp.f kinds.o specmod.o -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsp_4 -lsigio_4 
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -FR -o getsigensmeanp.x getsigensmeanp.f90 -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsp_4 -lsigio_4
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sfcio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -FR -o getsfcensmeanp.x getsfcensmeanp.f90 -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsfcio_4
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -o chgdatesig.x chgdatesig.f -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsp_4 -lsigio_4
+chgdatesig.f(8): remark #7712: This variable has not been used.   [NANALS]
+      integer nsigi,nsigo,iret,nanals,nanal,nm,nn,nlats,nlons,
+-------------------------------^
+chgdatesig.f(8): remark #7712: This variable has not been used.   [NANAL]
+      integer nsigi,nsigo,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------^
+chgdatesig.f(8): remark #7712: This variable has not been used.   [NM]
+      integer nsigi,nsigo,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------------^
+chgdatesig.f(8): remark #7712: This variable has not been used.   [NN]
+      integer nsigi,nsigo,iret,nanals,nanal,nm,nn,nlats,nlons,
+-----------------------------------------------^
+chgdatesig.f(8): remark #7712: This variable has not been used.   [NLATS]
+      integer nsigi,nsigo,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------------------^
+chgdatesig.f(8): remark #7712: This variable has not been used.   [NLONS]
+      integer nsigi,nsigo,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------------------------^
+chgdatesig.f(9): remark #7712: This variable has not been used.   [JCAP]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+--------------^
+chgdatesig.f(9): remark #7712: This variable has not been used.   [NMDIM]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------^
+chgdatesig.f(9): remark #7712: This variable has not been used.   [NGRD2]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------------^
+chgdatesig.f(9): remark #7712: This variable has not been used.   [NGRD3]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------------------^
+chgdatesig.f(9): remark #7712: This variable has not been used.   [N]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------------------------^
+chgdatesig.f(9): remark #7712: This variable has not been used.   [K]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+---------------------------------------^
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sfcio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -o chgdatesfc.x chgdatesfc.f -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsfcio_4
+chgdatesfc.f(8): remark #7712: This variable has not been used.   [NANALS]
+      integer nsfci,nsfco,iret,nanals,nanal,nm,nn,nlats,nlons,
+-------------------------------^
+chgdatesfc.f(8): remark #7712: This variable has not been used.   [NANAL]
+      integer nsfci,nsfco,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------^
+chgdatesfc.f(8): remark #7712: This variable has not been used.   [NM]
+      integer nsfci,nsfco,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------------^
+chgdatesfc.f(8): remark #7712: This variable has not been used.   [NN]
+      integer nsfci,nsfco,iret,nanals,nanal,nm,nn,nlats,nlons,
+-----------------------------------------------^
+chgdatesfc.f(8): remark #7712: This variable has not been used.   [NLATS]
+      integer nsfci,nsfco,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------------------^
+chgdatesfc.f(8): remark #7712: This variable has not been used.   [NLONS]
+      integer nsfci,nsfco,iret,nanals,nanal,nm,nn,nlats,nlons,
+--------------------------------------------------------^
+chgdatesfc.f(9): remark #7712: This variable has not been used.   [JCAP]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+--------------^
+chgdatesfc.f(9): remark #7712: This variable has not been used.   [NMDIM]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------^
+chgdatesfc.f(9): remark #7712: This variable has not been used.   [NGRD2]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------------^
+chgdatesfc.f(9): remark #7712: This variable has not been used.   [NGRD3]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------------------^
+chgdatesfc.f(9): remark #7712: This variable has not been used.   [N]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+-------------------------------------^
+chgdatesfc.f(9): remark #7712: This variable has not been used.   [K]
+     *        jcap,nmdim,ngrd2,ngrd3,n,k,idateout(4),fhour
+---------------------------------------^
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -FR -o chgdatesigp.x chgdatesigp.f90 -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsp_4 -lsigio_4
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sfcio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -FR -o chgdatesfcp.x chgdatesfcp.f90 -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsfcio_4
+ftn    -O3 -assume byterecl -warn all -implicitnone -traceback -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sigio_4 -o chksig.x chksig.f -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsigio_4 
+ftn    -I /project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib/incmod/sfcio_4 -O3 -assume byterecl -warn all -implicitnone -traceback -o chksfc.x chksfc.f -L/project/projectdirs/incite11/whitaker/edison/newstuff/nwprod/lib -lsfcio_4

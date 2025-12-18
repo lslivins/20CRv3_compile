@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/projects/!svn/ver/16500/nems/branches/nemsio/conf
+END
+configure.AIX.8.xlf
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16500/nems/branches/nemsio/conf/configure.AIX.8.xlf
+END
+configure
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/projects/!svn/ver/16500/nems/branches/nemsio/conf/configure
+END
+configure.Gaea.intel
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/projects/!svn/ver/16500/nems/branches/nemsio/conf/configure.Gaea.intel
+END
+configure.AIX.4.xlf
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/projects/!svn/ver/16500/nems/branches/nemsio/conf/configure.AIX.4.xlf
+END
+configure.Gaea.pgi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/projects/!svn/ver/16500/nems/branches/nemsio/conf/configure.Gaea.pgi
+END

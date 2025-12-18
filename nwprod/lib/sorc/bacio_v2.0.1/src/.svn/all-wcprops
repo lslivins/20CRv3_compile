@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src
+END
+byteswap.c
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/byteswap.c
+END
+clib.h
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/clib.h
+END
+makebacio_wcoss.sh
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/makebacio_wcoss.sh
+END
+bafrio.f
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/bafrio.f
+END
+baciof.f
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/baciof.f
+END
+baciof.h
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/baciof.h
+END
+chk_endianc.f
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/chk_endianc.f
+END
+makebacio_zeus.sh
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/makebacio_zeus.sh
+END
+makebacio_ccs.sh
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/makebacio_ccs.sh
+END
+bacio.c
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/src/bacio.c
+END

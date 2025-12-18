@@ -1,0 +1,329 @@
+#!/bin/csh
+#set verbose
+
+
+cd ${datapath2}
+setenv OMP_NUM_THREADS $gen_omp_threads# set to general number set in driver script  G. Compo
+
+#switch order of forward operator and global_cycle being done in parallel.
+# global cycle takes a little longer 
+
+# compute forward operator.
+@ nanalsp1 = $nanals + 1
+
+# create surface analysis (by running global_cycle for each member + ens mean)
+setenv CDATE `${incdate} $analdate -3`
+set iy=`echo $CDATE|cut -c1-4`
+set im=`echo $CDATE|cut -c5-6`
+set id=`echo $CDATE|cut -c7-8`
+set ih=`echo $CDATE|cut -c9-10`
+setenv FNACNA '        ' # climo sea ice
+setenv FNSNOA '        ' # climo snow
+setenv FNGLAC ${FIXGLOBAL}/global_glacier.2x2.grb
+setenv FNMXIC ${FIXGLOBAL}/global_maxice.2x2.grb
+#setenv FNTSFC ${FIXGLOBAL}/cfs_oi2sst1x1monclim19822001.grb
+setenv FNTSFC ${FIXGLOBAL}/RTGSST.1982.2012.monthly.clim.grb
+setenv FNSNOC ${FIXGLOBAL}/global_snoclim.1.875.grb
+#setenv FNZORC ${FIXGLOBAL}/global_zorclim.1x1.grb
+setenv FNZORC "sib"
+setenv FNALBC ${FIXGLOBAL}/global_albedo4.1x1.grb
+#setenv FNAISC ${FIXGLOBAL}/cfs_ice1x1monclim19822001.grb
+setenv FNAISC ${FIXGLOBAL}/CFSR.SEAICE.1982.2012.monthly.clim.grb
+setenv FNTG3C ${FIXGLOBAL}/global_tg3clim.2.6x1.5.grb
+setenv FNVEGC ${FIXGLOBAL}/global_vegfrac.0.144.decpercent.grb
+setenv FNVETC ${FIXGLOBAL}/global_vegtype.1x1.grb
+setenv FNSOTC ${FIXGLOBAL}/global_soiltype.1x1.grb
+#setenv FNSMCC ${FIXGLOBAL}/global_soilmcpc.1x1.grb
+setenv FNSMCC ${FIXGLOBAL}/global_soilmgldas.t$JCAP.$LONB.$LATB.grb
+setenv FNVMNC ${FIXGLOBAL}/global_shdmin.0.144x0.144.grb
+setenv FNVMXC ${FIXGLOBAL}/global_shdmax.0.144x0.144.grb
+setenv FNSLPC ${FIXGLOBAL}/global_slope.1x1.grb
+setenv FNABSC ${FIXGLOBAL}/global_snoalb.1x1.grb
+setenv FNMSKH ${FIXGLOBAL}/seaice_newland.grb
+setenv FNOROG ${FIXGLOBAL}/global_orography.t${JCAP}.${LONB}.${LATB}.grb
+setenv FNOROG_UF ${FIXGLOBAL}/global_orography_uf.t${JCAP}.${LONB}.${LATB}.grb
+setenv FNMASK ${FIXGLOBAL}/global_slmask.t${JCAP}.${LONB}.${LATB}.grb
+#setenv FSMCL2 9999999. # Scale in days to relax soil moisture to climo
+setenv FSMCL2 60. # default (sets level 2,3,and4 to this value)
+setenv FTSFS 0.0 #Scale in days to relax to SST anomaly to zero
+setenv FAISS 0.0 #Scale in days to relax to sea ice mask to climatology
+setenv FSICS 0.0 #Scale in days to relax to sea ice concentration to climatology, 0.0 will use analysis (the default)
+#setenv FSNOL 99999999. #Scale in days to relax to snow to climatology, 0.0 will use model
+setenv FSNOL 60. #set snow relaxation to 60 days for 20CRv3
+setenv FSICL 0.0#0.0 #sea ice concentration over land. (0.0 uses analysis, the default)
+#setenv FAISL 99999.# sea ice mask over land (0.0 uses analysis, the default) 
+# see if set FAISL (seaice mask) over land to 99999. helps.  Nope
+setenv FAISL 0.0 # see if set FAISL (seaice mask) over land to 0.0 helps.	
+
+			# then next thing to test is if I give HadISST no mask, use it over land!
+
+echo "running global_cycle `date`"
+setenv DATA "${datapath2}/cycletmp.$$"
+mkdir -p $DATA
+cd $DATA
+set nanal=0
+
+while ($nanal <= $nanals)
+
+if ($nanal == 0) then
+   setenv charnanal "ensmean"
+   setenv charnanal2 "mem"`printf %03i $nanalsp1`
+   setenv FNTSFA ${sstpath}/${iy}/sst_01.grib
+   if ($use_climoice != "true") setenv FNACNA ${sstpath}/${iy}/icec_01.grib
+   set nmlfile =  global_cycle.nml.$charnanal2
+else
+   setenv charnanal "mem"`printf %03i $nanal`
+   setenv charnanal2 `printf %02i $nanal`
+   setenv FNTSFA ${sstpath}/${iy}/sst_${charnanal2}.grib
+   if ($use_climoice != "true") setenv FNACNA ${sstpath}/${iy}/icec_${charnanal2}.grib
+   set nmlfile =  global_cycle.nml.$charnanal
+endif
+setenv SFCGES ${datapath2}/bfg_${analdate}_fhr03_${charnanal} 
+if ( ! -s $SFCGES ) then
+  echo "missing input file $SFCGES"
+  if ($nanal == 0) then
+    ${enkfexec}/getsfcensmean.x ${datapath}/${analdate}/ bfg_${analdate}_${charfhr}_ensmean bfg_${analdate}_${charfhr} ${nanals}
+    if ($status ! = 0) then
+      echo "failed to re-generate $SFCGES"
+      exit 1
+    endif
+  else
+    exit 1
+  endif
+endif
+setenv SFCANL ${datapath2}/sfcanl_${analdate}_fhr03_${charnanal} 
+cat <<EOF >! $nmlfile
+ &NAMCYC
+  idim=$LONB, jdim=$LATB, lsoil=$LSOIL,
+  iy=$iy, im=$im, id=$id, ih=$ih, fh=3,
+  DELTSFC=3,ialb=0,use_ufo=.true.
+ /
+ &NAMSFCD
+  FNBGSI="$SFCGES",
+  FNBGSO="$SFCANL",
+  FNOROG="$FNOROG",
+  FNOROG_UF="$FNOROG_UF",
+  FNMASK="$FNMASK",
+  LDEBUG=.false.,
+ /
+ &NAMSFC
+  AISLIM=0.15,
+  FSICL=0,
+  FNGLAC="$FNGLAC",
+  FNMXIC="$FNMXIC",
+  FNTSFC="$FNTSFC",
+  FNSNOC="$FNSNOC",
+  FNZORC="$FNZORC",
+  FNALBC="$FNALBC",
+  FNAISC="$FNAISC",
+  FNTG3C="$FNTG3C",
+  FNVEGC="$FNVEGC",
+  FNVETC="$FNVETC",
+  FNSOTC="$FNSOTC",
+  FNSMCC="$FNSMCC",
+  FNVMNC="$FNVMNC",
+  FNVMXC="$FNVMXC",
+  FNSLPC="$FNSLPC",
+  FNABSC="$FNABSC",
+  FNMSKH="$FNMSKH",
+  FNTSFA="$FNTSFA",
+  FNACNA="$FNACNA",
+  FNSNOA="$FNSNOA",
+  LDEBUG=.false.,
+  FSMCL(2)=$FSMCL2,
+  FSMCL(3)=$FSMCL2,
+  FSMCL(4)=$FSMCL2,
+  FTSFS=$FTSFS,
+  FAISS=$FAISS,
+  FSNOL=$FSNOL,
+  FSICL=$FSICL,
+ /
+EOF
+    @ nanal = $nanal + 1
+end
+# trying using f
+#set cnhosts=`expr $nanalsp1 \* 2`
+echo "srun -N $NNODESd2 -n $nanalsp1 -c $corespermpitask --cpu_bind=cores  ${CYCLEXEC}"
+time srun -N $NNODESd2 -n $nanalsp1 -c $corespermpitask --cpu_bind=cores  ${CYCLEXEC}  &
+
+# compute forward operator.
+cd $datapath2
+echo "run forward operator `date`"
+
+# now run forward operator, reading from this text file.
+cat <<EOF1 >! psop.nml
+ &nam_psop
+ nlevt1=$nlevt1,nlevt2=$nlevt2,fhmin=$FHMIN,fhmax=$FHMAX,fhout=$FHOUT,fhanal=$ANALINC,datestring="$analdate",rlapse=$rlapse,smoothparm=$smoothparm,
+ errfact=$errfact,nanals=$nanals,nlons=$LONA,nlats=$LATA,obsfile="${datapath2}/psobs.txt",zthresh=$zthresh,delz_const=$delz_const
+ /
+ &END
+EOF1
+cat psop.nml
+time srun -N $NNODESd2 -n $nanalsp1 -c $corespermpitask --cpu_bind=cores ${EXECGLOBAL}/psop_gfs_biascor2be.x   &
+
+wait # wait for global_cycle and psop_gfs to finish.
+ls -l cycletmp*/stdoutfile.*
+/bin/mv -f cycletmp*/stdoutfile.001 $current_logdir &
+/bin/mv -f cycletmp*/stdoutfile.078 $current_logdir &
+/bin/mv -f cycletmp*/stdoutfile.0${nanalsp1} $current_logdir &
+/bin/rm -rf cycletmp* &
+
+
+# check to see if output files already created.
+set nanal=1
+set filemissing='no'
+while ($nanal <= $nanals)
+ set charnanal="mem"`printf %03i $nanal`
+ set analfile1="${datapath2}/sanl_${analdate}_fhr03_${charnanal}"
+ if ( ! -s $analfile1) set filemissing='yes'
+ set analfile2="${datapath2}/sanl_${analdate}_fhr06_${charnanal}"
+ if ( ! -s $analfile2) set filemissing='yes'
+ @ nanal = $nanal + 1
+end
+
+if ($filemissing == 'yes') then
+
+set nhr_anal=3
+while ($nhr_anal <= 9) 
+
+echo "run enkf `date`"
+echo $enkfbin
+
+cat <<EOF1 >! enkf_${nhr_anal}.nml
+ &nam_enkf
+  datestring="$analdate",datapath="$datapath2",
+  analpertwtnh=$analpertwtnh,analpertwtsh=$analpertwtsh,analpertwttr=$analpertwttr,
+  lupd_satbiasc=.true.,zhuberleft=$zhuberleft,zhuberright=$zhuberright,huber=.true.,varqc=$varqc,
+  covinflatemax=$covinflatemax,covinflatemin=$covinflatemin,pseudo_rh=$pseudo_rh,
+  corrlengthnh=$corrlengthnh,corrlengthsh=$corrlengthsh,corrlengthtr=$corrlengthtr,
+  obtimelnh=$obtimelnh,obtimelsh=$obtimelsh,obtimeltr=$obtimeltr,iassim_order=$iassim_order,
+  lnsigcutoffnh=$lnsigcutoffnh,lnsigcutoffsh=$lnsigcutoffsh,lnsigcutofftr=$lnsigcutofftr,
+  lnsigcutoffsatnh=$lnsigcutoffsatnh,lnsigcutoffsatsh=$lnsigcutoffsatsh,lnsigcutoffsattr=$lnsigcutoffsattr,
+  lnsigcutoffpsnh=$lnsigcutoffpsnh,lnsigcutoffpssh=$lnsigcutoffpssh,lnsigcutoffpstr=$lnsigcutoffpstr,
+  nlons=$LONA,nlats=$LATA,smoothparm=$SMOOTHINF,
+  readin_localization=.false.,saterrfact=$saterrfact,numiter=$numiter,
+  sprd_tol=$sprd_tol,paoverpb_thresh=$paoverpb_thresh,
+  reducedgrid=$reducedgrid,nlevs=$LEVS,nanals=$nanals,nvars=$nvars,deterministic=$deterministic,
+  iassim_order=$iassim_order,massbal_adjust=$massbal_adjust,sortinc=$sortinc,univaroz=.true.,
+  iau=.true.,use_height=$use_height,nhr_anal=$nhr_anal,iau=$iau,
+  covl_minfact=$covl_minfact,covl_efold=$covl_efold,simple_partition=.true.
+ /
+ &satobs_enkf
+ /
+ &END
+ &ozobs_enkf
+ /
+ &END
+EOF1
+
+if ($nhr_anal == 3) cat enkf_${nhr_anal}.nml
+
+#For KNL, threads is set separately
+set threads=$fg_omp_threads #`expr $corespernode \/ $enkf_taskspernode`
+
+#set the number of nodes to use for these 3 in the main driver script $NNODES
+#set totnodes=`expr $nhosts \/ $corespernode`
+
+set nodesover3=`expr $NNODES \/ 3`
+set nhostsover3=`expr $nodesover3 \* $enkf_taskspernode` # enkf is run thrice
+set nprocs=$nhostsover3 #`expr $nhostsover3 \/ $threads`
+#set tasks_pernumanode=`expr $corespernumanode \/ $threads`
+
+setenv OMP_PROC_BIND true
+setenv OMP_PLACES threads
+#setenv OMP_PROC_BIND close
+#setenv OMP_PLACES cores
+setenv OMP_NUM_THREADS $threads
+# make the default MPI reorder method 
+# for running gfs to be "SMP" - fill each node as much as possible
+setenv MPI_RANK_REORDER_METHOD 1
+
+if ($nhr_anal == 3) echo "srun -N$nodesover3 -n $nprocs -c $corespermpitask --cpu_bind=cores  $enkfbin"
+mkdir enkftmp_${nhr_anal}
+cd enkftmp_${nhr_anal}
+mv ../enkf_${nhr_anal}.nml enkf.nml
+#ln -fs $GBIAS   satbias_in
+#ln -fs $GSATANG satbias_angle
+ln -fs ${datapath}/satinfo satinfo
+ln -fs ${datapath}/convinfo convinfo
+ln -fs ${datapath}/ozinfo ozinfo
+ln -fs ${datapath}/satbias_angle satbias_angle
+ln -fs ${current_logdir}/satinfo.out fort.207
+ln -fs ${current_logdir}/ozinfo.out fort.206
+ln -fs ${current_logdir}/convinfo.out fort.205
+# run concurrently.
+# copying things when they don't exist is very slow on KNL
+###/bin/cp -f ${current_logdir}/ensda_${nhr_anal}.out ${current_logdir}/ensda_${nhr_anal}.out.save
+time srun -N$nodesover3 -n $nprocs -c $corespermpitask --cpu_bind=cores  $enkfbin >&! ${current_logdir}/ensda_${nhr_anal}.out &
+# don't run concurrently.
+#set nprocs=`expr $nhosts \/ $threads`
+#time srun -n $nprocs -c $OMP_NUM_THREADS $enkfbin >&! ${current_logdir}/ensda_${nhr_anal}.out 
+cd ..
+ 
+@ nhr_anal = $nhr_anal + 3
+end
+
+wait # wait for two enkf instances to finish.
+setenv OMP_NUM_THREADS $gen_omp_threads# reset to general number set in driver script  G. Compo
+/bin/mv -f enkftmp_6/psobs_posterior.txt .
+/bin/rm -rf enkftmp* &
+
+endif
+
+# return to the default MPI reorder method 
+# to be "cyclic" or "round robin"
+setenv MPI_RANK_REORDER_METHOD 0
+ 
+echo "done running enkf `date`"
+# compute ensemble mean analysis sigma files.
+time srun -N $NNODESd4 -n $nanals -c $corespermpitask --cpu_bind=cores ${EXECGLOBAL}/getsigensmeanp.x ${datapath}/${analdate}/ sanl_${analdate}_fhr03_ensmean sanl_${analdate}_fhr03 ${nanals} & 
+
+time srun -N $NNODESd4 -n $nanals -c $corespermpitask --cpu_bind=cores ${EXECGLOBAL}/getsigensmeanp.x ${datapath}/${analdate}/ sanl_${analdate}_fhr06_ensmean sanl_${analdate}_fhr06 ${nanals} &
+
+time srun -N $NNODESd4 -n $nanals -c $corespermpitask --cpu_bind=cores ${EXECGLOBAL}/getsigensmeanp.x ${datapath}/${analdate}/ sanl_${analdate}_fhr09_ensmean sanl_${analdate}_fhr09 ${nanals} &
+
+wait
+if ($status != 0) exit 1 
+if ( ! -s ${datapath2}/sanl_${analdate}_fhr03_ensmean ) exit 1
+if ( ! -s ${datapath2}/sanl_${analdate}_fhr06_ensmean ) exit 1
+if ( ! -s ${datapath2}/sanl_${analdate}_fhr09_ensmean ) exit 1
+
+
+echo "done computing ensemble means `date`"
+
+# check output files again.
+set nanal=1
+set filemissing='no'
+while ($nanal <= $nanals)
+   set charnanal="mem"`printf %03i $nanal`
+   set analfile1="${datapath2}/sanl_${analdate}_fhr03_${charnanal}"
+   if ( ! -s $analfile1) then
+        set filemissing='yes'
+        echo "${analfile1} missing"
+   endif
+   set analfile2="${datapath2}/sanl_${analdate}_fhr06_${charnanal}"
+   if ( ! -s $analfile2) then
+        set filemissing='yes'
+        echo "${analfile2} missing"
+   endif
+   set analfile3="${datapath2}/sanl_${analdate}_fhr09_${charnanal}"
+   if ( ! -s $analfile3) then
+       set filemissing='yes'
+       echo "${analfile3} missing"
+   endif
+   set analfile4="${datapath2}/sfcanl_${analdate}_fhr03_${charnanal}"
+   if ( ! -s $analfile4) then
+       set filemissing='yes'
+       echo "${analfile4} missing"
+   endif
+   @ nanal = $nanal + 1
+end
+
+
+if ($filemissing == 'yes') then
+    echo "there are output files missing!"
+    exit 1
+else
+    echo "all done `date`"
+    exit 0
+endif

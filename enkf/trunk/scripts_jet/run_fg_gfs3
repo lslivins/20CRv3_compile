@@ -1,0 +1,125 @@
+#!/bin/csh
+
+# set datapathin, datapathout, fgprefix, FHMAX, FHOUT
+date
+# run model
+setenv DATOUT ${datapathout}
+
+set hosts = `cat $TMPDIR/machines`
+set nhosts = $#hosts
+echo "nhosts = $nhosts"
+#if (`hostname | cut -c1-1` == 'w') then
+#set nhost1=5 # leave first (master) node free.
+#else
+#set nhost1=9
+#endif
+set nhost1=1
+set nhost=$nhost1
+setenv nprocs $fg_proc
+set nanal=1
+
+while ($nanal <= $nanals)
+ setenv charnanal "mem`printf %03i $nanal`"
+ setenv SFCI ${datapathin}/sfcanl_${analdate}_${charnanal}
+ setenv SIGI ${datapathin}/sanl_${analdate}_${charnanal}
+
+# check to see if output files already created.
+ set fhr=$FHMIN
+ set outfiles=""
+ while ($fhr <= $FHMAX)
+    set charhr="fhr`printf %02i $fhr`"
+    set outfiles = "${outfiles} ${datapathout}/${fgprefix}_${analdate}_${charhr}_${charnanal}"
+    @ fhr = $fhr + $FHOUT
+ end
+ set filemissing='no'
+ foreach outfile ($outfiles) 
+   if ( ! -s $outfile) then
+     echo "${outfile} is missing"
+     set filemissing='yes'
+   else
+     echo "${outfile} is OK"
+   endif
+ end
+
+ set node=$nhost
+ set node_end=$node
+ @ node_end = $node_end + $nprocs - 1
+ if ($filemissing == 'yes') then
+   #if ($node_end > $nhosts) set node_end=$nhosts
+   echo "nanal = ${nanal}, nhost = ${nhost}, node = ${node}, node_end = ${node_end}"
+   setenv HOSTFILE ${datapath2}/hostfile${node}
+   /bin/rm -f $HOSTFILE
+   while ($node <= $node_end) 
+      #set host1=`echo $hosts[$node] | awk -F- '{print $2}'`
+      set host1 = `echo $hosts[$node]`
+      #echo "$node $host1"
+      #echo ${host1}-ib0 >> ${HOSTFILE}
+      echo ${host1} >> ${HOSTFILE}
+      @ node = $node + 1
+   end
+   echo "HOSTFILE = $HOSTFILE"
+   cat $HOSTFILE
+   #if ($nanal == $nanals && $nhost == $nhost1) then
+   #  setenv HOSTFILE ${datapath2}/hostfileall
+   #  setenv nprocs $NSLOTS
+   #endif 
+   #if ($nanal == 1 || $nanal == 2) then
+    time sh ${enkfscripts}/drive_gfs3 >&! ${current_logdir}/run_${fgprefix}_${charnanal}.out &
+   #else
+   # sh ${enkfscripts}/drive_gfs >&! /dev/null &
+   #endif
+   @ nhost = $nhost + $nprocs 
+ else
+   echo "skipping nanal = ${nanal}, output files already created"
+ endif
+
+ @ node_end_next = $node_end + $nprocs - 1
+ if ($node_end > $nhosts || $node_end_next > $nhosts) then
+  echo "$node_end $node_end_next $nhosts"
+  echo "waiting at nanal = ${nanal} `date`"
+  wait
+  set nhost=$nhost1
+ endif
+
+@ nanal = $nanal + 1
+end
+echo "waiting at nanal = ${nanal} `date`"
+wait
+echo "all done `date`"
+
+# check to see all files created
+echo "checking output files .."`date`
+
+set nanal=1
+set anyfilemissing='no'
+while ($nanal <= $nanals)
+    setenv charnanal  "mem`printf %03i $nanal`"
+    set fhr=$FHMIN
+    set outfiles=""
+    while ($fhr <= $FHMAX)
+       set charhr="fhr`printf %02i $fhr`"
+       set outfiles = "${outfiles} ${datapathout}/${fgprefix}_${analdate}_${charhr}_${charnanal}"
+       @ fhr = $fhr + $FHOUT
+    end
+    set filemissing='no'
+    foreach outfile ($outfiles) 
+      ls -l $outfile
+      if ( ! -s $outfile) then 
+        echo "${outfile} is missing"
+        set filemissing='yes'
+        set anyfilemissing='yes'
+      else
+        echo "${outfile} is OK"
+      endif
+    end
+    @ nanal = $nanal + 1
+end
+
+if ($anyfilemissing == 'yes') then
+    echo "there are output files missing!"
+    exit 1
+else
+    echo "all output files seem OK"
+    exit 0
+    date
+endif

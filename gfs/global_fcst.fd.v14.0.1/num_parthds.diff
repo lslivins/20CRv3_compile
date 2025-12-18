@@ -1,0 +1,18 @@
+--- num_parthds.f.orig	2016-07-01 12:41:17.000000000 -0400
++++ num_parthds.f	2016-07-01 12:41:30.000000000 -0400
+@@ -1,11 +1,11 @@
+       integer function num_parthds()
+       use omp_lib
+-!!$omp parallel
+-!     num_parthds = omp_get_num_threads()
+-      num_parthds = 8
++!$omp parallel
++      num_parthds = omp_get_num_threads()
++!     num_parthds = 8
+ !     num_parthds = 6
+ !     num_parthds = 4
+-!!$omp end parallel
++!$omp end parallel
+       return
+       end
+ 

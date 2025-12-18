@@ -1,0 +1,1 @@
+set list=`squeue -u compo | grep compo | cut -c10-18`

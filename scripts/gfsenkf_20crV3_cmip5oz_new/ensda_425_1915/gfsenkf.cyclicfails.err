@@ -1,0 +1,194 @@
+Fri Feb 17 15:58:23 2017: [unset]:_pmi_init:ERROR - PMI does not support SLURM's non-SMP rank distributions.  Please use the MPICH_RANK_REORDER_METHOD env variable to obtain non-default rank placements. Aborting job.
+Fri Feb 17 15:58:23 2017: [unset]:_pmi_init:ERROR - PMI does not support SLURM's non-SMP rank distributions.  Please use the MPICH_RANK_REORDER_METHOD env variable to obtain non-default rank placements. Aborting job.
+Fri Feb 17 15:58:23 2017: [unset]:_pmi_init:ERROR - PMI does not support SLURM's non-SMP rank distributions.  Please use the MPICH_RANK_REORDER_METHOD env variable to obtain non-default rank placements. Aborting job.
+srun: error: nid08448: task 0: Aborted
+srun: Terminating job step 3798979.0
+Fri Feb 17 15:58:23 2017: [unset]:_pmi_init:ERROR - PMI does not support SLURM's non-SMP rank distributions.  Please use the MPICH_RANK_REORDER_METHOD env variable to obtain non-default rank placements. Aborting job.
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+Fri Feb 17 15:58:24 2017: [unset]:_pmi_init:ERROR - PMI does not support SLURM's non-SMP rank distributions.  Please use the MPICH_RANK_REORDER_METHOD env variable to obtain non-default rank placements. Aborting job.
+slurmstepd: error: *** STEP 3798979.0 ON nid08448 CANCELLED AT 2017-02-17T15:58:24 ***
+srun: error: nid08500: task 0: Aborted
+srun: Terminating job step 3798979.3
+srun: error: nid08484: task 0: Aborted
+srun: Terminating job step 3798979.2
+slurmstepd: error: *** STEP 3798979.3 ON nid08500 CANCELLED AT 2017-02-17T15:58:24 ***
+srun: error: nid08468: task 0: Aborted
+srun: Terminating job step 3798979.1
+srun: error: nid08516: task 0: Aborted
+srun: Terminating job step 3798979.4
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 3798979.2 ON nid08484 CANCELLED AT 2017-02-17T15:58:24 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 3798979.1 ON nid08468 CANCELLED AT 2017-02-17T15:58:24 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 3798979.4 ON nid08516 CANCELLED AT 2017-02-17T15:58:24 ***
+srun: error: nid08451: tasks 3,19,35,51,67: Killed
+srun: error: nid08453: tasks 5,21,37,53,69: Killed
+srun: error: nid08455: tasks 7,23,39,55,71: Killed
+srun: error: nid08461: tasks 13,29,45,61,77: Killed
+srun: error: nid08500: tasks 16,32,48,64: Killed
+srun: error: nid08513: tasks 13,29,45,61,77: Killed
+srun: error: nid08449: tasks 1,17,33,49,65: Killed
+srun: error: nid08484: tasks 16,32,48,64: Killed
+srun: error: nid08503: tasks 3,19,35,51,67: Killed
+srun: error: nid08507: tasks 7,23,39,55,71: Killed
+srun: error: nid08509: tasks 9,25,41,57,73: Killed
+srun: error: nid08508: tasks 8,24,40,56,72: Killed
+srun: error: nid08448: tasks 16,32,48,64: Killed
+srun: error: nid08472: tasks 4,20,36,52,68: Killed
+srun: error: nid08529: tasks 9,25,41,57,73: Killed
+srun: error: nid08470: tasks 2,18,34,50,66: Killed
+srun: error: nid08477: tasks 9,25,41,57,73: Killed
+srun: error: nid08482: tasks 14,30,46,62,78: Killed
+srun: error: nid08522: tasks 6,22,38,54,70: Killed
+srun: error: nid08533: tasks 13,29,45,61,77: Killed
+srun: error: nid08488: tasks 4,20,36,52,68: Killed
+srun: error: nid08517: tasks 1,17,33,49,65: Killed
+srun: error: nid08528: tasks 8,24,40,56,72: Killed
+srun: error: nid08501: tasks 1,17,33,49,65: Killed
+srun: error: nid08534: tasks 14,30,46,62,78: Killed
+srun: error: nid08460: tasks 12,28,44,60,76: Killed
+srun: error: nid08463: tasks 15,31,47,63,79: Killed
+srun: error: nid08532: tasks 12,28,44,60,76: Killed
+srun: error: nid08531: tasks 11,27,43,59,75: Killed
+srun: error: nid08492: tasks 8,24,40,56,72: Killed
+srun: error: nid08450: tasks 2,18,34,50,66: Killed
+srun: error: nid08486: tasks 2,18,34,50,66: Killed
+srun: error: nid08502: tasks 2,18,34,50,66: Killed
+srun: error: nid08511: tasks 11,27,43,59,75: Killed
+srun: error: nid08454: tasks 6,22,38,54,70: Killed
+srun: error: nid08495: tasks 11,27,43,59,75: Killed
+srun: error: nid08519: tasks 3,19,35,51,67: Killed
+srun: error: nid08485: tasks 1,17,33,49,65: Killed
+srun: error: nid08475: tasks 7,23,39,55,71: Killed
+srun: error: nid08535: tasks 15,31,47,63,79: Killed
+srun: error: nid08520: tasks 4,20,36,52,68: Killed
+srun: error: nid08469: tasks 1,17,33,49,65: Killed
+srun: error: nid08462: tasks 14,30,46,62,78: Killed
+srun: error: nid08458: tasks 10,26,42,58,74: Killed
+srun: error: nid08518: tasks 2,18,34,50,66: Killed
+srun: error: nid08459: tasks 11,27,43,59,75: Killed
+srun: error: nid08456: tasks 8,24,40,56,72: Killed
+srun: error: nid08452: tasks 4,20,36,52,68: Killed
+srun: error: nid08516: tasks 16,32,48,64: Killed
+srun: error: nid08457: tasks 9,25,41,57,73: Killed
+srun: error: nid08530: tasks 10,26,42,58,74: Killed
+srun: error: nid08506: tasks 6,22,38,54,70: Killed
+srun: error: nid08514: tasks 14,30,46,62,78: Killed
+srun: error: nid08490: tasks 6,22,38,54,70: Killed
+srun: error: nid08476: tasks 8,24,40,56,72: Killed
+srun: error: nid08498: tasks 14,30,46,62,78: Killed
+srun: error: nid08483: tasks 15,31,47,63,79: Killed
+srun: error: nid08489: tasks 5,21,37,53,69: Killed
+srun: error: nid08504: tasks 4,20,36,52,68: Killed
+srun: error: nid08473: tasks 5,21,37,53,69: Killed
+srun: error: nid08468: tasks 16,32,48,64: Killed
+srun: error: nid08515: tasks 15,31,47,63,79: Killed
+srun: error: nid08480: tasks 12,28,44,60,76: Killed
+srun: error: nid08496: tasks 12,28,44,60,76: Killed
+srun: error: nid08474: tasks 6,22,38,54,70: Killed
+srun: error: nid08499: tasks 15,31,47,63,79: Killed
+srun: error: nid08493: tasks 9,25,41,57,73: Killed
+srun: error: nid08471: tasks 3,19,35,51,67: Killed
+srun: error: nid08478: tasks 10,26,42,58,74: Killed
+srun: error: nid08523: tasks 7,23,39,55,71: Killed
+srun: error: nid08481: tasks 13,29,45,61,77: Killed
+srun: error: nid08497: tasks 13,29,45,61,77: Killed
+srun: error: nid08521: tasks 5,21,37,53,69: Killed
+srun: error: nid08505: tasks 5,21,37,53,69: Killed
+srun: error: nid08479: tasks 11,27,43,59,75: Killed
+srun: error: nid08494: tasks 10,26,42,58,74: Killed
+srun: error: nid08510: tasks 10,26,42,58,74: Killed
+srun: error: nid08487: tasks 3,19,35,51,67: Killed
+srun: error: nid08491: tasks 7,23,39,55,71: Killed
+srun: error: nid08512: tasks 12,28,44,60,76: Killed
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/cp: cannot stat '/global/cscratch1/sd/compo//logs/ensda_425_1915/ensda_out_1915011306/ensda.out': No such file or directory
+/bin/cp: cannot stat '/global/cscratch1/sd/compo//logs/ensda_425_1915/ensda_out_1915011306/ensda_6.out': No such file or directory
+/bin/cp: cannot stat '/global/cscratch1/sd/compo//logs/ensda_425_1915/ensda_out_1915011306/ensda_3.out': No such file or directory

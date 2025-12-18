@@ -1,0 +1,24 @@
+#!/bin/sh
+set -x
+export LIBDIR=../../lib
+#export FCMP=xlf_r
+#export FCMP95=xlf95_r
+export FCMP=ftn
+export FCMP95=ftn
+if [ $FCMP = xlf_r ] ; then
+ export FFLAGSM=" -qnodbg -qrealsize=8 -qnosave -qsmp=noauto:omp -O3 -qmaxmem=-1"
+ export FFLAGS2M=" -qnodbg -qrealsize=8 -qnosave -qsmp=noauto:omp -O3 -qmaxmem=-1"
+ export LIBFLAGSM="-lessl "
+else
+#export FFLAGSM=" -O3 -r8 -xHOST -convert big_endian -traceback -g -openmp"
+#export FFLAGSM=" -O0 -r8 -xHOST -convert big_endian -override-limits"
+#export FFLAGSM=" -O0 -r8 -xHOST -convert big_endian -traceback -override-limits -g"
+#export FFLAGSM=" -O2 -auto -align dcommon -Zp16 -132 -r8 -xHOST -convert big_endian -traceback -override-limits -g"
+#export FFLAGSM=" -O2 -auto -align dcommon -r8 -xHOST -convert big_endian -traceback -override-limits -g"
+ export FFLAGSM=" -g -O3 -r8 -xHOST -convert big_endian -traceback"
+ export FFLAGS2M=" -g -O3 -r8 -xHOST -convert big_endian -traceback -FR"
+ export LIBFLAGSM=" "
+ export LDFLAGSM=
+fi
+make -f Makefile
+#make -f Makefile2

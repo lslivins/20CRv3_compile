@@ -1,0 +1,39 @@
+SHELL	=/bin/sh
+INCMOD	=/nwpara/lib/incmod/sigio_4
+SRCM	=postgp.f
+INCM	=
+SRCSP	=postgp_module.f funcphys.f mptran.f physcons_v.f machine.f
+OBJSP	=postgp_module.o funcphys.o mptran.o physcons_v.o machine.o
+SRCSS	=postgp_module.f funcphys.f mptran.std.f physcons_v.f machine.f
+OBJSS	=postgp_module.o funcphys.o mptran.std.o physcons_v.o machine.o
+MODS	=postgp_module.mod funcphys.mod
+FCP	=ncepmpxlf90
+FCS	=ncepxlf90
+FFLAGS	=-qnosave -qsmp=noauto -O2 -qmaxmem=-1
+LDFLAGS	=-lesslsmp
+LIBS	=-L/nwprod/lib -lbacio_4 -lw3_4 -lip_4 -lsp_4 -L/nwpara/lib -lsigio_4
+CMDP	=global_postgp
+CMDS	=global_postgs
+both:	$(CMDP) $(CMDS)
+$(CMDP):	$(SRCM) $(INCM) $(OBJSP)
+	$(FCP) -I $(INCMOD) $(FFLAGS) $(LDFLAGS) $(SRCM) $(OBJSP) $(LIBS) -o $(CMDP)
+$(CMDS):	$(SRCM) $(INCM) $(OBJSS)
+	$(FCS) -I $(INCMOD) $(FFLAGS) $(LDFLAGS) $(SRCM) $(OBJSS) $(LIBS) -o $(CMDS)
+postgp_module.o:	postgp_module.f
+	ncepxlf90 $(FFLAGS) -c postgp_module.f
+funcphys.o:	funcphys.f physcons_v.o machine.o
+	ncepxlf90 $(FFLAGS) -c funcphys.f
+physcons_v.o:	physcons_v.f machine.o
+	ncepxlf90 $(FFLAGS) -c physcons_v.f
+machine.o:	machine.f
+	ncepxlf90 $(FFLAGS) -c machine.f
+mptran.o:	mptran.f machine.o
+	ncepmpxlf90 $(FFLAGS) -c mptran.f
+mptran.std.o:	mptran.std.f machine.o
+	ncepxlf90 $(FFLAGS) -c mptran.std.f
+clean:
+	-rm -f $(OBJS) $(MODS)
+clobber:        clean
+	-rm -f $(CMD)
+void:   clobber
+	-rm -f $(SRCS) $(SRCM) $(INCM) makefile

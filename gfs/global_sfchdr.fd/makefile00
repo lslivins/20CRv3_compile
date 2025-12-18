@@ -1,0 +1,19 @@
+SHELL	=/bin/sh
+SRCM	=sfchdr.f
+INCM	=
+SRCS	=
+OBJS	=
+MODS	=
+FC	=xlf90
+FFLAGS	=-qnosave -O2   -qmaxmem=-1
+LDFLAGS	=   
+LIBS    = -L/nwprod/lib -lbacio_4 -lw3_4
+CMD	=global_sfchdr
+$(CMD):	$(SRCM) $(OBJS)
+	$(FC) $(FFLAGS) $(LDFLAGS) $(SRCM) $(OBJS) $(LIBS) -o $(CMD)
+clean:
+	-rm -f $(OBJS) $(MODS)
+clobber:        clean
+	-rm -f $(CMD)
+void:   clobber
+	-rm -f $(SRCS) $(SRCM) $(INCM) makefile

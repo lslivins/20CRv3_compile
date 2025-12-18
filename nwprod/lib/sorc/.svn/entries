@@ -1,0 +1,119 @@
+10
+
+dir
+17276
+https://svnemc.ncep.noaa.gov/projects/gfs/branches/moorthi/para/lib/sorc
+https://svnemc.ncep.noaa.gov/projects
+
+
+
+2012-01-18T18:33:11.144844Z
+17276
+shrinivas.moorthi@noaa.gov
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+281fb692-3a18-0410-826d-9e847983f365
+
+sp
+dir
+
+w3lib-1.9
+dir
+
+w3
+dir
+
+nemsio
+dir
+
+nstio
+dir
+
+bufr
+dir
+
+w3lib-2.0_s
+dir
+
+esmf_3_1_0rp2
+dir
+
+netcdf
+dir
+
+sfcio
+dir
+
+gphcntr
+dir
+
+gfsio
+dir
+
+w3lib-1.9_s
+dir
+
+ip
+dir
+
+landsfcutil
+dir
+
+sigio
+dir
+
+bacio
+dir
+
+w3lib-2.0
+dir
+
+esmf_3_1_0rp5_src.tar.gz
+file
+
+
+
+
+2012-01-18T18:33:48.000000Z
+37fbfe442ba003d9dd0b6a30eaabed0c
+2012-01-18T18:33:11.144844Z
+17276
+shrinivas.moorthi@noaa.gov
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2468781
+
+gph
+dir
+

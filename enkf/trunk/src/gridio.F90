@@ -1,0 +1,2113 @@
+#ifdef GFS
+ module gridio
+!$$$  module documentation block
+!
+! module: gridio                     subroutines for reading and writing
+!                                    ensemble members files using
+!                                    EnKF internal format.  A separate
+!                                    program must be run before and
+!                                    after the EnKF analysis to convert
+!                                    to and from the native model format.
+!
+! prgmmr: whitaker         org: esrl/psd               date: 2009-02-23
+!
+! abstract: I/O for ensemble member files.
+!
+! Public Functions:
+!  readgriddata, writegriddata
+!
+! this version reads and writes NCEP GFS sigma files.
+!
+! Public Variables: None
+!
+! Modules Used: constants (must be pre-initialized).
+!
+! program history log:
+!   2009-02-23  Initial version.
+!
+! attributes:
+!   language: f95
+!
+!$$$
+ use constants, only: zero,one,cp,rd,grav,constants_initialized,zero
+ use params, only: nlons,nlats,ndim,reducedgrid,nvars,nlevs,pseudo_rh,use_height, &
+                   cliptracers,nlons,nlats,datestring,datapath,massbal_adjust,charfhr_anal,iau
+ use kinds, only: i_kind,r_double,r_kind,r_single
+ use gridinfo, only: sighead,npts ! sighead saved in gridinfo. This means gridinfo must be called first!
+ use specmod, only: sptezv_s, sptez_s, init_spec_vars, ndimspec => nc, &
+                    isinitialized
+ use reducedgrid_mod, only: regtoreduced, reducedtoreg
+ use mpisetup
+ implicit none
+ private
+ public :: readgriddata, writegriddata
+ contains
+
+ subroutine readgriddata(nanal,grdin,qsat)
+  use sigio_module
+  implicit none
+
+  character(len=500) :: filename
+  character(len=3) charnanal
+  integer, intent(in) :: nanal
+  real(r_double), dimension(npts,nlevs), intent(out) :: qsat
+  real(r_kind), dimension(npts,ndim), intent(out) :: grdin
+
+  real(r_kind) kap,kapr,kap1
+
+  real(r_kind), allocatable, dimension(:,:) :: vmassdiv,pressi,pslg,zg,psig
+  real(r_kind), dimension(nlons*nlats) :: ug,vg
+  real(r_kind), dimension(ndimspec) :: vrtspec,divspec
+  real(r_kind), allocatable, dimension(:) :: psg,pstend,ak,bk,zs
+  type(sigio_data) sigdata
+
+
+  integer(i_kind) nlevsin,ntrunc
+  integer(i_kind) k,nt,iunitsig,iret
+  logical ice
+
+
+  write(charnanal,'(i3.3)') nanal
+  filename =&
+  trim(adjustl(datapath))//"sfg_"//datestring//"_fhr"//charfhr_anal//"_mem"//charnanal
+  iunitsig = 77
+  call sigio_srohdc(iunitsig,trim(filename), &
+                    sighead,sigdata,iret)
+  if (iret /= 0) then
+     print *,'error reading file in gridio ',trim(filename)
+     call stop2(23)
+  end if
+  nlevsin = sighead%levs
+  ntrunc = sighead%jcap
+  if (nlevs /= nlevsin) then
+    print *,'error reading input file - nlevs != ',nlevsin
+  end if
+  if (.not. constants_initialized) then
+      print *,'constants not initialized (with init_constants, init_constants_derived)'
+      call stop2(23)
+  end if
+  ice = .false. ! calculate qsat w/resp to ice?
+  kap = rd/cp
+  kapr = cp/rd
+  kap1 = kap+one
+
+  if (.not. isinitialized) call init_spec_vars(nlons,nlats,sighead%jcap,4)
+
+  allocate(pressi(nlons*nlats,nlevs+1))
+  allocate(ak(nlevs+1),bk(nlevs+1))
+  allocate(pslg(npts,nlevs))
+  allocate(psg(nlons*nlats),pstend(nlons*nlats))
+  if (massbal_adjust) allocate(vmassdiv(nlons*nlats,nlevs))
+
+  vrtspec = sigdata%ps
+  call sptez_s(vrtspec,psg,1)
+  !==> input psg is ln(ps) in centibars - convert to ps in millibars.
+  psg = 10._r_kind*exp(psg)
+  if (sighead%idvc .eq. 0) then ! sigma coordinate, old file format.
+      ak = zero
+      bk = sighead%si(1:nlevs+1)
+  else if (sighead%idvc == 1) then ! sigma coordinate
+      ak = zero
+      bk = sighead%vcoord(1:nlevs+1,2)
+  else if (sighead%idvc == 2 .or. sighead%idvc == 3) then ! hybrid coordinate
+      bk = sighead%vcoord(1:nlevs+1,2) 
+      ak = 0.01*sighead%vcoord(1:nlevs+1,1)  ! convert to mb
+  else
+      print *,'unknown vertical coordinate type',sighead%idvc
+      call stop2(23)
+  end if
+  !==> pressure at interfaces.
+  do k=1,nlevs+1
+     pressi(:,k)=ak(k)+bk(k)*psg
+  enddo
+
+  !==> get U,V,temp,q,ps on gaussian grid.
+  ! u is first nlevs, v is second, t is third, then tracers.
+!$omp parallel do private(k,nt,ug,vg,divspec,vrtspec)  shared(sigdata,pressi,vmassdiv,grdin)
+  do k=1,nlevs
+
+     vrtspec = sigdata%z(:,k); divspec = sigdata%d(:,k)
+     call sptezv_s(divspec,vrtspec,ug,vg,1)
+     if (reducedgrid) then
+        call regtoreduced(ug,grdin(:,k))
+        call regtoreduced(vg,grdin(:,nlevs+k))
+     else
+        grdin(:,k) = ug; grdin(:,nlevs+k) = vg
+     endif
+
+! calculate vertical integral of mass flux div (ps tendency)
+! this variable is analyzed in order to enforce mass balance in the analysis
+     if (massbal_adjust) then
+        ug = ug*(pressi(:,k)-pressi(:,k+1))
+        vg = vg*(pressi(:,k)-pressi(:,k+1))
+        call sptezv_s(divspec,vrtspec,ug,vg,-1) ! u,v to div,vrt
+        call sptez_s(divspec,vmassdiv(:,k),1) ! divspec to divgrd
+     endif
+
+     divspec = sigdata%t(:,k)
+     call sptez_s(divspec,ug,1)
+     if (reducedgrid) then
+        call regtoreduced(ug,grdin(:,2*nlevs+k))
+     else
+        grdin(:,2*nlevs+k) = ug
+     endif
+
+     if (nvars .gt. 3) then
+     do nt=1,nvars-3
+        divspec = sigdata%q(:,k,nt)
+        call sptez_s(divspec,ug,1)
+        if (reducedgrid) then
+           call regtoreduced(ug,grdin(:,(3+nt-1)*nlevs+k))
+        else
+           grdin(:,(3+nt-1)*nlevs+k) = ug
+        endif
+     enddo
+     endif
+
+  enddo
+!$omp end parallel do
+
+  ! surface pressure is last grid.
+  if (reducedgrid) then
+     call regtoreduced(psg,grdin(:,ndim))
+  else
+     grdin(:,ndim) = psg
+  endif
+
+  ! surface pressure tendency is next to last grid.
+  if (massbal_adjust) then
+     pstend = sum(vmassdiv,2)
+     if (nanal .eq. 1) &
+     print *,nanal,'min/max first-guess ps tend',minval(pstend),maxval(pstend)
+     if (reducedgrid) then
+        call regtoreduced(pstend,grdin(:,ndim-1))
+     else
+        grdin(:,ndim-1) = pstend
+     endif
+  endif
+
+  ! compute saturation q.
+  do k=1,nlevs
+    ! layer pressure from phillips vertical interolation
+    ug(:) = ((pressi(:,k)**kap1-pressi(:,k+1)**kap1)/&
+            (kap1*(pressi(:,k)-pressi(:,k+1))))**kapr
+    if (reducedgrid) then
+        call regtoreduced(ug,pslg(:,k))
+    else
+        pslg(:,k) = ug
+    endif
+  end do
+  if (pseudo_rh) then
+     call genqsat(grdin(:,3*nlevs+1:4*nlevs),qsat,pslg,grdin(:,2*nlevs+1:3*nlevs),ice,npts,nlevs)
+  else
+     qsat = 1._r_double
+  end if
+
+! compute z (geopot height) on interfaces, given 
+! pint (interface pressure in hPa),
+! pl (pressure at mid-layers in hPa), tv (virtual temp at mid-layers) and
+! zs (surface orog). 
+! z does not include surface height (k=1 is 1st level, k=nlevs is model top)
+! uses hydrostatic eqn d(phi)/d(pi) = -thetav, where phi is geopot. height,
+! pi is exner function and thetav is virtual potential temp.
+  if (use_height) then
+     allocate(zs(npts),zg(npts,nlevs))
+     ! surface orog
+     divspec = sigdata%hs
+     call sptez_s(divspec,ug,1)
+     if (reducedgrid) then
+        call regtoreduced(ug,zs)
+     else
+        zs = ug
+     endif
+     allocate(psig(npts,nlevs+1))
+     do k=1,nlevs+1
+       if (reducedgrid) then
+           call regtoreduced(pressi(:,k),psig(:,k))
+       else
+           psig(:,k) = pressi(:,k)
+       endif
+     enddo
+     call temptoz(npts,nlevs,psig,pslg,zs,grdin(:,2*nlevs+1:3*nlevs),zg)
+     grdin(:,2*nlevs+1:3*nlevs) = zg
+     deallocate(zs,zg,psig)
+  end if
+
+  call sigio_axdata(sigdata,iret)
+  deallocate(pressi,pslg)
+  deallocate(psg,pstend,ak,bk)
+  if (massbal_adjust) deallocate(vmassdiv)
+
+ end subroutine readgriddata
+
+ subroutine writegriddata(nanal,grdin)
+  use sigio_module
+  implicit none
+
+  character(len=500):: filename
+  integer, intent(in) :: nanal
+  integer kmax
+  real(r_kind), dimension(npts,ndim), intent(inout) :: grdin
+  real(r_kind), allocatable, dimension(:,:) :: vmassdiv,pressi,tvg,pslg,psig
+  real(r_kind), allocatable, dimension(:,:) :: vmassdivinc
+  real(r_kind), allocatable,dimension(:) :: psg,pstend1,pstend2,pstendfg,vmass,&
+                                            zs,ak,bk,psg2
+  real(r_kind), dimension(nlons*nlats) :: ug,vg,uginc,vginc,psfg
+  real(r_kind), dimension(ndimspec) :: vrtspec,divspec
+  integer iadate(4)
+  integer,dimension(8):: ida,jda
+  real(r_single),dimension(5):: fha
+  type(sigio_data) sigdata_inc
+  character(len=3) charnanal
+  real(r_kind) spdmax,spd
+
+  real(r_kind) kap,kapr,kap1,clip
+  type (sigio_data) :: sigdata
+
+  integer k,nt,ierr,iunitsig
+
+  if (.not. constants_initialized) then
+      print *,'constants not initialized (with init_constants, init_constants_derived)'
+      call stop2(23)
+  end if
+
+  iunitsig = 78
+  kapr = cp/rd
+  kap = rd/cp
+  kap1 = kap+one
+  write(charnanal,'(i3.3)') nanal
+  filename =&
+  trim(adjustl(datapath))//"sfg_"//datestring//"_fhr"//charfhr_anal//"_mem"//charnanal
+
+  ! read in first-guess data.
+  call sigio_srohdc(iunitsig,trim(filename), &
+                   sighead,sigdata,ierr)
+
+  if (massbal_adjust) then
+     allocate(vmassdiv(nlons*nlats,nlevs))
+     allocate(vmassdivinc(nlons*nlats,nlevs))
+  endif
+  allocate(ak(nlevs+1),bk(nlevs+1))
+  allocate(psg(nlons*nlats),pstend1(nlons*nlats))
+  allocate(pstend2(nlons*nlats),vmass(nlons*nlats))
+  allocate(pressi(nlons*nlats,nlevs+1))
+  allocate(pstendfg(nlons*nlats))
+
+! Compute analysis time from guess date and forecast length.
+  fha=zero; ida=0; jda=0
+  fha(2)=sighead%fhour    ! relative time interval in hours
+  ida(1)=sighead%idate(4) ! year
+  ida(2)=sighead%idate(2) ! month
+  ida(3)=sighead%idate(3) ! day
+  ida(4)=0                ! time zone
+  ida(5)=sighead%idate(1) ! hour
+  call w3movdat(fha,ida,jda)
+!     JDAT       INTEGER (8) NCEP ABSOLUTE DATE AND TIME
+!                (YEAR, MONTH, DAY, TIME ZONE,
+!                 HOUR, MINUTE, SECOND, MILLISECOND)
+  iadate(1)=jda(5) ! hour
+  iadate(2)=jda(2) ! mon
+  iadate(3)=jda(3) ! day
+  iadate(4)=jda(1) ! year
+  if (nproc .eq. 0) then
+  print *,'idate = ',sighead%idate
+  print *,'iadate = ',iadate
+  end if
+
+  sighead%idate = iadate
+  sighead%fhour = zero
+  ! ensemble info
+  ! http://www.emc.ncep.noaa.gov/gmb/ens/info/ens_grib.html#gribex
+  sighead%iens(1) = 3 ! pos pert
+  sighead%iens(2) = nanal ! ensemble member number
+  sighead%icen2 = 2 ! sub-center, must be 2 or ens info not used
+  if (.not. isinitialized) call init_spec_vars(nlons,nlats,sighead%jcap,4)
+  ! allocate new sigdata structure for increments.
+  call sigio_aldata(sighead,sigdata_inc,ierr) 
+
+  ! convert geopot. height increment to virt. temp increment is use_height is true.
+  if (use_height) then
+     allocate(zs(npts),tvg(npts,nlevs),pslg(npts,nlevs),psig(npts,nlevs+1),psg2(npts))
+     if (sighead%idvc .eq. 0) then ! sigma coordinate, old file format.
+         ak = zero
+         bk = sighead%si(1:nlevs+1)
+     else if (sighead%idvc == 1) then ! sigma coordinate
+         ak = zero
+         bk = sighead%vcoord(1:nlevs+1,2)
+     else if (sighead%idvc == 2 .or. sighead%idvc == 3) then ! hybrid coordinate
+         bk = sighead%vcoord(1:nlevs+1,2) 
+         ak = 0.01*sighead%vcoord(1:nlevs+1,1)  ! convert to mb
+     else
+         print *,'unknown vertical coordinate type',sighead%idvc
+         call stop2(23)
+     end if
+     divspec = sigdata%ps
+     call sptez_s(divspec,vg,1)
+     ! increment (in hPa) to reg grid.
+     if (reducedgrid) then
+       call reducedtoreg(grdin(:,ndim),ug)
+     else
+       ug = grdin(:,ndim)
+     endif
+     psfg = 10._r_kind*exp(vg)
+     vg = psfg + ug ! first guess + increment on reg grd
+     psg = vg
+     ! convert to reduced grid (psg2)
+     if (reducedgrid) then
+       call regtoreduced(psg,psg2)
+     else
+       psg2 = psg
+     endif
+     !==> pressure at interfaces (reduced grid).
+     do k=1,nlevs+1
+        psig(:,k)=ak(k)+bk(k)*psg2
+     enddo
+     ! layer pressure (reduced grid)
+     do k=1,nlevs
+       pslg(:,k) = ((psig(:,k)**kap1-psig(:,k+1)**kap1)/&
+                   (kap1*(psig(:,k)-psig(:,k+1))))**kapr
+     end do
+     ! surface orog zero, since we're dealing with increments.
+     zs = zero
+     if (nproc .eq. 0) print *,'min/max height increment ens. mem.',nanal,minval(grdin(:,2*nlevs+1:3*nlevs)),maxval(grdin(:,2*nlevs+1:3*nlevs))
+     call ztotemp(npts,nlevs,psig,pslg,zs,tvg,grdin(:,2*nlevs+1:3*nlevs))
+     if (nproc .eq. 0) print *,'min/max tv increment ens. mem.',nanal,minval(tvg),maxval(tvg)
+     grdin(:,2*nlevs+1:3*nlevs) = tvg ! virt temp increment
+     deallocate(zs,tvg,pslg,psig,psg2)
+  end if
+  ! convert to increment to spectral coefficients.
+!$omp parallel do private(k,nt,ug,vg,divspec,vrtspec)  shared(grdin,sigdata_inc)
+  do k=1,nlevs
+     if (reducedgrid) then
+        call reducedtoreg(grdin(:,k),ug)
+        call reducedtoreg(grdin(:,nlevs+k),vg)
+     else
+        ug = grdin(:,k); vg = grdin(:,nlevs+k)
+     endif
+     call sptezv_s(divspec,vrtspec,ug,vg,-1)
+     sigdata_inc%d(:,k) = divspec; sigdata_inc%z(:,k) = vrtspec
+     if (reducedgrid) then
+        call reducedtoreg(grdin(:,2*nlevs+k),ug)
+     else
+        ug = grdin(:,2*nlevs+k)
+     endif
+     call sptez_s(divspec,ug,-1)
+     sigdata_inc%t(:,k) = divspec
+     if (nvars .gt. 3) then
+     do nt=1,nvars-3
+         if (reducedgrid) then
+            call reducedtoreg(grdin(:,(3+nt-1)*nlevs+k),ug)
+         else
+            ug = grdin(:,(3+nt-1)*nlevs+k)
+         endif
+         call sptez_s(divspec,ug,-1)
+         sigdata_inc%q(:,k,nt) = divspec
+     enddo
+     endif
+  enddo
+!$omp end parallel do
+
+  divspec = sigdata%ps
+  call sptez_s(divspec,vg,1)
+  ! increment (in hPa) to reg grid.
+  if (reducedgrid) then
+    call reducedtoreg(grdin(:,ndim),ug)
+  else
+    ug = grdin(:,ndim)
+  endif
+  psfg = 10._r_kind*exp(vg)
+  vg = psfg + ug ! first guess + increment
+  psg = vg
+  vg = log(vg/10._r_kind) ! convert back to centibars.
+  call sptez_s(divspec,vg,-1)
+  sigdata%ps = divspec
+
+  if (massbal_adjust) then
+
+     if (sighead%idvc .eq. 0) then ! sigma coordinate, old file format.
+         ak = zero
+         bk = sighead%si(1:nlevs+1)
+     else if (sighead%idvc == 1) then ! sigma coordinate
+         ak = zero
+         bk = sighead%vcoord(1:nlevs+1,2)
+     else if (sighead%idvc == 2 .or. sighead%idvc == 3) then ! hybrid coordinate
+         bk = sighead%vcoord(1:nlevs+1,2) 
+         ak = 0.01*sighead%vcoord(1:nlevs+1,1)  ! convert to mb
+     else
+         print *,'unknown vertical coordinate type',sighead%idvc
+         call stop2(23)
+     end if
+
+     !==> first-guess pressure at interfaces.
+     do k=1,nlevs+1
+        pressi(:,k)=ak(k)+bk(k)*psfg
+     enddo
+
+!$omp parallel do private(k,nt,ug,vg,vrtspec,divspec) shared(sigdata,vmassdiv)
+     do k=1,nlevs
+!       re-calculate vertical integral of mass flux div for first-guess
+        divspec = sigdata%d(:,k); vrtspec = sigdata%z(:,k)
+        call sptezv_s(divspec,vrtspec,ug,vg,1)
+        ug = ug*(pressi(:,k)-pressi(:,k+1))
+        vg = vg*(pressi(:,k)-pressi(:,k+1))
+        call sptezv_s(divspec,vrtspec,ug,vg,-1) ! u,v to div,vrt
+        call sptez_s(divspec,vmassdiv(:,k),1) ! divspec to divgrd
+     enddo
+!$omp end parallel do
+
+     ! analyzed ps tend increment
+     if (reducedgrid) then
+        call reducedtoreg(grdin(:,ndim-1),pstend2)
+     else
+        pstend2 = grdin(:,ndim-1)
+     endif
+     pstendfg = sum(vmassdiv,2)
+     vmassdivinc = vmassdiv
+     if (nanal .eq. 1) then
+     print *,nanal,'min/max pstendfg',minval(pstendfg),maxval(pstendfg)
+     print *,nanal,'min/max pstend inc',minval(pstend2),maxval(pstend2)
+     endif
+     pstend2 = pstend2 + pstendfg ! add to background ps tend
+
+     !==> analysis pressure at interfaces.
+     do k=1,nlevs+1
+        pressi(:,k)=ak(k)+bk(k)*psg
+     enddo
+
+  endif ! if (massbal_adjust)
+
+  ! add increment to first guess in spectral space.
+  spdmax = -9.9e31
+!!$omp parallel do private(k,nt,ug,vg,vrtspec,divspec)  shared(sigdata,sigdata_inc,vmassdiv,pressi)
+  do k=1,nlevs
+
+! add increments in spectral space
+     sigdata%z(:,k) = sigdata%z(:,k) + sigdata_inc%z(:,k)
+     sigdata%d(:,k) = sigdata%d(:,k) + sigdata_inc%d(:,k)
+     sigdata%t(:,k) = sigdata%t(:,k) + sigdata_inc%t(:,k)
+     divspec = sigdata%d(:,k); vrtspec = sigdata%z(:,k)
+     call sptezv_s(divspec,vrtspec,ug,vg,1)
+     spd = maxval( sqrt(ug**2+vg**2) )
+     if (spd .gt. spdmax) then
+      spdmax = spd; kmax = k
+     endif
+     do nt=1,nvars-3
+        sigdata%q(:,k,nt) = sigdata%q(:,k,nt) + sigdata_inc%q(:,k,nt)
+     enddo
+
+     if (massbal_adjust) then
+!       calculate vertical integral of mass flux div for updated state
+!       divspec = sigdata%d(:,k); vrtspec = sigdata%z(:,k)
+!       call sptezv_s(divspec,vrtspec,ug,vg,1)
+        ug = ug*(pressi(:,k)-pressi(:,k+1))
+        vg = vg*(pressi(:,k)-pressi(:,k+1))
+        call sptezv_s(divspec,vrtspec,ug,vg,-1) ! u,v to div,vrt
+        call sptez_s(divspec,vmassdiv(:,k),1) ! divspec to divgrd
+     endif
+
+  enddo
+!!$omp end parallel do
+  print *,'k,nanal,spdmax',kmax,nanal,spdmax
+
+  ! don't need sigdata_inc anymore.
+  call sigio_axdata(sigdata_inc,ierr)
+
+  if (massbal_adjust) then
+    
+     vmassdivinc = vmassdiv - vmassdivinc ! analyis - first guess VIMFD
+     ! (VIMFD = vertically integrated mass flux divergence)
+     pstend1 = sum(vmassdiv,2)
+     if (nanal .eq. 1) then
+     print *,nanal,'min/max analysis ps tend',minval(pstend1),maxval(pstend1)
+     print *,nanal,'min/max analyzed ps tend',minval(pstend2),maxval(pstend2)
+     endif
+     ! vmass is vertical integral of dp**2
+     vmass = 0.
+     do k=1,nlevs
+        ! case 2 (4.3.1.2) in GEOS DAS document.
+        ! (adjustment proportional to mass in layer)
+        vmass = vmass + (pressi(:,k)-pressi(:,k+1))**2
+        ! case 3 (4.3.1.3) in GEOS DAS document.
+        ! (adjustment propotional to mass-flux div increment)
+        !vmass = vmass + vmassdivinc(:,k)**2
+     enddo
+     ! adjust wind field in analysis so pstend is consistent with pstend2
+     ! (analyzed pstend)
+!$omp parallel do private(k,nt,ug,vg,psfg,uginc,vginc,vrtspec,divspec)  shared(sigdata,vmassdiv,vmassdivinc,pressi)
+     do k=1,nlevs
+        psfg = pressi(:,k)-pressi(:,k+1)
+        ! case 2 
+        ug = (pstend2 - pstend1)*psfg**2/vmass
+        ! case 3 
+        !ug = (pstend2 - pstend1)*vmassdivinc(:,k)**2/vmass
+        call sptez_s(divspec,ug,-1) ! divgrd to divspec
+        vrtspec = 0.
+        call sptezv_s(divspec,vrtspec,uginc,vginc,1) ! div,vrt to u,v
+        ! adjust spectral div,vort 
+        ! (vrtspec,divspec to u,v, add increment to u,v, then convert
+        ! back go vrtspec,divspec)
+        divspec = sigdata%d(:,k); vrtspec = sigdata%z(:,k)
+        call sptezv_s(divspec,vrtspec,ug,vg,1)
+        if (nanal .eq. 1) then
+          print *,k,'min/max u inc (member 1)',&
+          minval(uginc/psfg),maxval(uginc/psfg)
+        endif
+        ug = (ug*psfg + uginc)/psfg;  vg = (vg*psfg + vginc)/psfg
+        call sptezv_s(divspec,vrtspec,ug,vg,-1) ! u,v to div,vrt
+        sigdata%d(:,k) = divspec; sigdata%z(:,k) = vrtspec
+! check result..
+        divspec = sigdata%d(:,k); vrtspec = sigdata%z(:,k)
+        call sptezv_s(divspec,vrtspec,ug,vg,1)
+        ug = ug*psfg; vg = vg*psfg
+        call sptezv_s(divspec,vrtspec,ug,vg,-1) ! u,v to div,vrt
+        call sptez_s(divspec,vmassdiv(:,k),1) ! divspec to divgrd
+     enddo
+!$omp end parallel do
+
+     ! should be same as analyzed ps tend 
+     psfg = sum(vmassdiv,2)
+     !if (nanal .eq. 1) then
+     !   open(919,file='pstend.dat',form='unformatted',access='direct',recl=nlons*nlats)
+     !   write(919,rec=1) pstendfg
+     !   write(919,rec=2) pstend2
+     !   write(919,rec=3) psfg
+     !   write(919,rec=4) pstend1
+     !   close(919)
+     !endif
+     if (nanal .eq. 1) then
+     print *,nanal,'min/max adjusted ps tend',minval(psfg),maxval(psfg)
+     print *,nanal,'min/max diff between adjusted and analyzed ps tend',&
+             minval(pstend2-psfg),maxval(pstend2-psfg)
+     endif
+
+  endif ! if (massbal_adjust)
+
+  ! clip tracers.
+  if (cliptracers .and. nvars .gt. 3) then
+     clip = tiny(vg(1))
+!$omp parallel do private(k,nt,vg,divspec)  shared(sigdata,clip)
+     do k=1,nlevs
+     do nt=1,nvars-3
+        divspec = sigdata%q(:,k,nt) 
+        call sptez_s(divspec,vg,1)
+        where (vg < clip) vg = clip
+        call sptez_s(divspec,vg,-1)
+        sigdata%q(:,k,nt) = divspec
+     enddo
+     enddo
+!$omp end parallel do
+  end if
+
+  ! write out analysis.
+  if (iau) then
+     filename = &
+     trim(adjustl(datapath))//"sanl_"//datestring//"_fhr"//charfhr_anal//"_mem"//charnanal
+  else
+     filename = trim(adjustl(datapath))//"sanl_"//datestring//"_mem"//charnanal
+  endif
+  call sigio_swohdc(iunitsig,filename,sighead,sigdata,ierr)
+  ! deallocate sigdata structure.
+  call sigio_axdata(sigdata,ierr)
+  deallocate(pressi,ak,bk)
+  deallocate(psg,pstend1,pstend2,pstendfg,vmass)
+  if (massbal_adjust) then
+     deallocate(vmassdiv)
+     deallocate(vmassdivinc)
+  endif
+
+ end subroutine writegriddata
+
+ subroutine temptoz(npts,nlevs,pint,pl,zs,tv,z)
+! compute z (geopot height) on interfaces, given 
+! pint (interface pressure in hPa),
+! pl (pressure at mid-layers in hPa), tv (virtual temp at mid-layers) and
+! zs (surface orog). rd,cp,grav are gas constant, specific heat and gravity.
+! z does not include surface height (k=1 is 1st level, k=nlevs is model top)
+! uses hydrostatic eqn d(phi)/d(pi) = -thetav, where phi is geopot. height,
+! pi is exner function and thetav is virtual potential temp.
+  implicit none
+  integer, intent(in) :: npts,nlevs
+  real(r_kind), dimension(npts, nlevs) :: thetav,pil
+  real(r_kind), dimension(npts, nlevs+1) :: pii
+  real(r_kind), intent(in), dimension(npts,nlevs) :: tv,pl
+  real(r_kind), intent(in), dimension(npts,nlevs+1) :: pint
+  real(r_kind), intent(out), dimension(npts,nlevs) :: z
+  real(r_kind), intent(in), dimension(npts) :: zs
+  integer n,k
+  real dz
+ 
+  pii = cp*(pint/1000._r_kind)**(rd/cp)
+  pil = cp*(pl/1000._r_kind)**(rd/cp)
+  thetav = cp*tv/pil
+  do n=1,npts
+     dz = -thetav(n,1) * (pii(n,2)-pii(n,1))
+     z(n,1) = grav*zs(n) + dz
+     do k=3,nlevs+1
+        dz = -thetav(n,k-1) * (pii(n,k)-pii(n,k-1))
+        z(n,k-1) = z(n,k-2) + dz
+     end do
+  end do
+  z = z/grav
+ 
+ end subroutine temptoz
+
+ subroutine ztotemp(npts,nlevs,pint,pl,zs,tv,z)
+! compute virtual temp (tv) on mid-layers, given 
+! pint (interface pressure in hPa),
+! pl (pressure at mid-layers in hPa), z (z at interfaces) and
+! zs (surface orog). rd,cp.grav are  gas constant, specific heat and gravity.
+! z should not include surface height (k=1 is 1st level, k=nlevs is model top)
+! uses hydrostatic eqn d(phi)/d(pi) = -thetav, where phi is geopot. height,
+! pi is exner function and thetav is virtual potential temp.
+  implicit none
+  integer, intent(in) :: npts,nlevs
+  real(r_kind), dimension(npts, nlevs) :: thetav,pil
+  real(r_kind), dimension(npts, nlevs+1) :: pii
+  real(r_kind), intent(out), dimension(npts,nlevs) :: tv
+  real(r_kind), intent(in), dimension(npts,nlevs+1) :: pint
+  real(r_kind), intent(in), dimension(npts,nlevs) :: z,pl
+  real(r_kind), intent(in), dimension(npts) :: zs
+  integer n,k
+  real(r_kind) dz
+
+  pii = cp*(pint/1000._r_kind)**(rd/cp)
+  pil = cp*(pl/1000._r_kind)**(rd/cp)
+  do n=1,npts
+     dz = grav*(z(n,1) - zs(n))
+     thetav(n,1) = -dz/(pii(n,2)-pii(n,1))
+     do k=3,nlevs+1
+        dz = grav*(z(n,k-1) - z(n,k-2))
+        thetav(n,k-1) = -dz/(pii(n,k)-pii(n,k-1))
+     end do
+  end do
+  tv = thetav*pil/cp
+ end subroutine ztotemp
+
+ end module gridio
+#endif
+#ifdef WRF
+module gridio
+
+  !========================================================================
+
+  !$$$ Module documentation block
+  ! 
+  ! This module contains various routines to ingest and update
+  ! variables from Weather Research and Forecasting (WRF) model Advanced
+  ! Research WRF (ARW) and Non-hydrostatic Mesoscale Model (NMM) dynamical
+  ! cores which are required by the Ensemble Kalman Filter (ENKF) currently
+  ! designed for operations within the National Centers for Environmental
+  ! Prediction (NCEP) Global Forecasting System (GFS)
+  !
+  ! prgmmr: Winterbottom        org: ESRL/PSD1       date: 2011-11-30
+  !
+  ! program history log:
+  !   
+  !   2011-11-30  Initial version.
+  !
+  ! attributes:
+  !   language:  f95
+  !
+  !$$$
+
+  !=========================================================================
+
+  ! Define associated modules
+
+  use constants
+  use gridinfo, only: dimensions, gridvarstring, npts, cross2dot, dot2cross
+  use kinds,    only: r_double, r_kind, r_single
+  use mpisetup
+  use netcdf_io
+  use params,   only: nlevs, nvars, nlons, nlats, cliptracers, datapath,     &
+       &              arw, nmm, doubly_periodic, datestring
+
+  implicit none
+
+  !-------------------------------------------------------------------------
+
+  ! Define all public subroutines within this module
+
+  private
+  public :: readgriddata
+  public :: writegriddata
+
+  !-------------------------------------------------------------------------
+
+contains
+
+  subroutine readgriddata(nanal,vargrid,qsat)
+   integer,                                                         intent(in)  :: nanal
+   real(r_kind),       dimension(npts,nvars*nlevs+1),               intent(out) :: vargrid
+   real(r_double),     dimension(npts,nlevs),                       intent(out) :: qsat
+   if (arw) then
+     call readgriddata_arw(nanal,vargrid,qsat)
+   else
+     call readgriddata_nmm(nanal,vargrid,qsat)
+   endif
+  end subroutine readgriddata
+
+  !========================================================================
+
+  ! readgriddata_arw.f90: This subroutine will receive a WRF-ARW
+  ! netcdf file name and variable string and will subsequently return
+  ! the respective variable interpolated to an unstaggered grid; all
+  ! checks for grid staggering are contained within this subroutine
+
+  !-------------------------------------------------------------------------
+
+  subroutine readgriddata_arw(nanal,vargrid,qsat)
+
+    !======================================================================
+
+    ! Define array dimension variables
+
+    integer                                                                      :: xdim, ydim, zdim
+
+    ! Define variables passed to subroutine
+
+    character(len=500)                                                           :: filename
+    character(len=3)                                                             :: charnanal
+    integer,                                                         intent(in)  :: nanal
+
+    ! Define variables returned by subroutine
+
+    real(r_kind),       dimension(npts,nvars*nlevs+1),               intent(out) :: vargrid
+    real(r_double),     dimension(npts,nlevs),                       intent(out) :: qsat
+
+    ! Define variables computed within subroutine
+
+    logical                                                                      :: ice
+    real,       dimension(:,:,:),               allocatable              :: wrfarw_pert_pottemp
+    real,       dimension(:,:,:),               allocatable              :: wrfarw_znu
+    real,       dimension(:,:,:),               allocatable              :: wrfarw_psfc
+    real,       dimension(:,:,:),               allocatable              :: wrfarw_mu
+    real,       dimension(:,:,:),               allocatable              :: wrfarw_mub
+    real,       dimension(:,:,:),               allocatable              :: wrfarw_mixratio
+    real,       dimension(:,:,:),               allocatable              :: wrfarw_ptop
+    real,       dimension(:,:,:),               allocatable              :: workgrid
+    real,       dimension(:,:,:),               allocatable              :: vargrid_native
+    real(r_kind),     dimension(:,:),                 allocatable              :: enkf_virttemp
+    real(r_kind),     dimension(:,:),                 allocatable              :: enkf_pressure
+    real(r_kind),     dimension(:,:),                 allocatable              :: enkf_spechumd
+    real(r_single)                                                               :: kap
+    real(r_single)                                                               :: kap1
+    real(r_single)                                                               :: kapr
+    integer                                                                      :: xdim_native
+    integer                                                                      :: ydim_native
+    integer                                                                      :: zdim_native
+    integer                                                                      :: xdim_local
+    integer                                                                      :: ydim_local
+    integer                                                                      :: zdim_local
+
+    ! Define variables requiredfor netcdf variable I/O
+
+    character(len=12)                                                            :: varstrname
+    character(len=50)                                                            :: attstr
+    character(len=12)                                                            :: varstagger
+    character(len=12)                                                            :: varmemoryorder
+
+    ! Define counting variables
+
+    integer                                                                      :: i, j, k, l
+    integer                                                                      :: counth, countv
+    integer                                                                      :: count
+
+    !======================================================================
+
+    ! Initialize all constants required by routine
+
+    call init_constants(.true.)
+
+    ! Define all local variables
+
+    xdim = dimensions%xdim
+    ydim = dimensions%ydim
+    zdim = dimensions%zdim
+       
+    !======================================================================
+
+    ! Begin: Loop through each (prognostic) variable (defined in
+    ! gridinfo.F90), determine and define the spatial array
+    ! dimensions, and allocate memory for ARW dynamical core
+
+    !----------------------------------------------------------------------
+
+    ! Initialize counting variable
+
+    countv = 1
+
+    ! Define character string for ensemble member file
+
+    write(charnanal,'(i3.3)') nanal
+    filename = trim(adjustl(datapath))//"firstguess.mem"//charnanal
+
+    !----------------------------------------------------------------------
+
+    ! Loop through all variables to be update via the EnKF
+
+    do l = 1, nvars + 1
+
+    !----------------------------------------------------------------------
+
+       ! Define staggering attributes for variable grid
+
+       attstr = 'stagger'
+       call variableattribute_char(filename,gridvarstring(l),attstr,        &
+            & varstagger)
+
+       ! If variable grid is staggered in X-direction, assign array
+       ! dimensions appropriately
+
+       if(varstagger(1:1) .eq. 'X') then
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim + 1
+          ydim_native = ydim
+          zdim_native = zdim
+
+       ! If variable grid is staggered in Y-direction, assign array
+       ! dimensions appropriately
+
+       else if(varstagger(1:1) .eq. 'Y') then ! if(varstagger(1:1) .eq. '
+                                              ! X')
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim
+          ydim_native = ydim + 1
+          zdim_native = zdim
+
+       ! If variable grid is staggered in Z-direction, assign array
+       ! dimensions appropriately
+
+       else if(varstagger(1:1) .eq. 'Z') then ! if(varstagger(1:1) .eq. '
+                                              ! X')
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim
+          ydim_native = ydim
+          zdim_native = zdim + 1
+             
+       ! If variable grid is not staggered, assign array dimensions
+       ! appropriately
+
+       else ! if(varstagger(1:1) .eq. 'X')
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim
+          ydim_native = ydim
+          zdim_native = zdim
+
+       end if ! if(varstagger(1:1) .eq. 'X')
+
+    !----------------------------------------------------------------------
+
+       ! Define memory attributes for variable grid
+
+       attstr = 'MemoryOrder'
+       call variableattribute_char(filename,gridvarstring(l),attstr,       &
+            & varmemoryorder)
+
+          ! If variable is a 2-dimensional field, rescale variables
+          ! appropriately
+
+          if(varmemoryorder(1:3) .eq. 'XY ') then
+
+             ! Rescale grid dimension variables appropriately
+
+             zdim_local = 1
+             zdim_native = 1
+       
+          else
+
+             ! Define local array dimension
+
+             zdim_local = zdim
+
+          end if ! if(varmemoryorder(1:3) .eq. 'XY ')
+
+          ! Define local variable dimensions
+
+          xdim_local = xdim
+          ydim_local = ydim
+
+          ! Allocate memory for local variable arrays
+
+          if(.not. allocated(workgrid))                                     &
+               & allocate(workgrid(xdim_local,ydim_local,zdim_local))
+          if(.not. allocated(vargrid_native))                               &
+               & allocate(vargrid_native(xdim_native,ydim_native,           &
+               & zdim_native))
+
+          ! Ingest variable from external netcdf formatted file
+       
+          call readnetcdfdata(filename,vargrid_native,gridvarstring(l),     &
+               & xdim_native,ydim_native,zdim_native)
+       
+          ! Interpolate variable from staggered (i.e., C-) grid to
+          ! unstaggered (i.e., A-) grid. If variable is staggered in
+          ! vertical, intepolate from model layer interfaces
+          ! (including surface and top) to model layer midpoints.
+
+          call cross2dot(vargrid_native,xdim_native,ydim_native,            &
+               & zdim_native,xdim_local,ydim_local,zdim_local,workgrid)
+
+    !----------------------------------------------------------------------
+
+          ! Loop through vertical coordinate
+
+          do k = 1, zdim_local
+
+             ! Initialize counting variable
+          
+             counth = 1
+
+             ! Loop through meridional horizontal coordinate
+             
+             do j = 1, ydim_local
+
+                ! Loop through zonal horizontal coordinate
+
+                do i = 1, xdim_local
+
+                   ! Assign values to output variable array
+             
+                   vargrid(counth,countv) = workgrid(i,j,k)
+
+                   ! Update counting variable
+
+                   counth = counth + 1
+
+                end do ! do i = 1, xdim_local
+
+             end do ! do j = 1, ydim_local
+
+             ! Print message to user
+
+             if (nproc .eq. 0)                                               &
+                  write(6,*) 'READGRIDDATA_ARW: ', trim(gridvarstring(l)),   &
+                  & countv, minval(vargrid(:,countv)),                       &
+                  & maxval(vargrid(:,countv))
+
+             ! Update counting variable
+
+             countv = countv + 1
+
+          end do ! do k = 1, zdim_local
+
+    !----------------------------------------------------------------------
+
+          ! Deallocate memory for local variables
+
+          if(allocated(vargrid_native)) deallocate(vargrid_native)
+          if(allocated(workgrid))       deallocate(workgrid)
+
+    !----------------------------------------------------------------------
+
+       end do ! do l = 1, nvars + 1
+
+    !----------------------------------------------------------------------
+
+    ! End: Loop through each (prognostic) variable (defined in
+    ! gridinfo.F90), determine and define the spatial array
+    ! dimensions, and allocate memory for ARW dynamical core
+
+    !======================================================================
+
+    ! Begin: Ingest the necessary variables and compute the saturated
+    ! specific humidity along the WRF-ARW grid; this routine assumes
+    ! that all mass variables are defined along the unstaggered grid
+
+    !----------------------------------------------------------------------
+
+    ! Define all constants required by routine
+
+    ice = .false.
+    kap = rd/cp
+    kapr = cp/rd
+    kap1 = kap + 1
+
+    !----------------------------------------------------------------------
+
+    ! Allocate memory for all variables ingested by routine
+
+    if(.not. allocated(wrfarw_pert_pottemp))                                &
+         & allocate(wrfarw_pert_pottemp(xdim,ydim,zdim))
+    if(.not. allocated(wrfarw_mixratio))                                    &
+         & allocate(wrfarw_mixratio(xdim,ydim,zdim))
+    if(.not. allocated(wrfarw_mu))                                          &
+         & allocate(wrfarw_mu(xdim,ydim,1))
+    if(.not. allocated(wrfarw_mub))                                         &
+         & allocate(wrfarw_mub(xdim,ydim,1))
+    if(.not. allocated(wrfarw_psfc))                                        &
+         & allocate(wrfarw_psfc(xdim,ydim,1))
+    if(.not. allocated(wrfarw_znu))                                         &
+         & allocate(wrfarw_znu(1,1,zdim))
+    if(.not. allocated(wrfarw_ptop))                                        &
+         & allocate(wrfarw_ptop(1,1,1))
+
+    ! Allocate memory for variables computed within routine
+
+    if(.not. allocated(enkf_virttemp)) allocate(enkf_virttemp(npts,nlevs))
+    if(.not. allocated(enkf_pressure)) allocate(enkf_pressure(npts,nlevs))
+    if(.not. allocated(enkf_spechumd)) allocate(enkf_spechumd(npts,nlevs))
+
+    !----------------------------------------------------------------------
+
+    ! Ingest the perturbation potential temperature from the external
+    ! file
+
+    varstrname= 'T'
+    call readnetcdfdata(filename,wrfarw_pert_pottemp,varstrname,xdim,       &
+         & ydim,zdim)
+
+    ! Ingest the water vapor mixing ratio from the external file
+
+    varstrname = 'QVAPOR'
+    call readnetcdfdata(filename,wrfarw_mixratio,varstrname,xdim,ydim,      &
+         & zdim)
+
+    ! Ingest the model vertical (eta) levels from the external file
+
+    varstrname = 'ZNU'
+    call readnetcdfdata(filename,wrfarw_znu,varstrname,1,1,zdim)
+
+    ! Ingest the model perturbation dry air mass from the external
+    ! file
+
+    varstrname = 'MU'
+    call readnetcdfdata(filename,wrfarw_mu,varstrname,xdim,ydim,1)
+
+    ! Ingest the model base state dry air mass from the external file
+
+    varstrname = 'MUB'
+    call readnetcdfdata(filename,wrfarw_mub,varstrname,xdim,ydim,1)
+
+    ! Ingest the model top pressure level from the external file
+
+    varstrname = 'P_TOP'
+    call readnetcdfdata(filename,wrfarw_ptop,varstrname,1,1,1)
+
+    !----------------------------------------------------------------------
+
+    ! Loop through vertical coordinate; compute the hydrostatic
+    ! pressure level and subsequently the temperature at the
+    ! respective level
+    
+    do k = 1, zdim
+
+       ! Initialize counting variable
+
+       count = 1
+
+       ! Loop through meridional horizontal coordinate
+
+       do j = 1, ydim
+
+          ! Loop through zonal horizontal coordinate
+
+          do i = 1, xdim
+             
+             ! Compute the dry hydrostatic pressure at the respective
+             ! grid coordinate; This is dry pressure not full
+             ! pressure, ignore this difference, since we are only
+             ! using this to compute qsat, which in turn is only used
+             ! to compute normalized humidity analysis variable
+
+             enkf_pressure(count,k) = wrfarw_znu(1,1,k)*(wrfarw_mu(i,j,1)   &
+                  & + wrfarw_mub(i,j,1)) + wrfarw_ptop(1,1,1)
+
+             ! Compute mixing ratio from specific humidity.
+             
+             enkf_spechumd(count,k) = (wrfarw_mixratio(i,j,k))/(1.0 +       &
+                  & wrfarw_mixratio(i,j,k))
+
+             ! Compute virtual temp (this is only used to compute
+             ! saturation specific humidity (call genqsat)
+
+             enkf_virttemp(count,k) = ((wrfarw_pert_pottemp(i,j,k) +        &
+                  & 300.0)/((1000.0/(enkf_pressure(count,k)/100.0))         &
+                  & **(rd/cp))) + ((rv/rd)-1.)*enkf_spechumd(count,k)
+             
+             ! Update counting variable
+
+             count = count + 1
+
+          end do ! do i = 1, xdim
+
+       end do ! do j = 1, ydim
+
+    end do ! do k = 1, zdim
+
+    !----------------------------------------------------------------------
+
+    ! Compute the saturation specific humidity
+
+    call genqsat(enkf_spechumd,qsat,enkf_pressure/100.0,enkf_virttemp,ice,  &
+         & npts,nlevs)
+
+    !----------------------------------------------------------------------
+
+    ! End: Ingest the necessary variables and compute the saturated
+    ! specific humidity along the WRF-ARW grid; this routine assumes
+    ! that all mass variables are defined along the unstaggered grid
+
+    !======================================================================
+
+    ! Deallocate memory for variables ingested by routine
+
+    if(allocated(wrfarw_pert_pottemp)) deallocate(wrfarw_pert_pottemp)
+    if(allocated(wrfarw_mixratio))     deallocate(wrfarw_mixratio)
+    if(allocated(wrfarw_mu))           deallocate(wrfarw_mu)
+    if(allocated(wrfarw_mub))          deallocate(wrfarw_mub)
+    if(allocated(wrfarw_znu))          deallocate(wrfarw_znu)
+    if(allocated(wrfarw_ptop))         deallocate(wrfarw_ptop)
+
+    ! Deallocate memory for variables computed within routine
+
+    if(allocated(enkf_virttemp))       deallocate(enkf_virttemp)
+    if(allocated(enkf_pressure))       deallocate(enkf_pressure)
+    if(allocated(enkf_spechumd))       deallocate(enkf_spechumd)
+
+    !======================================================================
+
+    ! Return calculated values
+
+    return
+
+    !======================================================================
+
+  end subroutine readgriddata_arw
+
+  !========================================================================
+
+  ! readgriddata_nmm.f90: This subroutine will receive a WRF-NMM
+  ! netcdf file name and variable string and will subsequently return
+  ! the respective variable interpolated to an unstaggered grid; all
+  ! checks for grid staggering are contained within this subroutine
+
+  !-------------------------------------------------------------------------
+
+  subroutine readgriddata_nmm(nanal,vargrid,qsat)
+
+    !======================================================================
+
+    ! Define array dimension variables
+
+    integer                                                                      :: xdim, ydim, zdim
+
+    ! Define variables passed to subroutine
+
+    character(len=500)                                                           :: filename
+    character(len=3)                                                             :: charnanal
+    integer,                                                         intent(in)  :: nanal
+
+    ! Define variables returned by subroutine
+
+    real(r_kind),       dimension(npts,nvars*nlevs+1),               intent(out) :: vargrid
+    real(r_double),     dimension(npts,nlevs),                       intent(out) :: qsat
+
+    ! Define variables computed within subroutine
+
+    logical                                                                      :: ice
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_temp
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_pres
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_mixratio
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_pd
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_psfc
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_eta1
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_eta2
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_pdtop
+    real,       dimension(:,:,:),               allocatable              :: wrfnmm_pt
+    real,       dimension(:,:,:),               allocatable              :: workgrid
+    real,       dimension(:,:,:),               allocatable              :: vargrid_native
+    real,       dimension(:,:),                 allocatable              :: enkf_virttemp
+    real(r_kind),     dimension(:,:),                 allocatable              :: enkf_pressure
+    real(r_kind),     dimension(:,:),                 allocatable              :: enkf_spechumd
+    real(r_kind)                                                               :: kap
+    real(r_kind)                                                               :: kap1
+    real(r_kind)                                                               :: kapr
+    integer                                                                      :: xdim_native
+    integer                                                                      :: ydim_native
+    integer                                                                      :: zdim_native
+    integer                                                                      :: xdim_local
+    integer                                                                      :: ydim_local
+    integer                                                                      :: zdim_local
+
+    ! Define variables requiredfor netcdf variable I/O
+
+    character(len=12)                                                            :: varstrname
+    character(len=50)                                                            :: attstr
+    character(len=12)                                                            :: varstagger
+    character(len=12)                                                            :: varmemoryorder
+
+    ! Define counting variables
+
+    integer                                                                      :: i, j, k, l
+    integer                                                                      :: counth, countv
+    integer                                                                      :: count
+
+    !======================================================================
+
+    ! Initialize all constants required by routine
+
+    call init_constants(.true.)
+
+    ! Define all local variables
+
+    xdim = dimensions%xdim
+    ydim = dimensions%ydim
+    zdim = dimensions%zdim
+       
+    !======================================================================
+
+    ! Begin: Loop through each (prognostic) variable (defined in
+    ! gridinfo.F90), determine and define the spatial array
+    ! dimensions, and allocate memory for NMM dynamical core
+
+    !----------------------------------------------------------------------
+
+    ! Initialize counting variable
+
+    countv = 1
+
+    ! Define character string for ensemble member file
+
+    write(charnanal,'(i3.3)') nanal
+    filename = trim(adjustl(datapath))//"firstguess.mem"//charnanal
+
+    !----------------------------------------------------------------------
+
+    ! Loop through all variables to be update via the EnKF
+
+    do l = 1, nvars + 1
+
+    !----------------------------------------------------------------------
+
+       ! Define staggering attributes for variable grid
+
+       attstr = 'stagger'
+       call variableattribute_char(filename,gridvarstring(l),attstr,        &
+            & varstagger)
+
+       ! If variable grid is staggered in X-direction, assign array
+       ! dimensions appropriately
+
+       if(varstagger(1:1) .eq. 'X') then
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim + 1
+          ydim_native = ydim
+          zdim_native = zdim
+
+       ! If variable grid is staggered in Y-direction, assign array
+       ! dimensions appropriately
+
+       else if(varstagger(1:1) .eq. 'Y') then ! if(varstagger(1:1) .eq. '
+                                              ! X')
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim
+          ydim_native = ydim + 1
+          zdim_native = zdim
+
+       ! If variable grid is staggered in Z-direction, assign array
+       ! dimensions appropriately
+
+       else if(varstagger(1:1) .eq. 'Z') then ! if(varstagger(1:1) .eq. '
+                                              ! X')
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim
+          ydim_native = ydim
+          zdim_native = zdim + 1
+             
+       ! If variable grid is not staggered, assign array dimensions
+       ! appropriately
+
+       else ! if(varstagger(1:1) .eq. 'X')
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim
+          ydim_native = ydim
+          zdim_native = zdim
+
+       end if ! if(varstagger(1:1) .eq. 'X')
+
+    !----------------------------------------------------------------------
+
+       ! Define memory attributes for variable grid
+
+       attstr = 'MemoryOrder'
+       call variableattribute_char(filename,gridvarstring(l),attstr,       &
+            & varmemoryorder)
+
+          ! If variable is a 2-dimensional field, rescale variables
+          ! appropriately
+
+          if(varmemoryorder(1:3) .eq. 'XY ') then
+
+             ! Rescale grid dimension variables appropriately
+
+             zdim_local = 1
+             zdim_native = 1
+       
+          else
+
+             ! Define local array dimension
+
+             zdim_local = zdim
+
+          end if ! if(varmemoryorder(1:3) .eq. 'XY ')
+
+          ! Define local variable dimensions
+
+          xdim_local = xdim
+          ydim_local = ydim
+
+          ! Allocate memory for local variable arrays
+
+          if(.not. allocated(workgrid))                                     &
+               & allocate(workgrid(xdim_local,ydim_local,zdim_local))
+          if(.not. allocated(vargrid_native))                               &
+               & allocate(vargrid_native(xdim_native,ydim_native,           &
+               & zdim_native))
+
+          ! Ingest variable from external netcdf formatted file
+       
+          call readnetcdfdata(filename,vargrid_native,gridvarstring(l),     &
+               & xdim_native,ydim_native,zdim_native)
+       
+          ! Interpolate variable from staggered (i.e., E-) grid to
+          ! unstaggered (i.e., A-) grid. If variable is staggered in
+          ! vertical, intepolate from model layer interfaces
+          ! (including surface and top) to model layer midpoints.
+
+          call cross2dot(vargrid_native,xdim_native,ydim_native,            &
+               & zdim_native,xdim_local,ydim_local,zdim_local,workgrid)
+
+    !----------------------------------------------------------------------
+
+          ! Loop through vertical coordinate
+
+          do k = 1, zdim_local
+
+             ! Initialize counting variable
+          
+             counth = 1
+
+             ! Loop through meridional horizontal coordinate
+             
+             do j = 1, ydim_local
+
+                ! Loop through zonal horizontal coordinate
+
+                do i = 1, xdim_local
+
+                   ! Assign values to output variable array
+             
+                   vargrid(counth,countv) = workgrid(i,j,k)
+
+                   ! Update counting variable
+
+                   counth = counth + 1
+
+                end do ! do i = 1, xdim_local
+
+             end do ! do j = 1, ydim_local
+
+             ! Print message to user
+
+             if (nproc .eq. 0)                                               &
+                  write(6,*) 'READGRIDDATA_NMM: ', trim(gridvarstring(l)),   &
+                  & countv, minval(vargrid(:,countv)),                       &
+                  & maxval(vargrid(:,countv))
+
+             ! Update counting variable
+
+             countv = countv + 1
+
+          end do ! do k = 1, zdim_local
+
+    !----------------------------------------------------------------------
+
+          ! Deallocate memory for local variables
+
+          if(allocated(vargrid_native)) deallocate(vargrid_native)
+          if(allocated(workgrid))       deallocate(workgrid)
+
+    !----------------------------------------------------------------------
+
+       end do ! do l = 1, nvars + 1
+
+    !----------------------------------------------------------------------
+
+    ! End: Loop through each (prognostic) variable (defined in
+    ! gridinfo.F90), determine and define the spatial array
+    ! dimensions, and allocate memory for NMM dynamical core
+
+    !======================================================================
+
+    ! Begin: Ingest the necessary variables and compute the saturated
+    ! specific humidity along the WRF-NMM grid; this routine assumes
+    ! that all mass variables are defined along the unstaggered grid
+
+    !----------------------------------------------------------------------
+
+    ! Define all constants required by routine
+
+    ice = .false.
+    kap = rd/cp
+    kapr = cp/rd
+    kap1 = kap + 1
+
+    !----------------------------------------------------------------------
+
+    ! Allocate memory for all variables ingested by routine
+
+    if(.not. allocated(wrfnmm_temp))                                        &
+         & allocate(wrfnmm_temp(xdim,ydim,zdim))
+    if(.not. allocated(wrfnmm_pres))                                        &
+         & allocate(wrfnmm_pres(xdim,ydim,zdim))
+    if(.not. allocated(wrfnmm_mixratio))                                    &
+         & allocate(wrfnmm_mixratio(xdim,ydim,zdim))
+    if(.not. allocated(wrfnmm_psfc))                                        &
+         & allocate(wrfnmm_psfc(xdim,ydim,1)) 
+    if(.not. allocated(wrfnmm_pd))                                          &
+         & allocate(wrfnmm_pd(xdim,ydim,1)) 
+    if(.not. allocated(wrfnmm_eta1))                                        &
+         & allocate(wrfnmm_eta1(1,1,zdim))
+    if(.not. allocated(wrfnmm_eta2))                                        &
+         & allocate(wrfnmm_eta2(1,1,zdim))
+    if(.not. allocated(wrfnmm_pdtop))                                       &
+         & allocate(wrfnmm_pdtop(1,1,1))
+    if(.not. allocated(wrfnmm_pt))                                          &
+         & allocate(wrfnmm_pt(1,1,1))
+
+    ! Allocate memory for variables computed within routine
+
+    if(.not. allocated(enkf_virttemp)) allocate(enkf_virttemp(npts,nlevs))
+    if(.not. allocated(enkf_pressure)) allocate(enkf_pressure(npts,nlevs))
+    if(.not. allocated(enkf_spechumd)) allocate(enkf_spechumd(npts,nlevs))
+
+    !----------------------------------------------------------------------
+
+    ! Ingest the (sensible) temperature from the external file
+
+    varstrname= 'T'
+    call readnetcdfdata(filename,wrfnmm_temp,varstrname,xdim,ydim,zdim)
+
+    ! Ingest the water vapor mixing ratio from the external file
+
+    varstrname = 'Q'
+    call readnetcdfdata(filename,wrfnmm_mixratio,varstrname,xdim,ydim,      &
+         & zdim)
+
+    ! Ingest surface pressure from the external file
+
+    varstrname = 'PD'
+    call readnetcdfdata(filename,wrfnmm_pd,varstrname,xdim,ydim,1)
+
+    ! Ingest hybrid vertical coordinate from the external file
+
+    varstrname = 'AETA1'
+    call readnetcdfdata(filename,wrfnmm_eta1,varstrname,1,1,zdim)
+
+    ! Ingest hybrid vertical coordinate from the external file
+
+    varstrname = 'AETA2'
+    call readnetcdfdata(filename,wrfnmm_eta2,varstrname,1,1,zdim)
+
+    ! Ingest pressure at top of domain from the external file
+
+    varstrname = 'PT'
+    call readnetcdfdata(filename,wrfnmm_pt,varstrname,1,1,1)
+
+    ! Ingest mass within pressure domain from the external file
+
+    varstrname = 'PDTOP'
+    call readnetcdfdata(filename,wrfnmm_pdtop,varstrname,1,1,1)
+
+    !----------------------------------------------------------------------
+
+    ! Loop through meridional horizontal coordinate
+    
+    do j = 1, ydim
+       
+       ! Loop through zonal horizontal coordinate
+       
+       do i = 1, xdim
+
+          ! Compute the surface pressure profile
+
+          wrfnmm_psfc(i,j,1) = (wrfnmm_pd(i,j,1) + wrfnmm_pdtop(1,1,1) +    &
+               & wrfnmm_pt(1,1,1))
+
+       end do ! do i = 1, xdim
+          
+    end do ! do j = 1, ydim
+
+    ! Loop through vertical horizontal coordinate
+
+    do k = 1, zdim
+    
+       ! Loop through meridional horizontal coordinate
+
+       do j = 1, ydim
+          
+          ! Loop through zonal horizontal coordinate
+          
+          do i = 1, xdim
+
+             ! Compute the pressure profile; the following formulation
+             ! (should be) is identical to that in the Gridpoint
+             ! Statistical Interpolation (GSI) routines for the
+             ! WRF-NMM dynamical core
+
+             wrfnmm_pres(i,j,k) = wrfnmm_eta1(1,1,k)*wrfnmm_pdtop(1,1,1) +  &
+                  & wrfnmm_eta2(1,1,k)*(wrfnmm_psfc(i,j,1) -                &
+                  & wrfnmm_pdtop(1,1,1) - wrfnmm_pt(1,1,1)) +               &
+                  & wrfnmm_pt(1,1,1)
+
+          end do ! do i = 1, xdim
+
+       end do ! do j = 1, ydim
+
+    end do ! do k = 1, zdim
+
+    !----------------------------------------------------------------------
+
+    ! Loop through vertical coordinate; compute the hydrostatic
+    ! pressure level and subsequently the temperature at the
+    ! respective level
+    
+    do k = 1, zdim
+
+       ! Initialize counting variable
+
+       count = 1
+
+       ! Loop through meridional horizontal coordinate
+
+       do j = 1, ydim
+
+          ! Loop through zonal horizontal coordinate
+
+          do i = 1, xdim
+             
+             ! Define the full pressure within model layers
+
+             enkf_pressure(count,k) = wrfnmm_pres(i,j,k)
+
+             ! Define the specific humidity with model layers
+             
+             enkf_spechumd(count,k) = wrfnmm_mixratio(i,j,k)
+
+             ! Compute virtual temp (this is only used to compute
+             ! saturation specific humidity (call genqsat)
+
+             enkf_virttemp(count,k) = wrfnmm_temp(i,j,k) +                  &
+                  & ((rv/rd)-1.)*enkf_spechumd(count,k)
+             
+             ! Update counting variable
+
+             count = count + 1
+
+          end do ! do i = 1, xdim
+
+       end do ! do j = 1, ydim
+
+       ! Print message to user
+
+       if(nproc .eq. 0) then
+
+          ! Print message to user
+
+          write(6,*) 'level, min(pres), max(pres): ', k,                    &
+               & minval(enkf_pressure(1:(count - 1),k)),                    &
+               & maxval(enkf_pressure(1:(count - 1),k)) 
+          write(6,*) 'level, min(virttemp), max(virttemp): ', k,            &
+               & minval(enkf_virttemp(1:(count - 1),k)),                    &
+               & maxval(enkf_virttemp(1:(count - 1),k)) 
+          write(6,*) 'level, min(sh), max(sh): ', k,                        &
+               & minval(enkf_spechumd(1:(count - 1),k)),                    &
+               & maxval(enkf_spechumd(1:(count - 1),k)) 
+
+       end if ! if(nproc .eq. 0)
+
+    end do ! do k = 1, zdim
+
+    !----------------------------------------------------------------------
+
+    ! Compute the saturation specific humidity
+
+    call genqsat(enkf_spechumd,qsat,enkf_pressure/100.0,enkf_virttemp,ice,  &
+         & npts,nlevs)
+
+    !----------------------------------------------------------------------
+
+    ! End: Ingest the necessary variables and compute the saturated
+    ! specific humidity along the WRF-NMM grid; this routine assumes
+    ! that all mass variables are defined along the unstaggered grid
+
+    !======================================================================
+
+    ! Deallocate memory for variables ingested by routine
+
+    if(allocated(wrfnmm_temp))         deallocate(wrfnmm_temp)
+    if(allocated(wrfnmm_pres))         deallocate(wrfnmm_pres)
+    if(allocated(wrfnmm_mixratio))     deallocate(wrfnmm_mixratio)
+    if(allocated(wrfnmm_psfc))         deallocate(wrfnmm_psfc)
+    if(allocated(wrfnmm_pd))           deallocate(wrfnmm_pd)
+    if(allocated(wrfnmm_eta1))         deallocate(wrfnmm_eta1)
+    if(allocated(wrfnmm_eta2))         deallocate(wrfnmm_eta2)
+    if(allocated(wrfnmm_pdtop))        deallocate(wrfnmm_pdtop)
+    if(allocated(wrfnmm_pt))           deallocate(wrfnmm_pt)
+
+    ! Deallocate memory for variables computed within routine
+
+    if(allocated(enkf_virttemp))       deallocate(enkf_virttemp)
+    if(allocated(enkf_pressure))       deallocate(enkf_pressure)
+    if(allocated(enkf_spechumd))       deallocate(enkf_spechumd)
+
+    !======================================================================
+
+    ! Return calculated values
+
+    return
+
+    !======================================================================
+
+  end subroutine readgriddata_nmm
+
+  !========================================================================
+
+  ! writegriddata.f90: This subroutine will receive a netcdf file name
+  ! and variable string and will subsequently return the respective
+  ! variable interpolated to the native variable grid; all checks for
+  ! grid staggering are contained within this subroutine
+
+  !-------------------------------------------------------------------------
+
+  subroutine writegriddata(nanal,vargrid)
+
+    include 'netcdf.inc'      
+
+    !----------------------------------------------------------------------
+
+    ! Define variables passed to subroutine
+
+    real(r_kind),    dimension(npts,nvars*nlevs+1),                            intent(in)    :: vargrid
+    integer,                                                                     intent(in)    :: nanal                                                
+
+    !----------------------------------------------------------------------
+
+    ! Define variables computed within subroutine
+
+    character(len=500)                                                                         :: filename
+    character(len=3)                                                                           :: charnanal
+    real,    dimension(:,:,:),                allocatable                            :: vargrid_native
+    real,    dimension(:,:,:),                allocatable                            :: vargridin_native
+    real,    dimension(:,:,:),                allocatable                            :: workgrid
+    real                                                                             :: clip
+    integer iyear,imonth,iday,ihour,dh1,ierr,iw3jdn
+    integer                                                                                    :: xdim_native
+    integer                                                                                    :: ydim_native
+    integer                                                                                    :: zdim_native
+    integer                                                                                    :: xdim_local
+    integer                                                                                    :: ydim_local
+    integer                                                                                    :: zdim_local
+
+    !----------------------------------------------------------------------
+
+    ! Define array dimension variables
+
+    integer                                                                                    :: xdim
+    integer                                                                                    :: ydim
+    integer                                                                                    :: zdim
+
+    !----------------------------------------------------------------------
+
+    ! Define variables required by for extracting netcdf variable
+    ! fields
+
+    character(len=50)                                                                          :: attstr
+    character(len=12)                                                                          :: varstagger,varstrname
+    character(len=12)                                                                          :: varmemoryorder
+    character(len=19)  :: DateStr
+
+    !----------------------------------------------------------------------
+
+    ! Define counting variables
+
+    integer                                                                                    :: i, j, k, l
+    integer                                                                                    :: counth, countv
+
+    !----------------------------------------------------------------------
+
+    ! Initialize constants required by routine
+
+    call init_constants(.true.)
+
+    !----------------------------------------------------------------------
+
+    ! Define all array dimensions
+
+    xdim = dimensions%xdim
+    ydim = dimensions%ydim
+    zdim = dimensions%zdim
+
+    ! Allocate memory for local variable
+
+    allocate(workgrid(xdim,ydim,zdim))
+
+    !----------------------------------------------------------------------
+
+    ! End: Define all local variables required by routine
+
+    !======================================================================
+
+    ! Begin: Loop through each prognostic variable and determine the
+    ! spatial array dimensions for each variable contained within
+    ! file, define appropriate array dimensions, and allocate memory;
+    ! update respective analysis (e.g., prognostic model) variables
+
+    !----------------------------------------------------------------------
+
+    ! Initialize counting variable
+
+    countv = 1
+
+    !----------------------------------------------------------------------
+
+    ! First guess file should be copied to analysis file at scripting
+    ! level; only variables updated by EnKF are changed
+
+    write(charnanal,'(i3.3)') nanal
+    filename = trim(adjustl(datapath))//"analysis.mem"//charnanal
+
+    !----------------------------------------------------------------------
+
+    ! Loop through all analysis variables to be updated
+
+    do l = 1, nvars + 1
+
+    !----------------------------------------------------------------------
+
+       ! For WRF-ARW; analysis variables are defined on C-grid; the
+       ! check for interpolation between mass and velocity points is
+       ! done here
+
+       if(arw) then
+
+    !----------------------------------------------------------------------
+
+          ! Define staggering attributes for variable grid
+       
+          attstr = 'stagger'
+          call variableattribute_char(filename,gridvarstring(l),attstr,     &
+               & varstagger)
+
+    !----------------------------------------------------------------------
+
+          ! If variable grid is staggered in X-direction, assign array
+          ! dimensions appropriately
+
+          if(varstagger(1:1) .eq. 'X') then
+
+             ! Assign array dimensions appropriately
+
+             xdim_native = xdim + 1
+             ydim_native = ydim
+             zdim_native = zdim
+
+    !----------------------------------------------------------------------
+
+             ! If variable grid is staggered in Y-direction, assign
+             ! array dimensions appropriately
+
+          else if(varstagger(1:1) .eq. 'Y') then
+
+             ! Assign array dimensions appropriately
+
+             xdim_native = xdim
+             ydim_native = ydim + 1
+             zdim_native = zdim
+
+    !----------------------------------------------------------------------
+
+             ! If variable grid is staggered in Z-direction, assign
+             ! array dimensions appropriately
+
+          else if(varstagger(1:1) .eq. 'Z') then
+
+             ! Assign array dimensions appropriately
+
+             xdim_native = xdim
+             ydim_native = ydim
+             zdim_native = zdim + 1
+
+    !----------------------------------------------------------------------
+
+             ! If variable grid is not staggered, assign array
+             ! dimensions appropriately
+
+          else 
+
+             ! Assign array dimensions appropriately
+
+             xdim_native = xdim
+             ydim_native = ydim
+             zdim_native = zdim
+
+    !----------------------------------------------------------------------
+
+          end if ! if(varstagger(1:1) .eq. 'X')
+
+    !----------------------------------------------------------------------
+
+       endif ! if(arw)
+
+    !----------------------------------------------------------------------
+
+       ! For WRF-NMM; analysis variables are defined on E-grid;
+       ! although th grid may still be staggered, the array dimensions
+       ! (along the horizontal planes) remain the same dimension,
+       ! however just offset
+
+       if(nmm) then
+
+          ! Assign array dimensions appropriately
+
+          xdim_native = xdim
+          ydim_native = ydim
+          zdim_native = zdim
+
+       end if ! if(nmm)
+
+    !----------------------------------------------------------------------
+
+       ! Define memory attributes for variable grid; this is done for
+       ! ARW only
+
+       if(arw) then
+
+          attstr = 'MemoryOrder'
+          call variableattribute_char(filename,gridvarstring(l),attstr,     &
+               & varmemoryorder)
+
+       end if ! if(arw)
+
+    !----------------------------------------------------------------------
+
+       ! If variable is a 2-dimensional field, rescale variables
+       ! appropriately
+
+       if(gridvarstring(l) .eq. 'MU' .or. gridvarstring(l) .eq. 'PD') then
+
+          ! Rescale grid dimension variables appropriately
+
+          zdim_local = 1
+          zdim_native = 1
+       
+       else
+
+          ! Define local array dimension
+
+          zdim_local = zdim
+
+       end if ! if(gridvarstring(l) .eq. 'MU' .or. gridvarstring(l) .eq. 
+              ! 'PD')
+
+    !----------------------------------------------------------------------
+
+       ! Define local variable dimensions
+
+       xdim_local = xdim
+       ydim_local = ydim
+
+    !----------------------------------------------------------------------
+
+       ! Allocate memory local arrays (first check whether they are
+       ! already allocated)
+
+       if (allocated(vargrid_native)) deallocate(vargrid_native)
+       allocate(vargrid_native(xdim_native,ydim_native,zdim_native))
+       if (allocated(vargridin_native)) deallocate(vargridin_native)
+       allocate(vargridin_native(xdim_native,ydim_native,zdim_native))
+
+    !----------------------------------------------------------------------
+       
+       ! Read in first-guess (i.e., analysis without current
+       ! increments) and store in local array
+
+       call readnetcdfdata(filename,vargridin_native,gridvarstring(l),      &
+            & xdim_native,ydim_native,zdim_native)
+
+    !----------------------------------------------------------------------
+
+       ! Loop through vertical coordinate
+
+       do k = 1, zdim_local
+
+    !----------------------------------------------------------------------
+
+          ! Initialize counting variable
+
+          counth = 1
+
+    !----------------------------------------------------------------------
+
+          ! Loop through meridional horizontal coordinate
+          
+          do j = 1, ydim
+             
+             ! Loop through zonal horizontal coordinate
+
+             do i = 1, xdim
+
+    !----------------------------------------------------------------------
+
+                ! Assign values to local array
+
+                workgrid(i,j,k) = vargrid(counth,countv)
+
+                ! Update counting variable
+
+                counth = counth + 1
+
+    !----------------------------------------------------------------------
+
+             end do ! do i = 1, xdim
+
+          end do ! do j = 1, ydim
+
+    !----------------------------------------------------------------------
+
+          ! Update counting variable
+
+          countv = countv + 1
+
+    !----------------------------------------------------------------------
+
+       end do ! k = 1, zdim_local
+
+    !----------------------------------------------------------------------
+
+       ! Interpolate increments to native grid (i.e., from A-grid to
+       ! C-grid; if necessary); on input, workgrid is increments on
+       ! unstaggered grid; on output vargrid_native is increments on
+       ! model-native (i.e., staggered grid); vargridin_native is
+       ! unmodified first guess on native staggered grid
+
+       call dot2cross(xdim_local,ydim_local,zdim_local,xdim_native,          &
+            ydim_native,zdim_native,workgrid,vargrid_native)
+
+       ! Add first guess to increment to get analysis on native grid;
+       ! this currently done only for ARW grids
+
+       if(arw) then
+
+          if (varstagger(1:1) .eq. 'Z') then ! if 'W' or 'PH' don't update surface
+
+             vargridin_native(:,:,2:zdim_native) =                           &
+                  & vargrid_native(:,:,2:zdim_native) +                      &
+                  & vargridin_native(:,:,2:zdim_native)
+
+          else
+
+             vargridin_native = vargrid_native + vargridin_native
+
+          endif ! if (varstagger(1:1) .eq. 'Z')
+
+       endif ! if(arw)
+
+       ! Clip all tracers (assume names start with 'Q')
+
+       if (cliptracers .and. gridvarstring(l)(1:1) .eq. 'Q') then
+
+          clip = tiny(vargridin_native(1,1,1))
+          where (vargridin_native < clip) vargridin_native = clip
+
+       end if ! if (cliptracers .and. gridvarstring(l)(1:1) .eq. 'Q')
+
+    !----------------------------------------------------------------------
+
+       if(nmm) then
+          
+          vargridin_native = vargrid_native + vargridin_native
+
+       end if
+
+       ! Write analysis variable.
+
+       call writenetcdfdata(filename,vargridin_native,gridvarstring(l),       &
+             xdim_native,ydim_native,zdim_native)
+
+    end do ! do l = 1, nvars+1
+
+    !----------------------------------------------------------------------
+
+    ! Deallocate memory for local variable
+
+    deallocate(workgrid)
+
+    ! update NSTART_HOUR in NMM (HWRF) restart file.
+    read(datestring(1:4),'(i4)') iyear
+    read(datestring(5:6),'(i2)') imonth
+    read(datestring(7:8),'(i2)') iday
+    read(datestring(9:10),'(i2)') ihour
+    if (nmm) then
+       varstrname = 'NSTART_HOUR'
+       vargrid_native(1,1,1) = ihour
+       call writenetcdfdata(filename,vargrid_native,varstrname,1,1,1)
+    end if
+    !
+    !  update START_DATE, SIMULATION_START_DATE, GMT, JULYR, JULDAY 
+    !  global attributes.
+    !
+    write(DateStr,'(i4,"-",i2.2,"-",i2.2,"-",i2.2,"_",i2.2,":",i2.2)') iyear,imonth,iday,ihour,0,0
+    ierr = NF_OPEN(trim(filename), NF_WRITE, dh1)
+    IF (ierr .NE. NF_NOERR) print *, 'OPEN ',NF_STRERROR(ierr)
+    ierr = NF_PUT_ATT_TEXT(dh1,NF_GLOBAL,'START_DATE',len(trim(DateStr)),DateStr)
+    IF (ierr .NE. NF_NOERR) print *,'PUT START_DATE', NF_STRERROR(ierr)
+    ierr = NF_PUT_ATT_TEXT(dh1,NF_GLOBAL,'SIMULATION_START_DATE',len(trim(DateStr)),DateStr)
+    IF (ierr .NE. NF_NOERR) print *,'PUT SIMULATION_START_DATE', NF_STRERROR(ierr)
+    ierr = NF_PUT_ATT_REAL(dh1,NF_GLOBAL,'GMT',NF_FLOAT,1,float(ihour))
+    IF (ierr .NE. NF_NOERR) print *,'PUT GMT', NF_STRERROR(ierr)
+    ierr = NF_PUT_ATT_INT(dh1,NF_GLOBAL,'JULYR',NF_INT,1,iyear)
+    IF (ierr .NE. NF_NOERR) print *,'PUT JULYR', NF_STRERROR(ierr)
+    ierr=NF_PUT_ATT_INT(dh1,NF_GLOBAL,'JULDAY',NF_INT,1,iw3jdn(iyear,imonth,iday)-iw3jdn(iyear,1,1)+1)
+    IF (ierr .NE. NF_NOERR) print *,'PUT JULDAY', NF_STRERROR(ierr)
+    ierr = NF_CLOSE(dh1)
+    IF (ierr .NE. NF_NOERR) print *, 'CLOSE ',NF_STRERROR(ierr)
+
+    !----------------------------------------------------------------------
+
+    ! End: Loop through each prognostic variable and determine the
+    ! spatial array dimensions for each variable contained within
+    ! file, define appropriate array dimensions, and allocate memory;
+    ! update respective analysis (e.g., prognostic model) variables
+
+    !======================================================================
+
+    ! Return calculated values
+
+    return
+
+    !======================================================================
+
+  end subroutine writegriddata
+
+  !========================================================================
+
+end module gridio
+#endif

@@ -1,0 +1,54 @@
+FCP           = ifort
+FCS           = ifort
+FFLAGS        = -O3 -assume byterecl -warn all -implicitnone -traceback
+FREEFLAG      = -FR
+COREINC       = /scratch2/portfolios/NCEPDEV/global/save/Shrinivas.Moorthi/para/lib/incmod/
+INCsigio      = $(COREINC)/sigio_4
+INCsfcio      = $(COREINC)/sfcio_4
+LIBncep       = /scratch2/portfolios/NCEPDEV/global/save/Shrinivas.Moorthi/para/lib/
+
+
+.SUFFIXES: .o .f90 .F90
+
+all: getsigensmean getsigensmean_smooth getsfcensmean adderrspec_spec recentersigp
+
+OBJS_GETSIGENSMEAN=kinds.o specmod.o
+OBJS_GRDTOSPEC=kinds.o specmod.o rnorm.o constants.o
+
+getsigensmean: $(OBJS_GETSIGENSMEAN)
+	$(FCS) -I $(INCsigio) $(FFLAGS) $(FREEFLAG) -o getsigensmean.x getsigensmean.f -L$(LIBncep) -lsp_4 -lsigio_4
+
+getsigensmean_smooth: $(OBJS_GETSIGENSMEAN)
+	$(FCS) $(FFLAGS) $(FREEFLAG) -I$(INCsigio) -o getsigensmean_smooth.x getsigensmean_smooth_ncep.f90 -L$(LIBncep) -lsigio_4 -lsp_4
+
+getsfcensmean:
+	$(FCS) -I $(INCsfcio) $(FFLAGS) $(FREEFLAG) -o getsfcensmean.x getsfcensmean.f -L$(LIBncep) -lsfcio_4
+
+adderrspec_spec:
+	$(FCP) $(FFLAGS) -I $(INCsigio) -o adderrspec_nmcmeth_spec.x adderrspec_nmcmeth_ncep_spec.f90 -L$(LIBncep) -lsigio_4 -lsp_4 -lmpi
+
+recentersigp: $(OBJS_GETSIGENSMEAN)
+	$(FCP) -I $(INCsigio) $(FFLAGS) $(FREEFLAG) -o recentersigp.x recentersigp.f $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4 -lmpi
+
+clean:
+	rm -f $(OBJS_GETSIGENSMEAN) $(OBJS_GRDTOSPEC) *.mod *.x *.o $(EXEC) loadmap.txt
+
+.F90.o:
+	$(FCP) $(FFLAGS) -c $<
+
+.f90.o:
+	$(FCP) $(FFLAGS) -c $< 
+
+.f.o:
+	$(FCP) $(FFLAGS) -free -c $< 
+
+%.o : %.mod
+
+kinds.o:	kinds.f90
+
+constants.o:	constants.f90 kinds.o
+
+specmod.o:	specmod.f90 kinds.o
+
+rnorm.o:	rnorm.f90 kinds.o
+

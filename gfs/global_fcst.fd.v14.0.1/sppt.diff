@@ -1,0 +1,119 @@
+--- gbphys.f.orig	2016-07-01 12:11:28.000000000 -0400
++++ gbphys.f	2016-07-01 12:15:31.000000000 -0400
+@@ -25,6 +25,7 @@
+ !           redrag,hybedmf,dspheat,cal_pre,                             !
+ !           mom4ice,trans_trac,nst_fcst,fscav,                          !
+ !           thermodyn_id, sfcpress_id, gen_coord_hybrid, adjtrc,nnp,    !
++!           sppt_wt,                                                    !
+ !       input/outputs:                                                  !
+ !           hice,fice,tisfc,tsea,tprcp,cv,cvb,cvt,                      !
+ !           srflag,snwdph,weasd,sncovr,zorl,canopy,                     !
+@@ -92,6 +93,7 @@
+ !      jul  2013  - r. sun     added pdf cloud                          !
+ !      jul  2013  - j. han     added reduced drag coef. over sea        !
+ !      jan  2014  - h.juang and f.yang added energy conversion from gwd !
++!      aug  2015  - p.pegion   add sppt weight for precipitation
+ !                                                                       !
+ !                                                                       !
+ !  ====================  defination of variables  ====================  !
+@@ -217,6 +219,7 @@
+ !     gen_coord_hybrid - logical for henry's gen coord             1    !
+ !     adjtrc       - real, dynamics adjustments to tracers       ntrac  !
+ !     nnp      - integer, physics substep number                   1    !
++!     sppt_wt      - real, stochastic physics weights              im   !
+ !                                                                       !
+ !  input/outputs:                                                       !
+ !     hice     - real, sea-ice thickness                           im   !
+@@ -369,6 +372,7 @@
+      &      redrag,hybedmf,dspheat,cal_pre,                             &
+      &      mom4ice,trans_trac,nst_fcst,fscav,                          &
+      &      thermodyn_id, sfcpress_id, gen_coord_hybrid, adjtrc,nnp,    &
++     &      sppt_wt,                                                    &
+ !  ---  input/outputs:
+      &      hice,fice,tisfc,tsea,tprcp,cv,cvb,cvt,                      &
+      &      srflag,snwdph,weasd,sncovr,zorl,canopy,                     &
+@@ -449,7 +453,7 @@
+      &      sinlat, coslat, pgr,    dpshc,  xlon,   xlat,               &
+      &      slope,  shdmin, shdmax, snoalb, tg3,    slmsk,  vfrac,      &
+      &      vtype,  stype,  uustar, oro,    coszen, sfcnsw, sfcdsw,     &
+-     &      sfcdlw, tsflw,  sfalb,  sfcemis, oro_uf
++     &      sfcdlw, tsflw,  sfalb,  sfcemis, oro_uf,sppt_wt
+ 
+       real(kind=kind_phys), dimension(ix,levs),       intent(in) ::     &
+      &      ugrs, vgrs, tgrs, vvel, prsl, prslk, phil, swh,swhc,hlw,hlwc
+@@ -1714,6 +1718,10 @@
+         endif
+       endif   ! end if_not_ras
+ !
++!     added by PJP, precipitation is scaled by sppt
++      do i = 1, im
++         rain1(i) = rain1(i) * sppt_wt(i)
++      enddo
+       do i = 1, im
+         rainc(i) = frain * rain1(i)
+       enddo
+@@ -1969,6 +1977,11 @@
+             enddo
+           endif 
+ 
++!     added by PJP, precipitation is scaled by sppt
++          do i = 1, im
++            rain1(i) = rain1(i) * sppt_wt(i)
++          enddo
++
+           do i = 1, im
+             raincs(i) = frain * rain1(i)
+           enddo
+@@ -2142,6 +2155,10 @@
+       endif   ! end if_ncld
+ 
+ !     if (lprnt) print *,' rain1=',rain1(ipr),' rainc=',rainc(ipr)
++!     added by PJP, precipitation is scaled by sppt
++      do i = 1, im
++         rain1(i) = rain1(i) * sppt_wt(i)
++      enddo
+ 
+       do i = 1, im
+         rainl(i) = frain    * rain1(i)
+--- gloopb.f.orig	2016-07-01 12:04:10.000000000 -0400
++++ gloopb.f	2016-07-01 12:11:21.000000000 -0400
+@@ -146,6 +146,7 @@
+ !! sppt additional variables
+       real (kind=kind_phys) ugrd0(ngptc,levs),vgrd0(ngptc,levs)
+       real (kind=kind_phys) gr0(ngptc,levs,ntrac),gt0(ngptc,levs)
++      real (kind=kind_phys)  sppt_wts2(ngptc)
+ !   variables for stochastic physics
+ !-----------------------------------
+       real (kind=kind_phys),dimension(ngptc,levs)        ::
+@@ -838,7 +839,7 @@
+ !$omp+private(det_mf_v)
+ !$omp+private(njeff,item,jtem,ktem,i,j,k,kss,n,nn,nnr)
+ !$omp+private(uphys,vphys,tphys,qphys)
+-!$omp+private(sppt_wts)
++!$omp+private(sppt_wts,sppt_wts2)
+ !$omp+private(dtdt)
+ 
+ !!!$omp+private(temlon,temlat,lprnt,ipt)
+@@ -1119,6 +1120,14 @@
+ 
+ !     for tracer fixer
+ 
++          if (stochphys .and. sppt(1) > 0) then ! stoch. perturbed physics tend.
++            do i=1,njeff
++               sppt_wts2(i)=sppt_wt(lon+i-1,lan,4)
++            enddo
++          else
++            sppt_wts2(:)=1.0
++          endif
++
+           do ntr=1,ntrac
+             if (fixtrc(ntr) .and. .not. iauforcing) then
+               do k=1,levs
+@@ -1159,6 +1168,7 @@
+      &      redrag,hybedmf,dspheat,cal_pre,                             &
+      &      mom4ice,trans_trac,nst_fcst,fscav,                          &
+      &      thermodyn_id, sfcpress_id, gen_coord_hybrid,  adjtrc, nn,   &
++     &      sppt_wts2(1:njeff),                                         &
+ !  ---  input/outputs:
+      &      sfc_fld%hice  (lon,lan),    sfc_fld%fice  (lon,lan),        &
+      &      sfc_fld%tisfc (lon,lan),    sfc_fld%tsea  (lon,lan),        &

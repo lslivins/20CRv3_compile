@@ -1,0 +1,11 @@
+#intel fortran 
+FC            = ftn
+OMPFLAG       = -openmp
+FFLAGS        = -O3 -xHost 
+DEBUGFLAGS    = -warn all -implicitnone -traceback 
+EXEC          = sig2grb
+LDFLAGS       = -openmp -no-ip
+# jet
+NWPRODLIB     = ../nwprod/lib
+SHTNSLIB      = /lustre/f1/unswept/Jeffrey.S.Whitaker/lib
+LIBS          = $(SHTNSLIB)/libshtns.a $(FFTW_DIR)/libfftw3.a -L$(NWPRODLIB) -lw3lib-2.0_4 -lbacio_4

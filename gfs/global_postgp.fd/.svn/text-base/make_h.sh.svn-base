@@ -1,0 +1,4 @@
+#!/bin/sh
+
+make -f makefile_h global_postgp
+make -f makefile_h global_postgs

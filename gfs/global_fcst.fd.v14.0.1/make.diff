@@ -1,0 +1,287 @@
+--- Makefile.orig	2016-07-01 12:28:23.000000000 -0400
++++ Makefile	2016-07-01 12:28:44.000000000 -0400
+@@ -22,6 +22,7 @@
+ FFLAG_SER = $(OPTS_SER) $(DOUBLEFLAG)  $(DEBUG) 
+ 
+ LDR	 = $(LDRM)
++ESMFLIB  = $(ESMFLIBM)
+ LDFLAGS =  $(LDFLAGSM)
+ LIBS =  $(LIBSM)
+ 
+@@ -66,6 +67,8 @@
+ 
+ OBJ_MOD	= machine.o                 \
+ 	  num_parthds.o             \
++	  sigio_module.o		\
++	  sigio_r_module.o		\
+ 	  iounitdef.o               \
+ 	  physpara.o                \
+ 	  physcons.o                \
+@@ -184,7 +187,8 @@
+ 	triseori.o                        \
+ 	uveodz.o                          \
+ 	ysminv.o                          \
+-	fftpack.o                         
++	fftpack.o                         \
++ 	byteswap.o                        \
+ 
+ OBJS_PORT	=           \
+ 	noblas.o
+@@ -285,8 +289,6 @@
+ model-mpi-port: $(OBJ_MOD) $(OBJS_CC) $(OBJS0) $(OBJS) $(OBJS_PHY) $(OBJS_RAD) $(OBJS_IO) $(OBJS_PORT)
+ 	$(LDR) -o $(EXEC) $(OBJ_MOD) $(OBJS_CC) $(OBJS0) $(OBJS) $(OBJS_PHY) $(OBJS_RAD) $(OBJS_IO) $(OBJS_PORT) $(LIBS) $(LDFLAGS)
+ 
+-install:
+-	cp -p $(EXEC) ../../exec/.
+ clean:
+ 	rm -f $(OBJ_MOD) $(OBJS0) $(OBJS) $(OBJS_RAD) $(OBJS_PHY) $(OBJS_IO) $(OBJS_CC) *.mod
+ 
+@@ -329,6 +331,9 @@
+ get_prs.o:	get_prs.f
+ 		$(F77) $(FFLAGM) -c get_prs.f
+ 
++byteswap.o:	byteswap.c
++	 	$(FCC) -c $(CFLAGS) byteswap.c
++
+ filtr1eo.o:	filtr1eo.f 
+ 		$(F77) $(FFLAG_SER)   -c filtr1eo.f 
+ 
+@@ -698,3 +703,9 @@
+ 
+ mygather.o:		mygather.c
+ 		$(CC) -c mygather.c
++
++sigio_module.o:	sigio_module.f
++		$(F77) $(FFLAGSI) -c sigio_module.f
++
++sigio_r_module.o:	sigio_r_module.f
++		$(F77) $(FFLAGSI) -c sigio_r_module.f
+--- makefile.sh.orig	2016-07-01 12:28:31.000000000 -0400
++++ makefile.sh	2016-07-01 12:28:38.000000000 -0400
+@@ -1,184 +1,54 @@
+ #!/bin/ksh
+-set -x
+-
+-mac=$(hostname | cut -c1-1)
+-mac2=$(hostname | cut -c1-2)
+-
+-#export debug=YES                      # uncomment this line if you want debug option
+-#export CLEAN=NO                       # uncomment this if you don't want to clean before compiling
+-export USE_MKL=YES
+-export ICS_VERSION=14.0.1
+- 
+-#---------------------------------------------------------
+-if [ $mac = t -o $mac = g ] ; then # For WCOSS
+-#---------------------------------------------------------
+- machine=wcoss
+- ptmp="/ptmpp1/$LOGNAME"
+- export NWPRODLIB=/nwprod/lib
+-
+- export SIGIO_VER=v2.0.1
+- export SIGIO_DIR=$NWPRODLIB/sigio/$SIGIO_VER
+- export SIGIO_LIB4=sigio_${SIGIO_VER}_4
+- export SIGIO_INC4=${SIGIO_DIR}/incmod/$SIGIO_LIB4
+-
+- export W3NCO_VER=v2.0.6
+- export W3NCO_DIR=$NWPRODLIB/w3nco/$W3NCO_VER
+- export W3NCO_LIBd=w3nco_${W3NCO_VER}_d
+-
+- export W3EMC_VER=v2.0.5
+- export W3EMC_DIR=$NWPRODLIB/w3emc/$W3EMC_VER
+- export W3EMC_LIBd=w3emc_${W3EMC_VER}_d
+- export W3EMC_INCd=$NWPRODLIB/w3emc/$W3EMC_VER/incmod/w3emc_${W3EMC_VER}_d
+-
+- export SP_VER=v2.0.2
+- export SP_DIR=$NWPRODLIB/sp/$SP_VER
+- export SP_LIBd=sp_${SP_VER}_d
+-
+- export BACIO_VER=v2.0.1
+-#export BACIO_DIR=$NWPRODLIB/bacio/$BACIO_VER
+-#export BACIO_LIB4=bacio_${BACIO_VER}_4
+- export BACIO_DIR=/usrx/local/nceplibs
+- export BACIO_LIB4=bacio_v2.0.1p_4
+-
+- export NEMSIO_VER=v2.2.1
+- export NEMSIO_DIR=$NWPRODLIB/nemsio/$NEMSIO_VER
+- export NEMSIO_LIB=nemsio_${NEMSIO_VER}
+-
+- export ESMF_LIB=/usrx/local/esmf-3.1.0rp5/lib/libO/Linux.intel.64.intelmpi.default
+- export ESMF_MOD=/usrx/local/esmf-3.1.0rp5/mod/modO/Linux.intel.64.intelmpi.default
+-
+- if [ $USE_MKL = YES ] ; then
+-   export ALIGN="-align array32byte"              # For bit reproducibility on wcoss
+-   . /usrx/local/Modules/3.2.10/init/ksh          # To enable module unload and load
+-   module unload ics
+-   export ICS_VERSION=${ICS_VERSION:-14.0.1}
+-   module load ics/$ICS_VERSION
+-  export PRECISE=source
+-  #export PRECISE=precise
+- fi
+-
+- export FINC=-I$ESMF_MOD
+- export FINCM="-I$SIGIO_INC4 -I$W3EMC_INCd "
+- export LIBSM="-L$BACIO_DIR -l$BACIO_LIB4 -L$SIGIO_DIR -l$SIGIO_LIB4 -L$NEMSIO_DIR -l$NEMSIO_LIB -L$SP_DIR -l$SP_LIBd \
+-               -L$W3EMC_DIR -l$W3EMC_LIBd -L$W3NCO_DIR -l$W3NCO_LIBd -lrt -lstdc++ -L$ESMF_LIB -lesmf"
+-
+-#---------------------------------------------------------
+-elif [ $mac = z -o $mac = h -o $mac = f ] ; then # For ZEUS
+-#---------------------------------------------------------
+- machine=zeus
+- ptmp=/scratch2/portfolios/NCEPDEV/ptmp/$LOGNAME
+- export LIBDIR=/contrib/nceplibs/nwprod/lib
+- export NCEPLIB=/contrib/nceplibs/dev/lib
+- export ESMF_LIB=/apps/esmf/3.1.0rp5/intel/mpt/lib/libO/Linux.intel.64.mpi.default        
+- export ESMF_MOD=/apps/esmf/3.1.0rp5/intel/mpt/mod/modO/Linux.intel.64.mpi.default        
+-
+- export W3LIB=w3nco_d
+- export FINC=-I$ESMF_MOD
+- export FINCM="-I$NCEPLIB/incmod/sigio_v2.0.1_beta -I$LIBDIR/incmod/$W3LIB"
+- export LIBSM="-L$NCEPLIB -lsigio_v2.0.1_beta -L$LIBDIR -lbacio_4 -lnemsio -lsp_d -l$W3LIB -lrt -lstdc++ -L$ESMF_LIB -lesmf"
+-#---------------------------------------------------------
+-fi
+-#---------------------------------------------------------
+-
+-export ALIGN=${ALIGN:-""}
+-#
+-#  WARNING!!! The default endianness is local to the machine.
+-#   If your initial conditions are bigendian and want to compile on littleendian
+-#   machine, you must set NATIVE_ENDIAN=NO
+-#
+-NATIVE_ENDIAN=NO
+-#
++export LIBDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
++export ESMFDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
++#export ESMFDIR=/sw/xt6/esmf/esmf_3_1_0rp2/lib/libO/Linux.pgi.64.mpiuni.default/
++NATIVE_ENDIAN=${NATIVE_ENDIAN:-NO}
+ sorc_dir=$(pwd)
+ exec_dir=$(pwd)
+ mkdir -p $exec_dir
+ 
+-#make_dir=$ptmp/branch/sorc/$(basename $sorc_dir)
+-#mkdir -p $make_dir ; cd $make_dir || exit 8
+-#cp -rp ${sorc_dir}/* .
++export LIBDIR=${LIBDIR:-../../lib}
++#rm *.o
++#rm *.mod
+ 
+ if [ $NATIVE_ENDIAN = YES ] ; then
+  cp $sorc_dir/sigio_r_module_native.f sigio_r_module.f
+  cp $sorc_dir/bafrio_native.f         bafrio.f
+ fi
+-export PRECISE=${PRECISE:-precise}
+ 
+-#
+-#-------------------------------------------------------------------
+-#-------------------------------------------------------------------
+-if [ $machine = zeus -o $machine = wcoss ] ; then
+- export CFLAGS="-DLINUX"
+- export ARCHM=
+- export PGSZM=
+- export FRRM=-FR
++#export EXECM=global_fcst_predoz
++export EXECM=global_fcst_cmip5
+ 
+- export debug=${debug:-NO}
+- if [ $debug = YES ] ; then
+-   export OPTSB="-g -O0 -check all -ftrapuv -convert big_endian $ALIGN -fp-stack-check -fstack-protector -heap-arrays -recursive $ALIGN"  
+-   export OPTSBT="$OPTSB -traceback"
+-   export EXECM=$exec_dir/global_fcst_dbg
+- else
+-   if [ $machine = zeus ]; then
+-    export OPTSB="-g -O3 -convert big_endian $ALIGN -fp-model $PRECISE "  
+-    export OPTSBX="-g -O3 -convert big_endian $ALIGN -fp-model $PRECISE "  
+-   else
+-    export OPTSB="-g -O3 -convert big_endian $ALIGN -fp-model $PRECISE -xAVX "  
+-    export OPTSBX="-g -O3 -convert big_endian $ALIGN -fp-model $PRECISE -xAVX "  
+-   fi
+-   export OPTSBT=$OPTSB
+-   export OPTSBTX=$OPTSBX
+-   export EXECM=$exec_dir/global_fcst
+- fi
+-
+- export OPTSIOM="$OPTSBT -r8 -openmp"
+- export OPTSIOX="$OPTSBTX -r8 -openmp"
+- export OPTSM="$OPTSBT -r8 -openmp"
+- export OPTS_SERM="$OPTSBT -r8 $ARCHM"
+- export OPTS90M="$OPTSBT   -r8 "
+- export OPTS90AM="$OPTSBT  -r8 "
+- export LDFLAGSM=$PGSZM
+-
+- #----------------------------
+- if [ $machine = wcoss ] ; then
+-   export F77M=mpiifort
+-   export F90M=mpiifort
+-   export F77B=$F77M
+-   export FCC=mpcc
+-   export LDRM=mpiifort
+-   if [ $USE_MKL = YES ] ; then
+-      module unload ics
+-      module load ics/$ICS_VERSION
+-      export LDFLAGSM="$PGSZM -openmp -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lm"
+-   else
+-      export LDFLAGSM="$PGSZM -openmp "
+-   fi
+- #----------------------------
+- elif [ $machine = zeus ] ; then
+-   export F77M="ifort -openmp"  #-recursive"
+-   export F90M="ifort -openmp"  #-recursive"
+-   export F77B="ifort "         #-recursive" #-openmp"  #-recursive"
+-   export F90B="ifort "         #-recursive" #-openmp"  #-recursive"
+-   export LDRM="ifort -lmpi"
+-   export FCC=cc
+-   if [ $USE_MKL = YES ] ; then
+-      export LDFLAGSM="$PGSZM -openmp -mkl"
+-   else
+-      export LDFLAGSM="$PGSZM -openmp "
+-   fi
+- fi
+- #----------------------------
+-else
+- echo 'machine not supported at this time'
+- exit
+-fi
+-#-------------------------------------------------------------------
+-#-------------------------------------------------------------------
+-
+-echo $F77M
+-make -f Makefile clean
+-if [ $USE_MKL = YES ] ; then
+-  make -f Makefile
+-else
+-  make -f Makefile model-mpi-port
+-fi
+-make -f Makefile install
+-make -f Makefile clean
++export W3LIB=w3lib-2.0_d
++export CFLAGS="-DLINUX"
++export FINCM=-I$LIBDIR/incmod/$W3LIB
++export ARCHM=
++export PGSZM=
++export FRRM=-FR
++export FXXM=
++#export OPTSB="-g -O3 -convert big_endian -fp-model strict -heap-arrays -xHost"  #raghu.reddy:prod
++export OPTSB="-O3 -xHost -fp-model precise -convert big_endian"
++# -ftrapuv (trap unitialized vars) - causes model to crash in gfidi_hyb
++# where unitialized values are used. Check to see if -zero produces
++# identical results?
++# -warn all catches a lot of interface errors .
++export OPTSBT="$OPTSB -implicitnone -traceback"
++export OPTSM="$OPTSBT -r8"       # -openmp"    # raghu.reddy
++export OPTSIOM="$OPTSBT -r8 "
++export OPTSIOX="$OPTSBT -r8 "
++export OPTS_SERM="$OPTSBT -r8 $ARCHM"
++export OPTS90M="$OPTSBT   -r8 "
++export OPTS90AM="$OPTSBT  -r8 "
++export LDFLAGSM=$PGSZM
++export F77M="ftn -openmp"  #-recursive"
++export F90M="ftn -openmp"  #-recursive"
++export F77B="ftn "         #-recursive" #-openmp"  #-recursive"
++export F90B="ftn "         #-recursive" #-openmp"  #-recursive"
++export LDRM="ftn"
++export FCC=cc
++export LDFLAGSM="$PGSZM -openmp -mkl"            #raghu.reddy
++export FINC=-I$ESMFDIR/incmod/esmf_3_1_0rp5      #raghu.reddy
++#export FINC=-I/sw/xt6/esmf/esmf_3_1_0rp2/mod/modO/Linux.pgi.64.mpiuni.default/
++export LIBSM="-L$LIBDIR  -lbacio_4 -lnemsio -lsp_d -l$W3LIB -lrt -L$ESMFDIR -lesmf_3_1_0rp5 -lstdc++ -mkl"
++#export LIBSM="-L$LIBDIR  -lbacio_4 -lnemsio -lsp_d -l$W3LIB -lrt -L$ESMFDIR -lesmf -lstdc++ -mkl"
++make -f Makefile

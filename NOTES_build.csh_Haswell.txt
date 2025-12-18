@@ -1,0 +1,192 @@
+
+#6 Feb 2017
+
+# Jeff thinks that 
+#module switch intel intel/14.0.2.144
+#is not necessary 
+#Intel v16 is working fine on Theia
+ 
+#So
+#module swap intel intel/16.0.0.109
+#should work 
+
+#8 Feb (tried)
+#module switch intel intel/16.0.0.109 
+# intel/16.0.0.109  gave a Seg Fault in the GFS radiation
+# (see log file /lustre/f1/unswept/Gilbert.P.Compo/logs/ensda_425_1915/
+#ensda_out_1915010100_Segfault_GFS_Intelv16/run_gefs.out )
+# !!!BUT I just realized that the driver script
+# gfsenkf_20crV3_cmip5oz_new.csh
+# had module switch intel intel/14.0.2.144 !!!
+
+# 8 Feb 
+# see if this v16 simply works, because NERSC has same version 16.0.3.210
+#module switch intel intel/16.0.3.210 
+# Worked using Jeff's shtns.
+# 
+
+# 8 Feb 
+# rebuild with my build of shtns
+# Worked using Gil's shtns 
+
+# 9 Feb
+# try eliminating -xSSE4.2 and -xHOST
+#cray wrappers will put in the equivalent of -xHOST
+# doing this mostly one at a time 
+# nwprod/lib/sorc/sp - tested 2 cycles: worked
+# nwprod/lib/sorc/w3lib-2.0 - tested 2 cycles: worked
+# simultaneously: 
+#	nwprod/lib/sorc/sigio
+#       nwprod/lib/sorc/sfcio
+# did not work even 1 cycle, try also removing from 
+# 
+#gfs/global_sfchdr.fd (has a dependency on nwprod/lib/sorc/sfcio
+#gfs/global_sighdr.fd (has a dependency on nwprod/lib/sorc/sigio
+#enkf/trunk/util/src (has a dependencies  on both nwprod/lib/sorc/sfcio and
+#nwprod/lib/sorc/sigio)
+# did not work. 
+#Restarted from initial condition restart files 1915010100
+# did not work. 
+
+# Put -xSSE4.2 back in 
+# simultaneously: 
+#	nwprod/lib/sorc/sigio
+#       nwprod/lib/sorc/sfcio
+# and build. Maybe just these two libraries need the xSSE4.2 ? 8:41pm MST
+# No. GFS did not run 9:14 MST
+
+# Also put back xSSE4.2 in global_sighdr and global_sfchdr
+
+
+# 
+#Added in 
+#module load fftw/3.3.4.8
+#module load cray-netcdf
+#module load cray-hdf5
+
+#no change in 
+pushd nwprod/lib/sorc/bacio; /bin/rm -f ../../libbacio*a;  make -f makefile4
+
+
+# no change
+pushd nwprod/lib/sorc/esmf_3_1_0rp5/esmf; sh compile_intel_unicos.sh
+
+
+# Removed -xSSE4.2, 
+# changed compiler from ifort to ftn (cray wrapper)
+pushd nwprod/lib/sorc/sp; sh makelibsp.sh
+
+#  Removed -xSSE4.2 in makefile_4, Removed -xHOST in makefile_d
+pushd nwprod/lib/sorc/w3lib-2.0; /bin/rm -f ../../libw3*a; make -f makefile_4 clean; make -f makefile_4; make -f makefile_d clean; make -f makefile_d
+
+
+#  Put -xSSE4.2 back in makefile.sh
+pushd nwprod/lib/sorc/sigio; /bin/rm -f ../../libsigio*.a;   sh makefile.sh
+
+#  Put -xSSE4.2 back in makefile.sh
+pushd nwprod/lib/sorc/sfcio;  /bin/rm -f ../../libsfcio*.a; sh makefile.sh
+
+# has -xHOST in Makefile, Makefile_d, leave in for now
+pushd nwprod/lib/sorc/ip; make clean; make; /bin/cp -f libip_4.a ../../; make -f Makefile_d clean; make -f Makefile_d; /bin/cp -f libip_d.a ../..
+
+# has -xHOST in makefile.sh, leave in for now
+pushd nwprod/lib/sorc/nemsio; sh makefile.sh
+
+
+#change pushd gfs/DA-REL-FY16
+#to pushd gfs/global_fcst.fd.v14.0.1 
+pushd gfs/global_fcst.fd.v14.0.1 ; make clean; sh makefile.sh
+
+# still has -xHost
+# made several changes makefile.sh
+gfs/global_fcst.fd.v14.0.1> diff makefile.sh makefile.sh.from_Jeff 
+2,6c2,3
+< #export LIBDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
+< #export ESMFDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
+< 
+< export LIBDIR=../../nwprod/lib
+< export ESMFDIR=../../nwprod/lib
+---
+> export LIBDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
+> export ESMFDIR=/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib
+
+
+# still has -xHOST, leave in for now
+pushd gfs/global_cycle.fd; /bin/rm -f *.o *.mod global_cycle*; make -f Makefile; make -f Makefilep
+
+# still has -xHOST in Makefile, Makefile_p
+pushd gfs/global_postgp.fd; /bin/rm -f global_postgp* *.o *.mod; make -f Makefile; make -f Makefile_p; /bin/cp -f global_postgp* ../../bin
+
+#Put back -xSSE4.2 
+pushd gfs/global_sfchdr.fd; /bin/rm -f global_sfchdr; make; /bin/cp -f global_sfchdr ../../bin
+
+#Put back -xSSE4.2, changed -openmp to -qopenmp. 
+pushd gfs/global_sighdr.fd; /bin/rm -f global_sighdr; make; /bin/cp -f global_sighdr ../../bin
+
+#previously used Jeff's build of shtns, Changed to Gil's. changed -openmp to -qopenmp
+# for some reason not finding the FFTW_DIR
+#added newer module load fftw/3.3.4.8
+pushd psop; make clean; make; /bin/cp -f *.x ../bin
+
+#the Makefile.conf is what gets varied
+#use Gil build of shtns
+[Building SHTNS
+20CRV3/shtns> diff Makefile Makefile.orig 
+2,6c2
+< # be sure to 
+< #module swap PrgEnv-intel PrgEnv-gnu
+< #module load fftw/3.3.4.8
+< #
+< PREFIX=/lustre/f1/unswept/Gilbert.P.Compo/20CRV3
+---
+> PREFIX=/lustre/f1/Jeffrey.S.Whitaker
+10c6
+< CFLAGS=-O2 -I$(PREFIX)/include -I$(FFTW_INC) -L$(PREFIX)/lib -L$(FFTW_DIR) -ffast-math -fomit-frame-pointer -std=gnu99
+---
+> CFLAGS=-O2 -I/lustre/f1/Jeffrey.S.Whitaker/include -I/opt/fftw/3.3.0.1/interlagos/include -L/lustre/f1/Jeffrey.S.Whitaker/lib -L/opt/fftw/3.3.0.1/interlagos/lib -ffast-math -fomit-frame-pointer -std=gnu99
+]
+
+
+pushd enkf/trunk/src; make clean; make
+
+#Removed -xSSE4.2
+pushd enkf/trunk/util/src; /bin/rm -f *.x *.o *.mod; make -f Makefile_gfs_nersc; /bin/cp -f *.x ../../../../bin
+
+#no changes
+pushd h5f_reader; make clean; make; /bin/cp -f h5ftotxt ../bin
+
+#added in the build for hd5_reader_v4
+pushd h5f_reader_v4; make clean; make; /bin/cp -f h5ftotxt_v4 ../bin
+
+#still has -xHost. 
+#use Gil's build of shtns in lib
+# changed -openmp to -qopenmp
+pushd sig2grb; make clean; make; /bin/cp -f sig2grb ../bin
+
+#still has -xHOST, leave in for now.
+pushd nwprod/lib/sorc/gfsio; /bin/rm -f ../../libgfsio*a; make -f makefile_4
+
+#makefile_d still has -xHOST,leave in for now.
+#makefile_d calls makefile
+pushd nwprod/lib/sorc/landsfcutil; sh makefile_d
+
+#no changes
+pushd nwprod/lib/sorc/w3emc_v2.2.0/sorc; make clean; make ; /bin/cp -f w3emc/v2.2.0/libw3emc*a ../../../; /bin/rm -rf ../../../incmod/w3emc*; /bin/cp -R w3emc/v2.2.0/incmod/* ../../../incmod
+
+#no changes
+pushd nwprod/lib/sorc/w3nco_v2.0.6; sh makelibw3_nco.sh
+
+#still uses -xHOST, leave in for now
+pushd nwprod/lib/sorc/bacio_v2.0.1/src; sh makebacio_nersc.sh
+
+#still uses -xHOST, leave in for now
+pushd nwprod/lib/sorc/gfsio_v1.1.0; /bin/rm -f ../../libgfsio*a; make -f makefile_4
+
+# changed -openmp to -qopenmp
+pushd gfs/global_chgres.fd
+sh makefile.sh
+
+
+
+
+

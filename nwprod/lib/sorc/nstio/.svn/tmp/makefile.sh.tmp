@@ -1,0 +1,17 @@
+#!/bin/sh
+set -x
+export LIBDIR=../..
+#export FCMP=xlf_r
+#export FCMP95=xlf95_r
+export FCMP=${1:-ftn}
+if [ $FCMP = xlf_r ] ; then
+ export FFLAGSM="-O -qnosave -q free=f90"
+#export FFLAGSM="-g -C -qextchk -qflttrap -qnosave -g -q free=f90 -I$(INCMOD)"
+ export ARFLAGS="-rv -X64"
+else
+ export FFLAGSM="-O2 -xHOST -convert big_endian -traceback -g -FR "
+ export ARFLAGS="-rv"
+fi
+export AR=ar
+mkdir $LIBDIR/incmod/sfcio_4
+make -f makefile_4

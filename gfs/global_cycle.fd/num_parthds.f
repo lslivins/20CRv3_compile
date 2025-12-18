@@ -1,0 +1,10 @@
+      integer function num_parthds()
+      use omp_lib
+!$OMP PARALLEL
+      num_parthds=omp_get_num_threads()
+!$OMP END PARALLEL
+!     num_parthds = 1
+      return
+      end
+
+ 

@@ -1,0 +1,49 @@
+SHELL	=/bin/sh
+INCMOD	=../incmod
+SRCM	=postgp.f
+SRCMP	=postgp.f
+INCM	=
+SRCSP	=postgp_module.f funcphys.f mptran.f physcons_v.f machine.f rsearch1.f sgetmo.f
+OBJSP	=postgp_module.o funcphys.o mptran.o physcons_v.o machine.o rsearch1.o sgetmo.o
+SRCSS	=postgp_module.f funcphys.f mptran.std.f physcons_v.f machine.f rsearch1.f sgetmo.f
+OBJSS	=postgp_module.o funcphys.o mptran.std.o physcons_v.o machine.o rsearch1.o sgetmo.o
+MODS	=postgp_module.mod funcphys.mod
+OPTFLAGS = -O3 -traceback 
+FREEFLAG = -FR
+NWPROD = ../../nwprod
+FFLAGSF90	= $(OPTFLAGS) -save $(FREEFLAG)
+FCS = ftn
+FCP = ftn
+INCMOD = ${NWPROD}/lib/incmod/sigio_4
+LIBS	= -L${NWPROD}/lib -lip_4 -lsp_4 -lsigio_4 -lw3lib-2.0_4 -lbacio_4
+CMDP	=global_postgp
+CMDS	=global_postgs
+both:	$(CMDP) $(CMDS)
+parallel:	$(CMDP)
+serial:	$(CMDS)
+$(CMDP):	$(SRCMP) $(INCM) $(OBJSP)
+	$(FCP) -I $(INCMOD) $(FFLAGSF90) $(OMPFLAG) $(LDFLAGS) $(SRCMP) $(OBJSP) $(LIBS) -o $(CMDP)
+$(CMDS):	$(SRCM) $(INCM) $(OBJSS)
+	$(FCS) -I $(INCMOD) $(FFLAGSF90) $(LDFLAGS) $(SRCM) $(OBJSS) $(LIBS) -o $(CMDS)
+postgp_module.o:	postgp_module.f
+	$(FCS) $(FFLAGSF90) -c postgp_module.f
+funcphys.o:	funcphys.f physcons_v.o machine.o
+	$(FCS) $(FFLAGSF90) -c funcphys.f
+rsearch1.o:	rsearch1.f
+	$(FCS) $(FFLAGSF90) -c rsearch1.f
+sgetmo.o:	sgetmo.f
+	$(FCS) $(FFLAGSF90) -c sgetmo.f
+physcons_v.o:	physcons_v.f machine.o
+	$(FCS) $(FFLAGSF90) -c physcons_v.f
+machine.o:	machine.f
+	$(FCS) $(FFLAGSF90) -c machine.f
+mptran.o:	mptran.f machine.o
+	$(FCP) $(FFLAGSF90) -c mptran.f
+mptran.std.o:	mptran.std.f machine.o
+	$(FCS) $(FFLAGSF90) -c mptran.std.f
+clean:
+	-rm -f *.o *.mod
+clobber:        clean
+	-rm -f $(CMD)
+void:   clobber
+	-rm -f $(SRCS) $(SRCM) $(INCM) makefile

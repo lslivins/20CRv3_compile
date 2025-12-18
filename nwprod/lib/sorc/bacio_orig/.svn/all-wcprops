@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/bacio
+END
+bacio_module.mod
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/bacio/bacio_module.mod
+END
+make.intel.sh
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/make.intel.sh
+END
+bacio.v1.4.o
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/17250/gfs/branches/moorthi/para/lib/sorc/bacio/bacio.v1.4.o
+END
+clib4.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/clib4.h
+END
+bacio.v1.3.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bacio/bacio.v1.3.c
+END
+makebacio.sh
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/makebacio.sh
+END
+bacio.v1.4.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/bacio.v1.4.c
+END
+bacio.v1.4.c_orig
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/bacio.v1.4.c_orig
+END
+bafrio.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/bafrio.f
+END
+bacio.v1.4.c_jet
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/bacio.v1.4.c_jet
+END
+baciof.f
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bacio/baciof.f
+END
+clib8.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/clib8.h
+END
+baciof.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/bacio/baciof.h
+END
+makebacio.sh_moo
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/bacio/makebacio.sh_moo
+END

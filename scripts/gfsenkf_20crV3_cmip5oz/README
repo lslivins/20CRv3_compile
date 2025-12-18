@@ -1,0 +1,81 @@
+To start a run, 'qsub gfsenkf_20crV3_cmip5oz.csh'.  The script will run 4
+analysis cycles, then resubmit itself.
+
+The experiment name ($exptname) is assumed to be the same name as this
+directory (gfsenkf_20crV3_cmip5oz). The output is written to
+/scratch2/scratchdirs/$USER/$exptname, and the driver script $exptname.csh
+is located in /project/projectdirs/incite11/$USER/20CRV3/scripts/$exptname.
+
+The workflow goes like this:
+
+1) set global variables
+
+2) extract obs from HDF5 file for current analysis time, bias correct those
+obs based upon the $lastndays days of innovation statistics (observation
+minus forecast).  The python script get_biascorr.py does the bias
+correction, which is only applied at land stations (ships are not bias
+corrected yet - this is one of the remaining items on the TODO list before
+V3 can be finalized).
+
+3) compute the ensemble mean first guess spectral (sfg*) and surface (bfg*)
+files (using getsigensmeanp.x and getsfcensmeanp.x). This is only done here
+if the files have not already been created at the end of the previous
+ensemble forecast step (step #5). Also compute the ensemble mean and spread
+GRIB post-processed files using gribmeanp.x
+
+4) Run the script $ensda.  This computes for forward operator for each
+ensemble member, runs global_cycle for each ensemble member (to update the
+SST and sea ice fields), and then runs the EnKF at each forecast time in the
+assimilation window (hour minus 3, hour 0 and hour plus 3). The ensemble
+mean spectral files (sanl*) are then computed for each assimilation time in
+the window. A variable covariance localization scheme is used which reduces
+the length scale of localization from the nominal values when the estimated
+reduction of spread of the observed variable at the ob location decreases
+during the serial assimilation. Nonlinear quality control (assuming
+that the observation error distribution has heavy tails) is performed
+iterating the EnKF step in observation space.
+
+5) the ensemble first-guess forecast is run (script $fg_gfs). Forecasts are
+started from the beginning of the assimilation window (hour minus 3) and the
+model is forced with analysis increments interpolated to the model time step
+for the first six hours.  This process is called '4D incremental analysis
+update' (4DIAU).  At hour six (hour minus 3 at the beginning of the next
+assimilation window) the IAU forcing shuts off, and the model runs unforced
+six more hours to the end of the next assimilation window (hour plus 3).
+Output is produced every three hours, and ensemble mean forecast files are
+generated (using getsigensmeanp.x and getsfcensmeanp.x).  The spectral
+output is post-processed to a $IO by $JO lat/lon grid using global_postgp.
+Note that the forecast model includes stochastic forcing to represent model
+uncertainity, using the Buizza et al SPPT (stochastically perturbed physics
+tendencies) scheme, and by perturbing boundary layer relative humidity to
+vary the locations are which convection triggers.  Both of these mainly
+affect the ensemble spread in the tropics.  Multiplicative inflation
+(relaxation to prior standard deviation, or RTPS) takes care of the rest of
+the model uncertainty part.  The relaxation coefficient for RTPS inflation
+is set to 0.9 everywhere.
+
+6) at 00UTC on the 1st, 10th and 20th of the month, everything is tarred up
+to the HPSS so the assimilation cycle can be restarted.  At other times, the
+ensemble member files are deleted and only the post-processed ensemble mean
+and spread files are kept, along with the ensemble mean spectral and surface
+files.
+
+7) after steps 1-6 are repeated $ncycles ($ncycles is currently set to 4)
+times, the script is resubmitted.
+
+
+Naming conventions:
+
+The date in the filenames corresponds to the nominal analysis time (the
+middle of the current assimilation window).  The 'fhr' in the file name is
+the forecast hour relative to the middle of the previous assimilation window
+(so sfg_YYYYMMDDHH_fhr06_ensmean is the spectral ensemble mean forecast file
+valid at the middle of the assimilation window, which corresponds to
+YYYYMMDDHH). Post-processed ensemble mean and spread files in GRIB format
+(pgrbensmeananl*) are created for the middle and the end of each
+assimilation window, so that we have analysis files every 3 hours.  The
+files at 00,06,12 and 18UTC are generated from the first-guess forecast
+forced with IAU increments at the middle of the assimilation window, and the
+03,09,12 and 15UTC files are generated from the forecasts at the end of the
+IAU forcing window (after the full forcing has been applied).
+

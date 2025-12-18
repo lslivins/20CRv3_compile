@@ -1,0 +1,1278 @@
+ifort -O3 -xP -r8 -c putgbn.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c putgbn.f
+*
+****************************************************************************
+
+putgbn.f(167) : (col. 6) remark: LOOP WAS VECTORIZED.
+putgbn.f(192) : (col. 11) remark: LOOP WAS VECTORIZED.
+putgbn.f(186) : (col. 9) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c w3fi74.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi74.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgb1re.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgb1re.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbp.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbp.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c r63w72.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c r63w72.f
+*
+****************************************************************************
+
+r63w72.f(84) : (col. 6) remark: BLOCK WAS VECTORIZED.
+r63w72.f(119) : (col. 9) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c w3fi75.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi75.f
+*
+****************************************************************************
+
+w3fi75.f(151) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi75.f(147) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi75.f(169) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi75.f(243) : (col. 18) remark: LOOP WAS VECTORIZED.
+w3fi75.f(197) : (col. 18) remark: LOOP WAS VECTORIZED.
+w3fi75.f(360) : (col. 18) remark: LOOP WAS VECTORIZED.
+w3fi75.f(957) : (col. 7) remark: LOOP WAS VECTORIZED.
+w3fi75.f(962) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi75.f(965) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi75.f(1033) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi75.f(1047) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi75.f(589) : (col. 7) remark: LOOP WAS VECTORIZED.
+w3fi75.f(594) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi75.f(597) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi75.f(669) : (col. 14) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c getgb1s.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgb1s.f
+*
+****************************************************************************
+
+getgb1s.f(119) : (col. 10) remark: LOOP WAS VECTORIZED.
+getgb1s.f(135) : (col. 10) remark: LOOP WAS VECTORIZED.
+getgb1s.f(161) : (col. 12) remark: LOOP WAS VECTORIZED.
+getgb1s.f(172) : (col. 12) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c getgi.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgi.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c sbyte.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c sbyte.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fi76.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi76.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbe.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbe.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgir.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgir.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c sbytes.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c sbytes.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fi82.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi82.f
+*
+****************************************************************************
+
+w3fi82.f(68) : (col. 18) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c getgbeh.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbeh.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c idsdef.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c idsdef.f
+*
+****************************************************************************
+
+idsdef.f(57) : (col. 8) remark: BLOCK WAS VECTORIZED.
+idsdef.f(77) : (col. 8) remark: BLOCK WAS VECTORIZED.
+idsdef.f(154) : (col. 8) remark: BLOCK WAS VECTORIZED.
+idsdef.f(181) : (col. 8) remark: BLOCK WAS VECTORIZED.
+ifort -O3 -xP -r8 -c skgb.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c skgb.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fi83.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi83.f
+*
+****************************************************************************
+
+w3fi83.f(57) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi83.f(52) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi83.f(78) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi83.f(98) : (col. 18) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c getgbem.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbem.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c iw3jdn.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c iw3jdn.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3difdat.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3difdat.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fs26.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fs26.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbemh.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbemh.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c ixgb.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c ixgb.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3doxdat.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3doxdat.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3log.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3log.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbemp.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbemp.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c lengds.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c lengds.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fi01.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi01.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3movdat.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3movdat.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbens.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbens.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c pdsens.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c pdsens.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fi58.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi58.f
+*
+****************************************************************************
+
+w3fi58.f(76) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi58.f(97) : (col. 10) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c w3reddat.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3reddat.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbep.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbep.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c pdseup.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c pdseup.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fi59.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi59.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3tagb.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3tagb.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c errmsg.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c errmsg.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbex.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbex.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c putgb.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c putgb.f
+*
+****************************************************************************
+
+putgb.f(165) : (col. 6) remark: LOOP WAS VECTORIZED.
+putgb.f(185) : (col. 9) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c w3fi63.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi63.f
+*
+****************************************************************************
+
+w3fi63.f(1679) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(2476) : (col. 18) remark: LOOP WAS VECTORIZED.
+w3fi63.f(2467) : (col. 18) remark: LOOP WAS VECTORIZED.
+w3fi63.f(2434) : (col. 15) remark: LOOP WAS VECTORIZED.
+w3fi63.f(2425) : (col. 15) remark: LOOP WAS VECTORIZED.
+w3fi63.f(2008) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1998) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1988) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(2503) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1974) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1964) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1954) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1944) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(2535) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1930) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1890) : (col. 26) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1897) : (col. 26) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1879) : (col. 18) remark: LOOP WAS VECTORIZED.
+w3fi63.f(1863) : (col. 18) remark: LOOP WAS VECTORIZED.
+w3fi63.f(3171) : (col. 10) remark: LOOP WAS VECTORIZED.
+w3fi63.f(3129) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(3105) : (col. 14) remark: LOOP WAS VECTORIZED.
+w3fi63.f(3256) : (col. 7) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c getgbexm.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbexm.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c putgbe.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c putgbe.f
+*
+****************************************************************************
+
+putgbe.f(171) : (col. 6) remark: LOOP WAS VECTORIZED.
+putgbe.f(190) : (col. 9) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c w3fi68.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi68.f
+*
+****************************************************************************
+
+w3fi68.f(178) : (col. 11) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c gbytes_char.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c gbytes_char.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c getgbh.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbh.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c putgben.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c putgben.f
+*
+****************************************************************************
+
+putgben.f(174) : (col. 6) remark: LOOP WAS VECTORIZED.
+putgben.f(199) : (col. 11) remark: LOOP WAS VECTORIZED.
+putgben.f(193) : (col. 9) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c w3fi71.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi71.f
+*
+****************************************************************************
+
+w3fi71.f(728) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(733) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(739) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(745) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(751) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1409) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1405) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1401) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1396) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1391) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1386) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1381) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1376) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1371) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1366) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1361) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1356) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1351) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1346) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1341) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1336) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1331) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1326) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1321) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1316) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1311) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1306) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1301) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1296) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1291) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1286) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1281) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1276) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1271) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1266) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1261) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1256) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1251) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1246) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1241) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1236) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1231) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1226) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1221) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1216) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1211) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1206) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1201) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1196) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1191) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1186) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1181) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1176) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1171) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1166) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1161) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1156) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1151) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1146) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1141) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1136) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1131) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1126) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1121) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1116) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1111) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1106) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1101) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1096) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1091) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1086) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1082) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1077) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1072) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1067) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1062) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1057) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1052) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1047) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1042) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1037) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1032) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1027) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1022) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1017) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1012) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1007) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(1002) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(997) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(992) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(987) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(982) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(977) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(972) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(967) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(962) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(957) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(952) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(947) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(942) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(937) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(932) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(927) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(922) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(917) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(912) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(907) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(902) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(897) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(892) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(887) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(882) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(877) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(872) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(867) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(862) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(857) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(852) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(847) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(842) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(837) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(832) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(827) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(822) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(817) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(812) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(807) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(802) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(797) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(792) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(787) : (col. 9) remark: LOOP WAS VECTORIZED.
+w3fi71.f(782) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(777) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(772) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(767) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(762) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi71.f(757) : (col. 12) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c getbit.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getbit.f
+*
+****************************************************************************
+
+getbit.f(75) : (col. 11) remark: LOOP WAS VECTORIZED.
+getbit.f(59) : (col. 11) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c getgbm.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c getgbm.f
+*
+****************************************************************************
+
+getgbm.f(212) : (col. 6) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c putgbens.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c putgbens.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fi72.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fi72.f
+*
+****************************************************************************
+
+w3fi72.f(303) : (col. 12) remark: LOOP WAS VECTORIZED.
+w3fi72.f(344) : (col. 18) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c errexit.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c errexit.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c fparsei.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c fparsei.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c fparser.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c fparser.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c instrument.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c instrument.f
+*
+****************************************************************************
+
+instrument.f(79) : (col. 10) remark: LOOP WAS VECTORIZED.
+instrument.f(75) : (col. 10) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -r8 -c start.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c start.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c summary.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c summary.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3utcdat.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3utcdat.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3fs21.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3fs21.f
+*
+****************************************************************************
+
+ifort -O3 -xP -r8 -c w3locdat.f 
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -r8 -c w3locdat.f
+*
+****************************************************************************
+
+gcc -O -DLINUX  -c bacio.v1.3.c 
+gcc -O -DLINUX  -c mova2i.c 
+ar  -ruv libw3_d.a bacio_module.o getgb.o     getgbmh.o   putgbex.o   w3fi73.o     baciof.o getgb1r.o   getgbmp.o   putgbn.o    w3fi74.o getgb1re.o  getgbp.o    r63w72.o    w3fi75.o getgb1s.o   getgi.o     sbyte.o     w3fi76.o getgbe.o    getgir.o    sbytes.o    w3fi82.o getgbeh.o   idsdef.o    skgb.o      w3fi83.o getgbem.o   iw3jdn.o    w3difdat.o  w3fs26.o getgbemh.o  ixgb.o      w3doxdat.o  w3log.o getgbemp.o  lengds.o    w3fi01.o    w3movdat.o getgbens.o  pdsens.o    w3fi58.o    w3reddat.o getgbep.o   pdseup.o    w3fi59.o    w3tagb.o errmsg.o    getgbex.o   putgb.o     w3fi63.o getgbexm.o  putgbe.o    w3fi68.o gbytes_char.o           getgbh.o    putgben.o   w3fi71.o getbit.o                getgbm.o    putgbens.o  w3fi72.o errexit.o fparsei.o fparser.o instrument.o start.o summary.o w3utcdat.o w3fs21.o w3locdat.o bacio.v1.3.o mova2i.o
+ar: creating libw3_d.a
+a - bacio_module.o
+a - getgb.o
+a - getgbmh.o
+a - putgbex.o
+a - w3fi73.o
+a - baciof.o
+a - getgb1r.o
+a - getgbmp.o
+a - putgbn.o
+a - w3fi74.o
+a - getgb1re.o
+a - getgbp.o
+a - r63w72.o
+a - w3fi75.o
+a - getgb1s.o
+a - getgi.o
+a - sbyte.o
+a - w3fi76.o
+a - getgbe.o
+a - getgir.o
+a - sbytes.o
+a - w3fi82.o
+a - getgbeh.o
+a - idsdef.o
+a - skgb.o
+a - w3fi83.o
+a - getgbem.o
+a - iw3jdn.o
+a - w3difdat.o
+a - w3fs26.o
+a - getgbemh.o
+a - ixgb.o
+a - w3doxdat.o
+a - w3log.o
+a - getgbemp.o
+a - lengds.o
+a - w3fi01.o
+a - w3movdat.o
+a - getgbens.o
+a - pdsens.o
+a - w3fi58.o
+a - w3reddat.o
+a - getgbep.o
+a - pdseup.o
+a - w3fi59.o
+a - w3tagb.o
+a - errmsg.o
+a - getgbex.o
+a - putgb.o
+a - w3fi63.o
+a - getgbexm.o
+a - putgbe.o
+a - w3fi68.o
+a - gbytes_char.o
+a - getgbh.o
+a - putgben.o
+a - w3fi71.o
+a - getbit.o
+a - getgbm.o
+a - putgbens.o
+a - w3fi72.o
+a - errexit.o
+a - fparsei.o
+a - fparser.o
+a - instrument.o
+a - start.o
+a - summary.o
+a - w3utcdat.o
+a - w3fs21.o
+a - w3locdat.o
+a - bacio.v1.3.o
+a - mova2i.o

@@ -1,0 +1,1403 @@
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c machine.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c num_parthds.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -FR -c sigio_module.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -FR -c sigio_r_module.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c iounitdef.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c physpara.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c physcons.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c funcphys.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c rascnvv2.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mersenne_twister.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c resol_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gg_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c vert_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sig_io.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c date_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c layout1.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c layout_grid_tracers.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c namelist_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c namelist_soilveg.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c coordinate_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c tracer_const_h-new.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c reduce_lons_grid_module.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c semi_lag_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c deldifs_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c bfilt_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -FR -c sfcio_module.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -FR -c gfsio_module.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -FR -c gfsio_def.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c d3d_def.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c nstio_module.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c module_nst_parameters.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c module_nst_water_prop.f
+module_nst_water_prop.f(434): warning #6717: This name has not been given an explicit type.   [GRV]
+function grv(lat)
+---------^
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c module_nst_model.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8   -FR -c calpreciptype.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c module_bfmicrophysics.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/kinds.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/peuc.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/pran.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/prana.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c layout_lag.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c slglat.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c slgshr.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c pmgrid.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_cd_hyb_slg.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sltini_all.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c set_halos_lag_sn.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getcon_lag.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_speed.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c setlats_lag.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_tracers.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c slgscan_all_redgg.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_topo_grid_grad.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_tracers_a_to_b.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopa_tracers.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_base.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_para.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_ppm_pack.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sicdif_hyb_slg.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c patterngenerator.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c iau_module.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c stoch_data.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_more.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c cmp.comm.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c atm.comm.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c tiles.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c NameList_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c Sfc_Var_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c Nst_Var_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_ErrMsgMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c Lib_ESMFStateAddGetMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_InternalState_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_ESMFStateMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_GetCf_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_Initialize_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_Run_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_Finalize_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_AddParameterToStateMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback  -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -FR -c GFS_GridComp_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c Grid_ESMFCreate.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c StartTimeGet_ESMF.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c Ensemble_sub.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_InternalState_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_CplState_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_four2fln.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_uvoedz.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_uveodz.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_sumfln.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_dozeuv.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_dezouv.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Sto_Per_Scheme_Step1.f
+GEFS_Sto_Per_Scheme_Step1.f(180): warning #6717: This name has not been given an explicit type.   [J]
+ do j = 1, total_member - 1
+----^
+GEFS_Sto_Per_Scheme_Step1.f(181): warning #6717: This name has not been given an explicit type.   [I]
+     do i = 1, trieo_lstot_siz4
+--------^
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Sto_Per_Scheme_Step2.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Run_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_GetParameterFromStateMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_CplComp_ESMFMod.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_ESMF.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/Cal_Sto_Coef.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_bcst_global.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_cd_hyb.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_am_bm_hyb.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_cd_hyb_gc.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_am_bm_hyb_gc.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c setlats.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getysk.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getysk_gc.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ifshuff.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c digifilt.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gcycle.f
+ftn -openmp     -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c wrtout.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c grid_collect.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_four2grid_thread.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c info.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c four_to_grid.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c damp_speed.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c deldifs.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c deldifs_tracers.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c fix_fields.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c spect_fields.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c delnpe.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c delnpo.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c dezouv.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c impadj_slg.locl.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c impadj_hyb.locl.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c impadj_hyb.locl_gc.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c dozeuv.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c epslon.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8        -c filtr1eo.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8        -c filtr2eo.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_ls_node.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_lats_node_shuff_a_fix.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_lats_node_shuff_r_fix.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getcon.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb.f 
+gfidi_hyb.f(783): warning #6717: This name has not been given an explicit type.   [LX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------^
+gfidi_hyb.f(783): warning #6717: This name has not been given an explicit type.   [N]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-------------------^
+gfidi_hyb.f(783): warning #6717: This name has not been given an explicit type.   [NX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-----------------------------------------------^
+gfidi_hyb.f(783): warning #6717: This name has not been given an explicit type.   [M]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------------------------------------------^
+gfidi_hyb.f(787): warning #6717: This name has not been given an explicit type.   [I]
+      do i=1,l
+---------^
+gfidi_hyb.f(787): warning #6717: This name has not been given an explicit type.   [L]
+      do i=1,l
+-------------^
+gfidi_hyb.f(788): warning #6717: This name has not been given an explicit type.   [FK]
+        fk=1./cm(i,1)
+--------^
+gfidi_hyb.f(791): warning #6717: This name has not been given an explicit type.   [J]
+      do j=1,m
+---------^
+gfidi_hyb.f(797): warning #6717: This name has not been given an explicit type.   [K]
+      do k=2,n-1
+---------^
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb_gc.f 
+gfidi_hyb_gc.f(736): warning #6717: This name has not been given an explicit type.   [LX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------^
+gfidi_hyb_gc.f(736): warning #6717: This name has not been given an explicit type.   [N]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-------------------^
+gfidi_hyb_gc.f(736): warning #6717: This name has not been given an explicit type.   [NX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-----------------------------------------------^
+gfidi_hyb_gc.f(736): warning #6717: This name has not been given an explicit type.   [M]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------------------------------------------^
+gfidi_hyb_gc.f(740): warning #6717: This name has not been given an explicit type.   [I]
+      do i=1,l
+---------^
+gfidi_hyb_gc.f(740): warning #6717: This name has not been given an explicit type.   [L]
+      do i=1,l
+-------------^
+gfidi_hyb_gc.f(741): warning #6717: This name has not been given an explicit type.   [FK]
+        fk=1./cm(i,1)
+--------^
+gfidi_hyb_gc.f(744): warning #6717: This name has not been given an explicit type.   [J]
+      do j=1,m
+---------^
+gfidi_hyb_gc.f(750): warning #6717: This name has not been given an explicit type.   [K]
+      do k=2,n-1
+---------^
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb_gc_h-new.f 
+gfidi_hyb_gc_h-new.f(652): warning #6717: This name has not been given an explicit type.   [IX]
+      real a(ix,kx)
+-------------^
+gfidi_hyb_gc_h-new.f(652): warning #6717: This name has not been given an explicit type.   [KX]
+      real a(ix,kx)
+----------------^
+gfidi_hyb_gc_h-new.f(654): warning #6717: This name has not been given an explicit type.   [K]
+      do k=1,kx
+---------^
+gfidi_hyb_gc_h-new.f(655): warning #6717: This name has not been given an explicit type.   [FMIN]
+        fmin=a(1,k)
+--------^
+gfidi_hyb_gc_h-new.f(656): warning #6717: This name has not been given an explicit type.   [FMAX]
+        fmax=a(1,k)
+--------^
+gfidi_hyb_gc_h-new.f(657): warning #6717: This name has not been given an explicit type.   [I]
+        do i=1,im
+-----------^
+gfidi_hyb_gc_h-new.f(657): warning #6717: This name has not been given an explicit type.   [IM]
+        do i=1,im
+---------------^
+gfidi_hyb_gc_h-new.f(841): warning #6717: This name has not been given an explicit type.   [LX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------^
+gfidi_hyb_gc_h-new.f(841): warning #6717: This name has not been given an explicit type.   [N]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-------------------^
+gfidi_hyb_gc_h-new.f(841): warning #6717: This name has not been given an explicit type.   [NX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-----------------------------------------------^
+gfidi_hyb_gc_h-new.f(841): warning #6717: This name has not been given an explicit type.   [M]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------------------------------------------^
+gfidi_hyb_gc_h-new.f(845): warning #6717: This name has not been given an explicit type.   [I]
+      do i=1,l
+---------^
+gfidi_hyb_gc_h-new.f(845): warning #6717: This name has not been given an explicit type.   [L]
+      do i=1,l
+-------------^
+gfidi_hyb_gc_h-new.f(846): warning #6717: This name has not been given an explicit type.   [FK]
+        fk=1./cm(i,1)
+--------^
+gfidi_hyb_gc_h-new.f(849): warning #6717: This name has not been given an explicit type.   [J]
+      do j=1,m
+---------^
+gfidi_hyb_gc_h-new.f(855): warning #6717: This name has not been given an explicit type.   [K]
+      do k=2,n-1
+---------^
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb_gc_ndsl.f 
+gfidi_hyb_gc_ndsl.f(494): warning #6717: This name has not been given an explicit type.   [LX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------^
+gfidi_hyb_gc_ndsl.f(494): warning #6717: This name has not been given an explicit type.   [N]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-------------------^
+gfidi_hyb_gc_ndsl.f(494): warning #6717: This name has not been given an explicit type.   [NX]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+-----------------------------------------------^
+gfidi_hyb_gc_ndsl.f(494): warning #6717: This name has not been given an explicit type.   [M]
+      real cl(lx,2:n),cm(lx,n),cu(lx,n-1),r(lx,nx,m),
+--------------------------------------------------^
+gfidi_hyb_gc_ndsl.f(498): warning #6717: This name has not been given an explicit type.   [I]
+      do i=1,l
+---------^
+gfidi_hyb_gc_ndsl.f(498): warning #6717: This name has not been given an explicit type.   [L]
+      do i=1,l
+-------------^
+gfidi_hyb_gc_ndsl.f(499): warning #6717: This name has not been given an explicit type.   [FK]
+        fk=1./cm(i,1)
+--------^
+gfidi_hyb_gc_ndsl.f(502): warning #6717: This name has not been given an explicit type.   [J]
+      do j=1,m
+---------^
+gfidi_hyb_gc_ndsl.f(508): warning #6717: This name has not been given an explicit type.   [K]
+      do k=2,n-1
+---------^
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_ppm_advecth1.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_ppm_advecth.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c glats.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopa_opt_gg.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c lon_lat_para.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c compns.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gozrineo.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c pln2eo.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c rms_spect.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c uvoedz.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_quit.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sicdif_hyb.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sicdif_hyb_gc.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c dotstep_tracers.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ensemble_wrt.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c four2fln_gg.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sortrx.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sumfln_slg_gg.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sumder2_slg_gg.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c triseori.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c uveodz.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ysminv.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c fftpack.f 
+fftpack.f(178): warning #6717: This name has not been given an explicit type.   [N]
+      if (n .eq. 1) return
+----------^
+fftpack.f(179): warning #6717: This name has not been given an explicit type.   [R]
+      call rfftf1 (n,r,wsave,wsave(n+1),wsave(2*n+1))
+---------------------^
+fftpack.f(179): warning #6717: This name has not been given an explicit type.   [WSAVE]
+      call rfftf1 (n,r,wsave,wsave(n+1),wsave(2*n+1))
+-----------------------^
+fftpack.f(184): warning #6717: This name has not been given an explicit type.   [N]
+      if (n .eq. 1) return
+----------^
+fftpack.f(185): warning #6717: This name has not been given an explicit type.   [R]
+      call rfftb1 (n,r,wsave,wsave(n+1),wsave(2*n+1))
+---------------------^
+fftpack.f(185): warning #6717: This name has not been given an explicit type.   [WSAVE]
+      call rfftb1 (n,r,wsave,wsave(n+1),wsave(2*n+1))
+-----------------------^
+fftpack.f(190): warning #6717: This name has not been given an explicit type.   [N]
+      if (n .eq. 1) return
+----------^
+fftpack.f(191): warning #6717: This name has not been given an explicit type.   [WSAVE]
+      call rffti1 (n,wsave(n+1),wsave(2*n+1))
+---------------------^
+fftpack.f(196): warning #6717: This name has not been given an explicit type.   [NF]
+      nf = ifac(2)
+------^
+fftpack.f(196): warning #6717: This name has not been given an explicit type.   [IFAC]
+      nf = ifac(2)
+-----------^
+fftpack.f(197): warning #6717: This name has not been given an explicit type.   [NA]
+      na = 0
+------^
+fftpack.f(198): warning #6717: This name has not been given an explicit type.   [L1]
+      l1 = 1
+------^
+fftpack.f(199): warning #6717: This name has not been given an explicit type.   [IW]
+      iw = 1
+------^
+fftpack.f(200): warning #6717: This name has not been given an explicit type.   [K1]
+      do 116 k1=1,nf
+-------------^
+fftpack.f(201): warning #6717: This name has not been given an explicit type.   [IP]
+         ip = ifac(k1+2)
+---------^
+fftpack.f(202): warning #6717: This name has not been given an explicit type.   [L2]
+         l2 = ip*l1
+---------^
+fftpack.f(203): warning #6717: This name has not been given an explicit type.   [IDO]
+         ido = n/l2
+---------^
+fftpack.f(203): warning #6717: This name has not been given an explicit type.   [N]
+         ido = n/l2
+---------------^
+fftpack.f(204): warning #6717: This name has not been given an explicit type.   [IDL1]
+         idl1 = ido*l1
+---------^
+fftpack.f(206): warning #6717: This name has not been given an explicit type.   [IX2]
+         ix2 = iw+ido
+---------^
+fftpack.f(207): warning #6717: This name has not been given an explicit type.   [IX3]
+         ix3 = ix2+ido
+---------^
+fftpack.f(209): warning #6717: This name has not been given an explicit type.   [C]
+         call radb4 (ido,l1,c,ch,wa(iw),wa(ix2),wa(ix3))
+----------------------------^
+fftpack.f(209): warning #6717: This name has not been given an explicit type.   [CH]
+         call radb4 (ido,l1,c,ch,wa(iw),wa(ix2),wa(ix3))
+------------------------------^
+fftpack.f(209): warning #6717: This name has not been given an explicit type.   [WA]
+         call radb4 (ido,l1,c,ch,wa(iw),wa(ix2),wa(ix3))
+---------------------------------^
+fftpack.f(232): warning #6717: This name has not been given an explicit type.   [IX4]
+         ix4 = ix3+ido
+---------^
+fftpack.f(248): warning #6717: This name has not been given an explicit type.   [I]
+      do 117 i=1,n
+-------------^
+fftpack.f(255): warning #6717: This name has not been given an explicit type.   [NF]
+      nf = ifac(2)
+------^
+fftpack.f(255): warning #6717: This name has not been given an explicit type.   [IFAC]
+      nf = ifac(2)
+-----------^
+fftpack.f(256): warning #6717: This name has not been given an explicit type.   [NA]
+      na = 1
+------^
+fftpack.f(257): warning #6717: This name has not been given an explicit type.   [L2]
+      l2 = n
+------^
+fftpack.f(257): warning #6717: This name has not been given an explicit type.   [N]
+      l2 = n
+-----------^
+fftpack.f(258): warning #6717: This name has not been given an explicit type.   [IW]
+      iw = n
+------^
+fftpack.f(259): warning #6717: This name has not been given an explicit type.   [K1]
+      do 111 k1=1,nf
+-------------^
+fftpack.f(260): warning #6717: This name has not been given an explicit type.   [KH]
+         kh = nf-k1
+---------^
+fftpack.f(261): warning #6717: This name has not been given an explicit type.   [IP]
+         ip = ifac(kh+3)
+---------^
+fftpack.f(262): warning #6717: This name has not been given an explicit type.   [L1]
+         l1 = l2/ip
+---------^
+fftpack.f(263): warning #6717: This name has not been given an explicit type.   [IDO]
+         ido = n/l2
+---------^
+fftpack.f(264): warning #6717: This name has not been given an explicit type.   [IDL1]
+         idl1 = ido*l1
+---------^
+fftpack.f(268): warning #6717: This name has not been given an explicit type.   [IX2]
+         ix2 = iw+ido
+---------^
+fftpack.f(269): warning #6717: This name has not been given an explicit type.   [IX3]
+         ix3 = ix2+ido
+---------^
+fftpack.f(271): warning #6717: This name has not been given an explicit type.   [C]
+         call radf4 (ido,l1,c,ch,wa(iw),wa(ix2),wa(ix3))
+----------------------------^
+fftpack.f(271): warning #6717: This name has not been given an explicit type.   [CH]
+         call radf4 (ido,l1,c,ch,wa(iw),wa(ix2),wa(ix3))
+------------------------------^
+fftpack.f(271): warning #6717: This name has not been given an explicit type.   [WA]
+         call radf4 (ido,l1,c,ch,wa(iw),wa(ix2),wa(ix3))
+---------------------------------^
+fftpack.f(291): warning #6717: This name has not been given an explicit type.   [IX4]
+         ix4 = ix3+ido
+---------^
+fftpack.f(307): warning #6717: This name has not been given an explicit type.   [I]
+      do 112 i=1,n
+-------------^
+fftpack.f(314): warning #6717: This name has not been given an explicit type.   [NTRYH]
+      data ntryh(1),ntryh(2),ntryh(3),ntryh(4)/4,2,3,5/
+-----------^
+fftpack.f(315): warning #6717: This name has not been given an explicit type.   [NL]
+      nl = n
+------^
+fftpack.f(315): warning #6717: This name has not been given an explicit type.   [N]
+      nl = n
+-----------^
+fftpack.f(316): warning #6717: This name has not been given an explicit type.   [NF]
+      nf = 0
+------^
+fftpack.f(317): warning #6717: This name has not been given an explicit type.   [J]
+      j = 0
+------^
+fftpack.f(320): warning #6717: This name has not been given an explicit type.   [NTRY]
+  102 ntry = ntryh(j)
+------^
+fftpack.f(323): warning #6717: This name has not been given an explicit type.   [NQ]
+  104 nq = nl/ntry
+------^
+fftpack.f(324): warning #6717: This name has not been given an explicit type.   [NR]
+      nr = nl-ntry*nq
+------^
+fftpack.f(327): warning #6717: This name has not been given an explicit type.   [IFAC]
+      ifac(nf+2) = ntry
+------^
+fftpack.f(331): warning #6717: This name has not been given an explicit type.   [I]
+      do 106 i=2,nf
+-------------^
+fftpack.f(332): warning #6717: This name has not been given an explicit type.   [IB]
+         ib = nf-i+2
+---------^
+fftpack.f(339): warning #6717: This name has not been given an explicit type.   [TPI]
+      tpi = 6.28318530717959
+------^
+fftpack.f(340): warning #6717: This name has not been given an explicit type.   [ARGH]
+      argh = tpi/float(n)
+------^
+fftpack.f(341): warning #6717: This name has not been given an explicit type.   [IS]
+      is = 0
+------^
+fftpack.f(342): warning #6717: This name has not been given an explicit type.   [NFM1]
+      nfm1 = nf-1
+------^
+fftpack.f(343): warning #6717: This name has not been given an explicit type.   [L1]
+      l1 = 1
+------^
+fftpack.f(346): warning #6717: This name has not been given an explicit type.   [K1]
+      do 110 k1=1,nfm1
+-------------^
+fftpack.f(347): warning #6717: This name has not been given an explicit type.   [IP]
+         ip = ifac(k1+2)
+---------^
+fftpack.f(348): warning #6717: This name has not been given an explicit type.   [LD]
+         ld = 0
+---------^
+fftpack.f(349): warning #6717: This name has not been given an explicit type.   [L2]
+         l2 = l1*ip
+---------^
+fftpack.f(350): warning #6717: This name has not been given an explicit type.   [IDO]
+         ido = n/l2
+---------^
+fftpack.f(351): warning #6717: This name has not been given an explicit type.   [IPM]
+         ipm = ip-1
+---------^
+fftpack.f(355): warning #6717: This name has not been given an explicit type.   [ARGLD]
+            argld = float(ld)*argh
+------------^
+fftpack.f(356): warning #6717: This name has not been given an explicit type.   [FI]
+            fi = 0
+------------^
+fftpack.f(358): warning #6717: This name has not been given an explicit type.   [II]
+            do 108 ii=3,ido,2
+-------------------^
+fftpack.f(361): warning #6717: This name has not been given an explicit type.   [ARG]
+               arg = fi*argld
+---------------^
+fftpack.f(362): warning #6717: This name has not been given an explicit type.   [WA]
+               wa(i-1) = cos(arg)
+---------------^
+fftpack.f(372): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       cc(ido,2,l1)           ,ch(ido,l1,2)           ,
+-------------------------^
+fftpack.f(372): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       cc(ido,2,l1)           ,ch(ido,l1,2)           ,
+-------------------------------^
+fftpack.f(374): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(375): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,k,1) = cc(1,1,k)+cc(ido,2,k)
+---------^
+fftpack.f(375): warning #6717: This name has not been given an explicit type.   [CC]
+         ch(1,k,1) = cc(1,1,k)+cc(ido,2,k)
+---------------------^
+fftpack.f(379): warning #6717: This name has not been given an explicit type.   [IDP2]
+  102 idp2 = ido+2
+------^
+fftpack.f(382): warning #6717: This name has not been given an explicit type.   [I]
+         do 103 i=3,ido,2
+----------------^
+fftpack.f(383): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(385): warning #6717: This name has not been given an explicit type.   [TR2]
+            tr2 = cc(i-1,1,k)-cc(ic-1,2,k)
+------------^
+fftpack.f(387): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = cc(i,1,k)+cc(ic,2,k)
+------------^
+fftpack.f(388): warning #6717: This name has not been given an explicit type.   [WA1]
+            ch(i-1,k,2) = wa1(i-2)*tr2-wa1(i-1)*ti2
+--------------------------^
+fftpack.f(400): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       cc(ido,3,l1)           ,ch(ido,l1,3)           ,
+-------------------------^
+fftpack.f(400): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       cc(ido,3,l1)           ,ch(ido,l1,3)           ,
+-------------------------------^
+fftpack.f(402): warning #6717: This name has not been given an explicit type.   [TAUR]
+      data taur,taui /-.5,.866025403784439/
+-----------^
+fftpack.f(402): warning #6717: This name has not been given an explicit type.   [TAUI]
+      data taur,taui /-.5,.866025403784439/
+----------------^
+fftpack.f(403): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(404): warning #6717: This name has not been given an explicit type.   [TR2]
+         tr2 = cc(ido,2,k)+cc(ido,2,k)
+---------^
+fftpack.f(404): warning #6717: This name has not been given an explicit type.   [CC]
+         tr2 = cc(ido,2,k)+cc(ido,2,k)
+---------------^
+fftpack.f(405): warning #6717: This name has not been given an explicit type.   [CR2]
+         cr2 = cc(1,1,k)+taur*tr2
+---------^
+fftpack.f(406): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,k,1) = cc(1,1,k)+tr2
+---------^
+fftpack.f(407): warning #6717: This name has not been given an explicit type.   [CI3]
+         ci3 = taui*(cc(1,3,k)+cc(1,3,k))
+---------^
+fftpack.f(412): warning #6717: This name has not been given an explicit type.   [IDP2]
+      idp2 = ido+2
+------^
+fftpack.f(415): warning #6717: This name has not been given an explicit type.   [I]
+         do 102 i=3,ido,2
+----------------^
+fftpack.f(416): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(420): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = cc(i,3,k)-cc(ic,2,k)
+------------^
+fftpack.f(421): warning #6717: This name has not been given an explicit type.   [CI2]
+            ci2 = cc(i,1,k)+taur*ti2
+------------^
+fftpack.f(423): warning #6717: This name has not been given an explicit type.   [CR3]
+            cr3 = taui*(cc(i-1,3,k)-cc(ic-1,2,k))
+------------^
+fftpack.f(425): warning #6717: This name has not been given an explicit type.   [DR2]
+            dr2 = cr2-ci3
+------------^
+fftpack.f(426): warning #6717: This name has not been given an explicit type.   [DR3]
+            dr3 = cr2+ci3
+------------^
+fftpack.f(427): warning #6717: This name has not been given an explicit type.   [DI2]
+            di2 = ci2+cr3
+------------^
+fftpack.f(428): warning #6717: This name has not been given an explicit type.   [DI3]
+            di3 = ci2-cr3
+------------^
+fftpack.f(429): warning #6717: This name has not been given an explicit type.   [WA1]
+            ch(i-1,k,2) = wa1(i-2)*dr2-wa1(i-1)*di2
+--------------------------^
+fftpack.f(431): warning #6717: This name has not been given an explicit type.   [WA2]
+            ch(i-1,k,3) = wa2(i-2)*dr3-wa2(i-1)*di3
+--------------------------^
+fftpack.f(438): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       cc(ido,4,l1)           ,ch(ido,l1,4)           ,
+-------------------------^
+fftpack.f(438): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       cc(ido,4,l1)           ,ch(ido,l1,4)           ,
+-------------------------------^
+fftpack.f(440): warning #6717: This name has not been given an explicit type.   [SQRT2]
+      data sqrt2 /1.414213562373095/
+-----------^
+fftpack.f(441): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(442): warning #6717: This name has not been given an explicit type.   [TR1]
+         tr1 = cc(1,1,k)-cc(ido,4,k)
+---------^
+fftpack.f(442): warning #6717: This name has not been given an explicit type.   [CC]
+         tr1 = cc(1,1,k)-cc(ido,4,k)
+---------------^
+fftpack.f(443): warning #6717: This name has not been given an explicit type.   [TR2]
+         tr2 = cc(1,1,k)+cc(ido,4,k)
+---------^
+fftpack.f(444): warning #6717: This name has not been given an explicit type.   [TR3]
+         tr3 = cc(ido,2,k)+cc(ido,2,k)
+---------^
+fftpack.f(445): warning #6717: This name has not been given an explicit type.   [TR4]
+         tr4 = cc(1,3,k)+cc(1,3,k)
+---------^
+fftpack.f(446): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,k,1) = tr2+tr3
+---------^
+fftpack.f(452): warning #6717: This name has not been given an explicit type.   [IDP2]
+  102 idp2 = ido+2
+------^
+fftpack.f(455): warning #6717: This name has not been given an explicit type.   [I]
+         do 103 i=3,ido,2
+----------------^
+fftpack.f(456): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(457): warning #6717: This name has not been given an explicit type.   [TI1]
+            ti1 = cc(i,1,k)+cc(ic,4,k)
+------------^
+fftpack.f(458): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = cc(i,1,k)-cc(ic,4,k)
+------------^
+fftpack.f(459): warning #6717: This name has not been given an explicit type.   [TI3]
+            ti3 = cc(i,3,k)-cc(ic,2,k)
+------------^
+fftpack.f(463): warning #6717: This name has not been given an explicit type.   [TI4]
+            ti4 = cc(i-1,3,k)-cc(ic-1,2,k)
+------------^
+fftpack.f(466): warning #6717: This name has not been given an explicit type.   [CR3]
+            cr3 = tr2-tr3
+------------^
+fftpack.f(468): warning #6717: This name has not been given an explicit type.   [CI3]
+            ci3 = ti2-ti3
+------------^
+fftpack.f(469): warning #6717: This name has not been given an explicit type.   [CR2]
+            cr2 = tr1-tr4
+------------^
+fftpack.f(470): warning #6717: This name has not been given an explicit type.   [CR4]
+            cr4 = tr1+tr4
+------------^
+fftpack.f(471): warning #6717: This name has not been given an explicit type.   [CI2]
+            ci2 = ti1+ti4
+------------^
+fftpack.f(472): warning #6717: This name has not been given an explicit type.   [CI4]
+            ci4 = ti1-ti4
+------------^
+fftpack.f(473): warning #6717: This name has not been given an explicit type.   [WA1]
+            ch(i-1,k,2) = wa1(i-2)*cr2-wa1(i-1)*ci2
+--------------------------^
+fftpack.f(475): warning #6717: This name has not been given an explicit type.   [WA2]
+            ch(i-1,k,3) = wa2(i-2)*cr3-wa2(i-1)*ci3
+--------------------------^
+fftpack.f(477): warning #6717: This name has not been given an explicit type.   [WA3]
+            ch(i-1,k,4) = wa3(i-2)*cr4-wa3(i-1)*ci4
+--------------------------^
+fftpack.f(496): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       cc(ido,5,l1)           ,ch(ido,l1,5)           ,
+-------------------------^
+fftpack.f(496): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       cc(ido,5,l1)           ,ch(ido,l1,5)           ,
+-------------------------------^
+fftpack.f(498): warning #6717: This name has not been given an explicit type.   [TR11]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+-----------^
+fftpack.f(498): warning #6717: This name has not been given an explicit type.   [TI11]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+----------------^
+fftpack.f(498): warning #6717: This name has not been given an explicit type.   [TR12]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+---------------------^
+fftpack.f(498): warning #6717: This name has not been given an explicit type.   [TI12]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+--------------------------^
+fftpack.f(500): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(501): warning #6717: This name has not been given an explicit type.   [TI5]
+         ti5 = cc(1,3,k)+cc(1,3,k)
+---------^
+fftpack.f(501): warning #6717: This name has not been given an explicit type.   [CC]
+         ti5 = cc(1,3,k)+cc(1,3,k)
+---------------^
+fftpack.f(502): warning #6717: This name has not been given an explicit type.   [TI4]
+         ti4 = cc(1,5,k)+cc(1,5,k)
+---------^
+fftpack.f(503): warning #6717: This name has not been given an explicit type.   [TR2]
+         tr2 = cc(ido,2,k)+cc(ido,2,k)
+---------^
+fftpack.f(504): warning #6717: This name has not been given an explicit type.   [TR3]
+         tr3 = cc(ido,4,k)+cc(ido,4,k)
+---------^
+fftpack.f(505): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,k,1) = cc(1,1,k)+tr2+tr3
+---------^
+fftpack.f(506): warning #6717: This name has not been given an explicit type.   [CR2]
+         cr2 = cc(1,1,k)+tr11*tr2+tr12*tr3
+---------^
+fftpack.f(507): warning #6717: This name has not been given an explicit type.   [CR3]
+         cr3 = cc(1,1,k)+tr12*tr2+tr11*tr3
+---------^
+fftpack.f(508): warning #6717: This name has not been given an explicit type.   [CI5]
+         ci5 = ti11*ti5+ti12*ti4
+---------^
+fftpack.f(509): warning #6717: This name has not been given an explicit type.   [CI4]
+         ci4 = ti12*ti5-ti11*ti4
+---------^
+fftpack.f(516): warning #6717: This name has not been given an explicit type.   [IDP2]
+      idp2 = ido+2
+------^
+fftpack.f(518): warning #6717: This name has not been given an explicit type.   [I]
+         do 102 i=3,ido,2
+----------------^
+fftpack.f(519): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(521): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = cc(i,3,k)-cc(ic,2,k)
+------------^
+fftpack.f(523): warning #6717: This name has not been given an explicit type.   [TI3]
+            ti3 = cc(i,5,k)-cc(ic,4,k)
+------------^
+fftpack.f(524): warning #6717: This name has not been given an explicit type.   [TR5]
+            tr5 = cc(i-1,3,k)-cc(ic-1,2,k)
+------------^
+fftpack.f(526): warning #6717: This name has not been given an explicit type.   [TR4]
+            tr4 = cc(i-1,5,k)-cc(ic-1,4,k)
+------------^
+fftpack.f(531): warning #6717: This name has not been given an explicit type.   [CI2]
+            ci2 = cc(i,1,k)+tr11*ti2+tr12*ti3
+------------^
+fftpack.f(533): warning #6717: This name has not been given an explicit type.   [CI3]
+            ci3 = cc(i,1,k)+tr12*ti2+tr11*ti3
+------------^
+fftpack.f(534): warning #6717: This name has not been given an explicit type.   [CR5]
+            cr5 = ti11*tr5+ti12*tr4
+------------^
+fftpack.f(536): warning #6717: This name has not been given an explicit type.   [CR4]
+            cr4 = ti12*tr5-ti11*tr4
+------------^
+fftpack.f(538): warning #6717: This name has not been given an explicit type.   [DR3]
+            dr3 = cr3-ci4
+------------^
+fftpack.f(539): warning #6717: This name has not been given an explicit type.   [DR4]
+            dr4 = cr3+ci4
+------------^
+fftpack.f(540): warning #6717: This name has not been given an explicit type.   [DI3]
+            di3 = ci3+cr4
+------------^
+fftpack.f(541): warning #6717: This name has not been given an explicit type.   [DI4]
+            di4 = ci3-cr4
+------------^
+fftpack.f(542): warning #6717: This name has not been given an explicit type.   [DR5]
+            dr5 = cr2+ci5
+------------^
+fftpack.f(543): warning #6717: This name has not been given an explicit type.   [DR2]
+            dr2 = cr2-ci5
+------------^
+fftpack.f(544): warning #6717: This name has not been given an explicit type.   [DI5]
+            di5 = ci2-cr5
+------------^
+fftpack.f(545): warning #6717: This name has not been given an explicit type.   [DI2]
+            di2 = ci2+cr5
+------------^
+fftpack.f(546): warning #6717: This name has not been given an explicit type.   [WA1]
+            ch(i-1,k,2) = wa1(i-2)*dr2-wa1(i-1)*di2
+--------------------------^
+fftpack.f(548): warning #6717: This name has not been given an explicit type.   [WA2]
+            ch(i-1,k,3) = wa2(i-2)*dr3-wa2(i-1)*di3
+--------------------------^
+fftpack.f(550): warning #6717: This name has not been given an explicit type.   [WA3]
+            ch(i-1,k,4) = wa3(i-2)*dr4-wa3(i-1)*di4
+--------------------------^
+fftpack.f(552): warning #6717: This name has not been given an explicit type.   [WA4]
+            ch(i-1,k,5) = wa4(i-2)*dr5-wa4(i-1)*di5
+--------------------------^
+fftpack.f(559): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       ch(ido,l1,ip)          ,cc(ido,ip,l1)          ,
+-------------------------^
+fftpack.f(559): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       ch(ido,l1,ip)          ,cc(ido,ip,l1)          ,
+-----------------------------^
+fftpack.f(559): warning #6717: This name has not been given an explicit type.   [IP]
+      dimension       ch(ido,l1,ip)          ,cc(ido,ip,l1)          ,
+--------------------------------^
+fftpack.f(560): warning #6717: This name has not been given an explicit type.   [IDL1]
+     1                c1(ido,l1,ip)          ,c2(idl1,ip),
+-------------------------------------------------^
+fftpack.f(562): warning #6717: This name has not been given an explicit type.   [TPI]
+      data tpi/6.28318530717959/
+-----------^
+fftpack.f(563): warning #6717: This name has not been given an explicit type.   [ARG]
+      arg = tpi/float(ip)
+------^
+fftpack.f(564): warning #6717: This name has not been given an explicit type.   [DCP]
+      dcp = cos(arg)
+------^
+fftpack.f(565): warning #6717: This name has not been given an explicit type.   [DSP]
+      dsp = sin(arg)
+------^
+fftpack.f(566): warning #6717: This name has not been given an explicit type.   [IDP2]
+      idp2 = ido+2
+------^
+fftpack.f(567): warning #6717: This name has not been given an explicit type.   [NBD]
+      nbd = (ido-1)/2
+------^
+fftpack.f(568): warning #6717: This name has not been given an explicit type.   [IPP2]
+      ipp2 = ip+2
+------^
+fftpack.f(569): warning #6717: This name has not been given an explicit type.   [IPPH]
+      ipph = (ip+1)/2
+------^
+fftpack.f(571): warning #6717: This name has not been given an explicit type.   [K]
+      do 102 k=1,l1
+-------------^
+fftpack.f(572): warning #6717: This name has not been given an explicit type.   [I]
+         do 101 i=1,ido
+----------------^
+fftpack.f(573): warning #6717: This name has not been given an explicit type.   [CH]
+            ch(i,k,1) = cc(i,1,k)
+------------^
+fftpack.f(573): warning #6717: This name has not been given an explicit type.   [CC]
+            ch(i,k,1) = cc(i,1,k)
+------------------------^
+fftpack.f(583): warning #6717: This name has not been given an explicit type.   [J]
+  106 do 108 j=2,ipph
+-------------^
+fftpack.f(584): warning #6717: This name has not been given an explicit type.   [JC]
+         jc = ipp2-j
+---------^
+fftpack.f(585): warning #6717: This name has not been given an explicit type.   [J2]
+         j2 = j+j
+---------^
+fftpack.f(598): warning #6717: This name has not been given an explicit type.   [IC]
+               ic = idp2-i
+---------------^
+fftpack.f(619): warning #6717: This name has not been given an explicit type.   [AR1]
+  116 ar1 = 1.
+------^
+fftpack.f(620): warning #6717: This name has not been given an explicit type.   [AI1]
+      ai1 = 0.
+------^
+fftpack.f(622): warning #6717: This name has not been given an explicit type.   [L]
+      do 120 l=2,ipph
+-------------^
+fftpack.f(623): warning #6717: This name has not been given an explicit type.   [LC]
+         lc = ipp2-l
+---------^
+fftpack.f(624): warning #6717: This name has not been given an explicit type.   [AR1H]
+         ar1h = dcp*ar1-dsp*ai1
+---------^
+fftpack.f(627): warning #6717: This name has not been given an explicit type.   [IK]
+         do 117 ik=1,idl1
+----------------^
+fftpack.f(628): warning #6717: This name has not been given an explicit type.   [C2]
+            c2(ik,l) = ch2(ik,1)+ar1*ch2(ik,2)
+------------^
+fftpack.f(628): warning #6717: This name has not been given an explicit type.   [CH2]
+            c2(ik,l) = ch2(ik,1)+ar1*ch2(ik,2)
+-----------------------^
+fftpack.f(631): warning #6717: This name has not been given an explicit type.   [DC2]
+         dc2 = ar1
+---------^
+fftpack.f(632): warning #6717: This name has not been given an explicit type.   [DS2]
+         ds2 = ai1
+---------^
+fftpack.f(633): warning #6717: This name has not been given an explicit type.   [AR2]
+         ar2 = ar1
+---------^
+fftpack.f(634): warning #6717: This name has not been given an explicit type.   [AI2]
+         ai2 = ai1
+---------^
+fftpack.f(638): warning #6717: This name has not been given an explicit type.   [AR2H]
+            ar2h = dc2*ar2-ds2*ai2
+------------^
+fftpack.f(657): warning #6717: This name has not been given an explicit type.   [C1]
+            ch(1,k,j) = c1(1,k,j)-c1(1,k,jc)
+------------------------^
+fftpack.f(698): warning #6717: This name has not been given an explicit type.   [IS]
+      is = -ido
+------^
+fftpack.f(701): warning #6717: This name has not been given an explicit type.   [IDIJ]
+         idij = is
+---------^
+fftpack.f(705): warning #6717: This name has not been given an explicit type.   [WA]
+               c1(i-1,k,j) = wa(idij-1)*ch(i-1,k,j)-wa(idij)*ch(i,k,j)
+-----------------------------^
+fftpack.f(727): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       ch(ido,2,l1)           ,cc(ido,l1,2)           ,
+-------------------------^
+fftpack.f(727): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       ch(ido,2,l1)           ,cc(ido,l1,2)           ,
+-------------------------------^
+fftpack.f(729): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(730): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,1,k) = cc(1,k,1)+cc(1,k,2)
+---------^
+fftpack.f(730): warning #6717: This name has not been given an explicit type.   [CC]
+         ch(1,1,k) = cc(1,k,1)+cc(1,k,2)
+---------------------^
+fftpack.f(734): warning #6717: This name has not been given an explicit type.   [IDP2]
+  102 idp2 = ido+2
+------^
+fftpack.f(736): warning #6717: This name has not been given an explicit type.   [I]
+         do 103 i=3,ido,2
+----------------^
+fftpack.f(737): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(738): warning #6717: This name has not been given an explicit type.   [TR2]
+            tr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------^
+fftpack.f(738): warning #6717: This name has not been given an explicit type.   [WA1]
+            tr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------------^
+fftpack.f(739): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = wa1(i-2)*cc(i,k,2)-wa1(i-1)*cc(i-1,k,2)
+------------^
+fftpack.f(754): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       ch(ido,3,l1)           ,cc(ido,l1,3)           ,
+-------------------------^
+fftpack.f(754): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       ch(ido,3,l1)           ,cc(ido,l1,3)           ,
+-------------------------------^
+fftpack.f(756): warning #6717: This name has not been given an explicit type.   [TAUR]
+      data taur,taui /-.5,.866025403784439/
+-----------^
+fftpack.f(756): warning #6717: This name has not been given an explicit type.   [TAUI]
+      data taur,taui /-.5,.866025403784439/
+----------------^
+fftpack.f(757): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(758): warning #6717: This name has not been given an explicit type.   [CR2]
+         cr2 = cc(1,k,2)+cc(1,k,3)
+---------^
+fftpack.f(758): warning #6717: This name has not been given an explicit type.   [CC]
+         cr2 = cc(1,k,2)+cc(1,k,3)
+---------------^
+fftpack.f(759): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,1,k) = cc(1,k,1)+cr2
+---------^
+fftpack.f(764): warning #6717: This name has not been given an explicit type.   [IDP2]
+      idp2 = ido+2
+------^
+fftpack.f(766): warning #6717: This name has not been given an explicit type.   [I]
+         do 102 i=3,ido,2
+----------------^
+fftpack.f(767): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(768): warning #6717: This name has not been given an explicit type.   [DR2]
+            dr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------^
+fftpack.f(768): warning #6717: This name has not been given an explicit type.   [WA1]
+            dr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------------^
+fftpack.f(769): warning #6717: This name has not been given an explicit type.   [DI2]
+            di2 = wa1(i-2)*cc(i,k,2)-wa1(i-1)*cc(i-1,k,2)
+------------^
+fftpack.f(770): warning #6717: This name has not been given an explicit type.   [DR3]
+            dr3 = wa2(i-2)*cc(i-1,k,3)+wa2(i-1)*cc(i,k,3)
+------------^
+fftpack.f(770): warning #6717: This name has not been given an explicit type.   [WA2]
+            dr3 = wa2(i-2)*cc(i-1,k,3)+wa2(i-1)*cc(i,k,3)
+------------------^
+fftpack.f(771): warning #6717: This name has not been given an explicit type.   [DI3]
+            di3 = wa2(i-2)*cc(i,k,3)-wa2(i-1)*cc(i-1,k,3)
+------------^
+fftpack.f(773): warning #6717: This name has not been given an explicit type.   [CI2]
+            ci2 = di2+di3
+------------^
+fftpack.f(776): warning #6717: This name has not been given an explicit type.   [TR2]
+            tr2 = cc(i-1,k,1)+taur*cr2
+------------^
+fftpack.f(777): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = cc(i,k,1)+taur*ci2
+------------^
+fftpack.f(778): warning #6717: This name has not been given an explicit type.   [TR3]
+            tr3 = taui*(di2-di3)
+------------^
+fftpack.f(779): warning #6717: This name has not been given an explicit type.   [TI3]
+            ti3 = taui*(dr3-dr2)
+------------^
+fftpack.f(789): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       cc(ido,l1,4)           ,ch(ido,4,l1)           ,
+-------------------------^
+fftpack.f(789): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       cc(ido,l1,4)           ,ch(ido,4,l1)           ,
+-----------------------------^
+fftpack.f(791): warning #6717: This name has not been given an explicit type.   [HSQT2]
+      data hsqt2 /.7071067811865475/
+-----------^
+fftpack.f(792): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(793): warning #6717: This name has not been given an explicit type.   [TR1]
+         tr1 = cc(1,k,2)+cc(1,k,4)
+---------^
+fftpack.f(793): warning #6717: This name has not been given an explicit type.   [CC]
+         tr1 = cc(1,k,2)+cc(1,k,4)
+---------------^
+fftpack.f(794): warning #6717: This name has not been given an explicit type.   [TR2]
+         tr2 = cc(1,k,1)+cc(1,k,3)
+---------^
+fftpack.f(795): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,1,k) = tr1+tr2
+---------^
+fftpack.f(801): warning #6717: This name has not been given an explicit type.   [IDP2]
+  102 idp2 = ido+2
+------^
+fftpack.f(804): warning #6717: This name has not been given an explicit type.   [I]
+         do 103 i=3,ido,2
+----------------^
+fftpack.f(805): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(806): warning #6717: This name has not been given an explicit type.   [CR2]
+            cr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------^
+fftpack.f(806): warning #6717: This name has not been given an explicit type.   [WA1]
+            cr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------------^
+fftpack.f(807): warning #6717: This name has not been given an explicit type.   [CI2]
+            ci2 = wa1(i-2)*cc(i,k,2)-wa1(i-1)*cc(i-1,k,2)
+------------^
+fftpack.f(808): warning #6717: This name has not been given an explicit type.   [CR3]
+            cr3 = wa2(i-2)*cc(i-1,k,3)+wa2(i-1)*cc(i,k,3)
+------------^
+fftpack.f(808): warning #6717: This name has not been given an explicit type.   [WA2]
+            cr3 = wa2(i-2)*cc(i-1,k,3)+wa2(i-1)*cc(i,k,3)
+------------------^
+fftpack.f(809): warning #6717: This name has not been given an explicit type.   [CI3]
+            ci3 = wa2(i-2)*cc(i,k,3)-wa2(i-1)*cc(i-1,k,3)
+------------^
+fftpack.f(810): warning #6717: This name has not been given an explicit type.   [CR4]
+            cr4 = wa3(i-2)*cc(i-1,k,4)+wa3(i-1)*cc(i,k,4)
+------------^
+fftpack.f(810): warning #6717: This name has not been given an explicit type.   [WA3]
+            cr4 = wa3(i-2)*cc(i-1,k,4)+wa3(i-1)*cc(i,k,4)
+------------------^
+fftpack.f(811): warning #6717: This name has not been given an explicit type.   [CI4]
+            ci4 = wa3(i-2)*cc(i,k,4)-wa3(i-1)*cc(i-1,k,4)
+------------^
+fftpack.f(813): warning #6717: This name has not been given an explicit type.   [TR4]
+            tr4 = cr4-cr2
+------------^
+fftpack.f(814): warning #6717: This name has not been given an explicit type.   [TI1]
+            ti1 = ci2+ci4
+------------^
+fftpack.f(815): warning #6717: This name has not been given an explicit type.   [TI4]
+            ti4 = ci2-ci4
+------------^
+fftpack.f(816): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = cc(i,k,1)+ci3
+------------^
+fftpack.f(817): warning #6717: This name has not been given an explicit type.   [TI3]
+            ti3 = cc(i,k,1)-ci3
+------------^
+fftpack.f(819): warning #6717: This name has not been given an explicit type.   [TR3]
+            tr3 = cc(i-1,k,1)-cr3
+------------^
+fftpack.f(843): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       cc(ido,l1,5)           ,ch(ido,5,l1)           ,
+-------------------------^
+fftpack.f(843): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       cc(ido,l1,5)           ,ch(ido,5,l1)           ,
+-----------------------------^
+fftpack.f(845): warning #6717: This name has not been given an explicit type.   [TR11]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+-----------^
+fftpack.f(845): warning #6717: This name has not been given an explicit type.   [TI11]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+----------------^
+fftpack.f(845): warning #6717: This name has not been given an explicit type.   [TR12]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+---------------------^
+fftpack.f(845): warning #6717: This name has not been given an explicit type.   [TI12]
+      data tr11,ti11,tr12,ti12 /.309016994374947,.951056516295154,
+--------------------------^
+fftpack.f(847): warning #6717: This name has not been given an explicit type.   [K]
+      do 101 k=1,l1
+-------------^
+fftpack.f(848): warning #6717: This name has not been given an explicit type.   [CR2]
+         cr2 = cc(1,k,5)+cc(1,k,2)
+---------^
+fftpack.f(848): warning #6717: This name has not been given an explicit type.   [CC]
+         cr2 = cc(1,k,5)+cc(1,k,2)
+---------------^
+fftpack.f(849): warning #6717: This name has not been given an explicit type.   [CI5]
+         ci5 = cc(1,k,5)-cc(1,k,2)
+---------^
+fftpack.f(850): warning #6717: This name has not been given an explicit type.   [CR3]
+         cr3 = cc(1,k,4)+cc(1,k,3)
+---------^
+fftpack.f(851): warning #6717: This name has not been given an explicit type.   [CI4]
+         ci4 = cc(1,k,4)-cc(1,k,3)
+---------^
+fftpack.f(852): warning #6717: This name has not been given an explicit type.   [CH]
+         ch(1,1,k) = cc(1,k,1)+cr2+cr3
+---------^
+fftpack.f(859): warning #6717: This name has not been given an explicit type.   [IDP2]
+      idp2 = ido+2
+------^
+fftpack.f(861): warning #6717: This name has not been given an explicit type.   [I]
+         do 102 i=3,ido,2
+----------------^
+fftpack.f(862): warning #6717: This name has not been given an explicit type.   [IC]
+            ic = idp2-i
+------------^
+fftpack.f(863): warning #6717: This name has not been given an explicit type.   [DR2]
+            dr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------^
+fftpack.f(863): warning #6717: This name has not been given an explicit type.   [WA1]
+            dr2 = wa1(i-2)*cc(i-1,k,2)+wa1(i-1)*cc(i,k,2)
+------------------^
+fftpack.f(864): warning #6717: This name has not been given an explicit type.   [DI2]
+            di2 = wa1(i-2)*cc(i,k,2)-wa1(i-1)*cc(i-1,k,2)
+------------^
+fftpack.f(865): warning #6717: This name has not been given an explicit type.   [DR3]
+            dr3 = wa2(i-2)*cc(i-1,k,3)+wa2(i-1)*cc(i,k,3)
+------------^
+fftpack.f(865): warning #6717: This name has not been given an explicit type.   [WA2]
+            dr3 = wa2(i-2)*cc(i-1,k,3)+wa2(i-1)*cc(i,k,3)
+------------------^
+fftpack.f(866): warning #6717: This name has not been given an explicit type.   [DI3]
+            di3 = wa2(i-2)*cc(i,k,3)-wa2(i-1)*cc(i-1,k,3)
+------------^
+fftpack.f(867): warning #6717: This name has not been given an explicit type.   [DR4]
+            dr4 = wa3(i-2)*cc(i-1,k,4)+wa3(i-1)*cc(i,k,4)
+------------^
+fftpack.f(867): warning #6717: This name has not been given an explicit type.   [WA3]
+            dr4 = wa3(i-2)*cc(i-1,k,4)+wa3(i-1)*cc(i,k,4)
+------------------^
+fftpack.f(868): warning #6717: This name has not been given an explicit type.   [DI4]
+            di4 = wa3(i-2)*cc(i,k,4)-wa3(i-1)*cc(i-1,k,4)
+------------^
+fftpack.f(869): warning #6717: This name has not been given an explicit type.   [DR5]
+            dr5 = wa4(i-2)*cc(i-1,k,5)+wa4(i-1)*cc(i,k,5)
+------------^
+fftpack.f(869): warning #6717: This name has not been given an explicit type.   [WA4]
+            dr5 = wa4(i-2)*cc(i-1,k,5)+wa4(i-1)*cc(i,k,5)
+------------------^
+fftpack.f(870): warning #6717: This name has not been given an explicit type.   [DI5]
+            di5 = wa4(i-2)*cc(i,k,5)-wa4(i-1)*cc(i-1,k,5)
+------------^
+fftpack.f(873): warning #6717: This name has not been given an explicit type.   [CR5]
+            cr5 = di2-di5
+------------^
+fftpack.f(874): warning #6717: This name has not been given an explicit type.   [CI2]
+            ci2 = di2+di5
+------------^
+fftpack.f(877): warning #6717: This name has not been given an explicit type.   [CR4]
+            cr4 = di3-di4
+------------^
+fftpack.f(878): warning #6717: This name has not been given an explicit type.   [CI3]
+            ci3 = di3+di4
+------------^
+fftpack.f(881): warning #6717: This name has not been given an explicit type.   [TR2]
+            tr2 = cc(i-1,k,1)+tr11*cr2+tr12*cr3
+------------^
+fftpack.f(882): warning #6717: This name has not been given an explicit type.   [TI2]
+            ti2 = cc(i,k,1)+tr11*ci2+tr12*ci3
+------------^
+fftpack.f(883): warning #6717: This name has not been given an explicit type.   [TR3]
+            tr3 = cc(i-1,k,1)+tr12*cr2+tr11*cr3
+------------^
+fftpack.f(884): warning #6717: This name has not been given an explicit type.   [TI3]
+            ti3 = cc(i,k,1)+tr12*ci2+tr11*ci3
+------------^
+fftpack.f(885): warning #6717: This name has not been given an explicit type.   [TR5]
+            tr5 = ti11*cr5+ti12*cr4
+------------^
+fftpack.f(886): warning #6717: This name has not been given an explicit type.   [TI5]
+            ti5 = ti11*ci5+ti12*ci4
+------------^
+fftpack.f(887): warning #6717: This name has not been given an explicit type.   [TR4]
+            tr4 = ti12*cr5-ti11*cr4
+------------^
+fftpack.f(888): warning #6717: This name has not been given an explicit type.   [TI4]
+            ti4 = ti12*ci5-ti11*ci4
+------------^
+fftpack.f(902): warning #6717: This name has not been given an explicit type.   [IDO]
+      dimension       ch(ido,l1,ip)          ,cc(ido,ip,l1)          ,
+-------------------------^
+fftpack.f(902): warning #6717: This name has not been given an explicit type.   [L1]
+      dimension       ch(ido,l1,ip)          ,cc(ido,ip,l1)          ,
+-----------------------------^
+fftpack.f(902): warning #6717: This name has not been given an explicit type.   [IP]
+      dimension       ch(ido,l1,ip)          ,cc(ido,ip,l1)          ,
+--------------------------------^
+fftpack.f(903): warning #6717: This name has not been given an explicit type.   [IDL1]
+     1                c1(ido,l1,ip)          ,c2(idl1,ip),
+-------------------------------------------------^
+fftpack.f(905): warning #6717: This name has not been given an explicit type.   [TPI]
+      data tpi/6.28318530717959/
+-----------^
+fftpack.f(906): warning #6717: This name has not been given an explicit type.   [ARG]
+      arg = tpi/float(ip)
+------^
+fftpack.f(907): warning #6717: This name has not been given an explicit type.   [DCP]
+      dcp = cos(arg)
+------^
+fftpack.f(908): warning #6717: This name has not been given an explicit type.   [DSP]
+      dsp = sin(arg)
+------^
+fftpack.f(909): warning #6717: This name has not been given an explicit type.   [IPPH]
+      ipph = (ip+1)/2
+------^
+fftpack.f(910): warning #6717: This name has not been given an explicit type.   [IPP2]
+      ipp2 = ip+2
+------^
+fftpack.f(911): warning #6717: This name has not been given an explicit type.   [IDP2]
+      idp2 = ido+2
+------^
+fftpack.f(912): warning #6717: This name has not been given an explicit type.   [NBD]
+      nbd = (ido-1)/2
+------^
+fftpack.f(914): warning #6717: This name has not been given an explicit type.   [IK]
+      do 101 ik=1,idl1
+-------------^
+fftpack.f(915): warning #6717: This name has not been given an explicit type.   [CH2]
+         ch2(ik,1) = c2(ik,1)
+---------^
+fftpack.f(915): warning #6717: This name has not been given an explicit type.   [C2]
+         ch2(ik,1) = c2(ik,1)
+---------------------^
+fftpack.f(917): warning #6717: This name has not been given an explicit type.   [J]
+      do 103 j=2,ip
+-------------^
+fftpack.f(918): warning #6717: This name has not been given an explicit type.   [K]
+         do 102 k=1,l1
+----------------^
+fftpack.f(919): warning #6717: This name has not been given an explicit type.   [CH]
+            ch(1,k,j) = c1(1,k,j)
+------------^
+fftpack.f(919): warning #6717: This name has not been given an explicit type.   [C1]
+            ch(1,k,j) = c1(1,k,j)
+------------------------^
+fftpack.f(923): warning #6717: This name has not been given an explicit type.   [IS]
+      is = -ido
+------^
+fftpack.f(926): warning #6717: This name has not been given an explicit type.   [IDIJ]
+         idij = is
+---------^
+fftpack.f(927): warning #6717: This name has not been given an explicit type.   [I]
+         do 105 i=3,ido,2
+----------------^
+fftpack.f(930): warning #6717: This name has not been given an explicit type.   [WA]
+               ch(i-1,k,j) = wa(idij-1)*c1(i-1,k,j)+wa(idij)*c1(i,k,j)
+-----------------------------^
+fftpack.f(950): warning #6717: This name has not been given an explicit type.   [JC]
+         jc = ipp2-j
+---------^
+fftpack.f(984): warning #6717: This name has not been given an explicit type.   [AR1]
+      ar1 = 1.
+------^
+fftpack.f(985): warning #6717: This name has not been given an explicit type.   [AI1]
+      ai1 = 0.
+------^
+fftpack.f(986): warning #6717: This name has not been given an explicit type.   [L]
+      do 127 l=2,ipph
+-------------^
+fftpack.f(987): warning #6717: This name has not been given an explicit type.   [LC]
+         lc = ipp2-l
+---------^
+fftpack.f(988): warning #6717: This name has not been given an explicit type.   [AR1H]
+         ar1h = dcp*ar1-dsp*ai1
+---------^
+fftpack.f(995): warning #6717: This name has not been given an explicit type.   [DC2]
+         dc2 = ar1
+---------^
+fftpack.f(996): warning #6717: This name has not been given an explicit type.   [DS2]
+         ds2 = ai1
+---------^
+fftpack.f(997): warning #6717: This name has not been given an explicit type.   [AR2]
+         ar2 = ar1
+---------^
+fftpack.f(998): warning #6717: This name has not been given an explicit type.   [AI2]
+         ai2 = ai1
+---------^
+fftpack.f(1001): warning #6717: This name has not been given an explicit type.   [AR2H]
+            ar2h = dc2*ar2-ds2*ai2
+------------^
+fftpack.f(1019): warning #6717: This name has not been given an explicit type.   [CC]
+            cc(i,1,k) = ch(i,k,1)
+------------^
+fftpack.f(1030): warning #6717: This name has not been given an explicit type.   [J2]
+         j2 = j+j
+---------^
+fftpack.f(1043): warning #6717: This name has not been given an explicit type.   [IC]
+               ic = idp2-i
+---------------^
+cc -c -DLINUX byteswap.c
+clib.h(14): warning #47: incompatible redefinition of macro "LINUX"
+  #define LINUX
+          ^
+
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c ozinterp.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c ozphys.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopb.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gbphys.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gbphys_adv_hyb_gc.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gbphys_adv_hyb_gc_h-new.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c dcyc2.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c dcyc2.pre.rad.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c set_soilveg.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_drv.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_sice.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_ocean.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_nst.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_diff.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_diag.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sflx.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c moninq.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c moninq1.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c moninedmf.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c mfpbl.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gwdps.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c rayleigh_damp.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gwdc.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sascnvn.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c cnvc90.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c shalcnv.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gscond.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gscondp.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c precpd.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c precpdp.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c get_prs.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gsmddrive.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c omegtes.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c omegtes_gc.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c hyb2press.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c hyb2press_gc.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/esmf_3_1_0rp5 -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -FR -c get_pattern.f90
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radlw_param.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radlw_datatb.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radlw_main.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radsw_param.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radsw_datatb.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radsw_main.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_astronomy.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_aerosols.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_gases.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_clouds.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_surface.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c grrad.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c rad_initialize.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopr.f
+cc -c mygather.c
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_GV.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c read_fix.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c gribit.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c wrt3d_hyb.f 
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c wrtsfc.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c para_fixio_w.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c para_nstio_w.f
+ftn  -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sfcsub.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c treadeo.io.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c treadeo.gfsio.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c grid_to_spec.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c spect_to_grid.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c spect_tv_enthalpy_ps.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c twriteeo.f
+ftn -openmp    -O3 -xHost -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib/incmod/w3lib-2.0_d -c spect_write.f
+ftn -o global_fcst_cmip5 machine.o num_parthds.o sigio_module.o sigio_r_module.o iounitdef.o physpara.o physcons.o funcphys.o rascnvv2.o mersenne_twister.o resol_def.o gg_def.o vert_def.o sig_io.o date_def.o layout1.o layout_grid_tracers.o namelist_def.o namelist_soilveg.o coordinate_def.o tracer_const_h-new.o reduce_lons_grid_module.o mpi_def.o semi_lag_def.o deldifs_def.o bfilt_def.o sfcio_module.o gfsio_module.o gfsio_def.o d3d_def.o nstio_module.o module_nst_parameters.o module_nst_water_prop.o module_nst_model.o calpreciptype.o module_bfmicrophysics.o kinds.o peuc.o pran.o prana.o layout_lag.o slglat.o slgshr.o pmgrid.o get_cd_hyb_slg.o sltini_all.o set_halos_lag_sn.o getcon_lag.o gfidi_speed.o setlats_lag.o gfidi_tracers.o slgscan_all_redgg.o get_topo_grid_grad.o mpi_tracers_a_to_b.o gloopa_tracers.o ndslfv_base.o ndslfv_para.o ndslfv_ppm_pack.o sicdif_hyb_slg.o patterngenerator.o iau_module.o stoch_data.o mpi_more.o cmp.comm.o atm.comm.o tiles.o NameList_ESMFMod.o Sfc_Var_ESMFMod.o Nst_Var_ESMFMod.o GFS_ErrMsgMod.o Lib_ESMFStateAddGetMod.o GFS_InternalState_ESMFMod.o GFS_ESMFStateMod.o GFS_GetCf_ESMFMod.o GFS_Initialize_ESMFMod.o GFS_Run_ESMFMod.o GFS_Finalize_ESMFMod.o GFS_AddParameterToStateMod.o GFS_GridComp_ESMFMod.o Grid_ESMFCreate.o StartTimeGet_ESMF.o Ensemble_sub.o GEFS_Cpl_InternalState_ESMFMod.o GEFS_CplState_ESMFMod.o GEFS_four2fln.o GEFS_uvoedz.o GEFS_uveodz.o GEFS_sumfln.o GEFS_dozeuv.o GEFS_dezouv.o GEFS_Sto_Per_Scheme_Step1.o GEFS_Sto_Per_Scheme_Step2.o GEFS_Cpl_Run_ESMFMod.o GEFS_Cpl_ESMFMod.o GEFS_GetParameterFromStateMod.o GEFS_CplComp_ESMFMod.o GFS_ESMF.o Cal_Sto_Coef.o GEFS_bcst_global.o get_cd_hyb.o get_am_bm_hyb.o get_cd_hyb_gc.o get_am_bm_hyb_gc.o setlats.o getysk.o getysk_gc.o ifshuff.o digifilt.o gcycle.o wrtout.o grid_collect.o GEFS_four2grid_thread.o info.o four_to_grid.o damp_speed.o deldifs.o deldifs_tracers.o fix_fields.o spect_fields.o delnpe.o delnpo.o dezouv.o impadj_slg.locl.o impadj_hyb.locl.o impadj_hyb.locl_gc.o dozeuv.o epslon.o filtr1eo.o filtr2eo.o get_ls_node.o get_lats_node_shuff_a_fix.o get_lats_node_shuff_r_fix.o getcon.o gfidi_hyb.o gfidi_hyb_gc.o gfidi_hyb_gc_h-new.o gfidi_hyb_gc_ndsl.o ndslfv_ppm_advecth1.o ndslfv_ppm_advecth.o glats.o gloopa_opt_gg.o lon_lat_para.o compns.o gozrineo.o pln2eo.o rms_spect.o uvoedz.o mpi_quit.o sicdif_hyb.o sicdif_hyb_gc.o dotstep_tracers.o ensemble_wrt.o four2fln_gg.o sortrx.o sumfln_slg_gg.o sumder2_slg_gg.o triseori.o uveodz.o ysminv.o fftpack.o byteswap.o  ozinterp.o ozphys.o gloopb.o gbphys.o gbphys_adv_hyb_gc.o gbphys_adv_hyb_gc_h-new.o dcyc2.o dcyc2.pre.rad.o set_soilveg.o sfc_drv.o sfc_sice.o sfc_ocean.o sfc_nst.o sfc_diff.o sfc_diag.o sflx.o moninq.o moninq1.o moninedmf.o mfpbl.o gwdps.o rayleigh_damp.o gwdc.o sascnvn.o cnvc90.o shalcnv.o gscond.o gscondp.o precpd.o precpdp.o get_prs.o gsmddrive.o omegtes.o omegtes_gc.o hyb2press.o hyb2press_gc.o get_pattern.o radlw_param.o radlw_datatb.o radlw_main.o radsw_param.o radsw_datatb.o radsw_main.o radiation_astronomy.o radiation_aerosols.o radiation_gases.o radiation_clouds.o radiation_surface.o grrad.o rad_initialize.o gloopr.o mygather.o mpi_GV.o read_fix.o gribit.o wrt3d_hyb.o wrtsfc.o para_fixio_w.o para_nstio_w.o sfcsub.o treadeo.io.o treadeo.gfsio.o grid_to_spec.o spect_to_grid.o spect_tv_enthalpy_ps.o twriteeo.o spect_write.o -L/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib  -lbacio_4 -lnemsio -lsp_d -lw3lib-2.0_d -lrt -L/lustre/f1/unswept/Jeffrey.S.Whitaker/nwprod/lib -lesmf_3_1_0rp5 -lstdc++ -mkl  -openmp -mkl

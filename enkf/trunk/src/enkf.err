@@ -1,0 +1,19 @@
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-pgi' is currently not loaded
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-pgi' is currently not loaded
+ ****STOP2****  ABORTING EXECUTION w/code=          19
+Rank 0 [Sat Jun 15 21:43:10 2013] [c0-0c1s14n0] application called MPI_Abort(MPI_COMM_WORLD, 19) - process 0
+forrtl: error (76): Abort trap signal
+Image              PC                Routine            Line        Source             
+global_enkf        0000000000F926DB  Unknown               Unknown  Unknown
+global_enkf        0000000001101321  Unknown               Unknown  Unknown
+global_enkf        0000000000E73EF2  Unknown               Unknown  Unknown
+global_enkf        0000000000E51ED5  Unknown               Unknown  Unknown
+global_enkf        0000000000B5FE85  Unknown               Unknown  Unknown
+global_enkf        00000000004AA8FF  stop2_                     36  stop1.f90
+global_enkf        00000000004749AA  params_mp_read_na         271  params.f90
+global_enkf        00000000004009D7  MAIN__                    107  enkf_main.f90
+global_enkf        000000000040092C  Unknown               Unknown  Unknown
+global_enkf        00000000010FAF84  Unknown               Unknown  Unknown
+global_enkf        000000000040079D  Unknown               Unknown  Unknown
+_pmiu_daemon(SIGCHLD): [NID 00120] [c0-0c1s14n0] [Sat Jun 15 21:43:11 2013] PE RANK 0 exit signal Aborted
+[NID 00120] 2013-06-15 21:43:11 Apid 589700: initiated application termination

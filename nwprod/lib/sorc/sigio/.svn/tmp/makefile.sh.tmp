@@ -1,0 +1,22 @@
+#!/bin/sh
+set -x
+export LIBDIR=../..
+export INCMOD=$LIBDIR/incmod/sigio_4
+#export FCMP95=xlf95_r
+export FCMP=${1:-ftn}
+if [ $FCMP = xlf_r ] ; then
+#export FFLAGSM="-g -C -qextchk -qflttrap -qnosave -g -q free=f90 -I$(INCMOD)"
+#export FFLAGS="-g -C -qextchk -qflttrap -qnosave -O3 -q free=f90"
+#export FFLAGB="-g -C -qextchk -qflttrap -qnosave -O3 -q fixed"
+
+ export FFLAGS="-O2 -xHOST -convert big_endian -traceback -g -FR -I$INCMOD"
+ export FFLAGB="-O2 -xHOST -convert big_endian -traceback -g"
+ export ARFLAGS="-ruv -X64"
+else
+ export FFLAGS="-O2 -xHOST -convert big_endian -traceback -g -FR -I$INCMOD"
+ export FFLAGB="-O2 -xHOST -convert big_endian -traceback -g"
+ export ARFLAGS="-ruv"
+fi
+export AR=ar
+mkdir $INCMOD
+make -f makefile_4

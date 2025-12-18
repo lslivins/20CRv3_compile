@@ -1,0 +1,26 @@
+SHELL=	/bin/sh
+FCS=ftn
+FCP=ftn
+OPTFLAGS=-O3 -traceback -convert big_endian
+FREEFLAG=-FR
+DOUBLEFLAG=-r8
+OMPFLAG=-qopenmp
+SHELL=	/bin/sh
+LIBS    =-L../../nwprod/lib -lsfcio_4 -L../../nwprod/lib -lw3lib-2.0_d -lsp_d -lbacio_4
+INCS=-I../../nwprod/lib/incmod/sfcio_4 
+FFLAGS  = $(INCS) $(OPTFLAGS) $(DOUBLEFLAG) 
+global_cyclep:	num_parthds.o machine.o cyclep.o sfcsub.o
+	$(FCP) $(FFLAGS) $(OMPFLAG) -o global_cyclep num_parthds.o cyclep.o sfcsub.o machine.o $(LIBS)
+all: global_cyclep
+num_parthds.o:	num_parthds.f
+	$(FCS) $(FFLAGS) $(OMPFLAG) -c num_parthds.f
+machine.o:	machine.f
+	$(FCS) $(FFLAGS) -c machine.f
+sfcsub.o:	sfcsub.f
+	$(FCS) $(FFLAGS) -c sfcsub.f
+cycle.o:	cycle.f
+	$(FCS) $(FFLAGS) -c cycle.f
+cyclep.o:	cyclep.f
+	$(FCP) $(FFLAGS) -c cyclep.f
+clean:  
+	rm -f *.o *.mod

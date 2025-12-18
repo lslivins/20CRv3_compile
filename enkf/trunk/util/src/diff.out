@@ -1,0 +1,1047 @@
+--- ../../../branches/EXP-hybens_reorg/util/src/adderrspec_nmcmeth.f90	2011-05-17 12:34:00.000000000 -0600
++++ adderrspec_nmcmeth.f90	2011-10-13 14:53:08.000000000 -0600
+@@ -10,28 +10,25 @@
+  ! (from random samples of 48-24 forecast differences).
+  use constants, only: rd, grav, cp, rearth, init_constants, init_constants_derived
+  implicit none
+- TYPE(SIGIO_HEAD) :: sigheadi,SIGHEADO,sighead24,sighead48
+- TYPE(SIGIO_DATA) :: sigdatai,SIGDATAO,sigdata24,sigdata48
+- character(len=120) filenamein,filenameout,filename24,filename48, datapath
+- character(len=10) datestring,datestring24,datestring48
++ TYPE(SIGIO_HEAD) :: sigheadi,SIGHEADO,sighead
++ TYPE(SIGIO_DATA) :: sigdatai,SIGDATAO,sigdata
++ character(len=120) filenamein,filenameout,filenamepert, datapath
++ character(len=10) datestring, datestringpert
+  integer iret,nlats,nlons,nlevs,ntrac,ntrunc,k,ierr,nanals,&
+               nanal,numproc,nproc,iunit,idatein(4),idateout(4),&
+-              iunitsf24,iunitsf48,ilonscramble,iargc,&
++              ilonscramble,iargc,nt,&
+               iunit2,iunitsf,iunitsf2,iscalefact,na
+  logical lonscramble,meanonly
+  real(8) t1,t2
+  real scalefact
+  character(len=4) charnlons,charnlats
+  character(len=3) charnanal
+- character(len=8) runprefix
+  integer, allocatable, dimension(:) :: ishift
+- real, dimension(:), allocatable  :: glats
+  real, dimension(:,:), allocatable :: psg,zsg,&
+- psgpert,psg24,psg48
+- real, dimension(:,:,:), allocatable :: ug,vg,tempg,psig,diff,&
+- ugpert,vgpert,tempgpert,qgpert,pg,&
+- pslg,ug24,vg24,tempg24,psig24,pslg24,ug48,tempg48,vg48,psig48,pslg48
+- real, dimension(:,:,:,:), allocatable :: qg,qg24,qg48
++ psgpert
++ real, dimension(:,:,:), allocatable :: ug,vg,tempg,diff,&
++ ugpert,vgpert,tempgpert
++ real, dimension(:,:,:,:), allocatable :: qg,qgpert
+ ! mpi definitions.
+  include 'mpif.h'
+ 
+@@ -40,7 +37,7 @@
+  call MPI_Comm_rank(MPI_COMM_WORLD,nproc,ierr)
+  call MPI_Comm_size(MPI_COMM_WORLD,numproc,ierr)
+ 
+- ! get nanals,datestring,nlons,nlats,scalefact,lonscramble,runprefix 
++ ! get nanals,datestring,nlons,nlats,scalefact,lonscramble
+  ! from command line.
+  call getarg(1,charnlons)
+  read(charnlons,'(i4)') nanals
+@@ -60,13 +57,12 @@
+  ! scrambled - equivalent to imposing a zonally homogenous covariance 
+  ! structure.
+  read(charnlons,'(i4)') ilonscramble
+- call getarg(8,runprefix)
+  if (ilonscramble == 0) then
+    lonscramble = .false.
+  else
+    lonscramble = .true.
+  end if
+- if (iargc() .gt. 8) then
++ if (iargc() .gt. 7) then
+      meanonly=.true.
+  else
+      meanonly=.false.
+@@ -85,8 +81,6 @@
+ 
+  iunitsf=22
+  iunitsf2 = 23
+- iunitsf24 = 24
+- iunitsf48 = 48
+  iunit=7
+  iunit2=8
+  call init_constants(.false.)
+@@ -129,36 +123,18 @@
+  filenameout = "sanl_"//datestring//"_mem"//charnanal
+ 
+  allocate(psg(nlons,nlats))
+- allocate(psg24(nlons,nlats))
+- allocate(psg48(nlons,nlats))
++ allocate(psgpert(nlons,nlats))
+  allocate(zsg(nlons,nlats))
+  allocate(ug(nlons,nlats,nlevs))
+- allocate(ug24(nlons,nlats,nlevs))
+- allocate(ug48(nlons,nlats,nlevs))
++ allocate(ugpert(nlons,nlats,nlevs))
+  allocate(vg(nlons,nlats,nlevs))
+- allocate(vg24(nlons,nlats,nlevs))
+- allocate(vg48(nlons,nlats,nlevs))
++ allocate(vgpert(nlons,nlats,nlevs))
+  allocate(tempg(nlons,nlats,nlevs))
+- allocate(tempg24(nlons,nlats,nlevs))
+- allocate(tempg48(nlons,nlats,nlevs))
+- allocate(psig(nlons,nlats,nlevs+1))
+- allocate(psig24(nlons,nlats,nlevs+1))
+- allocate(psig48(nlons,nlats,nlevs+1))
+- allocate(pslg(nlons,nlats,nlevs))
+- allocate(pslg24(nlons,nlats,nlevs))
+- allocate(pslg48(nlons,nlats,nlevs))
++ allocate(tempgpert(nlons,nlats,nlevs))
+  allocate(diff(nlons,nlats,nlevs))
+  allocate(qg(nlons,nlats,nlevs,ntrac))
+- allocate(qg24(nlons,nlats,nlevs,ntrac))
+- allocate(qg48(nlons,nlats,nlevs,ntrac))
++ allocate(qgpert(nlons,nlats,nlevs,ntrac))
+  allocate(ishift(nanals))
+- allocate(glats(nlats))
+- allocate(ugpert(nlons,nlats,nlevs))
+- allocate(vgpert(nlons,nlats,nlevs))
+- allocate(tempgpert(nlons,nlats,nlevs))
+- allocate(psgpert(nlons,nlats))
+- allocate(qgpert(nlons,nlats,nlevs))
+- allocate(pg(nlons,nlats,nlevs))
+ 
+  idatein = sigheado%idate
+  read(datestring(1:4),'(i4)') idateout(4)
+@@ -181,7 +157,7 @@
+ ! read each ensemble member analysis.
+ 
+  call sigio_srohdc(iunit,trim(filenamein),sigheadi,sigdatai,iret)
+- call getsigdata(sigheadi,sigdatai,glats,ug,vg,tempg,qg,psg,pslg,psig,zsg,nlons,nlats,nlevs,ntrac,sigheadi%jcap,mpi_comm_world)
++ call getsigdata(sigdatai,ug,vg,tempg,qg,psg,zsg,nlons,nlats,nlevs,ntrac,ntrunc,mpi_comm_world)
+  call sigio_axdata(sigdatai,ierr)
+  call sigio_sclose(iunit,ierr)
+  call MPI_Barrier(MPI_COMM_WORLD,ierr)
+@@ -200,61 +176,59 @@
+                 MPI_COMM_WORLD,ierr)
+  open(9,form='formatted',file='dates.dat')
+  do na=1,nanal
+-    read(9,'(a10,1x,a10)') datestring24,datestring48
++    read(9,'(a10,1x,a10)') datestringpert
+  enddo
+  close(9)
+- print *,nanal,datestring24,' ',datestring48,ishift(nanal)
+- filename24 = trim(datapath)//datestring24//'/'//trim(runprefix)//'.t'//trim(datestring24(9:10))//'z.sf24'
+- filename48 = trim(datapath)//datestring48//'/'//trim(runprefix)//'.t'//trim(datestring48(9:10))//'z.sf48'
+- call sigio_srohdc(iunitsf24,trim(filename24), &
+-                  sighead24,sigdata24,iret)
++ !print *,nanal,datestringpert,ishift(nanal)
++ filenamepert = trim(datapath)//'gfsdiff48-24_'//trim(datestringpert)
++
++ call sigio_srohdc(iunitsf,trim(filenamepert), &
++                  sighead,sigdata,iret)
+  if (iret .ne. 0) then
+-    print *,'error opening ',trim(filename24)
++    print *,'error opening ',trim(filenamepert)
+     flush(6)
+     flush(0)
+     call MPI_Abort(MPI_COMM_WORLD,101,ierr)
+     stop
+  end if
+- call sigio_srohdc(iunitsf48,trim(filename48), &
+-                  sighead48,sigdata48,iret)
+  if (iret .ne. 0) then
+-    print *,'error opening ',trim(filename48)
++    print *,'error opening ',trim(filenamepert)
+     flush(6)
+     flush(0)
+     call MPI_Abort(MPI_COMM_WORLD,101,ierr)
+     stop
+  end if
+- call getsigdata(sighead24,sigdata24,glats,ug24,vg24,tempg24,qg24,psg24,pslg24,psig24,zsg,nlons,nlats,nlevs,ntrac,sighead24%jcap,mpi_comm_world)
+- call getsigdata(sighead48,sigdata48,glats,ug48,vg48,tempg48,qg48,psg48,pslg48,psig48,zsg,nlons,nlats,nlevs,ntrac,sighead48%jcap,mpi_comm_world)
+- diff = ug48-ug24
++ call getsigdata2(sighead,sigdata,ugpert,vgpert,tempgpert,qgpert,psgpert,nlons,nlats,nlevs,ntrac,ntrunc,mpi_comm_world)
++ diff = ugpert
+  call shiftlon(diff,nlons,nlats,nlevs,ishift(nanal))
+  ugpert = scalefact*diff
+- diff = vg48-vg24
++ diff = vgpert
+  call shiftlon(diff,nlons,nlats,nlevs,ishift(nanal))
+  vgpert = scalefact*diff
+- diff = tempg48-tempg24
++ diff = tempgpert
+  call shiftlon(diff,nlons,nlats,nlevs,ishift(nanal))
+  tempgpert = scalefact*diff
+- diff = qg48(:,:,:,1)-qg24(:,:,:,1)
+- call shiftlon(diff,nlons,nlats,nlevs,ishift(nanal))
+- qgpert = scalefact*diff
+- diff(:,:,1) = psg48-psg24
++ do nt=1,ntrac
++    diff = qgpert(:,:,:,nt)
++    call shiftlon(diff,nlons,nlats,nlevs,ishift(nanal))
++    qgpert(:,:,:,nt) = scalefact*diff
++ enddo
++ diff(:,:,1) = psgpert
+  call shiftlon(diff(:,:,1),nlons,nlats,1,ishift(nanal))
+  psgpert = scalefact*diff(:,:,1)
+- call sigio_axdata(sigdata24,ierr)
+- call sigio_axdata(sigdata48,ierr)
++ call sigio_axdata(sigdata,ierr)
+  ug = ug + ugpert
+  vg = vg + vgpert
+  tempg = tempg + tempgpert
+  ! noise only added to spec hum (not other tracers)
+- qg(:,:,:,1) = qg(:,:,:,1) + qgpert
++ qg = qg + qgpert
+  psg = psg + psgpert
+  !call MPI_Barrier(MPI_COMM_WORLD,ierr)
+  if (nanal .eq. 1) print *,'additive perturbations for scalefact = ',scalefact
+- print *,nanal,minval(ugpert),maxval(ugpert)
+- print *,nanal,minval(vgpert),maxval(vgpert)
+- print *,nanal,minval(tempgpert),maxval(tempgpert)
+- print *,nanal,minval(psgpert),maxval(psgpert)
++ print *,nanal,ishift(nanal),datestringpert,' ugpert',minval(ugpert),maxval(ugpert)
++ print *,nanal,ishift(nanal),datestringpert,' vgpert',minval(vgpert),maxval(vgpert)
++ print *,nanal,ishift(nanal),datestringpert,' tempgpert',minval(tempgpert),maxval(tempgpert)
++ print *,nanal,ishift(nanal),datestringpert,' psgpert',minval(psgpert),maxval(psgpert)
+  if (nanal .eq. 1) then
+     print *,'for nanal = ',nanal
+     print *,'min/max pert psg',minval(psgpert),maxval(psgpert)
+@@ -278,8 +252,6 @@
+  t2 = MPI_Wtime()
+  !print *,'time to write out spectral data',t2-t1
+ 
+- !deallocate(ug,vg,tempg,psg,zsg,qg,grid_tmp,psig)
+-
+  call MPI_Barrier(MPI_COMM_WORLD,ierr)
+  if (nproc .eq. 0) write(6,*) 'all done!'
+  call MPI_Finalize(ierr)
+@@ -298,7 +270,6 @@
+   ! surface pressure (in mb), topography.
+   use sigio_module
+   use specmod
+-  use constants, only: rd, grav, cp, rearth, init_constants, init_constants_derived
+   implicit none
+   type (sigio_data), intent(in out) :: sigdata
+   real, dimension(nlons,nlats,nlevs), intent(in out) :: ug,vg,tempg
+@@ -307,8 +278,6 @@
+   integer, intent(in) :: ntrunc,nlevs,ntrac,nlons,nlats
+   integer i,j,k,nt
+   call init_spec_vars(nlons,nlats,ntrunc,4)
+-  call init_constants(.false.)
+-  call init_constants_derived()
+   ! convert to spectral coefficients.
+   do k=1,nlevs
+      call sptezv_s(sigdata%d(:,k),sigdata%z(:,k),ug(:,:,k),vg(:,:,k),-1)
+@@ -329,19 +298,15 @@
+   call sptez_s(sigdata%hs,zsg,-1)
+  end subroutine putsigdata
+ 
+- subroutine getsigdata(sighead,sigdata,glats,ug,vg,tempg,qg,psg,pslg,psig,zsg,nlons,nlats,nlevs,ntrac,ntrunc,mpi_comm_world)
++ subroutine getsigdata(sigdata,ug,vg,tempg,qg,psg,zsg,nlons,nlats,nlevs,ntrac,ntrunc,mpi_comm_world)
+   use sigio_module
+   use specmod
+   use constants, only: rd, grav, cp, rearth, init_constants, init_constants_derived
+   implicit none
+   type (sigio_data), intent(in out) :: sigdata
+-  type (sigio_head), intent(in) :: sighead 
+-  real ak(nlevs+1),bk(nlevs+1),kap1,kapr
+-  real, dimension(nlons,nlats,nlevs), intent(out) :: ug,vg,tempg,pslg
+-  real, dimension(nlons,nlats,nlevs+1), intent(out) :: psig
++  real, dimension(nlons,nlats,nlevs), intent(out) :: ug,vg,tempg
+   real, dimension(nlons,nlats,nlevs,ntrac), intent(out) :: qg
+   real, dimension(nlons,nlats), intent(out) :: psg,zsg
+-  real, dimension(nlats), intent(out) :: glats
+   integer, intent(in) :: ntrunc,nlevs,ntrac,nlons,nlats,mpi_comm_world
+   integer i,j,k,ierr,nt
+   if (ntrunc .lt. 0) then
+@@ -352,13 +317,6 @@
+     stop
+   endif
+   call init_spec_vars(nlons,nlats,ntrunc,4)
+-  call init_constants(.false.)
+-  call init_constants_derived()
+-  kap1 = (rd/cp)+1.0
+-  kapr = (cp/rd)
+-  do j=1,nlats
+-     glats(j) = asin(gaulats(j))
+-  enddo
+   !==> get U,V,temp,z,q,ps on gaussian grid.
+   do k=1,nlevs
+      call sptezv_s(sigdata%d(:,k),sigdata%z(:,k),ug(:,:,k),vg(:,:,k),1)
+@@ -376,41 +334,46 @@
+   call sptez_s(sigdata%hs,zsg,1)
+   !==> input psg is ln(ps) in centibars - convert to ps in millibars.
+   psg = 10.*exp(psg)
+-  if (sighead%idvc .eq. 0) then ! sigma coordinate, old file format.
+-      ak = 0.
+-      bk = sighead%si(1:nlevs+1)
+-  else if (sighead%idvc .eq. 1) then ! sigma coordinate
+-      ak = 0.
+-      bk = sighead%vcoord(1:nlevs+1,2)
+-  else if (sighead%idvc .eq. 2 .or. sighead%idvc .eq. 3) then ! hybrid coordinate
+-      bk = sighead%vcoord(1:nlevs+1,2) 
+-      ak = 0.01*sighead%vcoord(1:nlevs+1,1)  ! convert to mb
+-  else
+-      print *,'unknown vertical coordinate type',sighead%idvc
+-      flush(6)
+-      flush(0)
+-      call MPI_Abort(MPI_COMM_WORLD,101,ierr)
+-      stop
+-  end if
+-  !==> pressure at layers and interfaces.
+-  do k=1,nlevs+1
+-   psig(:,:,k)=ak(k)+bk(k)*psg(:,:) 
+-  enddo
+-  do k=1,nlevs
+-   ! gsi formula ("phillips vertical interpolation")
+-   pslg(:,:,k)=((psig(:,:,k)**kap1-psig(:,:,k+1)**kap1)/&
+-                (kap1*(psig(:,:,k)-psig(:,:,k+1))))**kapr
+-   ! average of interface exner
+-   !pslg(:,:,k) = (0.5*(psig(:,:,k)**kapr + psig(:,:.k+1)**kapr))**(1./kapr)
+-   ! average of log(p) - consistent with linear interp in log(p) used
+-   ! in forward operator.
+-   !pslg(:,:,k) = exp( 0.5*( log(psig(:,:,k)) + log(psig(:,:,k+1)) ) )
+-   ! simple average of p.
+-   !pslg(:,:,k) = 0.5*(psig(:,:,k)+psig(:,k+1))
+-  end do
+ 
+ end subroutine getsigdata
+ 
++ subroutine getsigdata2(sighead,sigdata,ug,vg,tempg,qg,psg,nlons,nlats,nlevs,ntrac,ntrunc,mpi_comm_world)
++  use sigio_module
++  use specmod
++  implicit none
++  type (sigio_data), intent(in out) :: sigdata
++  type (sigio_head), intent(in) :: sighead 
++  real, dimension(nlons,nlats,nlevs), intent(out) :: ug,vg,tempg
++  real, dimension(nlons,nlats,nlevs,ntrac), intent(out) :: qg
++  real, dimension(nlons,nlats), intent(out) :: psg
++  real specdat1((ntrunc+1)*(ntrunc+2)),specdat2((ntrunc+1)*(ntrunc+2))
++  integer, intent(in) :: ntrunc,nlevs,ntrac,nlons,nlats,mpi_comm_world
++  integer k,ierr,nt
++  if (ntrunc .lt. 0) then
++    print *,'illegal ntrunc = ',ntrunc
++    flush(6)
++    flush(0)
++    call MPI_Abort(MPI_COMM_WORLD,101,ierr)
++    stop
++  endif
++  call init_spec_vars(nlons,nlats,ntrunc,4)
++  !==> get U,V,temp,z,q,ps on gaussian grid.
++  do k=1,nlevs
++     call spectrunc(sigdata%d(:,k),specdat1,sighead%jcap,ntrunc)
++     call spectrunc(sigdata%z(:,k),specdat2,sighead%jcap,ntrunc)
++     call sptezv_s(specdat1,specdat2,ug(:,:,k),vg(:,:,k),1)
++     do nt=1,ntrac
++        call spectrunc(sigdata%q(:,k,nt),specdat1,sighead%jcap,ntrunc)
++        call sptez_s(specdat1,qg(:,:,k,nt),1)
++     enddo
++     call spectrunc(sigdata%t(:,k),specdat1,sighead%jcap,ntrunc)
++     call sptez_s(specdat1,tempg(:,:,k),1)
++  enddo
++  call spectrunc(sigdata%ps,specdat1,sighead%jcap,ntrunc)
++  call sptez_s(sigdata%ps,psg,1)
++
++end subroutine getsigdata2
++
+ subroutine shiftlon(data,nlons,nlats,nlevs,ishift)
+ 
+ integer, intent(in) :: ishift,nlons,nlats,nlevs
+@@ -431,3 +394,22 @@
+ data = datasave
+ 
+ end subroutine shiftlon
++
++subroutine spectrunc(specin,specout,ntruncin,ntruncout)
++ integer, intent(in) :: ntruncin,ntruncout
++ real, intent(in) :: specin((ntruncin+1)*(ntruncin+2))
++ real, intent(out) :: specout((ntruncout+1)*(ntruncout+2))
++ integer m,n,nm,nmout
++ nm = 1
++ nmout = 1
++ do m=0,ntruncin
++    do n=m,ntruncin
++       if (n .le. ntruncout) then
++          specout(nmout) = specin(nm)
++          specout(nmout+1) = specin(nm+1)
++          nmout = nmout + 2
++       end if
++       nm = nm + 2
++    enddo
++ enddo
++end subroutine spectrunc
+--- ../../../branches/EXP-hybens_reorg/util/src/externalmodebal.f90	1969-12-31 17:00:00.000000000 -0700
++++ externalmodebal.f90	2011-10-13 14:59:03.000000000 -0600
+@@ -0,0 +1,302 @@
++program externalmodebal
++! force analysis to have same vertically integrated mass flux divergence
++! as filtered background. Follows approach described in 
++! Technical Report Series on Global Modeling and Data Assimilation, Volume 27
++! Max J. Suarez, Editor
++! The GEOS-5 Data Assimilation System?Documentation of Versions 5.0.1, 5.1.0,
++! and 5.2.0 (section 4.3 "Balancing vertically integrated mass divergence
++! from analysis increments")
++ USE SIGIO_MODULE
++ use constants, only: rd, grav, cp, rearth, init_constants, init_constants_derived, pi
++ use specmod
++ implicit none
++ type(sigio_head) :: sighead
++ type(sigio_data) :: sigdata
++ character(len=120) filename
++ character(len=4) charnanal
++ character(len=1) charfhr
++ character(len=10) datestring
++ real, dimension(:),allocatable :: wts
++ real, dimension(:,:), allocatable :: &
++ vmassdivanal,vmassdivfg,vmass,vrtspec,divspec
++ real, dimension(:,:,:), allocatable :: &
++ ug,vg,dp,uanal,vanal,ufg,vfg,pressanal,pressfg,divg,deltaug,deltavg
++ real sumwts,uincmax,vincmax,uincmaxk,vincmaxk
++ integer nlons,nlats,nlevs,nanal,nproc,nanals,&
++ kmaxu,kmaxv,numproc,ierr,iunit,ntrunc,nhr,n,k,nhr1,nhr2
++
++! mpi definitions.
++ include 'mpif.h'
++ call MPI_Init(ierr)
++! nproc is process number, numproc is total number of processes.
++ call MPI_Comm_rank(MPI_COMM_WORLD,nproc,ierr)
++ call MPI_Comm_size(MPI_COMM_WORLD,numproc,ierr)
++
++ iunit = 7
++ ! get nanals,datestring from command line.
++ call getarg(1,charnanal)
++ read(charnanal,'(i4)') nanals
++ call getarg(2,datestring)
++ call getarg(3,charfhr)
++ read(charfhr,'(i1)') nhr1
++ call getarg(4,charfhr)
++ read(charfhr,'(i1)') nhr2
++
++ if (numproc .lt. nanals) then
++    print *,numproc,nanals
++    print *,'warning, numproc too small!'
++    flush(6)
++    flush(0)
++    call MPI_Abort(MPI_COMM_WORLD,101,ierr)
++    stop
++ end if
++
++ call init_constants(.false.)
++ call init_constants_derived()
++
++ ! read header from ensemble member 1.
++ filename = "sfg_"//datestring//"_fhr06_mem001"
++ iunit = 7
++ call sigio_sropen(iunit,trim(filename),ierr)
++ if (ierr .ne. 0) then
++    print *,'cannot read file ',filename,ierr
++    flush(6)
++    flush(0)
++    call MPI_Abort(MPI_COMM_WORLD,101,ierr)
++    stop
++ end if
++ call sigio_srhead(iunit,sighead,ierr)
++ call sigio_sclose(iunit,ierr)
++
++ ntrunc = sighead%jcap
++ nlats = sighead%latf
++ nlons = sighead%lonf
++ nlevs = sighead%levs
++
++ nanal = nproc + 1
++ write(charnanal,'(i3.3)') nanal
++
++ allocate(ufg(nlons,nlats,nlevs))
++ allocate(vfg(nlons,nlats,nlevs))
++ allocate(pressfg(nlons,nlats,nlevs+1))
++ allocate(uanal(nlons,nlats,nlevs))
++ allocate(vanal(nlons,nlats,nlevs))
++ allocate(pressanal(nlons,nlats,nlevs+1))
++ allocate(dp(nlons,nlats,nlevs))
++ allocate(ug(nlons,nlats,nlevs))
++ allocate(vg(nlons,nlats,nlevs))
++ allocate(deltaug(nlons,nlats,nlevs))
++ allocate(deltavg(nlons,nlats,nlevs))
++ allocate(divg(nlons,nlats,nlevs))
++ allocate(divspec((ntrunc+1)*(ntrunc+2),nlevs))
++ allocate(vrtspec((ntrunc+1)*(ntrunc+2),nlevs))
++ allocate(vmassdivfg(nlons,nlats))
++ allocate(vmassdivanal(nlons,nlats))
++ allocate(vmass(nlons,nlats))
++
++ call init_spec_vars(nlons,nlats,ntrunc,4)
++
++! binomial (1-2-1) filter (weights from Pascal's triangle) if nhr1!=nhr2!=6
++ if (nhr1 .eq. 5 .and. nhr2 .eq. 7) then
++    ! use single application of 1-2-1 filter
++    allocate(wts(3))
++    wts(1)=1.; wts(2)=2.; wts(3)=1.
++    if (nproc .eq. 0) print *,'using 1-2-1 time filter on background'
++ else if (nhr1 .eq. 4 .and. nhr2 .eq. 8) then
++    ! (1-2-1)(1-2-1) (2 applications)
++    allocate(wts(5))
++    wts(1)=1.; wts(2)=4.; wts(3)=6; wts(4)=4.; wts(5)=1.
++    if (nproc .eq. 0) print *,'using double 1-2-1 time filter on background'
++ else if (nhr1 .eq. 3 .and. nhr2 .eq. 9) then
++    ! (1-2-1)(1-2-1)(1-2-1) (3 applications)
++    allocate(wts(7))
++    wts(1)=1.; wts(2)=6.; wts(3)=15.; wts(4)=20.
++    wts(7)=1.; wts(6)=6.; wts(5)=15.
++    if (nproc .eq. 0) print *,'using triple 1-2-1 time filter on background'
++ else if (nhr1 .eq. 6 .and. nhr2 .eq. 6) then
++    ! only read 6-h forecast, no time filtering.
++    if (nproc .eq. 0) print *,'no filtering of background'
++    allocate(wts(1))
++    wts(1) = 1.
++ else
++    print *,'illegal values for nhr1,nhr2',nhr1,nhr2
++    flush(6)
++    flush(0)
++    call MPI_Abort(MPI_COMM_WORLD,101,ierr)
++    stop
++ endif
++ sumwts = sum(wts)
++ wts = wts/sumwts
++
++ ! read each ensemble member forecasts (hourly from nhr1 to nhr2)
++ ! compute time filtered background vertically integrated mass flux divergence
++ ! from hourly output.
++ vmassdivfg = 0.
++ n = 1
++ do nhr=nhr1,nhr2
++ write(charfhr,'(i1)') nhr
++ filename = "sfg_"//datestring//"_fhr0"//charfhr//"_mem"//charnanal
++ call getsigdata(filename,ufg,vfg,pressfg,nlons,nlats,nlevs,ntrunc)
++!$omp parallel do private(k)
++ do k=1,nlevs
++    dp(:,:,k) = pressfg(:,:,k)-pressfg(:,:,k+1)
++    ug(:,:,k) = ufg(:,:,k)*dp(:,:,k); vg(:,:,k) = vfg(:,:,k)*dp(:,:,k)
++    call sptezv_s(divspec(:,k),vrtspec(:,k),ug(:,:,k),vg(:,:,k),-1) ! u,v to div,vrt
++    call sptez_s(divspec(:,k),divg(:,:,k),1) ! divspec to divgrd
++ enddo
++!$omp end parallel do
++ do k=1,nlevs
++    vmassdivfg = vmassdivfg + wts(n)*divg(:,:,k)
++ enddo 
++ n = n + 1
++ enddo ! nhr loop
++ deallocate(wts)
++
++ ! compute vertically integrated mass flux divergence of analysis.
++ filename = "sanl_"//datestring//"_mem"//charnanal
++ call getsigdata(filename,uanal,vanal,pressanal,nlons,nlats,nlevs,ntrunc)
++ vmassdivanal = 0.
++ vmass = 0.
++!$omp parallel do private(k)
++ do k=1,nlevs
++    dp(:,:,k) = pressanal(:,:,k)-pressanal(:,:,k+1)
++    ug(:,:,k) = uanal(:,:,k)*dp(:,:,k); vg(:,:,k) = vanal(:,:,k)*dp(:,:,k)
++    call sptezv_s(divspec(:,k),vrtspec(:,k),ug(:,:,k),vg(:,:,k),-1) ! u,v to div,vrt
++    call sptez_s(divspec(:,k),divg(:,:,k),1) ! divspec to divgrd
++ enddo
++!$omp end parallel do
++ do k=1,nlevs
++    !dp = pressanal(:,:,k)-pressanal(:,:,k+1)
++    vmassdivanal = vmassdivanal + divg(:,:,k)
++    vmass = vmass + dp(:,:,k)**2
++ enddo
++ print *,'fg mass div',nanal,minval(vmassdivfg),maxval(vmassdivfg)
++ print *,'anal mass div',nanal,minval(vmassdivanal),maxval(vmassdivanal)
++
++ if (nproc .eq. 0) print *,'wind adjustments by level'
++ uincmax=-9.9e31;vincmax=-9.9e31
++!$omp parallel do private(k)
++ do k=1,nlevs
++    !divg(:,:,k) = (vmassdivfg-vmassdivanal)/nlevs ! case 1 (4.3.1.1)- don't use!
++    divg(:,:,k) = (vmassdivfg - vmassdivanal)*dp(:,:,k)**2/vmass ! case 2 (4.3.1.2)
++    call sptez_s(divspec(:,k),divg(:,:,k),-1) ! divgrd to divspec
++    vrtspec(:,k) = 0.
++    call sptezv_s(divspec(:,k),vrtspec(:,k),deltaug(:,:,k),deltavg(:,:,k),1) ! div,vrt to u,v
++ enddo
++!$omp end parallel do
++ do k=1,nlevs
++    deltaug(:,:,k) = deltaug(:,:,k)/dp(:,:,k)
++    deltavg(:,:,k) = deltavg(:,:,k)/dp(:,:,k)
++    if (nproc .eq. 0) print *,k,minval(deltaug(:,:,k)),maxval(deltaug(:,:,k)),minval(deltavg(:,:,k)),maxval(deltavg(:,:,k))
++    uincmaxk = maxval(abs(deltaug(:,:,k))); vincmaxk = maxval(abs(deltavg(:,:,k)))
++    if (uincmaxk .gt. uincmax) then
++       uincmax = uincmaxk
++       kmaxu = k
++    endif
++    if (vincmaxk .gt. vincmax) then
++       vincmax = vincmaxk
++       kmaxv = k
++    endif
++    uanal(:,:,k) = uanal(:,:,k) + deltaug(:,:,k)
++    vanal(:,:,k) = vanal(:,:,k) + deltavg(:,:,k)
++ enddo
++ print *,'ens mem',nanal,'max u increment = ',uincmax,' at level k ',kmaxu
++ print *,'ens mem',nanal,'max v increment = ',vincmax,' at level k ',kmaxv
++ vmassdivanal = 0.
++!$omp parallel do private(k)
++ do k=1,nlevs
++    ug(:,:,k) = uanal(:,:,k)*dp(:,:,k); vg(:,:,k) = vanal(:,:,k)*dp(:,:,k)
++    call sptezv_s(divspec(:,k),vrtspec(:,k),ug(:,:,k),vg(:,:,k),-1) ! u,v to div,vrt
++    call sptez_s(divspec(:,k),divg(:,:,k),1) ! divspec to divgrd
++ enddo
++!$omp end parallel do
++ do k=1,nlevs
++    vmassdivanal = vmassdivanal + divg(:,:,k)
++ enddo
++ if (nanal .eq. 1) print *,'final mass div',nanal,minval(vmassdivanal),maxval(vmassdivanal)
++ if (nanal .eq. 1) print *,'mass div increment',nanal,minval(vmassdivanal-vmassdivfg),maxval(vmassdivanal-vmassdivfg)
++
++ ! read in analysis again
++ call sigio_srohdc(iunit,trim(filename),sighead,sigdata,ierr)
++ ! overwrite vorticity and div
++!$omp parallel do private(k) 
++ do k=1,nlevs
++    call sptezv_s(divspec(:,k),vrtspec(:,k),uanal(:,:,k),vanal(:,:,k),-1) ! u,v to div,vrt
++ enddo
++!$omp end parallel do
++ sigdata%d = divspec
++ sigdata%z = vrtspec
++ ! write out.
++ call sigio_swohdc(iunit,filename,sighead,sigdata,ierr)
++ call sigio_axdata(sigdata,ierr)
++
++ ! cleanup and quit.
++ deallocate(ufg,vfg,uanal,vanal)
++ deallocate(pressfg,pressanal)
++ deallocate(dp,ug,vg,deltaug,deltavg,divg,divspec,vrtspec)
++ deallocate(vmassdivfg,vmassdivanal,vmass)
++
++ call MPI_Barrier(MPI_COMM_WORLD,ierr)
++ if (nproc .eq. 0) write(6,*) 'all done!'
++ call MPI_Finalize(ierr)
++ if (nproc .eq. 0 .and. ierr .ne. 0) then
++  print *, 'MPI_Finalize error status = ',ierr
++ end if
++
++end program externalmodebal
++
++subroutine getsigdata(filename,ug,vg,press,nlons,nlats,nlevs,ntrunc)
++! f2py --fcompiler=intelem -c -m readsigdata readsigdata.f90 sigio_module.o
++! specmod.o constants.o -L../lib -lsp_4s
++  use sigio_module
++  use specmod
++  use constants, only: rd, grav, cp, rearth, init_constants, init_constants_derived
++  implicit none
++  type (sigio_data) :: sigdata
++  type (sigio_head) :: sighead
++  character(len=120),intent(in) :: filename
++  real, dimension(nlons,nlats,nlevs), intent(out) :: ug,vg
++  real, dimension(nlons,nlats,nlevs+1), intent(out) :: press
++  real, dimension(nlons,nlats) :: psg
++  real ak(nlevs+1),bk(nlevs+1)
++  integer, intent(in) :: nlons,nlats,nlevs,ntrunc
++  integer k,ierr,iunit
++  real kap,kapr,kap1
++
++  iunit = 7
++   
++  kap = rd/cp
++  kapr = cp/rd
++  kap1 = kap + 1.
++
++  if (.not. isinitialized) call init_spec_vars(nlons,nlats,ntrunc,4)
++  call sigio_srohdc(iunit,trim(filename),sighead,sigdata,ierr)
++  !==> get winds on gaussian grid.
++!$omp parallel do private(k)
++  do k=1,nlevs
++     call sptezv_s(sigdata%d(:,k),sigdata%z(:,k),ug(:,:,k),vg(:,:,k),1)
++  enddo
++!$omp end parallel do
++  !==> get pressures on model levels.
++  if (sighead%idvc .eq. 0) then ! sigma coordinate, old file format.
++     ak = 0.
++     bk = sighead%si(1:nlevs+1)
++  else if (sighead%idvc .eq. 1) then ! sigma coordinate
++     ak = 0.
++     bk = sighead%vcoord(1:nlevs+1,2)
++  else if (sighead%idvc .eq. 2 .or. sighead%idvc .eq. 3) then ! hybrid coordinate
++     bk = sighead%vcoord(1:nlevs+1,2) 
++     ak = 0.01*sighead%vcoord(1:nlevs+1,1)  ! convert to mb
++  else
++     print *,'unknown vertical coordinate type',sighead%idvc
++  end if
++  call sptez_s(sigdata%ps,psg,1)
++  psg = 10.*exp(psg)
++  do k=1,nlevs+1
++     press(:,:,k) = ak(k)+bk(k)*psg
++  enddo
++
++  call sigio_axdata(sigdata,ierr)
++  call sigio_sclose(iunit,ierr)
++
++end subroutine getsigdata
+--- ../../../branches/EXP-hybens_reorg/util/src/getsfcensmeanp.f90	1969-12-31 17:00:00.000000000 -0700
++++ getsfcensmeanp.f90	2011-10-13 14:57:31.000000000 -0600
+@@ -0,0 +1,195 @@
++      program getsfcensmeanp
++! create ensemble mean NCEP GFS surface file.
++      USE SFCIO_MODULE
++      implicit none
++      TYPE(SFCIO_HEAD) :: SFCHEADI,SFCHEADO
++      TYPE(SFCIO_DATA) :: SFCDATAI,SFCDATAO
++      character*120 filenamesfcin,filenamesfcout,datapath,fileprefix
++      character*3 charnanal
++      integer nsfci,nsfco,iret,nanals,nanal,nproc,numproc
++      ! mpi definitions.
++      include 'mpif.h'
++     
++      call MPI_Init(iret)
++      ! nproc is process number, numproc is total number of processes.
++      call MPI_Comm_rank(MPI_COMM_WORLD,nproc,iret)
++      call MPI_Comm_size(MPI_COMM_WORLD,numproc,iret)
++      NSFCI=21
++      NSFCO=61
++      call getarg(1,datapath)
++      call getarg(2,filenamesfcout)
++      call getarg(3,fileprefix)
++      call getarg(4,charnanal)
++      read(charnanal,'(i2)') nanals
++      filenamesfcout = trim(adjustl(datapath))//filenamesfcout
++      if (nproc .eq. 0) print *,filenamesfcout
++      nanal = nproc + 1
++      write(charnanal,'(i3.3)') nanal
++      filenamesfcin = trim(adjustl(datapath))// &
++      trim(adjustl(fileprefix))//'_mem'//charnanal
++      !print *,filenamesfcin
++      call sfcio_srohdc(nsfci,filenamesfcin,sfcheadi,sfcdatai,iret)
++      !print *,trim(filenamesfcin),iret
++!   sfcio_data        Surface file data fields
++!     tsea              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       surface temperature in K
++!     smc               Real(sfcio_realkind)(:,:,:) pointer to lonb*latb*lsoil
++!                       soil volumetric water content in fraction
++!     sheleg            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       snow depth in m
++!     stc               Real(sfcio_realkind)(:,:,:) pointer to lonb*latb*lsoil
++!                       soil temperature in K
++!     tg3               Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       deep soil temperature in K
++!     zorl              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       roughness in cm
++!     cv                Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       convective cloud cover in fraction
++!     cvb               Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       convective cloud bottom in kpa
++!     cvt               Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       convective cloud top in kpa
++!     alvsf             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       albedo for visible scattered in fraction
++!     alvwf             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       albedo for visible beam in fraction
++!     alnsf             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       albedo for near-IR scattered in fraction
++!     alnwf             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       albedo for near-IR beam in fraction
++!     slmsk             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       sea-land-ice mask (0-sea, 1-land, 2-ice)
++!     vfrac             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       vegetation fraction in fraction
++!     canopy            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       canopy water in m
++!     f10m              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       10-meter wind speed over lowest model wind speed
++!     t2m               Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       2-meter temperature in K
++!     q2m               Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       2-meter specific humidity in kg/kg
++!     vtype             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       vegetation type in integer 1-13
++!     stype             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       soil type in integer 1-9
++!     facsf             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in fraction
++!     facwf             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in fraction
++!     uustar            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     ffmm              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     ffhh              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     hice              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     fice              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     tisfc             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     tprcp             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     srflag            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     snwdph            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     slc               Real(sfcio_realkind)(:,:,:) pointer to lonb*latb*lsoil
++!                       xxx in xxx
++!     shdmin            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     shdmax            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     slope             Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       slope type
++!     snoalb            Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       xxx in xxx
++!     orog              Real(sfcio_realkind)(:,:) pointer to lonb*latb
++!                       orography in m
++      call sfcio_aldata(sfcheadi,sfcdatao,iret)
++      !print *,'aldata',iret
++      sfcheado = sfcheadi
++      ! these fields are fixed, don't take mean.
++      sfcdatao%slmsk	=sfcdatai%slmsk
++      sfcdatao%vtype	=sfcdatai%vtype 
++      sfcdatao%stype	=sfcdatai%stype 
++      sfcdatao%slope	=sfcdatai%slope  
++      sfcdatao%orog = sfcdatai%orog
++      ! compute means of these
++      call mpi_allreduce(sfcdatai%tsea,sfcdatao%tsea,size(sfcdatai%tsea),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%tsea	=sfcdatao%tsea /float(nanals)
++      call mpi_allreduce(sfcdatai%smc,sfcdatao%smc,size(sfcdatai%smc),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%smc	=sfcdatao%smc  /float(nanals)
++      call mpi_allreduce(sfcdatai%sheleg,sfcdatao%sheleg,size(sfcdatai%sheleg),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%sheleg	=sfcdatao%sheleg/float(nanals)
++      call mpi_allreduce(sfcdatai%stc,sfcdatao%stc,size(sfcdatai%stc),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%stc	=sfcdatao%stc  /float(nanals)
++      call mpi_allreduce(sfcdatai%tg3,sfcdatao%tg3,size(sfcdatai%tg3),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%tg3 	=sfcdatao%tg3  /float(nanals)
++      call mpi_allreduce(sfcdatai%zorl,sfcdatao%zorl,size(sfcdatai%zorl),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%zorl	=sfcdatao%zorl  /float(nanals)
++      call mpi_allreduce(sfcdatai%cv,sfcdatao%cv,size(sfcdatai%cv),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%cv	=sfcdatao%cv   /float(nanals)
++      call mpi_allreduce(sfcdatai%cvb,sfcdatao%cvb,size(sfcdatai%cvb),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%cvb	=sfcdatao%cvb  /float(nanals)
++      call mpi_allreduce(sfcdatai%cvt,sfcdatao%cvt,size(sfcdatai%cvt),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%cvt	=sfcdatao%cvt  /float(nanals)
++      call mpi_allreduce(sfcdatai%alvsf,sfcdatao%alvsf,size(sfcdatai%alvsf),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%alvsf	=sfcdatao%alvsf /float(nanals)
++      call mpi_allreduce(sfcdatai%alvwf,sfcdatao%alvwf,size(sfcdatai%alvwf),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%alvwf	=sfcdatao%alvwf /float(nanals)
++      call mpi_allreduce(sfcdatai%alnsf,sfcdatao%alnsf,size(sfcdatai%alnsf),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%alnsf	=sfcdatao%alnsf /float(nanals)
++      call mpi_allreduce(sfcdatai%alnwf,sfcdatao%alnwf,size(sfcdatai%alnwf),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%alnwf	=sfcdatao%alnwf /float(nanals)
++      call mpi_allreduce(sfcdatai%vfrac,sfcdatao%vfrac,size(sfcdatai%vfrac),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%vfrac	=sfcdatao%vfrac /float(nanals)
++      call mpi_allreduce(sfcdatai%canopy,sfcdatao%canopy,size(sfcdatai%canopy),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%canopy	=sfcdatao%canopy/float(nanals)
++      call mpi_allreduce(sfcdatai%f10m,sfcdatao%f10m,size(sfcdatai%f10m),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%f10m	=sfcdatao%f10m  /float(nanals)
++      call mpi_allreduce(sfcdatai%t2m,sfcdatao%t2m,size(sfcdatai%t2m),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%t2m	=sfcdatao%t2m  /float(nanals)
++      call mpi_allreduce(sfcdatai%q2m,sfcdatao%q2m,size(sfcdatai%q2m),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%q2m	=sfcdatao%q2m  /float(nanals)
++      call mpi_allreduce(sfcdatai%facsf,sfcdatao%facsf,size(sfcdatai%facsf),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%facsf	=sfcdatao%facsf /float(nanals)
++      call mpi_allreduce(sfcdatai%facwf,sfcdatao%facwf,size(sfcdatai%facwf),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%facwf	=sfcdatao%facwf /float(nanals)
++      call mpi_allreduce(sfcdatai%uustar,sfcdatao%uustar,size(sfcdatai%uustar),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%uustar	=sfcdatao%uustar/float(nanals)
++      call mpi_allreduce(sfcdatai%ffmm,sfcdatao%ffmm,size(sfcdatai%ffmm),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%ffmm	=sfcdatao%ffmm  /float(nanals)
++      call mpi_allreduce(sfcdatai%ffhh,sfcdatao%ffhh,size(sfcdatai%ffhh),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%ffhh	=sfcdatao%ffhh  /float(nanals)
++      call mpi_allreduce(sfcdatai%hice,sfcdatao%hice,size(sfcdatai%hice),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%hice	=sfcdatao%hice  /float(nanals)
++      call mpi_allreduce(sfcdatai%fice,sfcdatao%fice,size(sfcdatai%fice),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%fice	=sfcdatao%fice  /float(nanals)
++      call mpi_allreduce(sfcdatai%tisfc,sfcdatao%tisfc,size(sfcdatai%tisfc),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%tisfc	=sfcdatao%tisfc  /float(nanals)
++      call mpi_allreduce(sfcdatai%tprcp,sfcdatao%tprcp,size(sfcdatai%tprcp),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%tprcp    =sfcdatao%tprcp  /float(nanals)
++      call mpi_allreduce(sfcdatai%srflag,sfcdatao%srflag,size(sfcdatai%srflag),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%srflag	=sfcdatao%srflag  /float(nanals)
++      call mpi_allreduce(sfcdatai%snwdph,sfcdatao%snwdph,size(sfcdatai%snwdph),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%snwdph	=sfcdatao%snwdph  /float(nanals)
++      call mpi_allreduce(sfcdatai%slc,sfcdatao%slc,size(sfcdatai%slc),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%slc	=sfcdatao%slc  /float(nanals)
++      call mpi_allreduce(sfcdatai%shdmin,sfcdatao%shdmin,size(sfcdatai%shdmin),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%shdmin	=sfcdatao%shdmin  /float(nanals)
++      call mpi_allreduce(sfcdatai%shdmax,sfcdatao%shdmax,size(sfcdatai%shdmax),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%shdmax	=sfcdatao%shdmax  /float(nanals)
++      call mpi_allreduce(sfcdatai%snoalb,sfcdatao%snoalb,size(sfcdatai%snoalb),mpi_real,mpi_sum,0,mpi_comm_world,iret)
++      if (nproc .eq. 0) sfcdatao%snoalb	=sfcdatao%snoalb  /float(nanals)
++      call sfcio_axdata(sfcdatai,iret)
++      if (nproc .eq. 0) call sfcio_swohdc(nsfco,filenamesfcout,sfcheado,sfcdatao,iret)
++      !print *,trim(filenamesfcout),iret
++      call MPI_Barrier(MPI_COMM_WORLD,iret)
++      if (nproc .eq. 0) write(6,*) 'all done!'
++      call MPI_Finalize(iret)
++      if (nproc .eq. 0 .and. iret .ne. 0) then
++       print *, 'MPI_Finalize error status = ',iret
++      end if
++      end program getsfcensmeanp
+--- ../../../branches/EXP-hybens_reorg/util/src/getsigensmeanp.f90	1969-12-31 17:00:00.000000000 -0700
++++ getsigensmeanp.f90	2011-10-13 14:57:25.000000000 -0600
+@@ -0,0 +1,167 @@
++program getsigensmeanp
++
++ USE SIGIO_MODULE
++ implicit none
++ TYPE(SIGIO_HEAD) :: sigheadi,sigheado
++ TYPE(SIGIO_DATA) :: sigdatai,sigdatao
++ character(len=120) filenamein,filenameout,datapath,fileprefix
++ integer iret,nlats,nlons,nlevs,ntrac,ntrunc,nanals,&
++         i,j,nanal,numproc,nproc,iunit,iunit2
++ character(len=3) charnanal
++ integer:: orig_group, new_group, new_comm
++ integer,dimension(:),allocatable:: members
++ real latmin,sumvar,sumcoslat,rlat,pi,coslat
++ real, dimension(:,:), allocatable :: psg,psgmean,psgvar
++ real, dimension(:), allocatable :: gaulats,gauwts
++
++! mpi definitions.
++ include 'mpif.h'
++
++ call MPI_Init(iret)
++ ! nproc is process number, numproc is total number of processes.
++ call MPI_Comm_rank(MPI_COMM_WORLD,nproc,iret)
++ call MPI_Comm_size(MPI_COMM_WORLD,numproc,iret)
++
++ call getarg(1,datapath)
++ call getarg(2,filenameout)
++ call getarg(3,fileprefix)
++ call getarg(4,charnanal)
++ read(charnanal,'(i3)') nanals
++ filenameout = trim(adjustl(datapath))//filenameout
++
++ latmin = 20.
++ pi = 4.*atan(1.0)
++
++ if (numproc .lt. nanals) then
++    print *,numproc,nanals
++    print *,'warning, numproc too small!'
++    flush(6)
++    flush(0)
++    call MPI_Abort(MPI_COMM_WORLD,101,iret)
++    stop
++ end if
++
++ nanal = nproc+1
++
++
++! Create sub-communicator to handle number of cases (nanals)
++ call mpi_comm_group(mpi_comm_world,orig_group,iret)
++
++ allocate(members(nanals))
++ do i=1,nanals
++    members(i)=i-1
++ end do
++ if (nanal .le. nanals) then
++    call mpi_group_incl(orig_group,nanals,members,new_group,iret)
++ endif
++ call mpi_comm_create(mpi_comm_world,new_group,new_comm,iret)
++ if (iret.ne.0) then
++    write(6,*)'***ERROR*** after mpi_comm_create with iret=',iret
++    flush(6)
++    flush(0)
++    call mpi_abort(mpi_comm_world,101,iret)
++ endif
++
++ if (nanal.le.nanals) then
++
++ write(charnanal,'(i3.3)') nanal
++
++ filenamein = trim(adjustl(datapath))// &
++ trim(adjustl(fileprefix))//'_mem'//charnanal
++ write(6,*)'process nanal=',nanal,' filenamein=',trim(filenamein)
++
++! read each ensemble member FHDFI forecast.
++
++ iunit = 21; iunit2 = 61
++ call sigio_srohdc(iunit,trim(filenamein),sigheadi,sigdatai,iret)
++
++ ntrunc = sigheadi%jcap
++ ntrac = sigheadi%ntrac
++ nlats = sigheadi%latf
++ nlons = sigheadi%lonf
++ nlevs = sigheadi%levs
++ if (nproc .eq. 0) then
++    print *,filenamein
++    print *,'nlons,nlats,nlevs,ntrunc,ntrac=',nlons,nlats,nlevs,ntrunc,ntrac
++ end if
++ allocate(psg(nlons,nlats))
++ allocate(gaulats(nlats))
++ allocate(gauwts(nlats))
++ allocate(psgmean(nlons,nlats))
++ allocate(psgvar(nlons,nlats))
++ call splat(4,nlats,gaulats,gauwts)
++
++ call sigio_aldata(sigheadi,sigdatao,iret)
++ sigheado = sigheadi
++
++! compute ensemble sums.
++ call mpi_allreduce(sigdatai%z,sigdatao%z,(ntrunc+1)*(ntrunc+2)*nlevs,mpi_real,mpi_sum,new_comm,iret)
++ call mpi_allreduce(sigdatai%d,sigdatao%d,(ntrunc+1)*(ntrunc+2)*nlevs,mpi_real,mpi_sum,new_comm,iret)
++ call mpi_allreduce(sigdatai%t,sigdatao%t,(ntrunc+1)*(ntrunc+2)*nlevs,mpi_real,mpi_sum,new_comm,iret)
++ call mpi_allreduce(sigdatai%q,sigdatao%q,(ntrunc+1)*(ntrunc+2)*nlevs*ntrac,mpi_real,mpi_sum,new_comm,iret)
++ call mpi_allreduce(sigdatai%ps,sigdatao%ps,(ntrunc+1)*(ntrunc+2),mpi_real,mpi_sum,new_comm,iret)
++
++ ! calculate ps stdev for NH, print out.
++ call sptez(0,ntrunc,4,nlons,nlats,sigdatai%ps,psg,1)
++ psg = 10.*exp(psg)  
++ call mpi_allreduce(psg,psgmean,nlons*nlats,mpi_real,mpi_sum,new_comm,iret)
++ psgmean = psgmean/float(nanals)
++ psg = psg - psgmean
++ print *,nanal,minval(psg),maxval(psg)
++ call mpi_allreduce(psg**2,psgvar,nlons*nlats,mpi_real,mpi_sum,new_comm,iret)
++ psgvar = psgvar/float(nanals-1)
++
++ if (nproc .eq. 0) then
++
++    ! convert sums to means. 
++    sigdatao%z = sigdatao%z/float(nanals)
++    sigdatao%d = sigdatao%d/float(nanals)
++    sigdatao%t = sigdatao%t/float(nanals)
++    sigdatao%q = sigdatao%q/float(nanals)
++    sigdatao%hs = sigdatai%hs
++    sigdatao%ps = sigdatao%ps/float(nanals)
++
++    sumvar = 0.
++    sumcoslat = 0.
++    do j=1,nlats
++    coslat = sqrt(1.-gaulats(j)**2)
++    rlat = (180./pi)*asin(gaulats(j))
++    do i=1,nlons
++       if (rlat .ge. latmin) then
++          sumvar = sumvar + psgvar(i,j)*coslat
++          sumcoslat = sumcoslat + coslat
++       end if
++    enddo
++    enddo
++    print *,'area averaged NH ps standard deviation ',sqrt(sumvar/sumcoslat)
++
++    ! write out.
++    sigheado%iens(1) = 1 ! unperturbed control
++    sigheado%iens(2) = 2 ! low res control
++    sigheado%icen2 = 2 ! sub-center, must be 2 or ens info not used
++    call sigio_swohdc(iunit2,filenameout,sigheado,sigdatao,iret)
++ end if 
++
++ call sigio_axdata(sigdatai,iret)
++ call sigio_sclose(iunit,iret)
++ call sigio_axdata(sigdatao,iret)
++ call sigio_sclose(iunit2,iret)
++ deallocate(psg,psgmean,psgvar,gaulats,gauwts)
++
++
++! Jump here if more mpi processors than files to process
++ else
++    write(6,*) 'no files to process for mpi task = ',nproc
++ endif
++   
++ call mpi_barrier(mpi_comm_world,iret)
++ if (nproc .eq. 0) write(6,*) 'all done!'
++
++ deallocate(members)
++
++ call mpi_finalize(iret)
++ if (nproc .eq. 0 .and. iret .ne. 0) then
++  print *, 'mpi_finalize error status = ',iret
++ end if
++
++end program getsigensmeanp

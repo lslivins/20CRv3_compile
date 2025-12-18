@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/projects/!svn/ver/17978/nems/branches/nemsio
+END
+byteswap.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/projects/!svn/ver/16500/nems/branches/nemsio/byteswap.c
+END
+nemsio_module_mpi.f90
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/projects/!svn/ver/17978/nems/branches/nemsio/nemsio_module_mpi.f90
+END
+nemsio_write.f90
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/projects/!svn/ver/16500/nems/branches/nemsio/nemsio_write.f90
+END
+nemsio_read.f90
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/projects/!svn/ver/16500/nems/branches/nemsio/nemsio_read.f90
+END
+bafrio.f
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/projects/!svn/ver/16500/nems/branches/nemsio/bafrio.f
+END
+nemsio_module.f90
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/projects/!svn/ver/13966/nems/branches/nemsio/nemsio_module.f90
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/projects/!svn/ver/16500/nems/branches/nemsio/Makefile
+END
+nemsio_openclose.f90
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/projects/!svn/ver/17978/nems/branches/nemsio/nemsio_openclose.f90
+END

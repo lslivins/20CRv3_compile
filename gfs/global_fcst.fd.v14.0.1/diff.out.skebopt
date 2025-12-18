@@ -1,0 +1,2851 @@
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/GEFS_CplComp_ESMFMod.f	2015-08-21 09:20:34.000000000 -0600
++++ GEFS_CplComp_ESMFMod.f	2016-07-01 09:18:15.000000000 -0600
+@@ -15,6 +15,11 @@
+ !                     Added Broadcasting procedure and Global variables/arrays
+ !  November 2007      Dingchen, added minimum documentation, mainly for the arrays added during 2007
+ !  Octorber 2013      Weiyu Yang, modified for using the LIOPE = .true. option  on GEFS run.
++!  December 2015      C. Redder  Removed intent attribute of the first
++!                       argument of the subroutine GEFS_CplCompSetServices
++!                       to resolve compiler errors and conform to ANSI
++!                       standard fortran and to the interface of a dummy
++!                       procedure for a ESMF library routine.
+ 
+ ! !INTERFACE:
+ !
+@@ -60,7 +65,8 @@
+ ! !ARGUMENTS:
+ !------------
+ 
+- TYPE(ESMF_CplComp),  INTENT(inout) :: CplGEFS ! gridded component
++! TYPE(ESMF_CplComp),  INTENT(inout) :: CplGEFS ! gridded component
++ TYPE(ESMF_CplComp)                 :: CplGEFS ! gridded component
+  INTEGER,             INTENT(out)   :: rc      ! return code
+      
+ ! !DESCRIPTION: Set services (register) for the GFS Ensemble Coupler
+@@ -68,7 +74,7 @@
+ !         
+ !EOP         
+ !----------------------------------------------------------------------
+-  
++
+  INTEGER                            :: rc1     = ESMF_SUCCESS
+  rc = ESMF_SUCCESS
+ 
+@@ -134,6 +140,13 @@
+ ! !REVISION HISTORY:
+ !
+ !  April    2006     Weiyu Yang Initial code.
++!  December 2015     C. Redder  Removed intent attribute of the first
++!                       subroutine arguments to resolve compiler errors
++!                       and conform to ANSI standard fortran and to the
++!                       interface of the dummy procedure for the
++!                       routine,  ESMF_GridCompSetEntryPoint (called
++!                       above)
++
+ !
+ ! !INTERFACE:
+ !
+@@ -146,10 +159,14 @@
+ ! !INPUT/OUTPUT VARIABLES AND PARAMETERS:
+ !----------------------------------------
+ 
+- TYPE(ESMF_CplComp), INTENT(inout)     :: CplGEFS 
+- TYPE(ESMF_State),   INTENT(inout)     :: impGEFS
+- TYPE(ESMF_State),   INTENT(inout)     :: expGEFS
+- TYPE(ESMF_Clock),   INTENT(inout)     :: clock
++! TYPE(ESMF_CplComp), INTENT(inout)     :: CplGEFS 
++! TYPE(ESMF_State),   INTENT(inout)     :: impGEFS
++! TYPE(ESMF_State),   INTENT(inout)     :: expGEFS
++! TYPE(ESMF_Clock),   INTENT(inout)     :: clock
++ TYPE(ESMF_CplComp) :: CplGEFS 
++ TYPE(ESMF_State)   :: impGEFS
++ TYPE(ESMF_State)   :: expGEFS
++ TYPE(ESMF_Clock)   :: clock
+ 
+ !
+ ! !OUTPUT VARIABLES AND PARAMETERS:
+@@ -519,6 +536,12 @@
+ ! !REVISION HISTORY:
+ !
+ !  April    2006     Weiyu Yang Initial code.
++!  December 2015     C. Redder  Removed intent attribute of the first
++!                       subroutine arguments to resolve compiler errors
++!                       and conform to ANSI standard fortran and to the
++!                       interface of the dummy procedure for the
++!                       routine,  ESMF_GridCompSetEntryPoint (called
++!                       above)
+ !
+ ! !INTERFACE:
+ !
+@@ -528,13 +551,17 @@
+ !
+ ! !INPUT VARIABLES AND PARAMETERS:
+ !---------------------------------
+- TYPE(ESMF_CplComp), INTENT(inout)     :: CplGEFS   
+- TYPE(ESMF_State),   INTENT(in)        :: impGEFS 
++! TYPE(ESMF_CplComp), INTENT(inout)     :: CplGEFS   
++! TYPE(ESMF_State),   INTENT(in)        :: impGEFS 
++ TYPE(ESMF_CplComp) :: CplGEFS   
++ TYPE(ESMF_State)   :: impGEFS 
+  
+ ! !OUTPUT VARIABLES AND PARAMETERS:
+ !----------------------------------
+- TYPE(ESMF_Clock),   INTENT(inout)     :: clock
+- TYPE(ESMF_State),   INTENT(inout)     :: expGEFS
++! TYPE(ESMF_Clock)    INTENT(inout)     :: clock
++! TYPE(ESMF_State)    INTENT(inout)     :: expGEFS
++ TYPE(ESMF_Clock)   :: clock
++ TYPE(ESMF_State)   :: expGEFS
+  INTEGER,            INTENT(out)       :: rcfinal 
+ !
+ !EOP
+@@ -640,6 +667,12 @@
+ ! !REVISION HISTORY:
+ !
+ !  April    2006     Weiyu Yang Initial code.
++!  December 2015     C. Redder  Removed intent attribute of the first
++!                       subroutine arguments to resolve compiler errors
++!                       and conform to ANSI standard fortran and to the
++!                       interface of the dummy procedure for the
++!                       routine,  ESMF_GridCompSetEntryPoint (called
++!                       above)
+ !
+ ! !INTERFACE:
+ 
+@@ -648,10 +681,14 @@
+ !
+ ! !INPUT VARIABLES AND PARAMETERS:
+ !---------------------------------
+- TYPE(ESMF_CplComp), INTENT(inout)  :: CplGEFS
+- TYPE(ESMF_State),   INTENT(inout)  :: impGEFS
+- TYPE(ESMF_State),   INTENT(inout)  :: expGEFS
+- TYPE(ESMF_Clock),   INTENT(inout)  :: clock
++! TYPE(ESMF_CplComp), INTENT(inout)  :: CplGEFS
++! TYPE(ESMF_State),   INTENT(inout)  :: impGEFS
++! TYPE(ESMF_State),   INTENT(inout)  :: expGEFS
++! TYPE(ESMF_Clock),   INTENT(inout)  :: clock
++ TYPE(ESMF_CplComp) :: CplGEFS
++ TYPE(ESMF_State)   :: impGEFS
++ TYPE(ESMF_State)   :: expGEFS
++ TYPE(ESMF_Clock)   :: clock
+ 
+ ! !OUTPUT VARIABLES AND PARAMETERS:
+ !----------------------------------
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/GFS_GridComp_ESMFMod.f	2015-08-21 09:20:35.000000000 -0600
++++ GFS_GridComp_ESMFMod.f	2016-07-01 09:18:18.000000000 -0600
+@@ -11,6 +11,11 @@
+ !  February 2008     Weiyu Yang modified for the ESMF 3.1.0 version.
+ !  September2006     Weiyu Yang For the ensemble run couple version.
+ !  April    2009     Shrinivas Moorthi merge GEFS and generalized GFS
++!  December 2015     C. Redder  Removed intent attribute of the first
++!                       argument of the subroutine SetServices to resolve
++!                       compiler errors and conform to ANSI standard
++!                       fortran and to the interface of a dummy
++!                       procedure for a ESMF library routine.
+ !                           
+ !
+ ! !INTERFACE:
+@@ -61,15 +66,16 @@
+ ! !ARGUMENTS:
+ !------------
+ 
+- TYPE(ESMF_GridComp), INTENT(inout)  :: gcGFS ! gridded component
+- INTEGER,             INTENT(out)    :: rc    ! return code
++! TYPE(ESMF_GridComp), INTENT(inout) :: gcGFS ! gridded component
++ TYPE(ESMF_GridComp)                :: gcGFS ! gridded component
++ INTEGER,             INTENT(out)   :: rc    ! return code
+      
+ ! !DESCRIPTION: Set services (register) for the GFS Stand Alone
+ !               Grid Component.
+ !         
+ !EOP         
+ !----------------------------------------------------------------------
+-  
++
+  INTEGER                            :: rc1     = ESMF_SUCCESS
+ 
+ ! Initializing the error signal variable rc.
+@@ -122,10 +128,6 @@
+ 
+  END SUBROUTINE SetServices
+ 
+-
+-
+-
+-
+ !----------------------------------------------------------------------
+ !BOP
+ ! !ROUTINE:  Initialize --- initialize routine to initialize 
+@@ -141,6 +143,12 @@
+ !  May      2005     Weiyu Yang For the updated GFS version.
+ !  February 2006     Moorthi
+ !  Octcber  2007     Weiyu Yang modified for the ESMF 3.0.3 version.
++!  December 2015     C. Redder  Removed intent attribute of the first
++!                       subroutine arguments to resolve compiler errors
++!                       and conform to ANSI standard fortran and to the
++!                       interface of the dummy procedure for the
++!                       routine,  ESMF_GridCompSetEntryPoint (called
++!                       above)
+ !
+ ! !INTERFACE:
+ !
+@@ -158,10 +166,14 @@
+ ! !INPUT/OUTPUT VARIABLES AND PARAMETERS:
+ !----------------------------------------
+ 
+- TYPE(ESMF_GridComp), INTENT(inout) :: gcGFS 
+- TYPE(ESMF_State),    INTENT(inout) :: impGFS
+- TYPE(ESMF_State),    INTENT(inout) :: expGFS
+- TYPE(ESMF_Clock),    INTENT(inout) :: clock
++! TYPE(ESMF_GridComp), INTENT(inout) :: gcGFS 
++! TYPE(ESMF_State),    INTENT(inout) :: impGFS
++! TYPE(ESMF_State),    INTENT(inout) :: expGFS
++! TYPE(ESMF_Clock),    INTENT(inout) :: clock
++ TYPE(ESMF_GridComp) :: gcGFS 
++ TYPE(ESMF_State)    :: impGFS
++ TYPE(ESMF_State)    :: expGFS
++ TYPE(ESMF_Clock)    :: clock
+ 
+ !
+ ! !OUTPUT VARIABLES AND PARAMETERS:
+@@ -552,6 +564,12 @@
+ !  Octcber  2007     Weiyu Yang modified for the ESMF 3.0.3 version.
+ !  September2006     Weiyu Yang For the ensemble run couple version.
+ !  April    2009     Moorthi merged GFS and GEFS versions
++!  December 2015     C. Redder  Removed intent attribute of the first
++!                       subroutine arguments to resolve compiler errors
++!                       and conform to ANSI standard fortran and to the
++!                       interface of the dummy procedure for the
++!                       routine,  ESMF_GridCompSetEntryPoint (called
++!                       above)
+ !
+ ! !INTERFACE:
+ !
+@@ -562,13 +580,17 @@
+ !
+ ! !INPUT VARIABLES AND PARAMETERS:
+ !---------------------------------
+- TYPE(ESMF_GridComp), INTENT(inout) :: gcGFS   
+- TYPE(ESMF_State),    INTENT(in)    :: impGFS 
++! TYPE(ESMF_GridComp), INTENT(inout) :: gcGFS   
++! TYPE(ESMF_State),    INTENT(in)    :: impGFS 
++ TYPE(ESMF_GridComp) :: gcGFS   
++ TYPE(ESMF_State)    :: impGFS 
+  
+ ! !OUTPUT VARIABLES AND PARAMETERS:
+ !----------------------------------
+- TYPE(ESMF_Clock),    INTENT(inout) :: clock
+- TYPE(ESMF_State),    INTENT(inout) :: expGFS
++! TYPE(ESMF_Clock),    INTENT(inout) :: clock
++! TYPE(ESMF_State),    INTENT(inout) :: expGFS
++ TYPE(ESMF_Clock)    :: clock
++ TYPE(ESMF_State)    :: expGFS
+  INTEGER,             INTENT(out)   :: rc   
+ !
+ !EOP
+@@ -688,6 +710,12 @@
+ !  February 2006     Moorthi
+ !  Octcber  2007     Weiyu Yang modified for the ESMF 3.0.3 version.
+ !  September2006     Weiyu Yang For the ensemble run couple version.
++!  December 2015     C. Redder  Removed intent attribute of the first
++!                       subroutine arguments to resolve compiler errors
++!                       and conform to ANSI standard fortran and to the
++!                       interface of the dummy procedure for the
++!                       routine,  ESMF_GridCompSetEntryPoint (called
++!                       above)
+ !
+ ! !INTERFACE:
+ 
+@@ -696,10 +724,14 @@
+ !
+ ! !INPUT VARIABLES AND PARAMETERS:
+ !---------------------------------
+- TYPE(ESMF_GridComp), INTENT(inout)  :: gcGFS
+- TYPE(ESMF_State),    INTENT(inout)  :: impGFS
+- TYPE(ESMF_State),    INTENT(inout)  :: expGFS
+- TYPE(ESMF_Clock),    INTENT(inout)  :: clock
++! TYPE(ESMF_GridComp), INTENT(inout)  :: gcGFS
++! TYPE(ESMF_State),    INTENT(inout)  :: impGFS
++! TYPE(ESMF_State),    INTENT(inout)  :: expGFS
++! TYPE(ESMF_Clock),    INTENT(inout)  :: clock
++ TYPE(ESMF_GridComp) :: gcGFS
++ TYPE(ESMF_State)    :: impGFS
++ TYPE(ESMF_State)    :: expGFS
++ TYPE(ESMF_Clock)    :: clock
+ 
+ ! !OUTPUT VARIABLES AND PARAMETERS:
+ !----------------------------------
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/GFS_Initialize_ESMFMod.f	2015-08-21 09:20:34.000000000 -0600
++++ GFS_Initialize_ESMFMod.f	2016-07-01 09:18:15.000000000 -0600
+@@ -178,10 +178,11 @@
+         ngrids_flx  = 66+43+5  ! 4 sw fluxes + frozen precip fraction 
+       endif
+ 
+-      if (nstf_name(1) > 0) then       ! For NST model
+-        nr_nst = 10                  ! NSST fields: for diurnal warming model run
+-        nf_nst = 9                   ! NSST fields: for GSI analysis
+-        ngrids_nst = nr_nst + nf_nst ! NSST fields (for diurnal warming and sub-layer)
++      if (nst_fcst > 0) then         ! For NST model
++!       ngrids_nst = 19              ! oceanic fields (for diurnal warming and sub-layer)
++         nr_nst = 10                 ! oceanic fields: for diurnal warming model run
++        nf_nst = 9                   ! oceanic fields: for GSI analysis
++        ngrids_nst = nr_nst + nf_nst ! oceanic fields (for diurnal warming and sub-layer)
+       else
+         ngrids_nst = 0
+       endif
+@@ -937,6 +938,27 @@
+ !   enddo
+ !   endif
+ 
++
++!
++!       Apply the diurnal warming & sub-layer cooling (TSEA: foundation/reference temperature)
++!
++
++!     if ( .not. tr_analysis ) then
++!       gis%nst_fld%Tref(:,:) = gis%sfc_fld%TSEA(:,:)    ! necessary only when Tr analysis unavailable
++!     endif
++
++!     if ( nst_fcst > 0 ) then
++!       do j = 1, lats_node_r
++!         do i = 1, lonr
++!           if ( gis%sfc_fld%SLMSK(i,j) == 0.0 ) then
++!             gis%sfc_fld%TSEA(i,j) = gis%nst_fld%Tref(i,j)             &
++!                + gis%nst_fld%dt_warm(i,j) - gis%nst_fld%dt_cool(i,j)
++!           endif
++!         enddo
++!       enddo
++!     endif
++
++
+ !!
+       tov = 0.0
+ !!
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/compns.f	2015-08-24 13:19:54.000000000 -0600
++++ compns.f	2016-07-01 09:18:18.000000000 -0600
+@@ -74,7 +74,6 @@
+ !     nsout    - integer output frequency in timesteps
+ !     nsswr    - integer shortwave frequency in timesteps
+ !     nslwr    - integer longwave frequency in timesteps
+-!     nsskeb   - integer skeb update frequency in timesteps
+ !     nszer    - integer zeroing frequency in timesteps
+ !     nsres    - integer restart frequency in timesteps
+ !     nsdfi    - integer initialization window in timesteps
+@@ -144,8 +143,7 @@
+      & time_extrap_etadot,settls_dep3ds,settls_dep3dg,
+      & iter_one_no_interp,cont_eq_opt1,opt1_3d_qcubic,
+      & norad_precip,mstrat,trans_trac,dlqf,moist_adj,climate,
+-     & nstf_name,nst_anl,
+-     & lsea,cal_pre,psautco,prautco,evpco,wminco,
++     & nst_fcst,nst_spinup,lsea,cal_pre,psautco,prautco,evpco,wminco,
+ !    & nst_active,nst_restart,tr_analysis,lsea,cal_pre,psautco,evpco,
+      & fhout_hf,fhmax_hf,cdmbgwd,bkgd_vdif_m,bkgd_vdif_h,hdif_fac,
+      & sl_epsln,bkgd_vdif_s,hdif_fac2,dtphys,levwgt,wgtm,quamon,
+@@ -157,7 +155,7 @@
+      & fhstoch,stochini,vc,skeb_varspect_opt,sppt_sfclimit,
+      & skeb,skeb_tau,skeb_lscale,iseed_skeb,skeb_vfilt,skeb_diss_smooth,
+      & skeb_sigtop1,skeb_sigtop2,sppt_sigtop1,sppt_sigtop2,
+-     & vc_sigtop1,vc_sigtop2,skebint,
++     & vc_sigtop1,vc_sigtop2,
+      & shum_sigefold,iau,iaufiles_fg,iaufiles_anl,iaufhrs,iau_delthrs ! for IAU
+ !
+ !     integer n_rule,rule(8)
+@@ -216,7 +214,6 @@
+       tfiltc   = 0.85
+       ccwf     = 1.0
+       dlqf     = 0.0
+-      cgwf     = 0.1      ! cloud top fraction for convective gwd scheme
+       cgwf(1)  = 0.5      ! cloud top fraction for convective gwd scheme 
+       cgwf(2)  = 0.05     ! cloud top fraction for convective gwd scheme
+       ctei_rm  = 10.0
+@@ -286,8 +283,12 @@
+       pdfcld           = .false.
+       shcnvcw          = .false.
+                                    ! for nst model
+-      nstf_name(:)     = 0         ! NSST related variables
+-      nst_anl          = .false.
++      nst_fcst         = 0         ! 0 - am only, 1 - uncoupled, 2 - coupled
++      nst_spinup       = .false.
++!     nst_active       = .false.
++!     nst_restart      = .false.
++!     tr_analysis      = .false.
++
+       lsea             = 0
+ !
+       ref_temp         = 350.0
+@@ -307,7 +308,6 @@
+ ! number of passes of 1-2-1 vertical filter
+ ! for skeb random patterns.
+       skeb_vfilt       = 0
+-      skebint          = 0.
+       sppt_tau         = -999.  ! time scales
+       shum_tau         = -999.
+       skeb_tau         = -999.
+@@ -402,6 +402,9 @@
+         if (me == 0) print *,' cal_pre=',cal_pre,' random_clds=',
+      &                       random_clds
+       endif
++!     print *,' fhmax=',fhmax,' nst_active =',nst_active,'
++!    &  nst_restart =',nst_restart, ' tr_analysis = ',tr_analysis,
++!    &  'lsea =',lsea
+ !
+       if (k2o < 0) k2o = levs/2
+       if (me == 0) then
+@@ -441,8 +444,7 @@
+      &,                          ' - lsm=',lsm
+             call mpi_quit(2222)
+           endif
+-          print *,' in compns use_ufo, nst_anl=',use_ufo, nst_anl
+-          write(*,'(a,5I4)') ' in compns nstf_name=',nstf_name(1:5)
++          print *,' in compns use_ufo=',use_ufo
+ !
+           if (ras) then
+             print *,' ras convection scheme used with ccwf=',ccwf
+@@ -752,14 +754,6 @@
+       endif
+       if (me == 0)   write(*,*) "ngptc is set to ngptc :",ngptc
+ ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-!  compute nsskeb and check rule 9.
+-      if (skebint == 0.) skebint=deltim
+-      nsskeb=nint(skebint/deltim)                              ! skebint in seconds
+-      if(nsskeb<=0 .or. abs(nsskeb-skebint/deltim)>tol) then
+-        iret=9
+-        return
+-      endif
+-! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ !  all checks are successful.
+       iret=0
+ 
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/dotstep_tracers.f	2015-08-21 09:20:35.000000000 -0600
++++ dotstep_tracers.f	2016-07-01 09:18:18.000000000 -0600
+@@ -46,13 +46,12 @@
+      &                                 gen_coord_hybrid,gg_tracers,
+      &                                 hybrid, igen,explicit,mom4ice,
+      &                                 ldiag3d,lsfwd,lslwr,lsswr,k2o,
+-     &                                 ialb,nstf_name,nst_anl,
++     &                                 ialb,nst_fcst,
+      &                                 ngptc,nscyc,nsres,nszer,semilag,
+      &                                 sl_epsln,nsout,fhstoch,n3dfercld
+       use mpi_def             , only : icolor,kind_mpi,liope,
+      &                                 mc_comp,mpi_r_mpi,comp_task
+       use ozne_def            , only : latsozp,levozp,pl_coeff,timeoz
+-      use module_nst_water_prop, only: get_dtzm_2d
+ 
+ !     use layout_grid_tracers , only : rgt_a
+ 
+@@ -133,7 +132,6 @@
+       real (kind=kind_rad) xlon(lonr,lats_node_r),
+      &                     xlat(lonr,lats_node_r),
+      &                     coszdg(lonr,lats_node_r),
+-     &                     dtzm(lonr,lats_node_r),
+      &                     hprime(lonr,nmtvr,lats_node_r),
+      &                     fluxr(lonr,nfxr,lats_node_r),
+      &                     sfalb(lonr,lats_node_r),
+@@ -183,7 +181,6 @@
+ !$$$     x          p_zq  =11*levs+3*levh+6)  !      zqe/o(lnte/od,2)
+ !****************************************************************************
+       real(kind=kind_evod) batah
+-      real(kind=kind_evod) zsea1,zsea2
+       real(kind=kind_mpi)  coef00m(levs,ntrac)! temp. ozone clwater  
+       real(kind=kind_evod) coef00(levs,ntrac) ! temp. ozone clwater  
+       integer              kdt, ierr,i,j,k,l,locl,n,kp_t,kp_y,
+@@ -200,11 +197,7 @@
+       real(kind=kind_evod) global_times_a(latg,nodes)
+      &,                    global_times_b(latr,nodes)
+      &,                    global_times_r(latr,nodes)
+-      real*8         rtc, timer1, timer2, dt_warm, tem1, tem2
+-
+-!     convert zsea1 & zsea2 from mm to m
+-      zsea1 = 0.001*nstf_name(4)
+-      zsea2 = 0.001*nstf_name(5)
++      real*8               rtc, timer1, timer2, dt_warm, tem1, tem2
+ !
+ !     if(ifirst == 1)then
+ !      allocate ( factor_b2t_ref(levs), gzie_ln(len_trie_ls,2),
+@@ -223,7 +216,7 @@
+ 
+       if (comp_task) then
+ 
+-      if (me == 0) print *,' in do_tstep semilag=',semilag,' kdt=',kdt
++!     if (me == 0) print *,' in do_tstep semilag=',semilag,' kdt=',kdt
+ 
+         if (semilag) then    ! joe sela's semi-lagrangian code
+ 
+@@ -272,51 +265,15 @@
+ 
+           if(.not. adiab) then ! first if.not.adiab
+             if (nscyc > 0 .and. mod(kdt,nscyc) == 1) then
+-              if (me == 0) print*,' calling gcycle at kdt=',kdt
+-              if ( nst_anl ) then     ! when nst analysis is on
+-
+-                do j = 1, lats_node_r
+-                  do i = 1, lonr
+-                    if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                      sfc_fld%tsea(i,j) = nst_fld%tref(i,j)
+-                    endif
+-                  enddo
+-                enddo
+-
++!             if (me == 0) print*,' calling gcycle at kdt=',kdt
+                 call gcycle(me,lats_node_r,lonsperlar,global_lats_r,
+-     &                    ipt_lats_node_r,idate,phour,fhcyc,
+-     &                    xlon ,xlat, sfc_fld, ialb)
+-
+-                do j = 1, lats_node_r
+-                  do i = 1, lonr
+-                    if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                      nst_fld%tref(i,j) = sfc_fld%tsea(i,j)
+-                    endif
+-                  enddo
+-                enddo
+-                    
+-                call get_dtzm_2d(nst_fld%xt,nst_fld%xz,nst_fld%dt_cool,
+-     &                           nst_fld%z_c,nst_fld%slmsk,zsea1,zsea2,
+-     &                           lonr,lats_node_r,dtzm)
+-
+-                do j = 1, lats_node_r
+-                  do i = 1, lonr
+-                    if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                      sfc_fld%tsea(i,j) = nst_fld%tref(i,j) + dtzm(i,j)
+-                    endif
+-                  enddo
+-                enddo
+-
+-              else            ! when nst analysis is off
+-                call gcycle(me,lats_node_r,lonsperlar,global_lats_r,
+-     &                    ipt_lats_node_r,idate,phour,fhcyc,
+-     &                    xlon ,xlat, sfc_fld, ialb)
+-              endif    ! if ( nst_anl) then
+-            endif      ! if (nscyc > 0 .and. 
++     &                      ipt_lats_node_r,idate,phour,fhcyc,
++     &                      xlon ,xlat  , sfc_fld, ialb)
++            endif
+ !
+             if (n3dfercld >0) then  ! ferrier microphysics initialization
+               call init_micro(deltim,lonr,levs,n3dfercld,lats_node_r,
+-     &                        phy_f3d(:,:,1:n3dfercld,:),   phour, me)
++     &                        phy_f3d(:,:,1:n3dfercld,:),   fhour, me)
+             endif
+           endif              ! first if.not.adiab
+ 
+@@ -358,38 +315,50 @@
+           endif
+ 
+ !<- coupling insertion
+-          if (nst_anl .and. coupler_id >= 0) then     ! update tsea
+-!
+-!           get tf from T1 (sfc_fld%tsea, OGCM layer 1 temperature) and NSST-Profile
+-!
+-            call get_dtzm_2d(nst_fld%xt,nst_fld%xz,nst_fld%dt_cool,
+-     &                       nst_fld%z_c,sfc_fld%slmsk,
+-     &                       0.0,omz1,lonr,lats_node_r,dtzm)
+ 
+-            do j = 1, lats_node_r
+-              do i = 1, lonr
+-                if ( sfc_fld%slmsk(i,j) == 0 ) then 
+-                  nst_fld%tref(i,j) =  sfc_fld%tsea(i,j) - dtzm(i,j)
+-     &                 + (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
+-                endif
+-              enddo
+-            enddo
+ !
+-!           get tsea from Tf and NSST-Profile
+-!
+-            call get_dtzm_2d(nst_fld%xt,nst_fld%xz,nst_fld%dt_cool,
+-     &                       nst_fld%z_c,sfc_fld%slmsk,
+-     &                       zsea1,zsea2,lonr,lats_node_r,dtzm)
+-            do j = 1, lats_node_r
+-              do i = 1, lonr
+-                if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                  sfc_fld%tsea(i,j) = nst_fld%tref(i,j) + dtzm(i,j)
+-     &                  - (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
+-                endif
++          if (nst_fcst > 1) then                         ! update tsea
++            if (coupler_id < 0 .or. .not. mom4ice) then  ! standalone mode
++!$omp parallel do private(j,i,dt_warm)
++              do j = 1, lats_node_r
++                do i = 1, lonr
++                  if (sfc_fld%slmsk(i,j) == 0 ) then
++                    dt_warm = (nst_fld%xt(i,j)+nst_fld%xt(i,j))
++     &                      /  nst_fld%xz(i,j)
++                    nst_fld%tref(i,j) = sfc_fld%tsea(i,j)
++     &                   - dt_warm + nst_fld%dt_cool(i,j)
++     &                   + (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
++                  endif
++                enddo
+               enddo
+-            enddo
++            else                                         ! coupled to mom4 om
++              tem1 = 0.5 / omz1
++!$omp parallel do private(j,i,tem2,dt_warm)
++              do j = 1, lats_node_r
++                do i = 1, lonr
++                  if (sfc_fld%slmsk(i,j) == 0 ) then
++                    tem2 = 1.0 / nst_fld%xz(i,j)
++                    sfc_fld%tsea(i,j) = sfc_fld%tsea(i,j)
++     &                   + (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
++                    dt_warm = (nst_fld%xt(i,j)+nst_fld%xt(i,j)) * tem2
+ 
+-          endif             ! if (nst_anl .and. coupler_id >= 0)
++                    if ( nst_fld%xz(i,j) > omz1) then
++                      nst_fld%tref(i,j) = sfc_fld%tsea(i,j)
++     &                 - (1.0-0.5*omz1*tem2) * dt_warm
++     &                 + nst_fld%z_c(i,j)*nst_fld%dt_cool(i,j)*tem1
++                    else
++                     nst_fld%tref(i,j) = sfc_fld%tsea(i,j)
++     &                 - (nst_fld%xz(i,j)*dt_warm
++     &                 -  nst_fld%z_c(i,j)*nst_fld%dt_cool(i,j))*tem1
++                    endif
++                    sfc_fld%tsea(i,j) = nst_fld%tref(i,j)
++     &                  + dt_warm - nst_fld%dt_cool(i,j)
++     &                  - (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
++                  endif
++                enddo
++              enddo
++            endif
++          endif
+ 
+           global_times_r = 0.0
+ 
+@@ -673,50 +642,14 @@
+ !
+           if(.not. adiab) then
+             if (nscyc > 0 .and. mod(kdt,nscyc) == 1) then
+-              if ( nst_anl ) then     ! when nst analysis is on
+-
+-                do j = 1, lats_node_r
+-                  do i = 1, lonr
+-                    if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                      sfc_fld%tsea(i,j) = nst_fld%tref(i,j)
+-                    endif
+-                  enddo
+-                enddo
+-
+-                call gcycle(me,lats_node_r,lonsperlar,global_lats_r,
+-     &                    ipt_lats_node_r,idate,phour,fhcyc,
+-     &                    xlon ,xlat, sfc_fld, ialb)
+-
+-                do j = 1, lats_node_r
+-                  do i = 1, lonr
+-                    if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                      nst_fld%tref(i,j) = sfc_fld%tsea(i,j)
+-                    endif
+-                  enddo
+-                enddo
+-                    
+-                call get_dtzm_2d(nst_fld%xt,nst_fld%xz,nst_fld%dt_cool,
+-     &                           nst_fld%z_c,nst_fld%slmsk,zsea1,zsea2,
+-     &                           lonr,lats_node_r,dtzm)
+-
+-                do j = 1, lats_node_r
+-                  do i = 1, lonr
+-                    if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                      sfc_fld%tsea(i,j) = nst_fld%tref(i,j) + dtzm(i,j)
+-                    endif
+-                  enddo
+-                enddo
+-                    
+-              else            ! when nst analysis is off
+-                call gcycle(me,lats_node_r,lonsperlar,global_lats_r,
+-     &                    ipt_lats_node_r,idate,phour,fhcyc,
+-     &                    xlon ,xlat, sfc_fld, ialb)
+-              endif    ! if ( nst_anl) then
+-            endif      ! if (nscyc > 0 .and. 
++             call gcycle(me,lats_node_r,lonsperlar,global_lats_r,
++     &                  ipt_lats_node_r,idate,phour,fhcyc,
++     &                  xlon ,xlat  , sfc_fld, ialb)
++            endif
+ !
+             if (n3dfercld >0) then  ! ferrier microphysics initialization
+               call init_micro(deltim,lonr,levs,n3dfercld,lats_node_r,
+-     &                        phy_f3d(:,:,1:n3dfercld,:),   phour, me)
++     &                        phy_f3d(:,:,1:n3dfercld,:),   fhour, me)
+             endif
+           endif
+ !
+@@ -761,40 +694,64 @@
+           endif
+ 
+ !<- coupling insertion
+-          if (nstf_name(1) > 1 .and. coupler_id >= 0) then     ! update tsea
+-!
+-!    get tf from T1 (sfc_fld%tsea, OGCM layer 1 temperature) and NSST-Profile
+-!
+-            call get_dtzm_2d(nst_fld%xt,nst_fld%xz,nst_fld%dt_cool,
+-     &                       nst_fld%z_c,sfc_fld%slmsk,
+-     &                       0.0,omz1,lonr,lats_node_r,dtzm)
+ 
+-            do j = 1, lats_node_r
+-              do i = 1, lonr
+-                if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                  nst_fld%tref(i,j) =  sfc_fld%tsea(i,j) - dtzm(i,j)
+-     &                 + (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
+-                endif
++!
++          if (nst_fcst > 1) then                         ! update tsea
++            if (coupler_id < 0 .or. .not. mom4ice) then  ! standalone mode
++!$omp parallel do private(j,i,dt_warm)
++              do j = 1, lats_node_r
++                do i = 1, lonr
++                  if (sfc_fld%slmsk(i,j) == 0 ) then
++                    dt_warm = (nst_fld%xt(i,j)+nst_fld%xt(i,j))
++     &                      /  nst_fld%xz(i,j)
++                    sfc_fld%tsea(i,j) = nst_fld%tref(i,j)
++     &                  + dt_warm - nst_fld%dt_cool(i,j)
++     &                  - (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
++                  endif
++                enddo
+               enddo
+-            enddo
++            else                                         ! coupled to mom4 om
++              tem1 = 0.5 / omz1
++!$omp parallel do private(j,i,tem2,dt_warm)
++              do j = 1, lats_node_r
++                do i = 1, lonr
++                  if (sfc_fld%slmsk(i,j) == 0 ) then
++                    tem2 = 1.0 / nst_fld%xz(i,j)
++                    sfc_fld%tsea(i,j) = sfc_fld%tsea(i,j)
++     &                   + (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
++                    dt_warm = (nst_fld%xt(i,j)+nst_fld%xt(i,j)) * tem2
+ 
+-!
+-!    get tsea from Tf and NSST-Profile
+-!
+-            call get_dtzm_2d(nst_fld%xt,nst_fld%xz,nst_fld%dt_cool,
+-     &                       nst_fld%z_c,sfc_fld%slmsk,
+-     &                       zsea1,zsea2,lonr,lats_node_r,dtzm)
+-            do j = 1, lats_node_r
+-              do i = 1, lonr
+-                if ( sfc_fld%slmsk(i,j) == 0 ) then
+-                  sfc_fld%tsea(i,j) = nst_fld%tref(i,j) + dtzm(i,j)
++                    if ( nst_fld%xz(i,j) > omz1) then
++                      nst_fld%tref(i,j) = sfc_fld%tsea(i,j)
++     &                 - (1.0-0.5*omz1*tem2) * dt_warm
++     &                 + nst_fld%z_c(i,j)*nst_fld%dt_cool(i,j)*tem1
++                    else
++                     nst_fld%tref(i,j) = sfc_fld%tsea(i,j)
++     &                 - (nst_fld%xz(i,j)*dt_warm
++     &                 -  nst_fld%z_c(i,j)*nst_fld%dt_cool(i,j))*tem1
++                    endif
++                    sfc_fld%tsea(i,j) = nst_fld%tref(i,j)
++     &                  + dt_warm - nst_fld%dt_cool(i,j)
+      &                  - (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j))*rlapse
+-                endif
++                  endif
++                enddo
+               enddo
+-            enddo
+-                    
++            endif
+           endif
+ 
++!           do j = 1, lats_node_r
++!             do i = 1, lonr
++!               if (sfc_fld%slmsk(i,j) == 0 ) then
++!                 dt_warm = (nst_fld%xt(i,j)+nst_fld%xt(i,j))
++!    &                    /  nst_fld%xz(i,j)
++!                 sfc_fld%tsea(i,j) = sfc_fld%tsea(i,j)
++!    &                    + dt_warm - nst_fld%dt_cool(i,j)
++!               endif
++!             enddo
++!           enddo
++!         endif
++
++
+ !sela     if (me.eq.0) print*,'completed gloopa in do_tstep'
+ 
+           global_times_r = 0.0               !my set to zero for every timestep
+@@ -1113,10 +1070,10 @@
+ !--------------------------------------------
+       if (lsout) then
+ !!
+-        if (me == 0) then
+-          print *,'  in do_tstep - calling wrtout at kdt =',kdt
+-          print *,'    fhour, phour, zhour =',fhour,phour,zhour
+-        endif
++!       if (me == 0) then
++!         print *,'  in do_tstep - calling wrtout at kdt =',kdt
++!         print *,'    fhour, phour, zhour =',fhour,phour,zhour
++!       endif
+ 
+         wrt_g3d = mod(kdt ,nsout) == 0 .or. phour == 0.0
+         call wrtout(phour,fhour,zhour,idate,
+@@ -1142,7 +1099,7 @@
+      &         global_lats_a,lonsperlat,
+      &         phy_f3d, phy_f2d, dyn_f3d, dyn_f2d,
+      &         ngptc, adiab, ens_nam,
+-     &         nstf_name,'SIGR1','SIGR2','SFCR','NSTR')
++     &         nst_fcst,'SIGR1','SIGR2','SFCR','NSTR')
+ !
+         endif
+ !
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/ensemble_wrt.f	2015-08-21 09:20:34.000000000 -0600
++++ ensemble_wrt.f	2016-07-01 09:18:15.000000000 -0600
+@@ -105,7 +105,8 @@
+      &     global_lats_a,lonsperlat,
+      &     phy_f3d, phy_f2d, dyn_f3d, dyn_f2d,
+      &     ngptc, adiab, ens_nam,
+-     &     nstf_name,'SIGS1','SIGS2','SFCS','NSTS') 
++     &     nst_fcst,
++     &     'SIGS1','SIGS2','SFCS','NSTS') 
+ 
+       endif
+ !
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/fix_fields.f	2015-08-21 09:20:34.000000000 -0600
++++ fix_fields.f	2016-07-01 09:18:15.000000000 -0600
+@@ -7,10 +7,9 @@
+       use machine , only : kind_rad
+       use funcphys                         
+       use resol_def
+-      use namelist_def, only: adiab,fhini,fhrot,nstf_name
++      use namelist_def
+       use layout1
+       use ozne_def
+-      use module_nst_water_prop, only: get_dtzm_2d
+       use sfc_flx_esmfmod
+       use nst_var_esmfmod
+       implicit none
+@@ -23,17 +22,16 @@
+       integer jindx1(lats_node_r),jindx2(lats_node_r)
+       real (kind=kind_rad) ddy(lats_node_r)
+       real (kind=kind_rad) hprime(lonr,nmtvr,lats_node_r)
+-      real (kind=kind_rad) zsea1,zsea2
+ 
+       integer iozondp
+       real (kind=kind_rad) ozplin(latsozp,levozp,pl_coeff,timeoz)
+      &,                    xlon(lonr,lats_node_r)
+      &,                    xlat(lonr,lats_node_r)
+-     &,                    dtzm(lonr,lats_node_r)
+        
+       integer              global_lats_r(latr)
+       integer                 lonsperlar(latr)
+       real, parameter:: rlapse=0.65e-2
++      real dt_warm
+       integer needoro, i, j
+ !!     
+       call gfuncphys
+@@ -57,42 +55,47 @@
+           call read_sfc(sfc_fld,needoro,nread,
+      &                  cread,global_lats_r,lonsperlar)
+ 
+-          if (nstf_name(1) > 0) then       ! if NSSTM on
++          if (nst_fcst > 0) then
+             if (me == 0) print *,' call read_nst nst_spinup : ',
+-     &                             nstf_name(2)
++     &                             nst_spinup
+             nst_fld%slmsk = sfc_fld%slmsk
+-            if ( nstf_name(2) == 1 ) then   ! if NSSTM spin up
++            if ( nst_spinup ) then
+               call set_nst(sfc_fld%tsea,nst_fld)
+             else
+               nread_nst   = 15
+               call read_nst(nst_fld,nread_nst,cread_nst,
+      &                      global_lats_r,lonsperlar)
+-              if (  nstf_name(1) > 1 ) then   ! if NSSTM coupled on
+-                zsea1=0.001*real(nstf_name(4))
+-                zsea2=0.001*real(nstf_name(5))
+-                call get_dtzm_2d(nst_fld%xt,nst_fld%xz,nst_fld%dt_cool,
+-     &                           nst_fld%z_c,sfc_fld%slmsk,
+-     &                           zsea1,zsea2,lonr,lats_node_r,dtzm)
++              if (  nst_fcst > 1 ) then
+                 do j = 1, lats_node_r
+                   do i = 1, lonr
+-                    if (sfc_fld%slmsk(i,j) == 0 ) then
+-                      sfc_fld%tsea(i,j) = nst_fld%tref(i,j) + dtzm(i,j)
+-     &                - (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j)) * rlapse
++                    if ( sfc_fld%slmsk(i,j) == 0.0 ) then
++                      dt_warm = (nst_fld%xt(i,j)+nst_fld%xt(i,j))
++     &                        /  nst_fld%xz(i,j)
++                      sfc_fld%tsea(i,j) = nst_fld%tref(i,j)
++     &                 + dt_warm - nst_fld%dt_cool(i,j)
++     &                 - (sfc_fld%oro(i,j)-sfc_fld%oro_uf(i,j)) * rlapse
+                     endif
+                   enddo
+                 enddo
+-
+-              elseif (nstf_name(1) == 1) then   ! if NSSTM coupled off
++!
++!    when am and nst is not coupled, tsea (in surface file) ==> tref
++!
++              elseif (nst_fcst == 1) then
+                 nst_fld%tref = sfc_fld%tsea
+               endif
+-            endif                        ! if ( nstf_name(2) == 1 ) then
+-          endif                          ! if ( nstf_name(1) > 0 ) then
++!
++!   reset the non-water points, since no mask (sea ice) update for nstanl file
++!   done at present
++!
++              call nst_reset_nonwater(sfc_fld%tsea,nst_fld)
++            endif                        ! if ( nst_spinup ) then
++          endif                          ! if ( nst_fcst > 0 ) then
+         else
+           if (me .eq. 0) print *,' call read_sfc_r cread=',cread
+           call read_sfc_r(sfc_fld,needoro,nread,
+      &                    cread,global_lats_r,lonsperlar)
+ 
+-          if ( nstf_name(1) > 0 ) then
++          if ( nst_fcst > 0 ) then
+             nst_fld%slmsk = sfc_fld%slmsk
+             nread_nst   = 15
+             if (me .eq. 0) print *,' call read_nst_r cread=',cread_nst
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/gbphys.f	2015-08-24 13:20:17.000000000 -0600
++++ gbphys.f	2016-07-01 09:18:18.000000000 -0600
+@@ -23,9 +23,8 @@
+ !           xkzm_m,xkzm_h,xkzm_s,psautco,prautco,evpco,wminco,          !
+ !           pdfcld,shcnvcw,flipv,cnvgwd,shal_cnv,                       !
+ !           redrag,hybedmf,dspheat,cal_pre,                             !
+-!           mom4ice,trans_trac,nstf_name,fscav,                         !
++!           mom4ice,trans_trac,nst_fcst,fscav,                          !
+ !           thermodyn_id, sfcpress_id, gen_coord_hybrid, adjtrc,nnp,    !
+-!           sppt_wt,                                                    !
+ !       input/outputs:                                                  !
+ !           hice,fice,tisfc,tsea,tprcp,cv,cvb,cvt,                      !
+ !           srflag,snwdph,weasd,sncovr,zorl,canopy,                     !
+@@ -93,7 +92,6 @@
+ !      jul  2013  - r. sun     added pdf cloud                          !
+ !      jul  2013  - j. han     added reduced drag coef. over sea        !
+ !      jan  2014  - h.juang and f.yang added energy conversion from gwd !
+-!      aug  2015  - p.pegion   add sppt weight for precipitation
+ !                                                                       !
+ !                                                                       !
+ !  ====================  defination of variables  ====================  !
+@@ -211,23 +209,14 @@
+ !     cal_pre  - logical, flag controls precip type algorithm      1    !
+ !     mom4ice  - logical, flag controls mom4 sea-ice               1    !
+ !     trans_trac-logical, flag for convective transport of tracers 1    !
+-!     nstf_name   -integer array, NSST related flag parameters     1    !
+-!                nstf_name(1) : 0 = NSSTM off                      1    !
+-!                               1 = NSSTM on but uncoupled         1    !
+-!                               2 = NSSTM on and coupled           1    !
+-!                nstf_name(2) : 1 = NSSTM spin up on               1    !
+-!                               0 = NSSTM spin up off              1    !
+-!                nstf_name(3) : 1 = NSST analysis on               1    !
+-!                               0 = NSSTM analysis off             1    !
+-!                nstf_name(4) : zsea1 in mm                        1    !
+-!                nstf_name(5) : zsea2 in mm                        1    !
++!     nst_fcst  -integer, flag 0 for no nst, 1 for uncoupled nst        !
++!                          and 2 for coupled nst                   1    !
+ !     fscav    - real, tracer convective scavenging coefficient ntrac-ncld-1!
+ !     thermodyn_id - integer, valid for gfs only for get_prs/phi   1    !
+ !     sfcpress_id  - integer, valid for gfs only for get_prs/phi   1    !
+ !     gen_coord_hybrid - logical for henry's gen coord             1    !
+ !     adjtrc       - real, dynamics adjustments to tracers       ntrac  !
+ !     nnp      - integer, physics substep number                   1    !
+-!     sppt_wt      - real, stochastic physics weights              im   !
+ !                                                                       !
+ !  input/outputs:                                                       !
+ !     hice     - real, sea-ice thickness                           im   !
+@@ -309,7 +298,7 @@
+ !     xtts     - real, d(xt)/d(ts)                                 im   !
+ !     xzts     - real, d(xz)/d(ts)                                 im   !
+ !     d_conv   - real, thickness of free convection layer (fcl)    im   !
+-!     ifd      - real, index to start dtlm run or not               im   !
++!     ifd      - real, index to start dtm run or not               im   !
+ !     dt_cool  - real, sub-layer cooling amount                    im   !
+ !     qrain    - real, sensible heat flux due to rainfall (watts)  im   !
+ !                                                                       !
+@@ -378,9 +367,8 @@
+      &      xkzm_m,xkzm_h,xkzm_s,psautco,prautco,evpco,wminco,sup,      &
+      &      pdfcld,shcnvcw,flipv,cnvgwd,shal_cnv,                       &
+      &      redrag,hybedmf,dspheat,cal_pre,                             &
+-     &      mom4ice,trans_trac,nstf_name,fscav,                          &
++     &      mom4ice,trans_trac,nst_fcst,fscav,                          &
+      &      thermodyn_id, sfcpress_id, gen_coord_hybrid, adjtrc,nnp,    &
+-     &      sppt_wt,                                                    &
+ !  ---  input/outputs:
+      &      hice,fice,tisfc,tsea,tprcp,cv,cvb,cvt,                      &
+      &      srflag,snwdph,weasd,sncovr,zorl,canopy,                     &
+@@ -409,11 +397,8 @@
+       use machine ,   only : kind_phys
+       use physcons,   only : con_cp, con_fvirt, con_g, con_rd, con_rv,  &
+      &                       con_hvap, con_hfus, con_rerth, con_pi
+-      use module_nst_water_prop, only: get_dtzm_2d
+       use namelist_def, only : n3dzhaocld, n3dfercld, n3dcldpdf,        &
+      &   n3dflxtvd, n2dzhaocld, n2dfercld, n2dcldpdf, n2dflxtvd
+-
+-
+ !
+       implicit none
+ !
+@@ -449,8 +434,7 @@
+      &                       thermodyn_id, sfcpress_id, nnp
+ 
+ 
+-      integer, intent(in) :: nlons(im), ncw(2)
+-      integer, intent(in) :: nstf_name(5)
++      integer, intent(in) :: nlons(im), ncw(2), nst_fcst
+ 
+       logical, intent(in) :: ras,        pre_rad,   ldiag3d, flipv,     &
+      &                       cnvgwd,                                    &
+@@ -465,7 +449,7 @@
+      &      sinlat, coslat, pgr,    dpshc,  xlon,   xlat,               &
+      &      slope,  shdmin, shdmax, snoalb, tg3,    slmsk,  vfrac,      &
+      &      vtype,  stype,  uustar, oro,    coszen, sfcnsw, sfcdsw,     &
+-     &      sfcdlw, tsflw,  sfalb,  sfcemis, oro_uf,sppt_wt
++     &      sfcdlw, tsflw,  sfalb,  sfcemis, oro_uf
+ 
+       real(kind=kind_phys), dimension(ix,levs),       intent(in) ::     &
+      &      ugrs, vgrs, tgrs, vvel, prsl, prslk, phil, swh,swhc,hlw,hlwc
+@@ -589,8 +573,6 @@
+ 
+       real(kind=kind_phys), allocatable :: cnvc(:,:),cnvw(:,:)
+       real(kind=kind_phys) eng0, eng1, hsub
+-      real(kind=kind_phys), dimension(im) :: dtzm
+-      real(kind=kind_phys) :: zsea1,zsea2
+ 
+ !
+ !===> ...  begin here
+@@ -959,8 +941,7 @@
+         smcref2(i)    = 0.0
+       enddo
+ 
+-!  --- ...  lu: iter-loop over (sfc_diff,sfc_drv,sfc_ocean,sfc_sice,sfc_nst)
+-! 
++!  --- ...  lu: iter-loop over (sfc_diff,sfc_drv,sfc_ocean,sfc_sice)
+ 
+       do iter = 1, 2
+ 
+@@ -989,7 +970,7 @@
+ 
+ !  --- ...  surface energy balance over ocean
+ 
+-        if ( nstf_name(1) > 0 ) then
++        if ( nst_fcst > 0 ) then
+ 
+           do i = 1, im
+             if ( islmsk(i) == 0 ) then
+@@ -998,6 +979,20 @@
+               tsurf(i) = tsurf(i) + tem
+             endif
+           enddo
++!
++!         if ( nst_fcst > 1 ) then
++!           do i = 1, im
++!             if ( islmsk(i) == 0 ) then
++!               tref(i)  = tseal(i) - (xt(i)+xt(i))/xz(i) + dt_cool(i)
++!             endif
++!           enddo
++!         else
++!           do i = 1, im
++!             if ( islmsk(i) == 0 ) then
++!               tref(i)  = tseal(i)
++!             endif
++!           enddo
++!         endif
+ 
+ !         if (lprnt) print *,' tseaz1=',tsea(ipr),' tref=',tref(ipr),   &
+ !    &      ' dt_cool=',dt_cool(ipr),' dt_warm=',2.0*(xt(ipr)/xz(ipr)   &
+@@ -1008,12 +1003,16 @@
+           call sfc_nst                                                  &
+      &       ( im,lsoil,pgr,ugrs,vgrs,tgrs,qgrs,tref,cd,cdq,            &
+      &         prsl(1,1),work3,islmsk,xlon,sinlat,stress,               &
+-     &         sfcemis,gsfcdlw,adjsfcnsw,tprcp,dtf,kdt,solhr,xcosz,     &
+-     &         phy_f2d(1,1),flag_iter,flag_guess,nstf_name,              &
++     &         sfcemis,gsfcdlw,adjsfcnsw,tprcp,dtf,kdt,                 &
++     &         phy_f2d(1,1),flag_iter,flag_guess,nst_fcst,              &
+      &         lprnt,ipr,                                               &
+ !  --- input/output
+      &         tseal,tsurf,xt,xs,xu,xv,xz,zm,xtts,xzts,dt_cool,         &
+      &         z_c,c_0,c_d,w_0,w_d,d_conv,ifd,qrain,                    &
++
++!    &         tseal, ifd, time_old, time_ins, i_sw, i_q,               &
++!    &         i_qrain, i_m, i_tau, i_sw_zw, i_q_ts, i_m_ts, dt_cool,   &
++!    &         dt_warm, z_c, z_w, c_0, c_d, w_0, w_d,                   &
+ !  ---  outputs:
+      &         qss, gflx, cmm, chh, evap, hflx, ep1d)
+ 
+@@ -1027,16 +1026,12 @@
+               tsurf(i) = tsurf(i) - (oro(i)-oro_uf(i)) * rlapse
+             endif
+           enddo
+-
+-          if ( nstf_name(1) > 1 ) then
+-            zsea1 = 0.001*real(nstf_name(4))
+-            zsea2 = 0.001*real(nstf_name(5))
+-            call get_dtzm_2d(xt,xz,dt_cool,z_c,real(islmsk(:)),
+-     &           zsea1,zsea2,im,1,dtzm)
+-            do i = 1, im
+-              if ( islmsk(i) == 0 ) then 
+-              tsea(i) = max(271.2,tref(i) + dtzm(i))
+-     &                      -(oro(i)-oro_uf(i))*rlapse
++          if ( nst_fcst > 1 ) then
++            do i = 1, im
++              if ( islmsk(i) == 0 ) then
++                tsea(i) = max(271.0, tref(i) + (xt(i)+xt(i))/xz(i)
++     &                                       - dt_cool(i))              &
++     &                                       - (oro(i)-oro_uf(i))*rlapse
+               endif
+             enddo
+           endif
+@@ -1106,7 +1101,7 @@
+           if(islmsk(i) == 1 .and. iter == 1) then
+             if (wind(i) < 2.0) flag_iter(i) = .true.
+           elseif (islmsk(i) == 0 .and. iter == 1                        &
+-     &                           .and. nstf_name(1) > 0) then
++     &                           .and. nst_fcst > 1) then
+             if (wind(i) < 2.0) flag_iter(i) = .true.
+           endif
+         enddo
+@@ -1585,12 +1580,6 @@
+           do i = 1, im
+             psautco_l(i) = psautco(1)*work1(i) + psautco(2)*work2(i)
+             prautco_l(i) = prautco(1)*work1(i) + prautco(2)*work2(i)
+-
+-!           if ( i < 2 ) then
+-!           write(*,'(a,I2,2F10.4)') 'psautco_l,prautco_l : ',
+-!    &              i,psautco_l(i)*10000.0,prautco_l(i)*10000.0
+-!           endif
+-
+           enddo
+           do k = 1, levs
+             do i = 1, im
+@@ -1605,7 +1594,6 @@
+           psautco_l(i) = psautco(1)*work1(i) + psautco(2)*work2(i)
+           prautco_l(i) = prautco(1)*work1(i) + prautco(2)*work2(i)
+         enddo
+-
+         do k = 1, levs
+           do i = 1, im
+             rhc(i,k) = 1.0
+@@ -1613,8 +1601,6 @@
+         enddo
+ 
+       endif   ! end if_ntcw
+-
+-
+ !
+       if (.not. ras) then
+ 
+@@ -1728,10 +1714,6 @@
+         endif
+       endif   ! end if_not_ras
+ !
+-!     added by PJP, precipitation is scaled by sppt
+-      do i = 1, im
+-         rain1(i) = rain1(i) * sppt_wt(i)
+-      enddo
+       do i = 1, im
+         rainc(i) = frain * rain1(i)
+       enddo
+@@ -1987,10 +1969,6 @@
+             enddo
+           endif 
+ 
+-!     added by PJP, precipitation is scaled by sppt
+-          do i = 1, im
+-            rain1(i) = rain1(i) * sppt_wt(i)
+-          enddo
+           do i = 1, im
+             raincs(i) = frain * rain1(i)
+           enddo
+@@ -2164,10 +2142,6 @@
+       endif   ! end if_ncld
+ 
+ !     if (lprnt) print *,' rain1=',rain1(ipr),' rainc=',rainc(ipr)
+-!     added by PJP, precipitation is scaled by sppt
+-      do i = 1, im
+-         rain1(i) = rain1(i) * sppt_wt(i)
+-      enddo
+ 
+       do i = 1, im
+         rainl(i) = frain    * rain1(i)
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/gcycle.f	2015-08-21 09:20:34.000000000 -0600
++++ gcycle.f	2016-07-01 09:18:15.000000000 -0600
+@@ -6,7 +6,7 @@
+       use physcons, pi => con_pi
+       use resol_def
+       use sfc_flx_esmfmod
+-      use namelist_def, only : use_ufo, nst_anl
++      use namelist_def, only : use_ufo
+       implicit none
+ !
+       type(sfc_var_data)        :: sfc_fld
+@@ -150,7 +150,7 @@
+ !
+       call sfccycle(101,len,lsoil,sig1t,fhcyc
+      &,             idate(4), idate(2), idate(3), idate(1), fhour
+-     &,             rla, rlo, slmask, orog, orog_uf,use_ufo,nst_anl
++     &,             rla, rlo, slmask, orog, orog_uf, use_ufo
+ !cwu [+1l] add sihfcs and sicfcs
+      &,             sihfcs,   sicfcs, sitfcs
+ !clu [+2l] add swd, slc, vmn, vmx, slp, abs
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/gloopb.f	2015-08-24 13:22:43.000000000 -0600
++++ gloopb.f	2016-07-01 09:18:15.000000000 -0600
+@@ -46,7 +46,7 @@
+      &                                 mom4ice,
+      &                                 redrag,hybedmf,dspheat,
+      &                                 ccwf,cnvgwd,trans_trac,
+-     &                                 cal_pre,nstf_name,dtphys,
++     &                                 cal_pre,nst_fcst,dtphys,
+      &                                 dlqf,cdmbgwd,
+      &                                 bkgd_vdif_m, bkgd_vdif_h,
+      &                                 bkgd_vdif_s,shal_cnv,
+@@ -57,7 +57,6 @@
+ ! for stochastic physics perturbations 
+ !-------------------------------------
+      &                                 sppt,shum,skeb,vcamp,vc,stochphys
+-     &                                 ,nsskeb,skebint
+ ! for iau
+ !--------
+      &,                                iau
+@@ -83,7 +82,6 @@
+       use mersenne_twister
+       use d3d_def
+       use tracer_const
+-      use stoch_data, only : skebu_wt,skebv_wt
+ !     use mpi_def, only: mc_comp
+ !
+       implicit none
+@@ -120,13 +118,6 @@
+ !! iau stuff
+ !-----------
+       real(kind_evod) dtiau
+-      real(kind_evod),allocatable,dimension(:,:)     :: 
+-     &                      lnpsspeciau_e,lnpsspeciau_o
+-      real(kind_evod),allocatable,dimension(:,:,:)   ::
+-     &                      vrtspeciau_e,divspeciau_e,virtempspeciau_e,
+-     &                      vrtspeciau_o,divspeciau_o,virtempspeciau_o
+-      real(kind_evod),allocatable,dimension(:,:,:,:) :: 
+-     &                      tracerspeciau_e,tracerspeciau_o
+ 
+ !     real(kind_io8), allocatable, dimension(:,:)    :: glolal
+ !     integer, allocatable, dimension(:,:)           :: kmsk0
+@@ -155,15 +146,13 @@
+ !! sppt additional variables
+       real (kind=kind_phys) ugrd0(ngptc,levs),vgrd0(ngptc,levs)
+       real (kind=kind_phys) gr0(ngptc,levs,ntrac),gt0(ngptc,levs)
+-      real (kind=kind_phys)  sppt_wts2(ngptc)
+ !   variables for stochastic physics
+ !-----------------------------------
+       real (kind=kind_phys),dimension(ngptc,levs)        ::
+      &                      dtdt
+       real (kind=kind_phys) :: uphys,vphys,tphys,qphys,sppt_wts
+-     &                         ,tpphys,cpphys,tpphys_cc
+       real (kind=kind_phys),allocatable,dimension(:,:,:) :: 
+-     &                 sppt_wt,shum_wt,vcu_wt,vcv_wt
++     &                 sppt_wt,shum_wt,vcu_wt,vcv_wt,skebu_wt,skebv_wt
+ !
+       real (kind=kind_phys) dt3dt_v(ngptc,levs,6),
+      &                      dq3dt_v(ngptc,levs,5+pl_coeff),
+@@ -367,7 +356,7 @@
+       integer nf0,nf1,ind,nt,indod,indev
+       real(kind=kind_evod) fd2, wrk(1), wrk2(nrcm)
+ 
+-      logical first,ladj,lsskeb
++      logical first,ladj
+       parameter (ladj=.true.)
+       data first/.true./
+       save    first, seed0
+@@ -554,10 +543,7 @@
+ !     Initialize IAU stuff
+       if ( iau ) then
+          if (.not. iau_initialized) then 
+-             call init_iau(ls_node,ls_nodes,max_ls_nodes,
+-     &                     lats_nodes_r,lats_nodes_a,global_lats_r,
+-     &                     global_lats_a,lonsperlar,lonsperlat,snnp1ev,
+-     &                     snnp1od,plnev_r,plnod_r,plnew_r,plnow_r)
++             call init_iau(ls_node,ls_nodes,max_ls_nodes)
+          endif
+       endif
+ 
+@@ -691,13 +677,8 @@
+      &     shum_wt,nsphys*dtf)
+        endif
+        if (skeb(1) > 0) then ! stochastic ke backscatter
+-         if (.not. allocated(skebu_wt)) then
+-            allocate(skebu_wt(lonr,lats_node_r,levs))
+-         endif
+-         if (.not. allocated(skebv_wt)) then
+-            allocate(skebv_wt(lonr,lats_node_r,levs))
+-         endif
+-         if (mod(kdt,nsskeb) == 1 .or. nsskeb == 1) then
++         allocate(skebu_wt(lonr,lats_node_r,levs))
++         allocate(skebv_wt(lonr,lats_node_r,levs))
+          call get_pattern_skeb(trie_ls(1,1,p_ze),
+      &         trio_ls(1,1,p_ze),
+      &         trie_ls(1,1,p_di),
+@@ -706,8 +687,8 @@
+      &         lats_nodes_r,global_lats_r,lonsperlar,
+      &         epsedn,epsodn,snnp1ev,snnp1od,
+      &         plnev_r,plnod_r,plnew_r,plnow_r,
+-     &         skebint)
+-         endif
++     &         skebu_wt,
++     &         skebv_wt,nsphys*dtf)
+        endif
+        if (vc > tiny(vc) .or. vcamp(1) > 0) then ! vorticity confinement
+          allocate(vcu_wt(lonr,lats_node_r,levs))
+@@ -857,7 +838,7 @@
+ !$omp+private(det_mf_v)
+ !$omp+private(njeff,item,jtem,ktem,i,j,k,kss,n,nn,nnr)
+ !$omp+private(uphys,vphys,tphys,qphys)
+-!$omp+private(sppt_wts,sppt_wts2)
++!$omp+private(sppt_wts)
+ !$omp+private(dtdt)
+ 
+ !!!$omp+private(temlon,temlat,lprnt,ipt)
+@@ -1136,12 +1117,6 @@
+              vgrd0 = vgrd
+           endif
+ 
+-          if (sppt(1) > 0) then
+-             gt0   = gt
+-             gr0   = gr
+-             ugrd0 = ugrd
+-             vgrd0 = vgrd
+-          endif
+ !     for tracer fixer
+ 
+           do ntr=1,ntrac
+@@ -1154,13 +1129,6 @@
+               enddo
+             endif
+           enddo
+-          if (stochphys .and. sppt(1) > 0) then ! stoch. perturbed physics tend.
+-            do i=1,njeff
+-               sppt_wts2(i)=sppt_wt(lon+i-1,lan,4)
+-            enddo
+-          else
+-            sppt_wts2(:)=1.0
+-          endif
+           do nn=1,nsphys
+             nnr = mod((nn-1)*nnrcm, nrcm) + 1
+             call gbphys                                                 &
+@@ -1189,9 +1157,8 @@
+      &      wminco,sup,pdfcld,shcnvcw,                                  &
+      &      flipv,cnvgwd,shal_cnv,                                      &
+      &      redrag,hybedmf,dspheat,cal_pre,                             &
+-     &      mom4ice,trans_trac,nstf_name,fscav,                          &
++     &      mom4ice,trans_trac,nst_fcst,fscav,                          &
+      &      thermodyn_id, sfcpress_id, gen_coord_hybrid,  adjtrc, nn,   &
+-     &      sppt_wts2(1:njeff),                                         &
+ !  ---  input/outputs:
+      &      sfc_fld%hice  (lon,lan),    sfc_fld%fice  (lon,lan),        &
+      &      sfc_fld%tisfc (lon,lan),    sfc_fld%tsea  (lon,lan),        &
+@@ -2043,7 +2010,7 @@
+ !-----------------------------------------------
+       if (allocated(sppt_wt))    deallocate(sppt_wt)
+       if (allocated(shum_wt))    deallocate(shum_wt)
+-!      if (allocated(skebu_wt))   deallocate(skebu_wt,skebv_wt)
++      if (allocated(skebu_wt))   deallocate(skebu_wt,skebv_wt)
+       if (allocated(vcu_wt))     deallocate(vcu_wt,vcv_wt)
+ 
+ !-------------------------------------------------------------------------
+@@ -2053,60 +2020,23 @@
+ ! p_y is updated (virt) temp
+ 
+       if (iau) then
+-         allocate(vrtspeciau_e(len_trie_ls,2,levs))
+-         allocate(divspeciau_e(len_trie_ls,2,levs))
+-         allocate(virtempspeciau_e(len_trie_ls,2,levs))
+-         allocate(tracerspeciau_e(len_trie_ls,2,levs,ntrac))
+-         allocate(lnpsspeciau_e(len_trie_ls,2))
+-         allocate(vrtspeciau_o(len_trio_ls,2,levs))
+-         allocate(divspeciau_o(len_trio_ls,2,levs))
+-         allocate(virtempspeciau_o(len_trio_ls,2,levs))
+-         allocate(tracerspeciau_o(len_trio_ls,2,levs,ntrac))
+-         allocate(lnpsspeciau_o(len_trio_ls,2))
+          if (semilag) then
+             dtiau = tstep
+          else
+             dtiau = 2.*tstep
+          endif
+          if (me == 0) print *,'call getiauforcing',phour*3600.,dtiau
+-         call getiauforcing(vrtspeciau_e,divspeciau_e,
+-     &                      virtempspeciau_e,tracerspeciau_e,
+-     &                      lnpsspeciau_e,
+-     &                      vrtspeciau_o,divspeciau_o,
+-     &                      virtempspeciau_o,tracerspeciau_o,
+-     &                      lnpsspeciau_o,phour*3600.)
++         call getiauforcing(
++     &         trie_ls(:,:,p_w:p_w+levs-1),trie_ls(:,:,p_x:p_x+levs-1),
++     &         trie_ls(:,:,p_y:p_y+levs-1),
++     &         trie_ls(:,:,p_rt:p_rt+ntrac*levs-1),
++     &         trie_ls(:,:,p_q),
++     &         trio_ls(:,:,p_w:p_w+levs-1),trio_ls(:,:,p_x:p_x+levs-1),
++     &         trio_ls(:,:,p_y:p_y+levs-1),
++     &         trio_ls(:,:,p_rt:p_rt+ntrac*levs-1),
++     &         trio_ls(:,:,p_q),dtiau,phour*3600.)
+          if (me == 0) 
+      &   print *,'after call getiauforcing',phour*3600,iau,adjtrc(2)
+-         trie_ls(:,:,p_w:p_w+levs-1) = trie_ls(:,:,p_w:p_w+levs-1)
+-     &                               + vrtspeciau_e*dtiau
+-         trie_ls(:,:,p_x:p_x+levs-1) = trie_ls(:,:,p_x:p_x+levs-1)
+-     &                               + divspeciau_e*dtiau
+-         trie_ls(:,:,p_y:p_y+levs-1) = trie_ls(:,:,p_y:p_y+levs-1)
+-     &                               + virtempspeciau_e*dtiau
+-         trie_ls(:,:,p_q)            = trie_ls(:,:,p_q)
+-     &                               + lnpsspeciau_e*dtiau
+-         trio_ls(:,:,p_w:p_w+levs-1) = trio_ls(:,:,p_w:p_w+levs-1)
+-     &                               + vrtspeciau_o*dtiau
+-         trio_ls(:,:,p_x:p_x+levs-1) = trio_ls(:,:,p_x:p_x+levs-1)
+-     &                               + divspeciau_o*dtiau
+-         trio_ls(:,:,p_y:p_y+levs-1) = trio_ls(:,:,p_y:p_y+levs-1)
+-     &                               + virtempspeciau_o*dtiau
+-         trio_ls(:,:,p_q)            = trio_ls(:,:,p_q)
+-     &                               + lnpsspeciau_o*dtiau
+-         do i=1,ntrac
+-            trie_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) =
+-     &      trie_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) +
+-     &      tracerspeciau_e(:,:,:,i)*dtiau
+-
+-            trio_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) = 
+-     &      trio_ls(:,:,p_rt+(i-1)*levs:p_rt+i*levs-1) + 
+-     &      tracerspeciau_o(:,:,:,i)*dtiau
+-         enddo
+-!
+-         deallocate(vrtspeciau_e,divspeciau_e,virtempspeciau_e)
+-         deallocate(vrtspeciau_o,divspeciau_o,virtempspeciau_o)
+-         deallocate(tracerspeciau_e,lnpsspeciau_e)
+-         deallocate(tracerspeciau_o,lnpsspeciau_o)
+       endif                                           !  end of iau step
+                                                       !-----------------
+ !!
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/gwdc.f	2015-08-21 09:20:34.000000000 -0600
++++ gwdc.f	2016-07-01 09:18:15.000000000 -0600
+@@ -174,7 +174,7 @@
+       real(kind=kind_phys), parameter ::
+      &                      c1=1.41,          c2=-0.38,     ricrit=0.25
+      &,                     n2min=1.e-32,     zero=0.0,     one=1.0
+-     &,                     taumin=1.0e-20,   tauctmax=-20.
++     &,                     taumin=1.0e-20,   tauctmax=-5.
+      &,                     qmin=1.0e-10,     shmin=1.0e-20
+      &,                     rimax=1.0e+20,    rimaxm=0.99e+20
+      &,                     rimaxp=1.01e+20,  rilarge=0.9e+20
+@@ -678,6 +678,7 @@
+ !      calculation in current horizontal grid is skipped.
+ !
+ !  h : maximum cloud top stress, tauctmax =  -20 n m^(-2),
++!  h : max stress -5 (*j*)5/2015 tauctmax =  - 5 n m^(-2),
+ !      in order to prevent numerical instability.
+ !
+ !-----------------------------------------------------------------------
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/module_nst_parameters.f	2015-08-21 09:20:34.000000000 -0600
++++ module_nst_parameters.f	2016-07-01 09:18:15.000000000 -0600
+@@ -53,9 +53,6 @@
+        ,omg_m =1.0              &          ! trace factor to apply salinity effect
+        ,omg_rot = 1.0           &          ! trace factor to apply rotation effect
+        ,omg_sh = 1.0            &          ! trace factor to apply sensible heat due to rainfall effect
+-       ,zsea   = 0.0002         &          ! the depth of tsea, which is used for atmospheric model
+-       ,zulw   = 0.0002         &          ! the depth of tsea, which is used for upward LW
+-
+ !dbgz
+        ,visw=1.e-6 &                       !m2/s kinematic viscosity water
+        ,novalue=0 &
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/module_nst_water_prop.f	2015-08-21 09:20:34.000000000 -0600
++++ module_nst_water_prop.f	2016-07-01 09:18:15.000000000 -0600
+@@ -4,7 +4,7 @@
+   !
+   private
+   public :: rhocoef,density,sw_rad,sw_rad_aw,sw_rad_sum,sw_rad_upper,sw_rad_upper_aw,sw_rad_skin,grv,solar_time_from_julian,compjd, &
+-            sw_ps_9b,sw_ps_9b_aw,get_dtzm_point,get_dtzm_2d
++            sw_ps_9b,sw_ps_9b_aw
+       
+   !
+   interface sw_ps_9b
+@@ -517,186 +517,4 @@
+       endif
+       end subroutine compjd
+ 
+- subroutine get_dtzm_point(xt,xz,dt_cool,zc,z1,z2,dtm)
+-! ===================================================================== !
+-!                                                                       !
+-!  description:  get dtm = mean of dT(z) (z1 - z2) with NSST dT(z)      !
+-!                dT(z) = (1-z/xz)*dt_warm - (1-z/zc)*dt_cool            !
+-!                                                                       !
+-!  usage:                                                               !
+-!                                                                       !
+-!    call get_dtm12                                                     !
+-!                                                                       !
+-!       inputs:                                                         !
+-!          (xt,xz,dt_cool,zc,z1,z2,                                     !
+-!       outputs:                                                        !
+-!          dtm)                                                         !
+-!                                                                       !
+-!  program history log:                                                 !
+-!                                                                       !
+-!         2015  -- xu li       createad original code                   !
+-!  inputs:                                                              !
+-!     xt      - real, heat content in dtl                            1  !
+-!     xz      - real, dtl thickness                                  1  !
+-!     dt_cool - real, sub-layer cooling amount                       1  !
+-!     zc      - sub-layer cooling thickness                          1  !
+-!     z1      - lower bound of depth of sea temperature              1  !
+-!     z2      - upper bound of depth of sea temperature              1  !
+-!  outputs:                                                             !
+-!     dtm   - mean of dT(z)  (z1 to z2)                              1  !
+-!
+-  use machine , only : kind_phys
+-
+-  implicit none
+-
+-  real (kind=kind_phys), intent(in)  :: xt,xz,dt_cool,zc,z1,z2
+-  real (kind=kind_phys), intent(out) :: dtm
+-! Local variables
+-  real (kind=kind_phys) :: dt_warm,dtw,dtc
+-
+-!
+-! get the mean warming in the range of z=z1 to z=z2
+-!
+-  dtw = 0.0
+-  if ( xt > 0.0 ) then
+-    dt_warm = (xt+xt)/xz      ! Tw(0)
+-    if ( z1 < z2) then
+-      if ( z2 < xz ) then
+-        dtw = dt_warm*(1.0-(z1+z2)/(xz+xz))
+-      elseif ( z1 < xz .and. z2 >= xz ) then
+-        dtw = 0.5*(1.0-z1/xz)*dt_warm*(xz-z1)/(z2-z1)
+-      endif
+-    elseif ( z1 == z2 ) then
+-      if ( z1 < xz ) then
+-        dtw = dt_warm*(1.0-z1/xz)
+-      endif
+-    endif
+-  endif
+-!
+-! get the mean cooling in the range of z=z1 to z=z2
+-!
+-  dtc = 0.0
+-  if ( zc > 0.0 ) then
+-    if ( z1 < z2) then
+-      if ( z2 < zc ) then
+-        dtc = dt_cool*(1.0-(z1+z2)/(zc+zc))
+-      elseif ( z1 < zc .and. z2 >= zc ) then
+-        dtc = 0.5*(1.0-z1/zc)*dt_cool*(zc-z1)/(z2-z1)
+-      endif
+-    elseif ( z1 == z2 ) then
+-      if ( z1 < zc ) then
+-        dtc = dt_cool*(1.0-z1/zc)
+-      endif
+-    endif
+-  endif
+-
+-!
+-! get the mean T departure from Tf in the range of z=z1 to z=z2
+-!
+-  dtm = dtw - dtc
+-
+- end subroutine get_dtzm_point
+-
+- subroutine get_dtzm_2d(xt,xz,dt_cool,zc,slmsk,z1,z2,nx,ny,dtm)
+-! ===================================================================== !
+-!                                                                       !
+-!  description:  get dtm = mean of dT(z) (z1 - z2) with NSST dT(z)      !
+-!                dT(z) = (1-z/xz)*dt_warm - (1-z/zc)*dt_cool            !
+-!                                                                       !
+-!  usage:                                                               !
+-!                                                                       !
+-!    call get_dtzm_2d                                                     !
+-!                                                                       !
+-!       inputs:                                                         !
+-!          (xt,xz,dt_cool,zc,z1,z2,                                     !
+-!       outputs:                                                        !
+-!          dtm)                                                         !
+-!                                                                       !
+-!  program history log:                                                 !
+-!                                                                       !
+-!         2015  -- xu li       createad original code                   !
+-!  inputs:                                                              !
+-!     xt      - real, heat content in dtl                            1  !
+-!     xz      - real, dtl thickness                                  1  !
+-!     dt_cool - real, sub-layer cooling amount                       1  !
+-!     zc      - sub-layer cooling thickness                          1  !
+-!     nx      - integer, dimension in x-direction (zonal)            1  !
+-!     ny      - integer, dimension in y-direction (meridional)       1  !
+-!     z1      - lower bound of depth of sea temperature              1  !
+-!     z2      - upper bound of depth of sea temperature              1  !
+-!  outputs:                                                             !
+-!     dtm   - mean of dT(z)  (z1 to z2)                              1  !
+-!
+-  use machine , only : kind_phys
+-
+-  implicit none
+-
+-  real (kind=kind_phys), dimension(nx,ny), intent(in)  :: xt,xz,dt_cool,zc,slmsk
+-  real (kind=kind_phys), intent(in)  :: z1,z2
+-  integer, intent(in) :: nx,ny
+-  real (kind=kind_phys), dimension(nx,ny), intent(out) :: dtm                    
+-! Local variables
+-  integer :: i,j
+-  real (kind=kind_phys), dimension(nx,ny) :: dtw,dtc
+-  real (kind=kind_phys) :: dt_warm
+-
+-!
+-! initialize dtw & dtc as zeros
+-!
+-  dtw(:,:) = 0.0      
+-  dtc(:,:) = 0.0      
+-
+-  do j = 1, ny
+-    do i= 1, nx
+-
+-      if ( slmsk(i,j) == 0.0 ) then
+-!
+-!       get the mean warming in the range of z=z1 to z=z2
+-!
+-        if ( xt(i,j) > 0.0 ) then
+-          dt_warm = (xt(i,j)+xt(i,j))/xz(i,j)      ! Tw(0)
+-          if ( z1 < z2) then
+-            if ( z2 < xz(i,j) ) then
+-              dtw(i,j) = dt_warm*(1.0-(z1+z2)/(xz(i,j)+xz(i,j)))
+-              elseif ( z1 < xz(i,j) .and. z2 >= xz(i,j) ) then
+-            dtw(i,j) = 0.5*(1.0-z1/xz(i,j))*dt_warm*(xz(i,j)-z1)/(z2-z1)
+-            endif
+-          elseif ( z1 == z2 ) then
+-            if ( z1 < xz(i,j) ) then
+-              dtw(i,j) = dt_warm*(1.0-z1/xz(i,j))
+-            endif
+-          endif
+-        endif
+-!
+-!       get the mean cooling in the range of z=0 to z=zsea
+-!
+-        if ( zc(i,j) > 0.0 ) then
+-          if ( z1 < z2) then
+-            if ( z2 < zc(i,j) ) then
+-              dtc(i,j) = dt_cool(i,j)*(1.0-(z1+z2)/(zc(i,j)+zc(i,j)))
+-            elseif ( z1 < zc(i,j) .and. z2 >= zc(i,j) ) then
+-              dtc(i,j) = 0.5*(1.0-z1/zc(i,j))*dt_cool(i,j)*(zc(i,j)-z1)/(z2-z1)
+-            endif
+-          elseif ( z1 == z2 ) then
+-            if ( z1 < zc(i,j) ) then
+-              dtc(i,j) = dt_cool(i,j)*(1.0-z1/zc(i,j))
+-            endif
+-          endif
+-        endif
+-      endif        ! if ( slmsk(i,j) == 0 ) then
+-    enddo
+-  enddo 
+-!
+-! get the mean T departure from Tf in the range of z=z1 to z=z2
+-!
+-  do j = 1, ny
+-    do i= 1, nx
+-      if ( slmsk(i,j) == 0.0 ) then
+-        dtm(i,j) = dtw(i,j) - dtc(i,j)
+-      endif
+-    enddo
+-  enddo
+-
+- end subroutine get_dtzm_2d
+-
+ end module module_nst_water_prop
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/namelist_def.f	2015-08-24 13:22:56.000000000 -0600
++++ namelist_def.f	2016-07-01 09:18:15.000000000 -0600
+@@ -4,7 +4,7 @@
+       save
+       integer nszer,nsres,nslwr,nsout,nsswr,nsdfi,nscyc,igen,jo3,ngptc
+      &,       lsm,ens_mem,ncw(2),num_reduce,lsea,nsout_hf,dtphys
+-     &,       levwgt(2),k2o,nsskeb
++     &,       levwgt(2),k2o
+       real(kind=kind_evod) fhswr,fhlwr,fhrot,fhseg,fhmax,fhout,fhres
+      &,                    fhzer,fhini,fhdfi,fhcyc,filta,crtrh(3)
+      &,                    flgmin(2),ref_temp,ref_pres,ccwf(2),dlqf(2)
+@@ -52,16 +52,12 @@
+      &,       iter_one_no_interp,cont_eq_opt1,opt1_3d_qcubic
+ 
+ 
+-      logical nst_anl    ! nsst analysis control: false (default) = off; true = on
++!     logical nsst_active
++!     logical nsst_restart
++!     logical tr_analysis
+ 
+-      integer, dimension(5) :: nstf_name
+-
+-!     nstf_name contains the NSST related parameters
+-!     nstf_name(1) : 0 = NSSTM off, 1 = NSSTM on but uncoupled, 2 = NSSTM on and coupled
+-!     nstf_name(2) : 1 = NSSTM spin up on, 0 = NSSTM spin up off
+-!     nstf_name(3) : 1 = NSST analysis on, 0 = NSSTM analysis off
+-!     nstf_name(4) : zsea1 in mm
+-!     nstf_name(5) : zsea2 in mm
++      integer nst_fcst
++      logical nst_spinup
+ 
+       character*20 ens_nam
+ !
+@@ -70,7 +66,7 @@
+       logical norad_precip
+       integer isol, ico2, ialb, iems, iaer, iovr_sw, iovr_lw, ictm
+ ! stochastic parameters
+-      real(kind=kind_evod) skeb_diss_smooth,skebint
++      real(kind=kind_evod) skeb_diss_smooth
+       real(kind=kind_evod) fhstoch,vc
+       logical vc_logit,sppt_logit,stochini
+ 
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/read_fix.f	2015-08-21 09:20:34.000000000 -0600
++++ read_fix.f	2016-07-01 09:18:15.000000000 -0600
+@@ -272,7 +272,7 @@
+                do i=1,lonr
+                  sfc_fld%tisfc(i,j) = sfc_fld%tsea(i,j)
+                  if(sfc_fld%slmsk(i,j) >=  2. .and.
+-     &             sfc_fld%fice(i,j)  >= 0.15) then
++     &             sfc_fld%fice(i,j)  >= 0.5) then
+                    sfc_fld%tisfc(i,j) = (sfc_fld%tsea(i,j)
+      &            -tgice*(1.-sfc_fld%fice(i,j))) / sfc_fld%fice(i,j)
+                    sfc_fld%tisfc(i,j)=min(sfc_fld%tisfc(i,j),tgice)
+@@ -1876,7 +1876,7 @@
+             do i=1,lonr
+               sfc_fld%tisfc(i,j) = sfc_fld%tsea(i,j)
+               if(sfc_fld%slmsk(i,j) >=  2. .and.
+-     &          sfc_fld%fice(i,j)  >= 0.15) then
++     &          sfc_fld%fice(i,j)  >= 0.5) then
+                 sfc_fld%tisfc(i,j) = (sfc_fld%tsea(i,j)
+      &         -tgice*(1.-sfc_fld%fice(i,j))) / sfc_fld%fice(i,j)
+                 sfc_fld%tisfc(i,j) = min(sfc_fld%tisfc(i,j),tgice)
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/set_soilveg.f	2015-08-21 09:20:34.000000000 -0600
++++ set_soilveg.f	2016-07-01 09:18:15.000000000 -0600
+@@ -42,7 +42,7 @@
+ !     rsmtbl =(/500.0, 300.0, 300.0, 300.0, 300.0, 100.0,
+ !     rsmtbl =(/500.0, 175.0, 175.0, 300.0, 300.0, 70.0,
+       rsmtbl =(/300.0, 175.0, 175.0, 300.0, 300.0, 70.0,
+-     &              45.0, 225.0, 225.0, 225.0, 400.0, 45.0,
++     &              20.0, 225.0, 225.0, 225.0, 400.0, 20.0,
+      &  	   150.0,   0.0,   0.0,   0.0,   0.0,  0.0,
+      &  	     0.0,   0.0,   0.0,   0.0,   0.0,  0.0,
+      &  	     0.0,   0.0,   0.0,   0.0,   0.0,  0.0/)
+@@ -173,7 +173,7 @@
+ c vegetation class-related arrays
+ c ----------------------------------------------------------------------
+       z0_data =(/2.653, 0.826, 0.563, 1.089, 0.854, 0.856,
+-     &  	    0.035, 0.238, 0.065, 0.076, 0.011, 0.035,
++     &  	    0.035, 0.238, 0.065, 0.076, 0.011, 0.125,
+      &  	    0.011, 0.000, 0.000, 0.000, 0.000, 0.000,
+      &  	    0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
+      &  	    0.000, 0.000, 0.000, 0.000, 0.000, 0.000/)
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/sfc_nst.f	2015-08-21 09:20:34.000000000 -0600
++++ sfc_nst.f	2016-07-01 09:18:15.000000000 -0600
+@@ -4,9 +4,8 @@
+ !  ---  inputs:
+      &     ( im, km, ps, u1, v1, t1, q1, tref, cm, ch,                  &
+      &       prsl1, prslki, islimsk, xlon, sinlat, stress,              &
+-     &       sfcemis, dlwflx, sfcnsw, rain, timestep, kdt, solhr,xcosz, &
+-     &       ddvel, flag_iter, flag_guess, nstf_name,                    &
+-     &       lprnt, ipr,                                                &
++     &       sfcemis, dlwflx, sfcnsw, rain, timestep, kdt,              &
++     &       ddvel, flag_iter, flag_guess, nst_fcst, lprnt, ipr,        &
+ !  --- input/output
+      &       tskin, tsurf, xt, xs, xu, xv, xz, zm, xtts, xzts, dt_cool, &
+      &       z_c,   c_0,   c_d,   w_0, w_d, d_conv, ifd, qrain,         &
+@@ -24,9 +23,8 @@
+ !       inputs:                                                         !
+ !          ( im, km, ps, u1, v1, t1, q1, tref, cm, ch,                  !
+ !            prsl1, prslki, islimsk, xlon, sinlat, stress,              !
+-!            sfcemis, dlwflx, sfcnsw, rain, timestep, kdt,solhr,xcosz,  !
+-!            ddvel, flag_iter, flag_guess, nstf_name,                    !
+-!            lprnt, ipr,                                                !
++!            sfcemis, dlwflx, sfcnsw, rain, timestep, kdt,              !
++!            ddvel, flag_iter, flag_guess, nst_fcst, lprnt, ipr,        !
+ !       input/outputs:                                                  !
+ !            tskin, tsurf, xt, xs, xu, xv, xz, zm, xtts, xzts, dt_cool, !
+ !            z_c, c_0,   c_d,   w_0, w_d, d_conv, ifd, qrain,           !
+@@ -77,33 +75,18 @@
+ !     rain     - real, rainfall rate     (kg/m**2/s)               im   !
+ !     timestep - real, timestep interval (second)                  1    !
+ !     kdt      - integer, time step counter                        1    !
+-!     solhr    - real, fcst hour at the end of prev time step      1    !
+-!     xcosz    - real, consine of solar zenith angle               1    !
+ !     ddvel    - real, wind enhancement due to convection (m/s)    im   !
+-!     flag_iter- logical, execution or not                         im   !
+-!                when iter = 1, flag_iter = .true. for all grids   im   !
+-!                when iter = 2, flag_iter = .true. when wind < 2   im   !
+-!                for both land and ocean (when nstf_name(1) > 0)   im   !
+-!     flag_guess-logical, .true.=  guess step to get CD et al      im   !
+-!                when iter = 1, flag_guess = .true. when wind < 2  im   !
+-!                when iter = 2, flag_guess = .false. for all grids im   !
+-!     nstf_name   -integer array, NSST related flag parameters     1    !
+-!                nstf_name(1) : 0 = NSSTM off                      1    !
+-!                               1 = NSSTM on but uncoupled         1    !
+-!                               2 = NSSTM on and coupled           1    !
+-!                nstf_name(2) : 1 = NSSTM spin up on               1    !
+-!                               0 = NSSTM spin up off              1    !
+-!                nstf_name(3) : 1 = NSST analysis on               1    !
+-!                               0 = NSSTM analysis off             1    !
+-!                nstf_name(4) : zsea1 in mm                        1    !
+-!                nstf_name(5) : zsea2 in mm                        1    !
++!     flag_iter- logical,                                          im   !
++!     flag_guess-logical,                                          im   !
++!     nst_fcst  -integer, flag 0 for no nst, 1 for uncoupled nst        !
++!                          and 2 for coupled nst                   1    !
+ !     lprnt    - logical, control flag for check print out         1    !
+ !     ipr      - integer, grid index for check print out           1    !
+ !                                                                       !
+ !  input/outputs:
+ ! li added for oceanic components
+ !     tskin    - real, ocean surface skin temperature ( k )        im   !
+-!     tsurf    - real, the same as tskin ( k ) but for guess run   im   !
++!     tsurf    - real, ocean surface skin temperature ( k )??      im   !
+ !     xt       - real, heat content in dtl                         im   !
+ !     xs       - real, salinity  content in dtl                    im   !
+ !     xu       - real, u-current content in dtl                    im   !
+@@ -119,7 +102,7 @@
+ !     c_d      - coefficient2 to calculate d(tz)/d(ts)             im   !
+ !     w_0      - coefficient3 to calculate d(tz)/d(ts)             im   !
+ !     w_d      - coefficient4 to calculate d(tz)/d(ts)             im   !
+-!     ifd      - real, index to start dtlm run or not              im   !
++!     ifd      - real, index to start dtm run or not               im   !
+ !     qrain    - real, sensible heat flux due to rainfall (watts)  im   !
+ 
+ !  outputs:                                                             !
+@@ -141,7 +124,6 @@
+      &,             rvrdm1 => con_fvirt, rd => con_rd                   &
+      &,             rhw0 => con_rhw0,sbc => con_sbc,pi => con_pi
+       use date_def, only: idate
+-      use module_nst_water_prop, only: get_dtzm_point
+       use module_nst_parameters, only : t0k,cp_w,omg_m,omg_sh,          &
+      &    sigma_r,gray,solar_time_6am,ri_c,z_w_max,delz,wd_max,         &
+      &    rad2deg,const_rot,tau_min,tw_max,sst_max
+@@ -159,17 +141,14 @@
+       real (kind=kind_phys), parameter :: cpinv=1.0/cp, hvapi=1.0/hvap
+       real (kind=kind_phys), parameter :: f24   = 24.0     ! hours/day
+       real (kind=kind_phys), parameter :: f1440 = 1440.0   ! minutes/day
+-      real (kind=kind_phys), parameter :: czmin = 0.0001   ! cos(89.994)
+-
+ 
+ !  ---  inputs:
+-      integer, intent(in) :: im, km, kdt, ipr,nstf_name(5)
++      integer, intent(in) :: im, km, kdt, ipr, nst_fcst
+       real (kind=kind_phys), dimension(im), intent(in) :: ps, u1, v1,   &
+-     &       t1, q1, tref, cm, ch, prsl1, prslki, xlon,xcosz,           &
++     &       t1, q1, tref, cm, ch, prsl1, prslki, xlon,                 &
+      &       sinlat, stress, sfcemis, dlwflx, sfcnsw, rain, ddvel
+       integer, intent(in), dimension(im):: islimsk
+       real (kind=kind_phys), intent(in) :: timestep
+-      real (kind=kind_phys), intent(in) :: solhr
+ 
+       logical, intent(in) :: flag_iter(im), flag_guess(im), lprnt
+ 
+@@ -204,14 +183,18 @@
+ !     real(kind=kind_phys) rig(im),
+ !    &                     ulwflx(im),dlwflx(im),
+ !    &                     slrad(im),nswsfc(im)
+-      real(kind=kind_phys) alpha,beta,rho_w,f_nsol,sss,sep,
++      real(kind=kind_phys) alpha,beta,rho_w,f_nsol,sss,sep,soltim,
+      &                     cosa,sina,taux,tauy,grav,dz,t0,ttop0,ttop
+ 
++      integer :: iyear,imon,iday,ihr,imin
++      integer :: idat(8),jdat(8)
++
+       real(kind=kind_phys) le,fc,dwat,dtmp,wetc,alfac,ustar_a,rich
+       real(kind=kind_phys) rnl_ts,hs_ts,hl_ts,rf_ts,q_ts
+-      real(kind=kind_phys) fw,q_warm
+-      real(kind=kind_phys) t12,alon,tsea,sstc,dta,dtz
+-      real(kind=kind_phys) zsea1,zsea2,soltim,soltim0,solhr0
++      real(kind=kind_phys) jday,fw,q_warm
++      real(kind=kind_phys) t12,alon,tsea,sstc,dta
++      real(kind=kind_phys) fjd1,jd1,jd0
++      real(kind=kind_phys) rinc(5) 
+ 
+ !  external functions called: iw3jdn
+       integer :: iw3jdn
+@@ -220,12 +203,50 @@
+       parameter (elocp=hvap/cp)
+ 
+       sss = 34.0             ! temporarily, when sea surface salinity data is not ready
++
++      idat(1) = idate(4)
++      idat(2) = idate(2)
++      idat(3) = idate(3)
++      idat(4) = 0
++      idat(5) = idate(1)
++      idat(6) = 0
++      idat(7) = 0
++      idat(8) = 0
++
++      rinc(1) = 0.
++      rinc(2) = 0.
++      rinc(3) = float(kdt)*timestep/60.0
++      rinc(4) = 0.
++      rinc(5) = 0.
++      call w3movdat(rinc, idat, jdat)
++
++      iyear = jdat(1)
++      imon  = jdat(2)
++      iday  = jdat(3)
++      ihr   = jdat(5)
++      imin  = jdat(6)
++
++!  --- ...  calculate forecast julian day and fraction of julian day
++
++      jd0 = iw3jdn(1899,12,31)
++      jd1 = iw3jdn(iyear,imon,iday)
++
++!  --- ...  unlike in normal applications, where day starts from 0 hr,
++!           in astronomy applications, day stats from noon.
++      if (ihr < 12) then
++        jd1 = jd1 - 1
++        fjd1= 0.5 + float(ihr)/f24 + float(imin)/f1440
++      else
++        fjd1= float(ihr - 12)/f24 + float(imin)/f1440
++      endif
++      jday  = jd1 - jd0 + fjd1 
+ !
+-! flag for open water and where the iteration is on
++! flag for open water
+ !
+       do i = 1, im
+          flag(i) = islimsk(i) == 0 .and. flag_iter(i)
+       enddo
++
+ !
+ !  save nst-related prognostic fields for guess run
+ !
+@@ -291,10 +312,6 @@
+ 
+ ! run nst model: dtm + slm   
+ ! 
+-      solhr0 = solhr - timestep/3600.0
+-      if ( solhr0 < 0.0 ) solhr0 = solhr0 + 24.0
+-      zsea1 = 0.001*real(nstf_name(4))
+-      zsea2 = 0.001*real(nstf_name(5))
+       do i = 1, im
+         if ( flag(i) ) then
+           tsea      = tsurf(i)
+@@ -302,8 +319,7 @@
+           ulwflx(i) = sfcemis(i) * sbc * t12 * t12
+           alon      = xlon(i)*rad2deg
+           grav      = grv(sinlat(i))
+-          soltim  = mod(alon/15.0 + solhr, 24.0)*3600.0
+-          soltim0 = mod(alon/15.0 + solhr0,24.0)*3600.0
++          call solar_time_from_julian(jday,alon,soltim)
+           call density(tsea,sss,rho_w)                     ! sea water density
+           call rhocoef(tsea,sss,rho_w,alpha,beta)          ! alpha & beta
+ !
+@@ -332,8 +348,7 @@
+ !
+ !  sensitivities of heat flux components to ts
+ !
+-!         rnl_ts = 4.0*gray*sigma_r*tsea*tsea*tsea     ! d(rnl)/d(ts)
+-          rnl_ts = 4.0*sfcemis(i)*sbc*tsea*tsea*tsea     ! d(rnl)/d(ts)
++          rnl_ts = 4.0*gray*sigma_r*tsea*tsea*tsea     ! d(rnl)/d(ts)
+           hs_ts  = rch(i)
+           hl_ts  = rch(i)*elocp*eps*hvap*qss(i)/(rd*t12)
+           rf_ts  = (1000.*rain(i)/rho_w)*alfac*cp_w*(1.0+rch(i)*hl_ts)
+@@ -461,8 +476,7 @@
+ !     if (lprnt .and. i == ipr) print *,' beg xz6=',xz(i)
+ 
+ !  apply mta
+-       sstc = tref(i) + (xt(i)+xt(i))/xz(i) - dt_cool(i)
+-
++              sstc = tref(i) + (xt(i)+xt(i))/xz(i) - dt_cool(i)
+               if ( sstc > sst_max ) then
+                 dta = sstc - sst_max
+                 call  dtm_1p_mta(dta,xt(i),xtts(i),xz(i),xzts(i))
+@@ -475,8 +489,8 @@
+               endif
+ !
+             endif             ! if ( xt(i) > 0.0 ) then
+-!           reset dtl at midnight and when solar zenith angle > 89.994 degree
+-            if ( soltim < soltim0 .and. xcosz(i) < czmin ) then
++!           reset dtl at mignight
++            if ( abs(soltim) < 2.0*timestep ) then
+               call dtl_reset
+      &           (xt(i),xs(i),xu(i),xv(i),xz(i),xzts(i),xtts(i))
+             endif
+@@ -485,10 +499,7 @@
+ 
+ !     if (lprnt .and. i == ipr) print *,' beg xz7=',xz(i)
+ 
+-!     update tsurf  (when flag(i) .eqv. .true. )
+-          call get_dtzm_point(xt(i),xz(i),dt_cool(i),z_c(i),
+-     &                        zsea1,zsea2,dtz)
+-          tsurf(i) = max(271.2, tref(i) + dtz )
++          tsurf(i) = max(271.0, tref(i)+(xt(i)+xt(i))/xz(i)-dt_cool(i))
+ 
+ !     if (lprnt .and. i == ipr) print *,' tsurf=',tsurf(i),' tref=',
+ !    &tref(i),' xz=',xz(i),' dt_cool=',dt_cool(i)
+@@ -516,7 +527,7 @@
+ ! restore nst-related prognostic fields for guess run
+       do i=1, im
+         if((islimsk(i) == 0) ) then
+-          if(flag_guess(i)) then    ! when it is guess of 
++          if(flag_guess(i)) then
+             xt(i)      = xt_old(i)
+             xs(i)      = xs_old(i)
+             xu(i)      = xu_old(i)
+@@ -530,22 +541,17 @@
+             dt_cool(i) = dt_cool_old(i)
+             z_c(i)     = z_c_old(i)
+           else
+-!
+-!         update tskin when coupled and not guess run
+-!         (all other NSST variables have been updated in this case)
+-!
+-            if ( nstf_name(1) > 1 ) then
++            if ( nst_fcst > 1 ) then
+               tskin(i) = tsurf(i)
+-            endif               ! if ( nstf_name(1) > 1  then
+-          endif                 ! if(flag_guess(i)) then
+-        endif                   ! if((islimsk(i).eq. 0.) ) then
++            endif                  ! if ( nst_fcst > 1 ) then
++          endif                    ! if(flag_guess(i)) then
++        endif                      ! if((islimsk(i).eq. 0.) ) then
+       enddo
+ 
+ !     if (lprnt .and. i == ipr) print *,' beg xz8=',xz(i)
+ 
+-      if ( nstf_name(1) > 1 ) then
++      if ( nst_fcst > 1 ) then
+ !  --- ...  latent and sensible heat flux over open water with updated tskin
+-!      for the grids of open water and the iteration is on
+         do i = 1, im
+           if ( flag(i) ) then
+             qss(i)   = fpvs( tskin(i) )
+@@ -555,7 +561,7 @@
+             hflx(i)  = rch(i) * (tskin(i) - theta1(i))
+           endif
+         enddo
+-      endif                   ! if ( nstf_name(1) > 1 ) then
++      endif                   ! if ( nst_fcst > 1 ) then
+ 
+ !
+       do i=1,im
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/sfc_sice.f	2015-08-21 09:20:34.000000000 -0600
++++ sfc_sice.f	2016-07-01 09:18:15.000000000 -0600
+@@ -156,7 +156,6 @@
+       else
+          cimin = 0.50          ! gfs only
+       endif
+-      cimin = 0.15             ! mom4ice and mask, and gfs
+ 
+ !  --- ...  set flag for sea-ice
+ 
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/sfcsub.f	2015-08-21 09:20:35.000000000 -0600
++++ sfcsub.f	2016-07-01 09:18:18.000000000 -0600
+@@ -34,7 +34,7 @@
+       end module sfccyc_module
+       subroutine sfccycle(lugb,len,lsoil,sig1t,deltsfc
+      &,                   iy,im,id,ih,fh
+-     &,                   rla, rlo, slmask,orog,orog_uf,use_ufo,nst_anl
++     &,                   rla, rlo, slmask,orog,orog_uf,use_ufo
+ !cwu [+1l] add sihfcs and sicfcs
+      &,                   sihfcs,sicfcs,sitfcs                 
+ !clu [+2l] add swd, slc, vmn, vmx, slp, abs
+@@ -48,7 +48,7 @@
+       use machine , only : kind_io8,kind_io4
+       use sfccyc_module
+       implicit none
+-      logical use_ufo, nst_anl
++      logical use_ufo
+       real (kind=kind_io8) sllnd,slsea,aicice,aicsea,tgice,rlapse,
+      &                     orolmx,orolmn,oroomx,oroomn,orosmx,
+      &                     orosmn,oroimx,oroimn,orojmx,orojmn,
+@@ -266,17 +266,16 @@
+       parameter(sihlmx=0.0,sihlmn=0.0,sihomx=5.0,sihomn=0.0,
+      &          sihsmx=5.0,sihsmn=0.0,sihimx=5.0,sihimn=0.10,
+      &          sihjmx=5.0,sihjmn=0.10,glacir_hice=3.0)
+-!cwu change sicimn & sicjmn Jan 2015
+-!     parameter(siclmx=0.0,siclmn=0.0,sicomx=1.0,sicomn=0.0,
+-!    &          sicsmx=1.0,sicsmn=0.0,sicimx=1.0,sicimn=0.50,
+-!    &          sicjmx=1.0,sicjmn=0.50)
++      parameter(siclmx=0.0,siclmn=0.0,sicomx=1.0,sicomn=0.0,
++     &          sicsmx=1.0,sicsmn=0.0,sicimx=1.0,sicimn=0.50,
++     &          sicjmx=1.0,sicjmn=0.50)
+ !
+ !     parameter(sihlmx=0.0,sihlmn=0.0,sihomx=8.0,sihomn=0.0,
+ !    &          sihsmx=8.0,sihsmn=0.0,sihimx=8.0,sihimn=0.10,
+ !    &          sihjmx=8.0,sihjmn=0.10,glacir_hice=3.0)
+-      parameter(siclmx=0.0,siclmn=0.0,sicomx=1.0,sicomn=0.0,
+-     &          sicsmx=1.0,sicsmn=0.0,sicimx=1.0,sicimn=0.15,
+-     &          sicjmx=1.0,sicjmn=0.15)
++!     parameter(siclmx=0.0,siclmn=0.0,sicomx=1.0,sicomn=0.0,
++!    &          sicsmx=1.0,sicsmn=0.0,sicimx=1.0,sicimn=0.15,
++!    &          sicjmx=1.0,sicjmn=0.15)
+ 
+       parameter(wetlmx=0.15,wetlmn=0.00,wetomx=0.15,wetomn=0.15,
+      &          wetsmx=0.15,wetsmn=0.15,wetimx=0.15,wetimn=0.15,
+@@ -723,9 +722,7 @@
+ !     data fsicl/99999.0/,  fsics/99999.0/
+       data fsicl/0.0/,      fsics/0.0/
+ !  default ice concentration limit (50%), new ice thickness (20cm)
+-!cwu change ice concentration limit (15%) Jan 2015
+-!     data aislim/0.50/,    sihnew/0.2/
+-      data aislim/0.15/,    sihnew/0.2/
++      data aislim/0.50/,    sihnew/0.2/
+ !clu [+4l] add f()l and f()s for vmn, vmx, abs, slp
+       data fvmnl/0.0/,      fvmns/99999.0/
+       data fvmxl/0.0/,      fvmxs/99999.0/
+@@ -1503,10 +1500,10 @@
+ !    unfiltered orography (for lakes).  if the analysis is at lake surface
+ !    as in the nst model, then this call should be removed - moorthi 09/23/2011
+ !
+-      if (use_ufo .and. .not. nst_anl) then
+-        ztsfc = 0.0
+-        call tsfcor(tsfanl,orog_uf,slmask,ztsfc,len,rlapse)
+-      endif
++        if (use_ufo) then
++          ztsfc = 0.0
++          call tsfcor(tsfanl,orog_uf,slmask,ztsfc,len,rlapse)
++        endif
+ !
+ !  ice concentration or ice mask (only ice mask used in the model now)
+ !
+@@ -2073,11 +2070,10 @@
+ !
+ !     if(lprnt) print *,'tsfclm=',tsfclm(iprnt),' tsfcl2=',tsfcl2(iprnt)
+ !    *,' tsffcs=',tsffcs(iprnt),' slianl=',slianl(iprnt)
+-
+       if (fh > 0.0) then
+         do i=1,len
+-          if(slianl(i) == 0.0) then
+-            tsffcs(i) = tsffcs(i) + (tsfclm(i) - tsfcl2(i))
++          if(slianl(i) .eq. 0.0) then
++            tsffcs(i)=tsffcs(i) + (tsfclm(i) - tsfcl2(i))
+           endif
+         enddo
+       endif
+@@ -2742,11 +2738,8 @@
+       write(6,*)' imsk=',imsk,' jmsk=',jmsk,' xdata=',xdata,' ydata='
+      &,ydata
+       endif
+-
+       call fixrdg(lugb,imsk,jmsk,fnmskh,
+      &            kpds5,slmskh,gausm,blnmsk,bltmsk,me)
+-      print *,'in sfc_sub, aft fixrdg,slmskh=',maxval(slmskh),
+-     &  minval(slmskh),'mdata=',mdata,'imsk*jmsk=',imsk*jmsk
+       do i=1,imsk*jmsk
+          slmskh(i) = nint(slmskh(i))
+       enddo
+@@ -2755,19 +2748,18 @@
+       end
+       subroutine fixrdg(lugb,idim,jdim,fngrib,
+      &                  kpds5,gdata,gaus,blno,blto,me)
+-      use machine      , only : kind_io8,kind_io4
++      use machine , only : kind_io8,kind_io4
+       use sfccyc_module, only : mdata
+       implicit none
+       integer lgrib,n,lskip,jret,j,ndata,lugi,jdim,idim,lugb,
+-     &        iret, me,kpds5,kdata,i,w3kindreal,w3kindint
++     &        iret, me,kpds5,kdata,i
+ !
+       character*(*) fngrib
+ !
+       real (kind=kind_io8) gdata(idim*jdim)
+       logical gaus
+       real (kind=kind_io8) blno,blto
+-      real (kind=kind_io8) data8(idim*jdim)
+-      real (kind=kind_io4), allocatable :: data4(:)
++      real(kind=kind_io8) data4(idim*jdim)
+ !
+       logical*1 lbms(mdata)
+ !
+@@ -2818,38 +2810,26 @@
+       jpds = kpds0
+       lskip = -1
+       kdata=idim*jdim
+-      call w3kind(w3kindreal,w3kindint)
+-      if (w3kindreal == 8) then
+-        call getgb(lugb,lugi,kdata,lskip,jpds,jgds,ndata,lskip,
+-     &             kpds,kgds,lbms,data8,jret)
+-      else if (w3kindreal == 4) then
+-        allocate(data4(idim*jdim))
+-        call getgb(lugb,lugi,kdata,lskip,jpds,jgds,ndata,lskip,
+-     &             kpds,kgds,lbms,data4,jret)
+-        data8 = data4
+-        deallocate(data4)
+-      else
+-        write(0,*)' Invalid w3kindreal --- aborting'
+-        call abort
+-      endif
++      call getgb(lugb,lugi,kdata,lskip,jpds,jgds,ndata,lskip,
++     &                kpds,kgds,lbms,data4,jret)
+ !
+-      if(jret == 0) then
++      if(jret.eq.0) then
+         if(ndata.eq.0) then
+           write(6,*) ' error in getgb'
+           write(6,*) ' kpds=',kpds
+           write(6,*) ' kgds=',kgds
+           call abort
+         endif
+-        idim = kgds(2)
+-        jdim = kgds(3)
+-        gaus = kgds(1).eq.4
+-        blno = kgds(5)*1.d-3
+-        blto = kgds(4)*1.d-3
+-        gdata(1:idim*jdim) = data8(1:idim*jdim)
+-        if (me == 0) write(6,*) 'idim,jdim=',idim,jdim
++        idim=kgds(2)
++        jdim=kgds(3)
++        gaus=kgds(1).eq.4
++        blno=kgds(5)*1.d-3
++        blto=kgds(4)*1.d-3
++        gdata(1:idim*jdim)=data4(1:idim*jdim)
++        if (me .eq. 0) write(6,*) 'idim,jdim=',idim,jdim
+      &,                ' gaus=',gaus,' blno=',blno,' blto=',blto
+       else
+-        if (me ==. 0) write(6,*) 'idim,jdim=',idim,jdim
++        if (me .eq. 0) write(6,*) 'idim,jdim=',idim,jdim
+      &,                ' gaus=',gaus,' blno=',blno,' blto=',blto
+         write(6,*) ' error in getgb : jret=',jret
+         write(6,*) ' kpds(13)=',kpds(13),' kpds(15)=',kpds(15)
+@@ -4688,9 +4668,9 @@
+      &                     qvetl,rtsfl,calbs,caiss,ctsfs,czorl,cvegl,
+      &                     csnos,ccvb,ccvt,ccv,czors,cvegs,caisl,csnol,
+      &                     calbl,fh,ctsfl,ccnp,csots,calfl,csotl,cvetl,
+-     &                     cvets,calfs,deltsfc,
++     &                     cvets,calfs,deltsfc
+ !cwu [+3l] add c(), q(), r() for sih, sic
+-     &                     csihl,csihs,csicl,csics,
++     &,                    csihl,csihs,csicl,csics,
+      &                     rsihl,rsihs,rsicl,rsics,
+      &                     qsihl,qsihs,qsicl,qsics
+ !clu [+4l] add c(), q(), r() for vmn, vmx, slp, abs
+@@ -4811,6 +4791,8 @@
+ !         rstcs(k) = 1.0
+ !       enddo
+       endif
++!     if (me == 0) print *,' fh=',fh,' rtsfs=',rtsfs
++!    &,' irttsf=',irttsf,' fh=',fh
+ !
+ !  if analysis file name is given but no matching analysis date found,
+ !  use guess (these are flagged by irt???=1).
+@@ -6962,8 +6944,11 @@
+ ! set z0 based on sib vegetation type
+       real (kind=kind_io8) z0_sib(13)
+       data z0_sib /2.653, 0.826, 0.563, 1.089, 0.854, 0.856,
+-     &             0.035, 0.238, 0.065, 0.076, 0.011, 0.035,
++     &             0.035, 0.238, 0.065, 0.076, 0.011, 0.125,
+      &             0.011 /
++!!    data z0_sib /2.653, 0.826, 0.563, 1.089, 0.854, 0.856,
++!!   &             0.035, 0.238, 0.065, 0.076, 0.011, 0.035,
++!!   &             0.011 /
+ !
+ ! dayhf : julian day of the middle of each month
+ !
+@@ -6972,8 +6957,6 @@
+      &           196.5,227.5,258.0,288.5,319.0,349.5,380.5/
+ !
+       real (kind=kind_io8) fha(5)
+-      real(4) fha4(5)
+-      integer w3kindreal,w3kindint
+       integer ida(8),jda(8),ivtyp, kpd7
+ !
+       real (kind=kind_io8), allocatable :: tsf(:,:),sno(:,:),
+@@ -7067,13 +7050,7 @@
+           ida(2)=im
+           ida(3)=id
+           ida(5)=ih
+-          call w3kind(w3kindreal,w3kindint)
+-          if(w3kindreal == 4) then
+-            fha4=fha
+-            call w3movdat(fha4,ida,jda)
+-          else
+-            call w3movdat(fha,ida,jda)
+-          endif
++          call w3movdat(fha,ida,jda)
+           jy=jda(1)
+           jm=jda(2)
+           jd=jda(3)
+@@ -7142,13 +7119,7 @@
+       ida(2) = im
+       ida(3) = id
+       ida(5) = ih
+-      call w3kind(w3kindreal,w3kindint)
+-      if(w3kindreal==4) then
+-        fha4=fha
+-        call w3movdat(fha4,ida,jda)
+-      else
+-        call w3movdat(fha,ida,jda)
+-      endif
++      call w3movdat(fha,ida,jda)
+       jy     = jda(1)
+       jm     = jda(2)
+       jd     = jda(3)
+@@ -7549,11 +7520,7 @@
+ !
+ !     to get tsf climatology at the previous call to sfccycle
+ !
+-!     if (fh-deltsfc >= 0.0) then
+-        rjdayh = rjday - deltsfc/24.0
+-!     else
+-!       rjdayh = rjday
+-!     endif
++      rjdayh = rjday - deltsfc/24.0
+ !     if(lprnt) print *,' rjdayh=',rjdayh,' mon1=',mon1,' mon2='
+ !    &,mon2,' mon1s=',mon1s,' mon2s=',mon2s,' k1=',k1,' k2=',k2
+       if (rjdayh .ge. dayhf(mon1)) then
+@@ -7932,7 +7899,7 @@
+       implicit none
+       integer imax,jmax,ijmax,i,j,n,jret,inttyp,iret,imsk,
+      &        jmsk,len,lugb,kpds5,mon,lskip,lgrib,ndata,lugi,me,kmami
+-     &,       jj,w3kindreal,w3kindint
++     &,       jj
+       real (kind=kind_io8) wlon,elon,rnlat,dlat,dlon,rslat,blno,blto
+ !
+ !   read in grib climatology files and interpolate to the input
+@@ -7947,8 +7914,7 @@
+ !
+       real (kind=kind_io8) gdata(len), slmask(len)
+       real (kind=kind_io8), allocatable :: data(:,:), rslmsk(:,:)
+-      real (kind=kind_io8) data8(mdata)
+-      real (kind=kind_io4), allocatable ::  data4(:)
++      real(kind=kind_io8) data4(mdata)
+       real (kind=kind_io8), allocatable :: rlngrb(:), rltgrb(:)
+ !
+       logical lmask, yr2kc, gaus, ijordr
+@@ -8013,17 +7979,8 @@
+       jpds    = kpds0
+       jpds(9) = mon
+       if(jpds(9).eq.13) jpds(9) = 1
+-      call w3kind(w3kindreal,w3kindint)
+-      if(w3kindreal==8) then
+-        call getgb(lugb,lugi,mdata,lskip,jpds,jgds,ndata,lskip,
+-     &             kpds,kgds,lbms,data8,jret)
+-      else if (w3kindreal==4) then
+-        allocate(data4(mdata))
+-        call getgb(lugb,lugi,mdata,lskip,jpds,jgds,ndata,lskip,
+-     &             kpds,kgds,lbms,data4,jret)
+-        data8 = data4
+-        deallocate(data4)
+-      endif
++      call getgb(lugb,lugi,mdata,lskip,jpds,jgds,ndata,lskip,
++     &          kpds,kgds,lbms,data4,jret)
+       if (me .eq. 0) write(6,*) ' input grib file dates=',
+      &              (kpds(i),i=8,11)
+       if(jret.eq.0) then
+@@ -8040,7 +7997,7 @@
+         do j=1,jmax
+           jj = (j-1)*imax
+           do i=1,imax
+-            data(i,j) = data8(jj+i)
++            data(i,j) = data4(jj+i)
+           enddo
+         enddo
+         if (me .eq. 0) write(6,*) 'imax,jmax,ijmax=',imax,jmax,ijmax
+@@ -8097,16 +8054,16 @@
+       return
+       end
+       subroutine fixrda(lugb,fngrib,kpds5,slmask,
+-     &                  iy,im,id,ih,fh,gdata,len,iret
+-     &,                 imsk, jmsk, slmskh, gaus,blno, blto
+-     &,                 outlat, outlon, me)
++     &                 iy,im,id,ih,fh,gdata,len,iret
++     &,                imsk, jmsk, slmskh, gaus,blno, blto
++     &,                outlat, outlon, me)
+       use machine      , only : kind_io8,kind_io4
+       use sfccyc_module, only : mdata
+       implicit none
+       integer nrepmx,nvalid,imo,iyr,idy,jret,ihr,nrept,lskip,lugi,
+      &        lgrib,j,ndata,i,inttyp,jmax,imax,ijmax,ij,jday,len,iret,
+      &        jmsk,imsk,ih,kpds5,lugb,iy,id,im,jh,jd,jdoy,jdow,jm,me,
+-     &        monend,jy,iy4,kmami,iret2,jj,w3kindreal,w3kindint
++     &        monend,jy,iy4,kmami,iret2,jj
+       real (kind=kind_io8) rnlat,rslat,wlon,elon,dlon,dlat,fh,blno,
+      &                     rjday,blto
+ !
+@@ -8127,8 +8084,7 @@
+ !
+       real (kind=kind_io8) gdata(len), slmask(len)
+       real (kind=kind_io8), allocatable :: data(:,:),rslmsk(:,:)
+-      real (kind=kind_io8) data8(mdata)
+-      real (kind=kind_io4), allocatable :: data4(:)
++      real(kind=kind_io8) data4(mdata)
+       real (kind=kind_io8), allocatable :: rlngrb(:), rltgrb(:)
+ !
+       logical lmask, yr2kc, gaus, ijordr
+@@ -8150,9 +8106,8 @@
+       data mjday/31,28,31,30,31,30,31,31,30,31,30,31/
+ !
+       real (kind=kind_io8) fha(5)
+-      real(4) fha4(5)
+       integer ida(8),jda(8)
+-!
++
+       iret   = 0
+       monend = 9999
+ !
+@@ -8168,13 +8123,7 @@
+       ida(2)=im
+       ida(3)=id
+       ida(5)=ih
+-      call w3kind(w3kindreal,w3kindint)
+-      if(w3kindreal==4) then
+-        fha4=fha
+-        call w3movdat(fha4,ida,jda)
+-      else
+-        call w3movdat(fha,ida,jda)
+-      endif
++      call w3movdat(fha,ida,jda)
+       jy=jda(1)
+       jm=jda(2)
+       jd=jda(3)
+@@ -8257,18 +8206,9 @@
+       jpds(10)=idy
+       jpds(11)=ihr
+       jpds(21)=(iyr-1)/100+1
+-      if ( me .eq. 0 ) write(6,*) ' Will search for date ',jpds(8:11)
+-      call w3kind(w3kindreal,w3kindint)
+-      if (w3kindreal == 8) then
+-        call getgb(lugb,lugi,mdata,lskip,jpds,jgds,ndata,lskip,
+-     &             kpds,kgds,lbms,data8,jret)
+-      elseif (w3kindreal == 4) then
+-        allocate (data4(mdata))
+-        call getgb(lugb,lugi,mdata,lskip,jpds,jgds,ndata,lskip,
+-     &             kpds,kgds,lbms,data4,jret)
+-        data8 = data4
+-        deallocate(data4)
+-      endif
++      if (me .eq. 0) write(6,*) ' Will search for date ',jpds(8:11)
++      call getgb(lugb,lugi,mdata,lskip,jpds,jgds,ndata,lskip,
++     &           kpds,kgds,lbms,data4,jret)
+       if (me .eq. 0) write(6,*) ' input grib file dates=',
+      &              (kpds(i),i=8,11)
+       if(jret.eq.0) then
+@@ -8285,7 +8225,7 @@
+         do j=1,jmax
+           jj = (j-1)*imax
+           do i=1,imax
+-            data(i,j) = data8(jj+i)
++            data(i,j) = data4(jj+i)
+           enddo
+         enddo
+       else
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/treadeo.io.f	2015-08-21 09:20:35.000000000 -0600
++++ treadeo.io.f	2016-07-01 09:18:18.000000000 -0600
+@@ -105,6 +105,7 @@
+       real(kind=kind_evod), target ::  buff1a(lonf*latg)
+       real(kind=kind_io8) buffoa(lonf,lats_node_a)
+      &,                   buff2a(lonf,lats_node_a)
++      logical read_on_every_task
+  
+       include 'function_indlsev'
+       include 'function_indlsod'
+@@ -112,6 +113,7 @@
+ c$$$      common /z00_com/z
+ !!
+ !     print *,' enter treadeo.io_fd '					! hmhj
++      read_on_every_task = .false.
+ 
+       call sigio_rropen(nft,cfile,iret)
+       call sigio_alhead(head,iret)
+@@ -356,27 +358,53 @@
+       endif
+       dati%i = 2                               ! surface pressure
+       dati%f => trisca                       
++      if (read_on_every_task) then
+       call sigio_rrdbti(nft,head,dati,iret)
++      else
++        if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++        if (.not.liope.or.icolor.ne.2) then
++          call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++        endif
++      endif
+       if (me == 0) print *,' sfcpres=',trisca(1:10)
+       call triseori(trisca,qe,qo,1,ls_node)
+       do k=1,levs
+         dati%i = k + 2                        ! virtual temperature or cpt
+         dati%f => trisca                       
+-
++        if (read_on_every_task) then
+         call sigio_rrdbti(nft,head,dati,iret)
+-
++        else
++          if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++          if (.not.liope.or.icolor.ne.2) then
++            call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++          endif
++        endif
+         call triseori(trisca,tee(1,1,k),teo(1,1,k),1,ls_node)
+       enddo
+ !
+       do k=1,levs
+          dati%i = levs + 2 + (k-1) * 2 + 1     ! divergence
+          dati%f => trisca
++         if (read_on_every_task) then
+          call sigio_rrdbti(nft,head,dati,iret)
++         else
++           if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++           if (.not.liope.or.icolor.ne.2) then
++             call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++           endif
++         endif
+          call triseori(trisca,die(1,1,k),dio(1,1,k),1,ls_node)
+ !
+          dati%i = levs + 2 + (k-1) * 2 + 2     ! vorticity
+          dati%f => trisca
++         if (read_on_every_task) then
+          call sigio_rrdbti(nft,head,dati,iret)
++         else
++           if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++           if (.not.liope.or.icolor.ne.2) then
++             call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++           endif
++         endif
+          call triseori(trisca,zee(1,1,k),zeo(1,1,k),1,ls_node)
+       end do
+ csela print*,' levh=',levh
+@@ -401,7 +429,14 @@
+         do lv=1,levs
+           dati%i = levs * (2+k) + 2 + lv             ! tracers starting with q
+           dati%f => trisca
++          if (read_on_every_task) then
+           call sigio_rrdbti(nft,head,dati,iret)
++          else
++            if (me == me_l_0) call sigio_rrdbti(nft,head,dati,iret)
++            if (.not.liope.or.icolor.ne.2) then
++              call mpi_bcast(trisca,lnt2,mpi_real8,me_l_0,mc_comp,iret)
++            endif
++          endif
+           call triseori(trisca,rqe(1,1,lv,kk),rqo(1,1,lv,kk),1,ls_node)
+         end do
+       end do
+@@ -591,3 +626,282 @@
+ 
+       return
+       end
++      subroutine treadeo_iau(nft,nft2,fhour,idate,
++     x                   qe,tee,die,zee,rqe,
++     x                   qo,teo,dio,zeo,rqo,
++     x                   ls_node,ls_nodes,max_ls_nodes,
++     &                   cfile,cfile2,iauinc)
++ 
++      use resol_def
++      use layout1
++      use coordinate_def
++      use sig_io
++      use namelist_def
++      use vert_def
++      use mpi_def
++      use sigio_module
++      use sigio_r_module
++!
++      implicit none
++      character*(*) cfile,cfile2
++      integer              nft,nft2
++      real(kind=kind_evod) fhour
++      integer              idate(4),ntraci, ntozi, ntcwi, ncldi, 
++     &                     nt0, direction
++!
++      real(kind=kind_evod) qe(len_trie_ls,2)
++     &,                    tee(len_trie_ls,2,levs)
++     &,                    die(len_trie_ls,2,levs)
++     &,                    zee(len_trie_ls,2,levs)
++     &,                    rqe(len_trie_ls,2,levs*ntrac)
++     &,                     qo(len_trio_ls,2)
++     &,                    teo(len_trio_ls,2,levs)
++     &,                    dio(len_trio_ls,2,levs)
++     &,                    zeo(len_trio_ls,2,levs)
++     &,                    rqo(len_trio_ls,2,levs*ntrac)
++
++!
++      integer              ls_node(ls_dim,3)
++      logical              iauinc
++!
++!cmr  ls_node(1,1) ... ls_node(ls_max_node,1) : values of l
++!cmr  ls_node(1,2) ... ls_node(ls_max_node,2) : values of jbasev
++!cmr  ls_node(1,3) ... ls_node(ls_max_node,3) : values of jbasod
++!
++      integer              ls_nodes(ls_dim,nodes)
++      integer              max_ls_nodes(nodes)
++      integer              j,k,l,locl,n,lv,kk
++      integer              i,lan,lat,lons_lat,nn
++      integer              icount
++      integer              ifield,lev,nloops,iproc,maxlev,ll
++      integer,dimension(5) :: ivar,ilev
++      integer,allocatable,dimension(:,:) :: jlev,jproc,jout,jvar
++      real(kind=kind_evod), target :: trisca(lnt2),trisca2(lnt2)
++!
++      type(sigio_head) head,head2
++      type(sigio_dbti) dati,dati2
++!
++      integer              iret
++!
++ 
++!!
++!     print *,' enter treadeo.io_fd '					! hmhj
++
++
++      ifield=1
++      lev=0
++      nloops=((3+ntrac)*levs+1)/nodes_comp+1
++
++
++      call sigio_rropen(nft,cfile,iret)
++      call sigio_alhead(head,iret)
++      call sigio_rrhead(nft,head,iret)
++
++      if(me == 0)
++     &   print *,' in treadeo iret=',iret,' cfile=',cfile
++     &   ,' ivs=',head%ivs,' levs=',head%levs
++      if (iret .ne. 0) then
++         print *,' unable to read from unit ',nft,' job aborted'
++     &   ,' iret=',iret,' me=',me
++         call mpi_quit(7777)
++      endif
++
++      if(.not. iauinc)then
++         call sigio_rropen(nft2,cfile2,iret)
++         call sigio_alhead(head2,iret)
++         call sigio_rrhead(nft2,head2,iret)
++         if(me == 0)
++     &   print *,' in treadeo iret=',iret,' cfile2=',cfile2
++     &      ,' ivs=',head%ivs,' levs=',head%levs
++         if (iret .ne. 0) then
++           print *,' unable to read from unit ',nft2,' job aborted'
++     &      ,' iret=',iret,' me=',me
++           call mpi_quit(8777)
++         endif
++      end if
++!
++!
++      if(levs /= head%levs .or. jcap /= head%jcap)then
++         print *,' in treadeo_iau error in levs or jcap',levs,jcap
++         call mpi_quit (7780)
++      end if
++      if(ntrac /= head%ntrac)then
++         print *,' in treadeo_iau error in ntrac ',ntrac,head%ntrac
++         call mpi_quit (7781)
++      end if
++      fhour       = head%fhour
++
++      ntraci = ntrac
++      if (idvt .gt. 0) then
++        nt0   = mod(idvt,10)
++        if (nt0 > 0) then
++          ntcwi = idvt / 10
++          ntozi = idvt - ntcwi * 10 + 1
++          ntcwi = ntcwi + 1
++        else
++          ntcwi = ntcw
++          ntozi = ntoz
++        endif
++        ncldi = head%ncldt
++      elseif(ntraci .eq. 2) then
++        ntozi = 2
++        ntcwi = 0
++        ncldi = 0
++      elseif(ntraci .eq. 3) then
++        ntozi = 2
++        ntcwi = 3
++        ncldi = 1
++      else
++        ntozi = 0
++        ntcwi = 0
++        ncldi = 0
++      endif
++
++!   Create mapping from file structure to variable/level structure
++
++!                 ! surface height (currently not used)
++      ivar(1)=1   ! surface pressure
++      ivar(2)=2   ! temperature
++      ivar(3)=3   ! divergence
++      ivar(4)=4   ! vorticity
++      ivar(5)=5   ! tracers
++!  Number of levels for each variable
++      ilev(1)=1       
++      ilev(2)=levs
++      ilev(3)=levs
++      ilev(4)=levs
++      ilev(5)=levs*ntrac
++
++      allocate(jlev(nodes_comp,nloops),jvar(nodes_comp,nloops),
++     &     jproc(nodes_comp,nloops),jout(nodes_comp,nloops))
++      icount=0
++      k = 0
++      iproc=-1
++      do ll=1,nloops
++        maxlev=min(nodes_comp,(3+ntrac)*levs+1-icount)
++        if(me == 0)print *,' in treadeo ',maxlev,nodes_comp,nloops
++        do i=1,maxlev
++           icount=icount+1
++           iproc=iproc+1
++           if(iproc == nodes_comp)iproc=0
++           lev = lev+1
++           if(lev > ilev(ifield))then
++              ifield=ifield+1
++              lev = 1
++           end if
++           if(ifield == 5)then
++              if(lev == 1)k=k+1
++              kk = 0
++              if (k .eq. 1) then
++                 kk = 1
++              elseif (k .eq. ntozi) then
++                 kk = ntoz
++              elseif (k .ge. ntcwi .and. k .lt. ntcwi+ncldi-1) then
++                 do n=1,ncldi
++                   if (k .eq. ntcwi+n-1) kk = ntcw+n-1
++                 enddo
++              else
++                 kk = k
++              end if
++              jout(i,ll)=(kk-1)*levs+lev
++           else
++              jout(i,ll)=lev
++           end if
++           jlev(i,ll)=lev
++           jvar(i,ll)=ifield
++           jproc(i,ll)=iproc
++!          if(me == 0) 
++!    &     print *,'in treadeo j values ',i,ll,jout(i,ll),jlev(i,ll),
++!    &     jvar(i,ll),jproc(i,ll)
++         end do
++      end do
++!
++      if (me.eq.0) then
++        write(*,*)'nfile,in treadeo fhour,idate=',nft,fhour,idate
++     &, ' ntozi=',ntozi,' ntcwi=',ntcwi,' ncldi=',ncldi
++     &, ' ntrac =',ntrac,' vtid=',head%idvt
++     &, ' idvc=',head%idvc,' jcap=',jcap
++      endif
++
++      icount=0
++      dati%f => trisca                       
++      dati2%f => trisca2
++      do ll=1,nloops
++        maxlev=min(nodes_comp,(3+ntrac)*levs+1-icount)
++        do i=1,maxlev
++          icount=icount+1
++          if(me == jproc(i,ll))then
++             if(jvar(i,ll) == 1)then
++                dati%i = 2                 ! surface pressure
++             else if (jvar(i,ll) == 2)then
++                dati%i = jlev(i,ll) + 2       ! virtual temperature or cpt
++             else if (jvar(i,ll) == 3)then
++                dati%i = levs + 2 + (jlev(i,ll)-1) * 2 + 1     ! divergence
++             else if (jvar(i,ll) == 4)then
++                dati%i = levs + 2 + (jlev(i,ll)-1) * 2 + 2     ! vorticity
++             else if (jvar(i,ll) == 5)then
++                dati%i = 3*levs + 2 + jlev(i,ll)          ! tracer
++             end if
++               
++             dati2%i = dati%i
++             call sigio_rrdbti(nft,head,dati,iret)
++             if(.not. iauinc)then
++                call sigio_rrdbti(nft2,head2,dati2,iret)
++                trisca=trisca-trisca2
++             end if
++          end if
++        end do
++        do i=1,maxlev
++          if(me == jproc(i,ll))trisca2=trisca
++          call mpi_bcast(trisca2,lnt2,mpi_real8,jproc(i,ll),mc_comp,
++     &       iret)
++          k=jout(i,ll)
++          if(jvar(i,ll) == 1)then
++            call triseori(trisca2,qe,qo,1,ls_node)
++          else if(jvar(i,ll) == 2)then
++            call triseori(trisca2,tee(1,1,k),teo(1,1,k),1,ls_node)
++          else if(jvar(i,ll) == 3)then
++            call triseori(trisca2,die(1,1,k),dio(1,1,k),1,ls_node)
++          else if(jvar(i,ll) == 4)then
++            call triseori(trisca2,zee(1,1,k),zeo(1,1,k),1,ls_node)
++          else if(jvar(i,ll) == 5)then
++            call triseori(trisca2,rqe(1,1,k),rqo(1,1,k),1,ls_node)
++          end if
++        end do
++      end do
++      call sigio_rclose(nft,iret)
++      if(.not. iauinc)call sigio_rclose(nft2,iret)
++
++      deallocate(jlev,jvar,jproc,jout)
++
++!
++!
++ 
++100   format(1h0, 12   (e10.3))
++!!!!
++!
++!   convert from virtual temperature to enthalpy if need
++!
++      if( thermodyn_id.le.1 .and. sfcpress_id.le.1
++     &    .and. gen_coord_hybrid ) then
++
++!
++        if (.not.liope.or.icolor.ne.2) then
++!
++!  Conversion to Enthalpy not allowed for iau update(not linear)
++          print *,' Conversion to Entahlpy not allowed for iau '
++          call mpi_quit (7790)
++!         direction=1               ! from (tv,lnps) to (enthalpy,ps)
++!         call spect_tv_enthalpy_ps
++!    &       (direction,
++!    &        qe,qo,tee,teo,rqe,rqo,
++!    &        ls_node,ls_nodes,max_ls_nodes,
++!    &        lats_nodes_r,global_lats_r,lonsperlar,
++!    &        plnev_r,plnod_r,plnew_r,plnow_r)
++
++        endif                     ! .not.liope.or.icolor.ne.2
++!
++      endif
++
++      return
++      end subroutine treadeo_iau
+--- ../../../EXP-skebopt/para/sorc/global_fcst.fd/wrtout.f	2015-08-21 09:20:34.000000000 -0600
++++ wrtout.f	2016-07-01 09:18:15.000000000 -0600
+@@ -476,7 +476,7 @@
+         if (.not. adiab) then
+           call sfc_collect(sfc_fld,global_lats_r,lonsperlar)
+ 
+-          if ( nstf_name(1) > 0 ) then
++          if ( nst_fcst > 0 ) then
+             call nst_collect(nst_fld,global_lats_r,lonsperlar)
+           endif
+ 
+@@ -521,7 +521,7 @@
+         else               ! move sfc grids only,  handle fluxes in original wrtsfc
+           call sfc_only_move(ioproc)
+ 
+-          if ( nstf_name(1) > 0 ) then
++          if ( nst_fcst > 0 ) then
+             call nst_only_move(ioproc)
+ 
+             write(*,*) ' nst_only_move done'
+@@ -595,13 +595,13 @@
+           call sfc_wrt(ioproc,nosfc,cosfc,fhour_iau,jdate_iau,
+      &                 global_lats_r,lonsperlar)
+ 
+-          if ( nstf_name(1) > 0 ) then            !  now write the ocean file
+-            const = 'NST.F'//cfhour
++          if ( nst_fcst > 0 ) then            !  now write the ocean file
++            const = 'nst.f'//cfhour
+ 
+             call nst_wrt(ioproc,nonst,const,fhour_iau,jdate_iau,
+      &                   global_lats_r,lonsperlar)
+-!                                           !  nsst write done
+-          endif    ! if ( nstf_name(1) > 0 )
++!                                           !  ocean write done
++          endif    ! if ( nst_fcst > 0 )
+         endif      ! not.adiab
+       endif        ! if_me==ioproc
+ !
+@@ -697,8 +697,8 @@
+      &       global_lats_r,lonsperlar,snnp1ev,snnp1od,                  &
+      &       global_lats_a,lonsperlat,                                  &
+      &       phy_f3d,phy_f2d, dyn_f3d, dyn_f2d,                         &
+-     &       ngptc,adiab,ens_nam,                                       &
+-     &       nstf_name,sigr1,sigr2,sfcr,cnstr )
++     &       ngptc,adiab,ens_nam,nst_fcst,                              &
++     &       sigr1,sigr2,sfcr,cnstr )
+ 
+ ! =================   subprogram documentation block   ================ !
+ !                                                                       !
+@@ -755,7 +755,7 @@
+ !      ngptc         : integer,                                    1    !
+ !      adiab         : logical,                                    1    !
+ !      ens_nam       : character,                                  *    !
+-!      nstf_name     : integer,                                    1    !
++!      nst_fcst      : integer,                                    1    !
+ !      sigr1         : character,                                  5    !
+ !      sigr2         : character,                                  5    !
+ !      sfcr          : character,                                  4    !
+@@ -777,7 +777,7 @@
+       implicit none
+ !
+ !  ---  inputs/outputs:
+-      integer :: idate(4), igen, ngptc, nstf_name(5)
++      integer :: idate(4), igen, ngptc, nst_fcst
+       integer :: ls_node(ls_dim*3), ls_nodes(ls_dim,nodes),             &
+      &     max_ls_nodes(nodes), global_lats_r(latr), lonsperlar(latr),  &
+      &     global_lats_a(latg), lonsperlat(latg)
+@@ -907,7 +907,7 @@
+       if (.not. adiab) then
+         call para_fixio_w(ioproc,sfc_fld, nflop,cflop,fhour,idate,
+      &                    global_lats_r,lonsperlar)
+-        if (nstf_name(1) > 0) then
++        if (nst_fcst > 0) then
+           nstr = 54
+           call para_nstio_w(ioproc,nst_fld,nstr,nstr54,fhour,idate,
+      &                      global_lats_r,lonsperlar)

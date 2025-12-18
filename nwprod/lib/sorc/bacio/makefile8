@@ -1,0 +1,25 @@
+SHELL=/bin/sh
+ncepxlc=cc
+ncepxlf=ftn
+LIB=../../libbacio_8.a
+INC=clib8.h
+FFLAGS= -O3 -xHOST -convert big_endian
+AFLAGS=
+CFLAGS=-O3 -DLINUX
+
+$(LIB):	$(LIB)( bacio.v1.4.o baciof.o bafrio.o byteswap.o)
+
+$(LIB)(bacio.v1.4.o):       bacio.v1.4.c $(INC)
+	rm -f clib.h
+	ln -fs $(INC) clib.h
+	$(ncepxlc) -c $(CFLAGS) bacio.v1.4.c
+	ar -rv $(AFLAGS) $(LIB) bacio.v1.4.o
+
+$(LIB)(baciof.o):   baciof.f
+	$(ncepxlf) -c $(FFLAGS) baciof.f
+	ar -rv $(AFLAGS) $(LIB) baciof.o 
+
+$(LIB)(bafrio.o):   bafrio.f
+	$(ncepxlf) -c $(FFLAGS) bafrio.f
+	ar -rv $(AFLAGS) $(LIB) bafrio.o 
+	rm -f baciof.o bafrio.o 

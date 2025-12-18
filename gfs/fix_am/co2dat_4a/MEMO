@@ -1,0 +1,40 @@
+Important notices for directory co2dat_4a:
+
+  This directory is the repository of all co2 data processed (using a smoothing algorithm)
+  at EMC for NCEP forecast models.
+
+(1)
+  a: Data files ended with '.txt' and without any suffix are from observations. Due to time
+     delay when obtaining the data (usually one year or later), these data files are not
+     suitable for real-time or future forecasts.  However, in addition for hindcast, the
+     data are used for projection of next year's data and beyond.
+
+    (For example: near the end of 2012, most of 2011 data are collected and used to produce
+     observational 2011 data set, and to update the previous projection for 2012. Then this
+     updated 2012 projection and 2011 or earlier observations are used to project 2013 data
+     for the continuation of regular forecasts.)
+
+  b: Data files ended with '_proj' are data projections from prior 5-year's observed data.
+     For example, projected 2012 data were made in 2011, but prior five-year period of
+     2006-2010 data were available at the time for the projection. The projected data are
+     copied to the directory of '../fix_co2_proj' and the suffix '_proj' is removed in that
+     directory.  Those projected data are suitable for real-time and future forecast.
+
+    (note: data for _2009.txt_proj is the same as _2009.txt_proj_u)
+
+  c: Data files ended with '_proj_u' are updated projections from prior 6-year's actual
+     observations.  As explained in item a, those updated data sets are usually not produced
+     early enough for actual forecasts use. Instead they are used for future data
+     preparations.  Those data are copied into directory '../fix_co2_update' but the
+     suffix '_proj_u' is cut off in the directory.
+
+(2)
+  Starting from 2008, a new data processing algorithm that includes a 9-point grid average
+  is used to replace the previous algorithm to reduce noise in the global distribution map.
+  All data in this directory are from the new smoothing method, including reprocessed data
+  earlier than 2008.  This presents a little differences for the early data sets (1956-2007)
+  which are from the original unsmoothing method (the early data are still kept in the
+  CFS operational data directory for the purpose of preserving model's reproducibility).
+  After that, all observation data sets later than 2008 are smoothed and are coming from
+  this repository.
+

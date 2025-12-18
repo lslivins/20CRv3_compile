@@ -1,0 +1,320 @@
+#!/bin/csh
+
+# max number of cores for each global_postgp instance.
+# 11 Feb - G. Compo, how is nprocs_group_max number determined? 
+# 17 Feb - trial and error. 12 seemed to work well on haswell and broadwell (MPI tasks for each ensemble member during postgp)
+# try 20 for KNL
+set nprocs_group_max=20 # 12
+
+setenv FHZER $ANALINC
+set FCSTVARS1=$FCSTVARS
+unsetenv FCSTVARS
+
+setenv VERBOSE YES
+setenv mpitasks `expr $mpitasks \* $nanals`
+setenv FHMAX_save $FHMAX
+if ($iau == ".true.") then
+   setenv FHDFI 0
+   setenv FHROT $FHMIN
+   setenv FHMAX `expr $FHMAX_save \+ $ANALINC`
+   setenv SIGI ${datapath2}/sfg_${analdate}_fhr03
+   ln -fs ${datapath2}/sfg_${analdate}_fhr03_mem001 ${SIGI}
+   setenv SFCI ${datapath2}/sfcanl_${analdate}_fhr03
+   ln -fs ${datapath2}/sfcanl_${analdate}_fhr03_mem001 ${SFCI}
+   set charnanal='mem'
+   if ($iaufhrs == "3,6,9") then
+     set iaufiles_fg="'${datapath2}/sfg_${analdate}_fhr03_${charnanal}','${datapath2}/sfg_${analdate}_fhr06_${charnanal}','${datapath2}/sfg_${analdate}_fhr09_${charnanal}'"
+     set iaufiles_anl="'${datapath2}/sanl_${analdate}_fhr03_${charnanal}','${datapath2}/sanl_${analdate}_fhr06_${charnanal}','${datapath2}/sanl_${analdate}_fhr09_${charnanal}'"
+   else
+     echo "iaufhrs=3,6,9 expected, got $iaufhrs"
+   endif
+   setenv FCSTVARS "${FCSTVARS1},iau=${iau},iaufhrs=${iaufhrs},iau_delthrs=${iau_delthrs},iaufiles_fg=${iaufiles_fg},iaufiles_anl=${iaufiles_anl}"
+else
+   setenv FCSTVARS $FCSTVARS1
+   setenv SIGI ${datapath2}/sanl_${analdate}
+   ln -fs ${datapath2}/sanl_${analdate}_mem001 ${SIGI}
+   setenv SFCI ${datapath2}/sfcanl_${analdate}
+   ln -fs ${datapath2}/sfcanl_${analdate}_mem001 ${SFCI}
+endif
+setenv ENS_NUM $nanals
+set mem_names="_01"
+set nmem=1
+while ($nmem <= $ENS_NUM)
+ set mn=`printf %02i $nmem`
+ ln -fs ${SIGI}_mem0${mn} ${SIGI}_${mn}
+ ln -fs ${SFCI}_mem0${mn} ${SFCI}_${mn}
+ @ nmem = $nmem + 1
+ set mem_names="${mem_names} _${mn}"
+end
+setenv MEMBER_NAMES "$mem_names"
+setenv DATOUT ${datapath}${analdatep1}
+setenv SIGO $DATOUT/sfg_${analdatep1}_fhr'${FH}${MN}'
+setenv SFCO $DATOUT/bfg_${analdatep1}_fhr'${FH}${MN}'
+setenv FLXO $DATOUT/sflxgrb_${analdatep1}_fhr'${FH}${MN}'
+setenv LOGO /dev/null
+setenv D3DO /dev/null
+setenv G3DO /dev/null
+setenv NSSTO /dev/null
+setenv DATA $DATOUT/genstmp$$
+setenv O3CLIM $FIXGLOBAL/global_o3_${yr}.txt
+mkdir -p $DATA
+
+echo "run ensemble `date`"
+setenv OMP_NUM_THREADS $fg_omp_threads # make this separately specifiable. G. Compo
+# make the default MPI reorder method 
+# for running gfs to be "SMP" - fill each node as much as possible
+setenv MPI_RANK_REORDER_METHOD 1
+
+sh ${enkfscripts}/run_gefs_knl >&! ${current_logdir}/run_gefs.out
+
+# return to the default MPI reorder method 
+# to be "cyclic" or "round robin"
+setenv MPI_RANK_REORDER_METHOD 0
+
+/bin/rm -rf $DATA &
+
+echo "done running ensemble `date`"
+
+ls -l $DATOUT/sfg_${analdatep1}_fhr*_01 &
+ls -l $DATOUT/bfg_${analdatep1}_fhr*_01 &
+ls -l $DATOUT/sflxgrb_${analdatep1}_fhr*_01
+
+# rename output files.
+if ($iau == '.true.') then
+   set FH=$ANALINC
+else
+   set FH=0
+endif
+while ($FH <= $FHMAX) 
+set charhr=`printf %02i $FH`
+if ($iau == '.true.') then
+   @ FH2 = $FH - $ANALINC
+else
+   set FH2=$FH
+endif
+set charhr2="`printf %02i $FH2`"
+set nmem=1
+while ($nmem <= $ENS_NUM)
+ set MN=`printf %02i $nmem`
+ set charnanal="mem`printf %03i $nmem`"
+ /bin/mv -f $DATOUT/sfg_${analdatep1}_fhr${charhr}_${MN} $DATOUT/sfg_${analdatep1}_fhr${charhr2}_${charnanal} & 
+ /bin/mv -f $DATOUT/bfg_${analdatep1}_fhr${charhr}_${MN} $DATOUT/bfg_${analdatep1}_fhr${charhr2}_${charnanal} &
+ /bin/mv -f $DATOUT/sflxgrb_${analdatep1}_fhr${charhr}_${MN} $DATOUT/sflxgrb_${analdatep1}_fhr${charhr2}_${charnanal}
+ @ nmem = $nmem + 1
+end
+@ FH = $FH + $FHOUT
+end
+
+echo "done renaming files `date`"
+
+if ($POSTPROC == 'YES') then
+echo "starting postprocessing at `date`"
+# do global_postgp (for 6h forecast and anal)
+setenv DATA1 "${datapath2}/postgp1tmp.$$"
+setenv DATA2 "${datapath2}/postgp2tmp.$$"
+setenv DATA3 "${datapath2}/postgp3tmp.$$"
+mkdir $DATA1 &
+mkdir $DATA2 &
+mkdir $DATA3
+set nanal=1
+set analdate_p3 = `${incdate} $analdate 3`
+while ($nanal <= $nanals)
+    set charnanal=`printf %02i $nanal`
+    set charnanal3="mem`printf %03i $nanal`"
+
+    setenv SIGINP1 ${datapathp1}/sfg_${analdatep1}_fhr00_${charnanal3}
+    setenv FLXINP1 ${datapathp1}/sflxgrb_${analdatep1}_fhr00_${charnanal3}
+    setenv PGBOUT1 ${datapath2}/pgrbanl_${analdate}_${charnanal3}
+
+    setenv SIGINP2 ${datapathp1}/sfg_${analdatep1}_fhr03_${charnanal3}
+    setenv FLXINP2 ${datapathp1}/sflxgrb_${analdatep1}_fhr03_${charnanal3}
+    setenv PGBOUT2 ${datapath2}/pgrbanl_${analdate_p3}_${charnanal3}
+
+    setenv SIGINP3 ${datapathp1}/sfg_${analdatep1}_fhr06_${charnanal3}
+    setenv FLXINP3 ${datapathp1}/sflxgrb_${analdatep1}_fhr06_${charnanal3}
+    setenv PGBOUT3 ${datapathp1}/pgrbfg_${analdatep1}_fhr06_${charnanal3}
+
+cat <<EOF >! $DATA1/global_postgp.nml.$charnanal
+ &NAMPGB
+  DDSIG="$SIGINP1",
+  DDFLX="$FLXINP1",
+  DDPGB="$PGBOUT1",
+  IO=$IO, JO=$JO, IGEN=$IGEN,
+  $POSTGPVARS
+EOF
+cat $POSTGPLIST >> $DATA1/global_postgp.nml.$charnanal
+cat <<EOF >> $DATA1/global_postgp.nml.$charnanal
+ /
+EOF
+if ($nanal == 1) cat  $DATA1/global_postgp.nml.$charnanal
+cat <<EOF >! $DATA2/global_postgp.nml.$charnanal
+ &NAMPGB
+  DDSIG="$SIGINP2",
+  DDFLX="$FLXINP2",
+  DDPGB="$PGBOUT2",
+  IO=$IO, JO=$JO, IGEN=$IGEN,
+  $POSTGPVARS
+EOF
+cat $POSTGPLIST >> $DATA2/global_postgp.nml.$charnanal
+cat <<EOF >> $DATA2/global_postgp.nml.$charnanal
+ /
+EOF
+if ($nanal == 1) cat  $DATA2/global_postgp.nml.$charnanal
+cat <<EOF >! $DATA3/global_postgp.nml.$charnanal
+ &NAMPGB
+  DDSIG="$SIGINP3",
+  DDFLX="$FLXINP3",
+  DDPGB="$PGBOUT3",
+  IO=$IO, JO=$JO, IGEN=$IGEN,
+  $POSTGPVARS
+EOF
+cat $POSTGPLIST >> $DATA3/global_postgp.nml.$charnanal
+cat <<EOF >> $DATA3/global_postgp.nml.$charnanal
+ /
+EOF
+if ($nanal == 1) cat  $DATA3/global_postgp.nml.$charnanal
+# add global_postgp steps.
+@ nanal = $nanal + 1
+end
+
+# go to temp dir 1, run global_postgpp
+cd $DATA1
+setenv nprocs_group $fg_proc
+if ($nprocs_group > $nprocs_group_max) then
+ setenv nprocs_group $nprocs_group_max
+endif
+setenv nprocs `expr $nprocs_group \* $nanals`
+set nhostsover3=`expr $maxnhosts \/ 3`
+# if there are enough cores, run all 3 at the same time.
+if ($nprocs > $nhostsover3) then
+srun -n $nprocs -c $corespersmlmpitask --cpu_bind=cores  ${EXECGLOBAL}/global_postgpp
+else
+echo "running global_postgpp in background ..."
+srun -N $NNODES_clean3 -n $nprocs -c $corespersmlmpitask --cpu_bind=cores  ${EXECGLOBAL}/global_postgpp &
+endif
+
+# go to temp dir 2, run global_postgpp
+cd $DATA2
+if ($nprocs > $nhostsover3) then
+srun -n $nprocs -c $corespersmlmpitask --cpu_bind=cores  ${EXECGLOBAL}/global_postgpp
+else
+echo "running global_postgpp in background ..."
+srun -N $NNODES_clean3 -n $nprocs -c $corespersmlmpitask --cpu_bind=cores  ${EXECGLOBAL}/global_postgpp &
+endif
+
+# go to temp dir 3, run global_postgpp
+cd $DATA3
+if ($nprocs > $nhostsover3) then
+srun -n $nprocs -c $corespermpitask --cpu_bind=cores  ${EXECGLOBAL}/global_postgpp
+else
+echo "running global_postgpp in background ..."
+srun -N $NNODES_clean3 -n $nprocs -c $corespersmlmpitask --cpu_bind=cores  ${EXECGLOBAL}/global_postgpp &
+endif
+
+wait 
+
+cd $DATA1
+# print the redirected standard output for each group back to the standard output
+cat stdoutfile.01
+cd $DATA2
+cat stdoutfile.01
+cd $DATA3
+cat stdoutfile.01
+
+cd $datapath2
+/bin/rm -rf $DATA1 & 
+/bin/rm -rf $DATA2 & 
+/bin/rm -rf $DATA3 &
+/bin/rm -rf ${datapath2}/postgp*tmp* & # this one may be too many in background 
+echo "done postprocessing at `date`"
+endif
+
+# clean up un-needed files.
+set fh=`expr $FHMAX_save \+ $FHOUT`
+while ($fh <= $FHMAX)
+   set charhr="fhr`printf %02i $fh`"
+   /bin/rm -f ${datapathp1}/sf*_${analdatep1}_${charhr}_mem* &
+   /bin/rm -f ${datapathp1}/bf*_${analdatep1}_${charhr}_mem* & # this one may be too many in background
+   @ fh = $fh + $FHOUT
+end
+
+echo "done cleaning up and changing dates in files `date`"
+
+ls -l ${datapathp1}/sfg_${analdatep1}*mem001
+ls -l ${datapathp1}/bfg_${analdatep1}*mem001
+ls -l ${datapathp1}/sflxgrb_${analdatep1}*mem001
+ls -l ${datapath2}/sanl*mem001
+ls -l ${datapath2}/sfcanl*mem001
+
+setenv OMP_NUM_THREADS 1# set this back to 1 # make this separately specifiable. G. Compo
+
+set FHMAX=$FHMAX_save
+
+# check to see all files created
+echo "checking output files "`date`
+
+set nanal=1
+set filecheck=0
+set anyfilemissing='no'
+while ($nanal <= $nanals)
+    set charnanal="mem`printf %03i $nanal`"
+    set fhr=$FHMIN
+    set outfiles=""
+    while ($fhr <= $FHMAX)
+       set charhr="fhr`printf %02i $fhr`"
+       set outfiles = "${outfiles} ${datapathp1}/sfg_${analdatep1}_${charhr}_${charnanal} ${datapathp1}/bfg_${analdatep1}_${charhr}_${charnanal}"
+       #set outfiles = "${outfiles} ${datapathp1}/sfg_${analdatep1}_${charhr}_${charnanal}"
+       @ fhr = $fhr + $FHOUT
+    end
+    set filemissing='no'
+    foreach outfile ($outfiles) 
+      if ( ! -s $outfile ) then 
+        echo "${outfile} is missing"
+        set filemissing='yes'
+        set anyfilemissing='yes'
+      else
+        echo "${outfile} is OK"
+      endif
+    end
+    @ nanal = $nanal + 1
+end
+
+if ($anyfilemissing == 'yes') then
+    echo "there are output files missing!"
+    exit 1
+endif
+
+echo "running getsigensmeanp and getsfcensmeanp `date`"
+set fhr=$FHMIN
+while ($fhr <= $FHMAX)
+   set charhr="fhr`printf %02i $fhr`"
+   srun -N $NNODESd8 -n $nanals -c $corespermpitask --cpu_bind=cores  ${EXECGLOBAL}/getsigensmeanp.x ${datapath}/${analdatep1}/ sfg_${analdatep1}_${charhr}_ensmean sfg_${analdatep1}_${charhr} ${nanals}  &
+   srun -N $NNODESd8 -n $nanals -c $corespermpitask --cpu_bind=cores  ${EXECGLOBAL}/getsfcensmeanp.x ${datapath}/${analdatep1}/ bfg_${analdatep1}_${charhr}_ensmean bfg_${analdatep1}_${charhr} ${nanals}  & 
+   @ fhr = $fhr + $FHOUT
+end
+
+wait
+# check on the files
+set fhr=$FHMIN
+while ($fhr <= $FHMAX)
+   set charhr="fhr`printf %02i $fhr`"
+
+   if ( ! -s ${datapathp1}/sfg_${analdatep1}_${charhr}_ensmean ) exit 1
+   if ( ! -s ${datapathp1}/bfg_${analdatep1}_${charhr}_ensmean ) exit 1
+@ fhr = $fhr + $FHOUT
+end
+echo "done running getsfcensmeanp and getsigensmeanp `date`"
+
+# clean up
+set nmem=1
+while ($nmem <= $ENS_NUM)
+ set mn=`printf %02i $nmem`
+ /bin/rm -f ${SIGI}_${mn} &
+ /bin/rm -f ${SFCI}_${mn}
+ @ nmem = $nmem + 1
+end
+/bin/rm -f $SIGI &
+/bin/rm -f $SFCI &
+wait
+echo "all done `date`"
+exit 0

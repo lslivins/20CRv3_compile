@@ -1,0 +1,6 @@
+this directory contains smoothed (a 9-point grid average method) co2 
+data that based on the original reprocessed historical co2 data 
+(1956-present) sets in the directory:
+
+    /global/save/wx24yh/data/obsv_co2/co2dat_new 
+

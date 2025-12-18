@@ -1,0 +1,247 @@
+ #11 Feb 2017
+
+# notes on build.csh
+
+# most changes made on Gaea 
+# for Haswell and then Broadwell
+
+# important: 4 codes needed -xSSE4.2 on Gaea
+[sigio, sfcio, sighdr, sfchdr(not sure about this one, actually)]
+
+# particular intel compiler 16 worked well on Gaea
+#module switch intel intel/16.0.3.210 
+
+# 11 Feb. GFS seg faulted, so first try
+# no .nersc version on KNL
+#module switch intel intel/16.0.3.210.nersc
+# 12 Feb so use module switch intel intel/16.0.3.210
+
+#! make sure driver script 
+# gfsenkf_20crV3_cmip5oz_new.csh has the same.
+
+# 11 Feb 7:32pm PST
+# And Try only compiling for Haswell, except shtns, psop, and enkf routines 
+
+# 12 Feb that didn't work
+
+# 12 Feb
+#bacio still had -xHOST. Removed
+
+# So, try loading craype-mic-knl 
+
+
+# next up 11:53am MST
+#bacio still had -xHOST. Removed
+# first, gcc/5.3.0 is default on Gaea c4
+
+# Then 
+# try putting in directives for -xCORE-AVX2 (haswell, broadwell)
+
+# 13 Feb 
+
+
+#!!!!!!!!!!!!!!
+# first build shtns for KNL
+#module swap PrgEnv-intel PrgEnv-gnu/6.0.3
+
+#module swap craype-haswell craype-mic-knl
+#module load fftw
+# first 
+
+20CRV3_CoriII_stripe4/shtns> diff Makefile Makefile.Gaea 
+3,6c3,4
+< #module swap PrgEnv-intel PrgEnv-gnu/6.0.3
+< 
+< #module swap craype-haswell craype-mic-knl
+< #module load fftw
+---
+> #module swap PrgEnv-intel PrgEnv-gnu
+> #module load fftw/3.3.4.8
+8c6
+< PREFIX=/global/cscratch1/sd/compo/20CRV3_CoriII_stripe4
+---
+> PREFIX=/lustre/f1/unswept/Gilbert.P.Compo/20CRV3
+10c8
+< CC=gcc -march=knl
+---
+> CC=gcc -march=native
+#!!!!!!!!!!!!!!
+
+#in build.csh
+module switch PrgEnv-cray PrgEnv-intel
+module swap craype-haswell craype-mic-knl
+module swap intel intel/16.0.3.210
+module swap gcc gcc/5.3.0
+module load cray-netcdf/4.4.0
+module load cray-hdf5
+module load fftw
+
+module unload darshan
+# use particular hdf5 and netcdf modules based on 
+
+
+#2017-02-01 04:12:26 PST - Jialin LiuAdditional comments
+#Hi Gilbert,
+#We replaced the default HDF51.10 with 1.8.16 as we recently found some bug in 1.10. However, cray's default netcdf is compiled with 1.10. We have been discussing with Cray to re-compile it. Sorry for the inconvenience.
+ 
+#Yes, you may either load hdf51.10, or use cray-netcdf/4.4.0.
+
+# and unload darshan based on 
+#http://www.nersc.gov/users/software/compilers/intel-fortran-c-and-c/intel-bug-reports/compiling-with-ipo-produces-unresolved-warning-messages-at-link-time-on-cray-systems/
+
+
+# Removed -xHOST in makefile4 that I had previously missed
+# added
+#FFLAGS= -O3 -xCORE-AVX2 -convert big_endian
+#CFLAGS=-O3 -march=haswell -DLINUX
+
+pushd nwprod/lib/sorc/bacio; /bin/rm -f ../../libbacio*a;  make -f makefile4
+popd
+
+# not sure how to change this anyway, but what would I do only use CORE-AVX2?
+pushd nwprod/lib/sorc/esmf_3_1_0rp5/esmf; sh compile_intel_unicos.sh
+
+
+#no change
+pushd nwprod/lib/sorc/sp; sh makelibsp.sh
+
+
+#added to makefile_4
+#  FFLAGS  =  -xCORE-AVX2 -g -traceback -O3
+# CFLAGS  = -O -march=haswell -DLINUX
+
+# added to makefile_d
+# FFLAGS  = -xCORE-AVX2 -g -r8 -traceback -O3
+# CFLAGS  = -O -march=haswell -DLINUX
+
+pushd nwprod/lib/sorc/w3lib-2.0; /bin/rm -f ../../libw3*a; make -f makefile_4 clean; make -f makefile_4; make -f makefile_d clean; make -f makefile_d
+cd ../..
+ln -fs libw3-2.0_4.a libw3lib-2.0_4.a
+ln -fs libw3-2.0_d.a libw3lib-2.0_d.a
+
+# using xSSE4.2
+echo "build sigio"
+pushd nwprod/lib/sorc/sigio; /bin/rm -f ../../libsigio*.a;   sh makefile.sh
+popd
+
+# using xSSE4.2
+echo "build sfcio"
+pushd nwprod/lib/sorc/sfcio;  /bin/rm -f ../../libsfcio*.a; sh makefile.sh
+popd
+
+#no change
+echo "build ip"
+pushd nwprod/lib/sorc/ip; make clean; make; /bin/cp -f libip_4.a ../../; make -f Makefile_d clean; make -f Makefile_d; /bin/cp -f libip_d.a ../..
+popd
+
+#was getting "INCMOD" errors. Changed makefile.sh
+echo "build nemsio"
+pushd nwprod/lib/sorc/nemsio; sh makefile.sh
+popd
+sorc/nemsio> diff makefile.sh makefile.sh.orig
+4d3
+< export INCMOD=$LIBS/incmod/nemsio
+12c11
+<  export FFLAGSM="-O3 -FR -convert big_endian -traceback -I$INCMOD"
+---
+>  export FFLAGSM="-O3 -FR -convert big_endian -traceback -I$(INCMOD)"
+
+#Added -g for more debugging information (Remove later?)
+# changed -openmp to -qopenmp
+echo "build gfs"
+#pushd gfs/DA-REL-FY16; make clean; sh makefile.sh
+#popd
+
+#added -xCORE-AVX
+# added -march=haswell
+# also put -xCORE-AVX in w3lib-2.0 to try to clear a "MACHINE" error during compilation
+# 	that worked
+pushd gfs/global_fcst.fd.v14.0.1 ; make clean; sh makefile.sh
+popd
+
+#no change
+echo "build global_cycle"
+pushd gfs/global_cycle.fd; /bin/rm -f *.o *.mod global_cycle*; make -f Makefile; make -f Makefilep
+popd
+
+#no change
+echo "build global_postgp"
+pushd gfs/global_postgp.fd; /bin/rm -f global_postgp* *.o *.mod; make -f Makefile; make -f Makefile_p; /bin/cp -f global_postgp* ../../bin
+popd
+
+#use xSSE4.2
+echo "build global_sfchdr"
+pushd gfs/global_sfchdr.fd; /bin/rm -f global_sfchdr; make; /bin/cp -f global_sfchdr ../../bin
+popd
+
+#use xSSE4.2
+echo "build global_sighdr"
+pushd gfs/global_sighdr.fd; /bin/rm -f global_sighdr; make; /bin/cp -f global_sighdr ../../bin
+popd
+
+#no change
+echo "build psop"
+pushd psop; make clean; make; /bin/cp -f *.x ../bin
+popd
+
+#remove all -XHOST in Makefile.conf
+echo "build enkf"
+pushd enkf/trunk/src; make clean; make
+popd
+
+#no change
+echo "build enkf utilities"
+pushd enkf/trunk/util/src; /bin/rm -f *.x *.o *.mod; make -f Makefile_gfs_nersc; /bin/cp -f *.x ../../../../bin
+popd
+
+
+# had to add
+module swap PrgEnv-intel PrgEnv-gnu
+
+echo "build h5 reader"
+pushd h5f_reader; make clean; make; /bin/cp -f h5ftotxt ../bin
+popd
+
+echo "build h5totxt_v4 reader"
+pushd h5f_reader_v4; make clean; make; /bin/cp -f h5totxt_v4 ../bin
+popd
+
+module swap PrgEnv-gnu PrgEnv-intel
+
+#no change
+echo "build sig2grb"
+pushd sig2grb; make clean; make; /bin/cp -f sig2grb ../bin
+popd
+
+#no change
+echo "build gfsio"
+pushd nwprod/lib/sorc/gfsio; /bin/rm -f ../../libgfsio*a; make -f makefile_4
+popd
+
+#no change
+echo "build landsfcutil"
+pushd nwprod/lib/sorc/landsfcutil; sh makefile_d
+popd
+
+#no change <<<< Could be a problem because a "configure" is hiding here
+pushd nwprod/lib/sorc/w3emc_v2.2.0/sorc; make clean; make ; /bin/cp -f w3emc/v2.2.0/libw3emc*a ../../../; /bin/rm -rf ../../../incmod/w3emc*; /bin/cp -R w3emc/v2.2.0/incmod/* ../../../incmod
+
+#no change
+echo "build w3nco"
+pushd nwprod/lib/sorc/w3nco_v2.0.6; sh makelibw3_nco.sh
+popd
+
+#no change
+echo "build bacio_v2.0.1"
+pushd nwprod/lib/sorc/bacio_v2.0.1/src; sh makebacio_nersc.sh
+popd
+
+#no change
+echo "build gfsio_v1.1.0"
+pushd nwprod/lib/sorc/gfsio_v1.1.0; /bin/rm -f ../../libgfsio*a; make -f makefile_4
+popd
+
+echo "build global_chgres"
+pushd gfs/global_chgres.fd; make clean
+sh makefile.sh
+popd

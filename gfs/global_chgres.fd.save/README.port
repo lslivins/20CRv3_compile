@@ -1,0 +1,9 @@
+* remove line directives from surface_chgres.F, rename with .f.
+* sfcub.f - replace NUM_PARTHDS() with OMP_GET_NUM_THREADS(), adding USE OMP_LIB and 
+  -openmp in LDFLAGS. Remove RSEARCH subroutine, replace with versin that does not
+  use xlf intrinsic sbsrch. CHARACTER*80 changed to CHARACTER*500 to handle
+  longer pathnames (like the version in global_fcst.fd).
+* dgef, dges lookalkies in ludecomp.f are picked up from libsp.
+* sfcio_module.f - allow for possibility that clabsfc may be reversed (which it
+* sfcsub.f, gfsio_module.f - replace ibm xlf dgef/dges calls with lu decomp 
+  call from Numerical Recipes (object files in libsp_4.a). 

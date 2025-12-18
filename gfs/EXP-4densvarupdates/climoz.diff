@@ -1,0 +1,211 @@
+--- GFS_Initialize_ESMFMod.f.orig	2015-02-12 21:30:25.000000000 -0500
++++ GFS_Initialize_ESMFMod.f.climoz	2015-03-09 11:39:50.000000000 -0400
+@@ -359,22 +359,27 @@
+       endif
+ !
+ !     if (.not. adiab) then
+-      if (ntoz <= 0) then      ! Diagnostic ozone
+-        rewind (kozc)
+-        read (kozc,end=101) latsozc, levozc, timeozc, blatc4
+-  101   if (levozc < 10 .or. levozc > 100) then
+-          rewind (kozc)
+-          levozc  = 17
+-          latsozc = 18
+-          blatc   = -85.0
+-        else
+-          blatc   = blatc4
+-        endif
+-        latsozp   = 2
+-        levozp    = 1
+-        timeoz    = 1
+-        pl_coeff  = 0
+-      else                       ! Prognostic Ozone
++!     if (ntoz <= 0) then      ! Diagnostic ozone
++!       rewind (kozc)
++!       read (kozc,end=101) latsozc, levozc, timeozc, blatc4
++! 101   if (levozc < 10 .or. levozc > 100) then
++!         rewind (kozc)
++          !levozc  = 17
++          !levozc = 17 ! global_o3clim.txt
++          !latsozc = 18
++          !blatc = -85.0
++          levozc  = 28 ! CMIP5 data
++          latsozc = 37
++          blatc   = -90.0
++          timeozc = 12
++!       else
++!         blatc   = blatc4
++!       endif
++!       latsozp   = 2
++!       levozp    = 1
++!       timeoz    = 1
++!       pl_coeff  = 0
++!     else                       ! Prognostic Ozone
+         rewind (kozpl)
+         read (kozpl) pl_coeff, latsozp, levozp, timeoz
+         allocate (pl_lat(latsozp), pl_pres(levozp),pl_time(timeoz+1))
+@@ -385,9 +390,9 @@
+         pl_pres(:) = pl_pres4(:)
+         pl_lat(:)  = pl_lat4(:)
+         pl_time(:) = pl_time4(:)
+-        latsozc = 2
+-        blatc   = 0.0
+-      endif
++        !latsozc = 2
++        !blatc   = 0.0
++!     endif
+       dphiozc = -(blatc+blatc)/(latsozc-1)
+ !
+       if (me .eq. 0) then
+--- gloopr.f.orig	2015-02-12 19:15:50.000000000 -0500
++++ gloopr.f.climoz	2015-02-12 23:02:58.000000000 -0500
+@@ -948,7 +948,9 @@
+      &       sinlat_v,coslat_v,solhr,jdat,solcon,                       &
+      &       cv(lon,lan),cvt(lon,lan),cvb(lon,lan),                     &
+      &       f_ice,f_rain,r_rime,flgmin_v,                              &
+-     &       icsdsw,icsdlw,ntcw-1,ncld,ntoz-1,ntrac-1,nfxr,             &
++!    &       icsdsw,icsdlw,ntcw-1,ncld,ntoz-1,ntrac-1,nfxr,             &
++! use ozone climo in radiation.
++     &       icsdsw,icsdlw,ntcw-1,ncld,0,ntrac-1,nfxr,                  &
+      &       dtlw,dtsw,lsswr,lslwr,lssav,                               &
+      &       ngptc,njeff,levr, me, lprnt,ipt,kdt,deltaq,sup,cnvw,cnvc,  &
+ !  ---  outputs:
+--- grrad.f.orig	2015-03-02 19:29:35.000000000 -0500
++++ grrad.f.climoz	2015-03-14 14:10:27.000000000 -0400
+@@ -208,6 +208,7 @@
+ 
+ !  ---  constant values
+       real (kind=kind_phys) :: qmin, qme5, qme6, epsq
++      real (kind=kind_phys) :: sumcoslat,sumo3,sumo3pred
+ !     parameter (qmin=1.0e-10, qme5=1.0e-5,  qme6=1.0e-6,  epsq=1.0e-12)
+       parameter (qmin=1.0e-10, qme5=1.0e-7,  qme6=1.0e-7,  epsq=1.0e-12)
+ !     parameter (qmin=1.0e-10, qme5=1.0e-20, qme6=1.0e-20, epsq=1.0e-12)
+@@ -968,7 +969,7 @@
+       real (kind=kind_phys), dimension(im,lm+1+ltp):: plvl, tlvl
+ 
+       real (kind=kind_phys), dimension(im,lm+ltp)  :: plyr, tlyr, qlyr, &
+-     &       olyr, rhly, qstl, vvel, clw, prslk1, tem2da, tem2db, tvly
++     &olyrpred,olyr,rhly, qstl, vvel, clw, prslk1, tem2da, tem2db, tvly
+ 
+       real (kind=kind_phys), dimension(im) :: tsfa, cvt1, cvb1, tem1d,  &
+      &       sfcemis, tsfg, tskn
+@@ -1160,26 +1161,41 @@
+ 
+ !  --- ...  get layer ozone mass mixing ratio
+ 
+-      if (ntoz > 0) then            ! interactive ozone generation
++      !if (ntoz > 0) then            ! interactive ozone generation
+ 
+         do k = 1, lmk
+           do i = 1, im
+-            olyr(i,k) = max( qmin, tracer1(i,k,ntoz) )
++            olyrpred(i,k) = max( qmin, tracer1(i,k,ntoz) )
+           enddo
+         enddo
+ 
+-      else                          ! climatological ozone
++      !else                          ! climatological ozone
+ 
+ !     print *,' in grrad : calling getozn'
+         call getozn                                                     &
+ !  ---  inputs:
+-     &     ( prslk1,xlat,                                               &
++     &     ( me, prslk1,xlat,                                           &
+      &       im, lmk,                                                   &
+ !  ---  outputs:
+      &       olyr                                                       &
+      &     )
+ 
+-      endif                            ! end_if_ntoz
++      !endif                            ! end_if_ntoz
++
++        do k = 1, lmk
++          sumo3pred = 0.
++          sumo3 = 0.
++          sumcoslat = 0.
++          do i = 1, im
++            sumo3pred = sumo3pred + olyrpred(i,k)
++            sumo3 = sumo3 + olyr(i,k)
++            sumcoslat = sumcoslat + coslat
++          enddo
++          print 'me,k,meanoz',
++     &    me,k,sumo3pred/sumcoslat,sumo3/sumcoslat
++        enddo
++
++      if (ntoz .ne. 0) olyr=olyrpred
+ 
+ !  --- ...  compute cosin of zenith angle
+ 
+--- radiation_gases.f.orig	2015-03-02 15:29:10.000000000 -0500
++++ radiation_gases.f.climoz	2015-03-08 14:25:07.000000000 -0400
+@@ -293,6 +293,23 @@
+    20         format(6x,10f6.2)
+             enddo
+           enddo
++        else if ( loz == 28 ) then       ! for the CMIP5 ozone from NCAS.
++          if ( me == 0 ) then
++             print *,'reading CMIP5 ozone data'
++          end if
++          do k = 1, loz
++            read (nio3clm,15) pstr4(k)
++          enddo
++          do imo = 1, 12
++            do j = 1, jmr
++              read (nio3clm,17) imond(imo), ilat(j,imo),                &
++     &                          (o3clim4(j,k,imo),k=1,loz)
++              if (me==0 .and. imo==12 .and. j==jmr)                     &
++     &        write (6,17) imond(imo), ilat(j,imo),                     &
++     &                          (o3clim4(j,k,imo),k=1,loz)
++   17         format(i2,i4,31f6.2)
++            enddo
++          enddo
+         else                      ! for newer ozone climatology
+           read (nio3clm)
+           do k = 1, loz
+@@ -322,7 +339,7 @@
+           print *,' - using climatology ozone distribution'
+           print *,'   found ozone data for levels pstr=',               &
+      &            (pstr(k),k=1,loz)
+-          print *,' o3=',(o3r(15,k,1),k=1,loz)
++          print *,' o3=',(o3r(jmr,k,12)/1.655e-6,k=1,loz)
+         endif
+ 
+         do k = 1, loz
+@@ -1000,7 +1017,7 @@
+ !...................................
+ 
+ !  ---  inputs:
+-     &     ( prslk,xlat,                                                &
++     &     ( me,prslk,xlat,                                             &
+      &       imax, lm,                                                  &
+ !  ---  outputs:
+      &       o3mmr                                                      &
+@@ -1033,7 +1050,7 @@
+       implicit none
+ 
+ !  ---  inputs:
+-      integer,  intent(in) :: imax, lm
++      integer,  intent(in) :: imax, lm, me
+ 
+       real (kind=kind_phys), intent(in) :: prslk(:,:), xlat(:)
+ 
+@@ -1068,6 +1085,8 @@
+           j2   = jmr
+           tem1 = 1.0
+         endif
++!       if (me == 0)
++!    &  print *,'dglat,blte,elte,j1,j2,tem1',deglat,blte,elte,j1,j2,tem1
+ 
+         tem2 = 1.0 - tem1
+         do j = 1, loz
+--- rad_initialize.f.orig	2015-02-13 08:20:57.000000000 -0500
++++ rad_initialize.f.climoz	2015-02-13 08:22:16.000000000 -0500
+@@ -131,7 +131,7 @@
+ 
+       ictmflg= ictm                     ! data ic time/date control flag
+       ico2flg= ico2                     ! co2 data source control flag
+-      ioznflg= ntoz                     ! ozone data source control flag
++      ioznflg= 0                        ! ozone data source control flag
+ 
+       if ( ictm==0 .or. ictm==-2 ) then
+         iaerflg = mod(iaer, 100)        ! no volcanic aerosols for clim hindcast

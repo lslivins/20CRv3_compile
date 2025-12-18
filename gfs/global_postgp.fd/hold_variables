@@ -1,0 +1,20 @@
+!     h        real (ijo) surface orography (m)
+!     p        real (ijo) surface pressure (Pa)
+!     px       real (ijo) log surface pressure x-gradient (1/m)
+!     py       real (ijo) log surface pressure y-gradient (1/m)
+!     t        real (ijo,k1:k2) dry temperature (K)
+!     th       real (ijo,k1:k2) virtual/enthalpy temperature (K)
+!     tx       real (ijo,k1:k2) virtual/enthalpy temperature x-gradient (K/m)
+!     ty       real (ijo,k1:k2) virtual/enthalpy temperature y-gradient (K/m)
+!     u        real (ijo,k1:k2) x-component wind (m/s)
+!     v        real (ijo,k1:k2) y-component wind (m/s)
+!     d        real (ijo,k1:k2) wind divergence (1/s)
+!     z        real (ijo,k1:k2) absolute vorticity (1/s)
+!     sh       real (ijo,k1:k2) specific humidity (kg/kg)
+!     o3       real (ijo,k1:k2) specific ozone (kg/kg)
+!     ct       real (ijo,k1:k2,nct) specific cloud water (kg/kg)
+!     ri       real (0:nct+2) gas constant (J/kg/K)
+!     cpi      real (0:nct+2) specific heat (J/kg/K)
+!     mo3      integer number of ozone fields returned
+!     mct      integer number of cloud water fields returned
+!     iret     integer return code

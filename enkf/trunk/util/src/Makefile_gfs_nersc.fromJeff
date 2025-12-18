@@ -1,0 +1,93 @@
+FCP           = ftn   
+FCS           = ftn   
+FFLAGS        = -O3 -xSSE4.2 -assume byterecl -warn all -implicitnone -traceback
+FREEFLAG      = -FR
+COREINC       = ../../../../nwprod/lib/incmod
+INCsigio      = $(COREINC)/sigio_4
+INCsfcio      = $(COREINC)/sfcio_4
+LIBncep       = ../../../../nwprod/lib
+
+
+.SUFFIXES: .o .f90 .F90
+
+all: getpstend gribmean gribmeanp getsigensmean getsigensmean_smooth getsfcensmean adderrspec_spec recentersigp getsigensmeanp getsfcensmeanp chgdatesig chgdatesfc chgdatesigp chgdatesfcp chksig chksfc
+
+OBJS_GETSIGENSMEAN=kinds.o specmod.o
+OBJS_GRDTOSPEC=kinds.o specmod.o rnorm.o constants.o
+
+chksfc:
+	$(FCP) -I $(INCsfcio) $(FFLAGS) -o chksfc.x chksfc.f -L$(LIBncep) -lsfcio_4
+
+chksig:
+	$(FCP) $(FFLAGS) -I $(INCsigio) -o chksig.x chksig.f -L$(LIBncep) -lsigio_4 
+
+chksfcp:
+	$(FCP) -I $(INCsfcio) $(FFLAGS) -o chksfcp.x chksfcp.f -L$(LIBncep) -lsfcio_4
+
+chksigp:
+	$(FCP) -I $(INCsigio) $(FFLAGS) -o chksigp.x chksigp.f -L$(LIBncep) -lsigio_4
+
+gribmean:
+	$(FCS) $(FFLAGS) -o gribmean.x gribmean.f90 -L$(LIBncep) -lw3lib-2.0_4 -lbacio_4
+
+gribmeanp:
+	$(FCP) $(FFLAGS) -o gribmeanp.x gribmeanp.f90 -L$(LIBncep) -lw3lib-2.0_4 -lbacio_4
+
+getpstend: $(OBJS_GETSIGENSMEAN)
+	$(FCS) -I $(INCsigio) $(FFLAGS) -o getpstend.x getpstend.f -L$(LIBncep) -lsp_4 -lsigio_4
+
+getsigensmean: $(OBJS_GETSIGENSMEAN)
+	$(FCS) -I $(INCsigio) $(FFLAGS) $(FREEFLAG) -o getsigensmean.x getsigensmean.f -L$(LIBncep) -lsp_4 -lsigio_4
+
+getsigensmeanp: $(OBJS_GETSIGENSMEAN)
+	$(FCP) -I $(INCsigio) $(FFLAGS) $(FREEFLAG) -o getsigensmeanp.x getsigensmeanp.f90 -L$(LIBncep) -lsp_4 -lsigio_4
+
+chgdatesigp: $(OBJS_GETSIGENSMEAN)
+	$(FCP) -I $(INCsigio) $(FFLAGS) $(FREEFLAG) -o chgdatesigp.x chgdatesigp.f90 -L$(LIBncep) -lsp_4 -lsigio_4
+
+chgdatesig: $(OBJS_GETSIGENSMEAN)
+	$(FCP) -I $(INCsigio) $(FFLAGS) -o chgdatesig.x chgdatesig.f -L$(LIBncep) -lsp_4 -lsigio_4
+
+getsigensmean_smooth: $(OBJS_GETSIGENSMEAN)
+	$(FCS) $(FFLAGS) $(FREEFLAG) -I$(INCsigio) -o getsigensmean_smooth.x getsigensmean_smooth_ncep.f90 -L$(LIBncep) -lsigio_4 -lsp_4
+
+getsfcensmean:
+	$(FCS) -I $(INCsfcio) $(FFLAGS) $(FREEFLAG) -o getsfcensmean.x getsfcensmean.f -L$(LIBncep) -lsfcio_4
+
+getsfcensmeanp:
+	$(FCP) -I $(INCsfcio) $(FFLAGS) $(FREEFLAG) -o getsfcensmeanp.x getsfcensmeanp.f90 -L$(LIBncep) -lsfcio_4
+
+chgdatesfcp:
+	$(FCP) -I $(INCsfcio) $(FFLAGS) $(FREEFLAG) -o chgdatesfcp.x chgdatesfcp.f90 -L$(LIBncep) -lsfcio_4
+
+chgdatesfc:
+	$(FCP) -I $(INCsfcio) $(FFLAGS) -o chgdatesfc.x chgdatesfc.f -L$(LIBncep) -lsfcio_4
+
+adderrspec_spec:
+	$(FCP) $(FFLAGS) -I $(INCsigio) -o adderrspec_nmcmeth_spec.x adderrspec_nmcmeth_ncep_spec.f90 -L$(LIBncep) -lsigio_4 -lsp_4 
+
+recentersigp: $(OBJS_GETSIGENSMEAN)
+	$(FCP) -I $(INCsigio) $(FFLAGS) $(FREEFLAG) -o recentersigp.x recentersigp.f $(OBJS_GETSIGENSMEAN) -L$(LIBncep) -lsp_4 -lsigio_4 
+
+clean:
+	rm -f $(OBJS_GETSIGENSMEAN) $(OBJS_GRDTOSPEC) *.mod *.x *.o $(EXEC) loadmap.txt
+
+.F90.o:
+	$(FCP) $(FFLAGS) -c $<
+
+.f90.o:
+	$(FCP) $(FFLAGS) -c $< 
+
+.f.o:
+	$(FCP) $(FFLAGS) -free -c $< 
+
+%.o : %.mod
+
+kinds.o:	kinds.f90
+
+constants.o:	constants.f90 kinds.o
+
+specmod.o:	specmod.f90 kinds.o
+
+rnorm.o:	rnorm.f90 kinds.o
+

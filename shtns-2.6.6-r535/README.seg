@@ -1,0 +1,9 @@
+module load PrgEnv-gnu
+module load craype
+module load cray-fftw
+
+...my Makefile
+make
+
+
+Try with intel environment

@@ -1,0 +1,709 @@
+Built for x86_64-unknown-linux-gnu
++ export 'FFLAGS=-O3 -xSSE4.2 -convert big_endian -traceback -g -FR -I../../incmod/sigio_4'
++ FFLAGS='-O3 -xSSE4.2 -convert big_endian -traceback -g -FR -I../../incmod/sigio_4'
++ export 'FFLAGB=-O3 -xSSE4.2 -convert big_endian -traceback -g'
++ FFLAGB='-O3 -xSSE4.2 -convert big_endian -traceback -g'
+ftn -c -O3 -xSSE4.2 -convert big_endian -traceback -g -FR -I../../incmod/sigio_4 sigio_module.f
+ftn -c -O3 -xSSE4.2 -convert big_endian -traceback -g -FR -I../../incmod/sigio_4 sigio_r_module.f
+ftn -c -O3 -xSSE4.2 -convert big_endian -traceback -g bafrio.f
++ export 'FFLAGSM=-O2 -xSSE4.2 -convert big_endian -traceback -g -FR '
++ FFLAGSM='-O2 -xSSE4.2 -convert big_endian -traceback -g -FR '
+ftn -c -O2 -xSSE4.2 -convert big_endian -traceback -g -FR  sfcio_module.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c machine.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c num_parthds.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -FR -c sigio_module.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -FR -c sigio_r_module.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c iounitdef.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c physpara.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c physcons.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c funcphys.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c rascnvv2.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mersenne_twister.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c resol_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gg_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c vert_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sig_io.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c date_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c layout1.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c layout_grid_tracers.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c namelist_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c namelist_soilveg.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c coordinate_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c tracer_const_h-new.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c reduce_lons_grid_module.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c semi_lag_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c deldifs_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c bfilt_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -FR -c sfcio_module.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -FR -c gfsio_module.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -FR -c gfsio_def.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c d3d_def.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c nstio_module.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c module_nst_parameters.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c module_nst_water_prop.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c module_nst_model.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8   -FR -c calpreciptype.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c module_bfmicrophysics.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/kinds.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/peuc.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/pran.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/prana.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c layout_lag.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c slglat.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c slgshr.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c pmgrid.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_cd_hyb_slg.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sltini_all.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c set_halos_lag_sn.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getcon_lag.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_speed.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c setlats_lag.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_tracers.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c slgscan_all_redgg.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_topo_grid_grad.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_tracers_a_to_b.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopa_tracers.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_base.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_para.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_ppm_pack.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sicdif_hyb_slg.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c patterngenerator.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c iau_module.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c stoch_data.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_more.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c cmp.comm.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c atm.comm.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c tiles.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c NameList_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c Sfc_Var_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c Nst_Var_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_ErrMsgMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c Lib_ESMFStateAddGetMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_InternalState_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_ESMFStateMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_GetCf_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_Initialize_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_Run_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_Finalize_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_AddParameterToStateMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback  -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -FR -c GFS_GridComp_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c Grid_ESMFCreate.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c StartTimeGet_ESMF.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c Ensemble_sub.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_InternalState_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_CplState_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_four2fln.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_uvoedz.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_uveodz.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_sumfln.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_dozeuv.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_dezouv.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Sto_Per_Scheme_Step1.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Sto_Per_Scheme_Step2.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Run_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_GetParameterFromStateMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_CplComp_ESMFMod.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GFS_ESMF.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_Cpl_Cal_Sto_Coef.fd/Cal_Sto_Coef.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c GEFS_bcst_global.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_cd_hyb.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_am_bm_hyb.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_cd_hyb_gc.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_am_bm_hyb_gc.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c setlats.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getysk.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getysk_gc.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ifshuff.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c digifilt.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gcycle.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c wrtout.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c grid_collect.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c GEFS_four2grid_thread.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c info.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c four_to_grid.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c damp_speed.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c deldifs.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c deldifs_tracers.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c fix_fields.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c spect_fields.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c delnpe.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c delnpo.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c dezouv.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c impadj_slg.locl.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c impadj_hyb.locl.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c impadj_hyb.locl_gc.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c dozeuv.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c epslon.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8        -c filtr1eo.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8        -c filtr2eo.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_ls_node.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_lats_node_shuff_a_fix.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c get_lats_node_shuff_r_fix.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c getcon.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb_gc.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb_gc_h-new.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gfidi_hyb_gc_ndsl.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_ppm_advecth1.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ndslfv_ppm_advecth.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c glats.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopa_opt_gg.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c lon_lat_para.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c compns.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gozrineo.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c pln2eo.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c rms_spect.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c uvoedz.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_quit.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sicdif_hyb.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sicdif_hyb_gc.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c dotstep_tracers.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ensemble_wrt.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c four2fln_gg.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sortrx.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sumfln_slg_gg.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sumder2_slg_gg.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c triseori.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c uveodz.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c ysminv.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c fftpack.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c ozinterp.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c ozphys.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopb.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gbphys.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gbphys_adv_hyb_gc.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gbphys_adv_hyb_gc_h-new.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c dcyc2.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c dcyc2.pre.rad.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c set_soilveg.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_drv.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_sice.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_ocean.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_nst.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_diff.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sfc_diag.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sflx.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c moninq.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c moninq1.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c moninedmf.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c mfpbl.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gwdps.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c rayleigh_damp.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gwdc.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c sascnvn.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c cnvc90.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c shalcnv.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gscond.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gscondp.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c precpd.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c precpdp.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c get_prs.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c gsmddrive.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c omegtes.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c omegtes_gc.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c hyb2press.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c hyb2press_gc.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback   -r8  -I../../nwprod/lib/incmod/esmf_3_1_0rp5 -I../../nwprod/lib/incmod/w3lib-2.0_d -FR -c get_pattern.f90
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radlw_param.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radlw_datatb.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radlw_main.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radsw_param.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radsw_datatb.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radsw_main.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_astronomy.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_aerosols.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_gases.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_clouds.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c radiation_surface.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c grrad.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8     -c rad_initialize.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c gloopr.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c mpi_GV.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c read_fix.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c gribit.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c wrt3d_hyb.f 
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c wrtsfc.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c para_fixio_w.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c para_nstio_w.f
+ftn  -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -c sfcsub.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c treadeo.io.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c treadeo.gfsio.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c grid_to_spec.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c spect_to_grid.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c spect_tv_enthalpy_ps.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c twriteeo.f
+ftn -qopenmp    -g -O3 -fp-model precise -convert big_endian -implicitnone -traceback -r8  -I../../nwprod/lib/incmod/w3lib-2.0_d -c spect_write.f
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c kinds.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c netlib.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c common_mtx.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c constants.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c convinfo.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c radinfo.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c mpisetup.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c params.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c covlocal.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c rnorm.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c ozinfo.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c readozobs.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c read_diag.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c readsatobs.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c readconvobs.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c mpi_readobs.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c obsmod.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c specmod.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c reducedgrid.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c netcdf_io_wrf.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian   -c gridinfo.F90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c kdtree2.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c loadbal.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c radbias.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian   -c gridio.F90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c statevec.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c sorting.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian   -c enkf.F90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c fftpack.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c genqsat1.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c grdcrd.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian   -c smooth.F90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c inflation.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c innovstats.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian   -c letkf.F90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c read_locinfo.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c stop1.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c write_logfile.f90
+ftn -DGFS   -I ./ -I ../../../nwprod/lib/incmod/sfcio_4 -I ../../../nwprod/lib/incmod/sigio_4 -I /opt/cray/pe/netcdf/4.4.0/INTEL/15.0/include -O3 -xHOST -openmp-stubs -warn all -implicitnone -traceback -g -fp-model strict -convert big_endian  -c enkf_main.f90
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c args_mod.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c gblevents.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c getgbens.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c isrchne.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c iw3mat.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c mersenne_twister.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c mova2i.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c orders.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c putgbens.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c summary.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ai40.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ai41.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ctzdat.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa01.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa03.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa03v.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa04.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa06.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa09.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa11.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa12.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fa13.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb00.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb01.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb02.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb03.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb04.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb05.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb06.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb07.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb08.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb09.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb10.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb11.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fb12.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fc02.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fc05.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fc06.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fc07.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fc08.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi02.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi03.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi18.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi19.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi20.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi32.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi47.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi48.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi52.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi61.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi65.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi66.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi67.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi70.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi78.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fi85.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fm07.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fm08.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fp04.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fp05.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fp06.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fp10.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3fq07.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft00.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft01.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft02.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft03.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft05.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft05v.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft06.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft06v.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft07.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft08.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft09.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft10.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft11.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft12.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft16.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft17.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft201.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft202.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft203.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft204.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft205.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft206.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft207.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft208.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft209.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft210.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft211.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft212.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft213.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft214.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft21.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft26.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft33.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft38.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft39.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft40.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft41.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3ft43v.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3log.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c w3miscan.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c xdopen.f
+ftn  -O2 -g -traceback -fixed -I../../../../incmod/sigio_4/ -c  start.F
+ftn -c  -O3 -g aea.f
+ftn -c  -O3 -g errexit.f
+ftn -c  -O3 -g errmsg.f
+ftn -c  -O3 -g fparsei.f
+ftn -c  -O3 -g fparser.f
+ftn -c  -O3 -g gbyte.f
+ftn -c  -O3 -g gbytec.f
+ftn -c  -O3 -g gbytes.f
+ftn -c  -O3 -g gbytesc.f
+ftn -c  -O3 -g getbit.f
+ftn -c  -O3 -g getgb.f
+ftn -c  -O3 -g getgb1.f
+ftn -c  -O3 -g getgb1r.f
+ftn -c  -O3 -g getgb1re.f
+ftn -c  -O3 -g getgb1s.f
+ftn -c  -O3 -g getgbe.f
+ftn -c  -O3 -g getgbeh.f
+ftn -c  -O3 -g getgbem.f
+ftn -c  -O3 -g getgbemh.f
+ftn -c  -O3 -g getgbemn.f
+ftn -c  -O3 -g getgbemp.f
+ftn -c  -O3 -g getgbep.f
+ftn -c  -O3 -g getgbex.f
+ftn -c  -O3 -g getgbexm.f
+ftn -c  -O3 -g getgbh.f
+ftn -c  -O3 -g getgbm.f
+ftn -c  -O3 -g getgbmh.f
+ftn -c  -O3 -g getgbmp.f
+ftn -c  -O3 -g getgbp.f
+ftn -c  -O3 -g getgi.f
+ftn -c  -O3 -g getgir.f
+ftn -c  -O3 -g gtbits.f
+ftn -c  -O3 -g idsdef.f
+ftn -c  -O3 -g instrument.f
+ftn -c  -O3 -g iw3jdn.f
+ftn -c  -O3 -g iw3pds.f
+ftn -c  -O3 -g iw3unp29.f
+ftn -c  -O3 -g ixgb.f
+ftn -c  -O3 -g lengds.f
+ftn -c  -O3 -g makwmo.f
+ftn -c  -O3 -g mkfldsep.f
+ftn -c  -O3 -g pdsens.f
+ftn -c  -O3 -g pdseup.f
+ftn -c  -O3 -g putgb.f
+ftn -c  -O3 -g putgbe.f
+ftn -c  -O3 -g putgben.f
+ftn -c  -O3 -g putgbex.f
+ftn -c  -O3 -g putgbn.f
+ftn -c  -O3 -g q9ie32.f
+ftn -c  -O3 -g r63w72.f
+ftn -c  -O3 -g sbyte.f
+ftn -c  -O3 -g sbytec.f
+ftn -c  -O3 -g sbytes.f
+ftn -c  -O3 -g sbytesc.f
+ftn -c  -O3 -g skgb.f
+ftn -c  -O3 -g w3ai00.f
+ftn -c  -O3 -g w3ai01.f
+ftn -c  -O3 -g w3ai08.f
+ftn -c  -O3 -g w3ai15.f
+ftn -c  -O3 -g w3ai18.f
+ftn -c  -O3 -g w3ai19.f
+ftn -c  -O3 -g w3ai24.f
+ftn -c  -O3 -g w3ai38.f
+ftn -c  -O3 -g w3ai39.f
+ftn -c  -O3 -g w3aq15.f
+ftn -c  -O3 -g w3as00.f
+ftn -c  -O3 -g w3difdat.f
+ftn -c  -O3 -g w3doxdat.f
+ftn -c  -O3 -g w3fi01.f
+ftn -c  -O3 -g w3fi04.f
+ftn -c  -O3 -g w3fi58.f
+ftn -c  -O3 -g w3fi59.f
+ftn -c  -O3 -g w3fi62.f
+ftn -c  -O3 -g w3fi63.f
+ftn -c  -O3 -g w3fi64.f
+ftn -c  -O3 -g w3fi68.f
+ftn -c  -O3 -g w3fi69.f
+ftn -c  -O3 -g w3fi71.f
+ftn -c  -O3 -g w3fi72.f
+ftn -c  -O3 -g w3fi73.f
+ftn -c  -O3 -g w3fi74.f
+ftn -c  -O3 -g w3fi75.f
+ftn -c  -O3 -g w3fi76.f
+ftn -c  -O3 -g w3fi82.f
+ftn -c  -O3 -g w3fi83.f
+ftn -c  -O3 -g w3fi88.f
+ftn -c  -O3 -g w3fi92.f
+ftn -c  -O3 -g w3fp11.f
+ftn -c  -O3 -g w3fp12.f
+ftn -c  -O3 -g w3fp13.f
+ftn -c  -O3 -g w3fs13.f
+ftn -c  -O3 -g w3fs15.f
+ftn -c  -O3 -g w3fs21.f
+ftn -c  -O3 -g w3fs26.f
+ftn -c  -O3 -g w3ft32.f
+ftn -c  -O3 -g w3kind.f
+ftn -c  -O3 -g w3locdat.f
+ftn -c  -O3 -g w3movdat.f
+ftn -c  -O3 -g w3nogds.f
+ftn -c  -O3 -g w3pradat.f
+ftn -c  -O3 -g w3reddat.f
+ftn -c  -O3 -g w3tagb.f
+ftn -c  -O3 -g w3trnarg.f
+ftn -c  -O3 -g w3unpk77.f
+ftn -c  -O3 -g w3utcdat.f
+ftn -c  -O3 -g w3valdat.f
+ftn -c  -O3 -g w3ymdh4.f
+ftn -c  -O3 -g xmovex.f
+ftn -c  -O3 -g xstore.f
+ftn -c  -O3 -g -r8 -i8 aea.f
+ftn -c  -O3 -g -r8 -i8 errexit.f
+ftn -c  -O3 -g -r8 -i8 errmsg.f
+ftn -c  -O3 -g -r8 -i8 fparsei.f
+ftn -c  -O3 -g -r8 -i8 fparser.f
+ftn -c  -O3 -g -r8 -i8 gbyte.f
+ftn -c  -O3 -g -r8 -i8 gbytec.f
+ftn -c  -O3 -g -r8 -i8 gbytes.f
+ftn -c  -O3 -g -r8 -i8 gbytesc.f
+ftn -c  -O3 -g -r8 -i8 getbit.f
+ftn -c  -O3 -g -r8 -i8 getgb.f
+ftn -c  -O3 -g -r8 -i8 getgb1.f
+ftn -c  -O3 -g -r8 -i8 getgb1r.f
+ftn -c  -O3 -g -r8 -i8 getgb1re.f
+ftn -c  -O3 -g -r8 -i8 getgb1s.f
+ftn -c  -O3 -g -r8 -i8 getgbe.f
+ftn -c  -O3 -g -r8 -i8 getgbeh.f
+ftn -c  -O3 -g -r8 -i8 getgbem.f
+ftn -c  -O3 -g -r8 -i8 getgbemh.f
+ftn -c  -O3 -g -r8 -i8 getgbemn.f
+ftn -c  -O3 -g -r8 -i8 getgbemp.f
+ftn -c  -O3 -g -r8 -i8 getgbep.f
+ftn -c  -O3 -g -r8 -i8 getgbex.f
+ftn -c  -O3 -g -r8 -i8 getgbexm.f
+ftn -c  -O3 -g -r8 -i8 getgbh.f
+ftn -c  -O3 -g -r8 -i8 getgbm.f
+ftn -c  -O3 -g -r8 -i8 getgbmh.f
+ftn -c  -O3 -g -r8 -i8 getgbmp.f
+ftn -c  -O3 -g -r8 -i8 getgbp.f
+ftn -c  -O3 -g -r8 -i8 getgi.f
+ftn -c  -O3 -g -r8 -i8 getgir.f
+ftn -c  -O3 -g -r8 -i8 gtbits.f
+ftn -c  -O3 -g -r8 -i8 idsdef.f
+ftn -c  -O3 -g -r8 -i8 instrument.f
+ftn -c  -O3 -g -r8 -i8 iw3jdn.f
+ftn -c  -O3 -g -r8 -i8 iw3pds.f
+ftn -c  -O3 -g -r8 -i8 iw3unp29.f
+ftn -c  -O3 -g -r8 -i8 ixgb.f
+ftn -c  -O3 -g -r8 -i8 lengds.f
+ftn -c  -O3 -g -r8 -i8 makwmo.f
+ftn -c  -O3 -g -r8 -i8 mkfldsep.f
+ftn -c  -O3 -g -r8 -i8 pdsens.f
+ftn -c  -O3 -g -r8 -i8 pdseup.f
+ftn -c  -O3 -g -r8 -i8 putgb.f
+ftn -c  -O3 -g -r8 -i8 putgbe.f
+ftn -c  -O3 -g -r8 -i8 putgben.f
+ftn -c  -O3 -g -r8 -i8 putgbex.f
+ftn -c  -O3 -g -r8 -i8 putgbn.f
+ftn -c  -O3 -g -r8 -i8 q9ie32.f
+ftn -c  -O3 -g -r8 -i8 r63w72.f
+ftn -c  -O3 -g -r8 -i8 sbyte.f
+ftn -c  -O3 -g -r8 -i8 sbytec.f
+ftn -c  -O3 -g -r8 -i8 sbytes.f
+ftn -c  -O3 -g -r8 -i8 sbytesc.f
+ftn -c  -O3 -g -r8 -i8 skgb.f
+ftn -c  -O3 -g -r8 -i8 w3ai00.f
+ftn -c  -O3 -g -r8 -i8 w3ai01.f
+ftn -c  -O3 -g -r8 -i8 w3ai08.f
+ftn -c  -O3 -g -r8 -i8 w3ai15.f
+ftn -c  -O3 -g -r8 -i8 w3ai18.f
+ftn -c  -O3 -g -r8 -i8 w3ai19.f
+ftn -c  -O3 -g -r8 -i8 w3ai24.f
+ftn -c  -O3 -g -r8 -i8 w3ai38.f
+ftn -c  -O3 -g -r8 -i8 w3ai39.f
+ftn -c  -O3 -g -r8 -i8 w3aq15.f
+ftn -c  -O3 -g -r8 -i8 w3as00.f
+ftn -c  -O3 -g -r8 -i8 w3difdat.f
+ftn -c  -O3 -g -r8 -i8 w3doxdat.f
+ftn -c  -O3 -g -r8 -i8 w3fi01.f
+ftn -c  -O3 -g -r8 -i8 w3fi04.f
+ftn -c  -O3 -g -r8 -i8 w3fi58.f
+ftn -c  -O3 -g -r8 -i8 w3fi59.f
+ftn -c  -O3 -g -r8 -i8 w3fi62.f
+ftn -c  -O3 -g -r8 -i8 w3fi63.f
+ftn -c  -O3 -g -r8 -i8 w3fi64.f
+ftn -c  -O3 -g -r8 -i8 w3fi68.f
+ftn -c  -O3 -g -r8 -i8 w3fi69.f
+ftn -c  -O3 -g -r8 -i8 w3fi71.f
+ftn -c  -O3 -g -r8 -i8 w3fi72.f
+ftn -c  -O3 -g -r8 -i8 w3fi73.f
+ftn -c  -O3 -g -r8 -i8 w3fi74.f
+ftn -c  -O3 -g -r8 -i8 w3fi75.f
+ftn -c  -O3 -g -r8 -i8 w3fi76.f
+ftn -c  -O3 -g -r8 -i8 w3fi82.f
+ftn -c  -O3 -g -r8 -i8 w3fi83.f
+ftn -c  -O3 -g -r8 -i8 w3fi88.f
+ftn -c  -O3 -g -r8 -i8 w3fi92.f
+ftn -c  -O3 -g -r8 -i8 w3fp11.f
+ftn -c  -O3 -g -r8 -i8 w3fp12.f
+ftn -c  -O3 -g -r8 -i8 w3fp13.f
+ftn -c  -O3 -g -r8 -i8 w3fs13.f
+ftn -c  -O3 -g -r8 -i8 w3fs15.f
+ftn -c  -O3 -g -r8 -i8 w3fs21.f
+ftn -c  -O3 -g -r8 -i8 w3fs26.f
+ftn -c  -O3 -g -r8 -i8 w3ft32.f
+ftn -c  -O3 -g -r8 -i8 w3kind.f
+ftn -c  -O3 -g -r8 -i8 w3locdat.f
+ftn -c  -O3 -g -r8 -i8 w3movdat.f
+ftn -c  -O3 -g -r8 -i8 w3nogds.f
+ftn -c  -O3 -g -r8 -i8 w3pradat.f
+ftn -c  -O3 -g -r8 -i8 w3reddat.f
+ftn -c  -O3 -g -r8 -i8 w3tagb.f
+ftn -c  -O3 -g -r8 -i8 w3trnarg.f
+ftn -c  -O3 -g -r8 -i8 w3unpk77.f
+ftn -c  -O3 -g -r8 -i8 w3utcdat.f
+ftn -c  -O3 -g -r8 -i8 w3valdat.f
+ftn -c  -O3 -g -r8 -i8 w3ymdh4.f
+ftn -c  -O3 -g -r8 -i8 xmovex.f
+ftn -c  -O3 -g -r8 -i8 xstore.f
+ftn -c  -O3 -g -r8 aea.f
+ftn -c  -O3 -g -r8 errexit.f
+ftn -c  -O3 -g -r8 errmsg.f
+ftn -c  -O3 -g -r8 fparsei.f
+ftn -c  -O3 -g -r8 fparser.f
+ftn -c  -O3 -g -r8 gbyte.f
+ftn -c  -O3 -g -r8 gbytec.f
+ftn -c  -O3 -g -r8 gbytes.f
+ftn -c  -O3 -g -r8 gbytesc.f
+ftn -c  -O3 -g -r8 getbit.f
+ftn -c  -O3 -g -r8 getgb.f
+ftn -c  -O3 -g -r8 getgb1.f
+ftn -c  -O3 -g -r8 getgb1r.f
+ftn -c  -O3 -g -r8 getgb1re.f
+ftn -c  -O3 -g -r8 getgb1s.f
+ftn -c  -O3 -g -r8 getgbe.f
+ftn -c  -O3 -g -r8 getgbeh.f
+ftn -c  -O3 -g -r8 getgbem.f
+ftn -c  -O3 -g -r8 getgbemh.f
+ftn -c  -O3 -g -r8 getgbemn.f
+ftn -c  -O3 -g -r8 getgbemp.f
+ftn -c  -O3 -g -r8 getgbep.f
+ftn -c  -O3 -g -r8 getgbex.f
+ftn -c  -O3 -g -r8 getgbexm.f
+ftn -c  -O3 -g -r8 getgbh.f
+ftn -c  -O3 -g -r8 getgbm.f
+ftn -c  -O3 -g -r8 getgbmh.f
+ftn -c  -O3 -g -r8 getgbmp.f
+ftn -c  -O3 -g -r8 getgbp.f
+ftn -c  -O3 -g -r8 getgi.f
+ftn -c  -O3 -g -r8 getgir.f
+ftn -c  -O3 -g -r8 gtbits.f
+ftn -c  -O3 -g -r8 idsdef.f
+ftn -c  -O3 -g -r8 instrument.f
+ftn -c  -O3 -g -r8 iw3jdn.f
+ftn -c  -O3 -g -r8 iw3pds.f
+ftn -c  -O3 -g -r8 iw3unp29.f
+ftn -c  -O3 -g -r8 ixgb.f
+ftn -c  -O3 -g -r8 lengds.f
+ftn -c  -O3 -g -r8 makwmo.f
+ftn -c  -O3 -g -r8 mkfldsep.f
+ftn -c  -O3 -g -r8 pdsens.f
+ftn -c  -O3 -g -r8 pdseup.f
+ftn -c  -O3 -g -r8 putgb.f
+ftn -c  -O3 -g -r8 putgbe.f
+ftn -c  -O3 -g -r8 putgben.f
+ftn -c  -O3 -g -r8 putgbex.f
+ftn -c  -O3 -g -r8 putgbn.f
+ftn -c  -O3 -g -r8 q9ie32.f
+ftn -c  -O3 -g -r8 r63w72.f
+ftn -c  -O3 -g -r8 sbyte.f
+ftn -c  -O3 -g -r8 sbytec.f
+ftn -c  -O3 -g -r8 sbytes.f
+ftn -c  -O3 -g -r8 sbytesc.f
+ftn -c  -O3 -g -r8 skgb.f
+ftn -c  -O3 -g -r8 w3ai00.f
+ftn -c  -O3 -g -r8 w3ai01.f
+ftn -c  -O3 -g -r8 w3ai08.f
+ftn -c  -O3 -g -r8 w3ai15.f
+ftn -c  -O3 -g -r8 w3ai18.f
+ftn -c  -O3 -g -r8 w3ai19.f
+ftn -c  -O3 -g -r8 w3ai24.f
+ftn -c  -O3 -g -r8 w3ai38.f
+ftn -c  -O3 -g -r8 w3ai39.f
+ftn -c  -O3 -g -r8 w3aq15.f
+ftn -c  -O3 -g -r8 w3as00.f
+ftn -c  -O3 -g -r8 w3difdat.f
+ftn -c  -O3 -g -r8 w3doxdat.f
+ftn -c  -O3 -g -r8 w3fi01.f
+ftn -c  -O3 -g -r8 w3fi04.f
+ftn -c  -O3 -g -r8 w3fi58.f
+ftn -c  -O3 -g -r8 w3fi59.f
+ftn -c  -O3 -g -r8 w3fi62.f
+ftn -c  -O3 -g -r8 w3fi63.f
+ftn -c  -O3 -g -r8 w3fi64.f
+ftn -c  -O3 -g -r8 w3fi68.f
+ftn -c  -O3 -g -r8 w3fi69.f
+ftn -c  -O3 -g -r8 w3fi71.f
+ftn -c  -O3 -g -r8 w3fi72.f
+ftn -c  -O3 -g -r8 w3fi73.f
+ftn -c  -O3 -g -r8 w3fi74.f
+ftn -c  -O3 -g -r8 w3fi75.f
+ftn -c  -O3 -g -r8 w3fi76.f
+ftn -c  -O3 -g -r8 w3fi82.f
+ftn -c  -O3 -g -r8 w3fi83.f
+ftn -c  -O3 -g -r8 w3fi88.f
+ftn -c  -O3 -g -r8 w3fi92.f
+ftn -c  -O3 -g -r8 w3fp11.f
+ftn -c  -O3 -g -r8 w3fp12.f
+ftn -c  -O3 -g -r8 w3fp13.f
+ftn -c  -O3 -g -r8 w3fs13.f
+ftn -c  -O3 -g -r8 w3fs15.f
+ftn -c  -O3 -g -r8 w3fs21.f
+ftn -c  -O3 -g -r8 w3fs26.f
+ftn -c  -O3 -g -r8 w3ft32.f
+ftn -c  -O3 -g -r8 w3kind.f
+ftn -c  -O3 -g -r8 w3locdat.f
+ftn -c  -O3 -g -r8 w3movdat.f
+ftn -c  -O3 -g -r8 w3nogds.f
+ftn -c  -O3 -g -r8 w3pradat.f
+ftn -c  -O3 -g -r8 w3reddat.f
+ftn -c  -O3 -g -r8 w3tagb.f
+ftn -c  -O3 -g -r8 w3trnarg.f
+ftn -c  -O3 -g -r8 w3unpk77.f
+ftn -c  -O3 -g -r8 w3utcdat.f
+ftn -c  -O3 -g -r8 w3valdat.f
+ftn -c  -O3 -g -r8 w3ymdh4.f
+ftn -c  -O3 -g -r8 xmovex.f
+ftn -c  -O3 -g -r8 xstore.f
+ftn -c -traceback -g -convert big_endian -assume byterecl  -I../../incmod/gfsio_4 -FR gfsio_module.f

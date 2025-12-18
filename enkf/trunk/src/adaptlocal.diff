@@ -1,0 +1,336 @@
+--- params.f90.orig	2014-04-03 11:16:40.000000000 -0400
++++ params.f90	2014-04-03 11:16:27.000000000 -0400
+@@ -49,6 +49,7 @@
+ integer,public :: nhr_anal=6
+ character(len=2), public :: charfhr_anal
+ logical, public :: iau=.false. 
++logical, public :: use_height=.false. 
+ character(len=10), public ::  datestring
+ character(len=500),public :: datapath
+ character(len=20), public, dimension(nsatmax_rad) ::sattypes_rad, dsis
+@@ -69,6 +70,7 @@
+ real(r_kind),public ::  paoverpb_thresh,latbound,delat,p5delat,delatinv
+ real(r_kind),public ::  latboundpp,latboundpm,latboundmp,latboundmm
+ real(r_kind),public :: boxsize
++real(r_kind),public :: covl_minfact, covl_efold
+ logical,public :: params_initialized = .true.
+ ! do sat bias correction update.
+ logical,public :: lupd_satbiasc = .true.
+@@ -82,6 +84,10 @@
+ logical,public :: letkf_flag = .false.
+ logical,public :: massbal_adjust = .false.
+ 
++logical,public :: adaptinf = .false.
++logical,public :: update_inflation_var = .false.
++real(r_kind),public :: inflation_damp, inflation_var
++
+ namelist /nam_enkf/datestring,datapath,iassim_order,&
+                    covinflatemax,covinflatemin,deterministic,sortinc,&
+                    corrlengthnh,corrlengthtr,corrlengthsh,&
+@@ -95,7 +101,10 @@
+                    nlevs,nanals,nvars,saterrfact,univaroz,wrf_regional,&
+                    paoverpb_thresh,latbound,delat,pseudo_rh,numiter,biasvar,&
+                    lupd_satbiasc,cliptracers,simple_partition,adp_anglebc,angord,&
+-                   iau,nhr_anal,letkf_flag,boxsize,massbal_adjust
++                   iau,nhr_anal,letkf_flag,boxsize,massbal_adjust,use_height,&
++                   covl_minfact,covl_efold,&
++                   adaptinf,update_inflation_var,inflation_var,inflation_damp
++        
+ namelist /nam_wrf/arw,nmm,doubly_periodic
+ namelist /satobs_enkf/sattypes_rad,dsis
+ namelist /ozobs_enkf/sattypes_oz
+@@ -114,6 +123,16 @@
+ corrlengthnh = 2800 
+ corrlengthtr = 2800 
+ corrlengthsh = 2800 
++! min localization reduction factor for adaptive localization
++! based on HPaHt/HPbHT. Default (1.0) means no adaptive localization.
++! 0.25 means minimum localization is 0.25*corrlength(nh,tr,sh).
++covl_minfact = 1.0
++! efolding distance for adapative localization.
++! Localization reduction factor is 1. - exp( -((1.-paoverpb)/covl_efold) ) 
++! When 1-pavoerpb=1-HPaHt/HPbHt=cov_efold localization scales reduced by 
++! factor of 1-1/e ~ 0.632. When paoverpb==>1, localization scales go to zero.
++! When paoverpb==>1, localization scales not reduced.
++covl_efold = 1.e-10
+ ! read in localization length scales from an external file.
+ readin_localization = .false.
+ ! min and max inflation.
+--- enkf.F90.orig	2014-04-03 11:16:37.000000000 -0400
++++ enkf.F90	2014-06-11 14:36:27.000000000 -0400
+@@ -105,11 +105,12 @@
+                   obfit_prior, obfit_post, obsprd_prior, obsprd_post, obtime,&
+                   obtype, oberrvarmean, numobspersat, deltapredx, biaspreds,&
+                   biasprednorm, oberrvar_orig, probgrosserr, prpgerr,&
+-                  corrlengthsq,lnsigl,obtimel,obloclat,obloclon
+-use constants, only: constants_initialized, pi, one, zero
++                  corrlengthsq,lnsigl,obtimel,obloclat,obloclon,stattype
++use constants, only: constants_initialized, pi, one, zero, rearth
+ use params, only: sprd_tol, paoverpb_thresh, ndim, datapath, nanals,&
+                   iassim_order,sortinc,deterministic,numiter,nlevs,nvars,&
+-                  zhuberleft,zhuberright,varqc,lupd_satbiasc,huber,univaroz
++                  zhuberleft,zhuberright,varqc,lupd_satbiasc,huber,univaroz,&
++                  covl_minfact,covl_efold
+ use radinfo, only: npred,nusis,nuchan,jpch_rad,predx
+ use radbias, only: apply_biascorr, update_biascorr
+ use gridinfo, only: nlevs_pres,index_pres,nvarozone
+@@ -118,6 +119,9 @@
+ 
+ private
+ public :: enkf_update
++integer(i_kind), allocatable, public, dimension(:) :: indxassim,iassim,iskip
++real(r_kind),allocatable, public, dimension(:):: oberrvaruse
++real(r_kind),allocatable, public, dimension(:):: corrlengthsq_orig, lnsigl_orig
+ 
+ contains
+ 
+@@ -127,7 +131,7 @@
+ 
+ ! local variables.
+ integer(i_kind) nob,nob1,nob2,nob3,npob,nf,nf2,ii,nobx,nskip,&
+-                niter,i,nrej,npt
++                nuse,niter,i,nrej,npt
+ integer(i_kind) indxens1(nanals),indxens2(nanals)
+ real(r_kind) hxpost(nanals),hxprior(nanals),hxinc(nanals),&
+              dist,lnsig,obt,&
+@@ -136,14 +140,13 @@
+ real(r_double) :: t1,t2,t3,t4,t5,t6,tbegin,tend
+ real(r_kind) kfgain,hpfht,hpfhtoberrinv,r_nanals,r_nanalsm1,hpfhtcon
+ real(r_kind) anal_obtmp(nanals),obinc_tmp,obens(nanals),obganl(nanals)
+-real(r_kind) normdepart, pnge, width
++real(r_kind) covl_fact,normdepart, pnge, width
+ real(r_kind) buffer(nanals+2)
+ real(r_kind),allocatable, dimension(:,:) :: anal_obchunk
+-real(r_kind),dimension(nobsgood):: oberrvaruse
+-real(r_kind) r,paoverpb
++real(r_kind) r,paoverpb,oberrvar_out,oberrvar_orig_out
+ real(r_kind) taper1,taper3
+ real(r_kind),allocatable, dimension(:) :: rannum
+-integer(i_kind), allocatable, dimension(:) :: indxassim,iassim
++!integer(i_kind), allocatable, dimension(:) :: indxassim,iassim,iskip
+ real(r_kind), allocatable, dimension(:) :: buffertmp,taper_disob,taper_disgrd,&
+   paoverpb_chunk
+ real(r_single), allocatable, dimension(:) :: paoverpb_min, paoverpb_min1
+@@ -165,7 +168,9 @@
+ allocate(sresults2(numobsperproc(nproc+1)),taper_disob(numobsperproc(nproc+1)))
+ allocate(buffertmp(nobsgood))
+ ! index array that controls assimilation order
+-allocate(indxassim(nobsgood))
++allocate(indxassim(nobsgood),iskip(nobsgood))
++allocate(corrlengthsq_orig(nobsgood),lnsigl_orig(nobsgood))
++allocate(oberrvaruse(nobsgood))
+ allocate(paoverpb_min(2),paoverpb_min1(2))
+ allocate(paoverpb_chunk(numobsperproc(nproc+1)))
+ allocate(iassim(numobsperproc(nproc+1)))
+@@ -202,6 +207,8 @@
+ obfit_post = obfit_prior
+ obsprd_post = obsprd_prior
+ anal_obchunk = anal_obchunk_prior
++corrlengthsq_orig = corrlengthsq
++lnsigl_orig = lnsigl
+ 
+ ! Check to see if kdtree structures are associated
+ kdgrid=associated(kdtree_grid)
+@@ -209,8 +216,6 @@
+ 
+ do niter=1,numiter
+ 
+-  iassim = 0
+-
+   lastiter = niter == numiter
+   ! apply bias correction with latest estimate of bias coeffs.
+   ! (already done for first iteration)
+@@ -285,13 +290,14 @@
+       enddo
+   endif
+ 
++  iskip = 1 ! 1 if ob skipped in assimilation, 0 otherwise
++  iassim = 0
+   nobm = 1
+   t2 = zero
+   t3 = zero
+   t4 = zero
+   t5 = zero
+   t6 = zero
+-  nskip = 0
+   nf    = 0
+   nf2   = 0
+   tbegin = mpi_wtime()
+@@ -301,7 +307,7 @@
+       t1 = mpi_wtime()
+ 
+       ! which ob to assimilate next?
+-      if (iassim_order == 2 .and. niter == 1) then
++      if (iassim_order == 2) then
+          ! find ob with min HPaHT/HPbHT
+          nob1 = minloc(paoverpb_chunk,1)
+          paoverpb_min1(1) = paoverpb_chunk(nob1)
+@@ -310,14 +316,9 @@
+                             mpi_2real,mpi_minloc,mpi_comm_world,ierr)
+          !if (nproc .eq. 0) print *,'nobx,nob,paoverpb_min',nobx,nob,paoverpb_min(1)
+          nob = paoverpb_min(2); indxassim(nobx) = nob
+-      else
+-         nob = indxassim(nobx)
+       endif
+ 
+-      if(oberrvar(nob) > 1.e10_r_kind)then
+-        nskip = nskip + 1
+-        cycle obsloop
+-      end if
++      if(oberrvaruse(nob) > 1.e10_r_kind) cycle obsloop
+ 
+       ! what processor is this ob on?
+       npob = iprocob(nob)
+@@ -346,8 +347,13 @@
+ 
+       ! posterior variance over prior variance for ob prior.
+       if (hpfht < zero) then
+-          nskip = nskip + 1
+-          cycle obsloop
++          if (iassim_order .eq. 2) then
++             exit obsloop ! obs sorted by paoverpb, we're done
++          else
++             cycle obsloop
++          endif
++      else
++          iskip(nob) = 0
+       end if
+ 
+       anal_obtmp = buffer(1:nanals)
+@@ -388,10 +394,19 @@
+       t3 = t3 + mpi_wtime() - t1
+       t1 = mpi_wtime()
+ 
+-      corrsqr=corrlengthsq(nob)
+-      obt = abs(obtime(nob))
++      if (covl_minfact < 0.99) then
++! modify localization based on HPaHT/HPbHT
++         covl_fact = 1. - exp( -((1.-paoverpb)/covl_efold) )
++         if (covl_fact .lt. covl_minfact) covl_fact = covl_minfact
++         corrlengthsq(nob) = (covl_fact*sqrt(corrlengthsq_orig(nob)))**2
++         lnsigl(nob) = covl_fact*lnsigl_orig(nob)
++      endif
++      !if (nproc .eq. 0 .and. lastiter) print *,'niter,nobx,paoverpb,covl=',niter,nobx,paoverpb,sqrt(corrlengthsq(nob)/corrlengthsq_orig(nob))
++
++      lnsiglinv = one/lnsigl(nob)
++      corrsqr = corrlengthsq(nob)
+       corrlengthinv=one/corrlengthsq(nob)
+-      lnsiglinv=one/lnsigl(nob)
++      obt = abs(obtime(nob))
+       obtimelinv=one/obtimel(nob)
+       hpfhtcon=hpfhtoberrinv*r_nanalsm1
+ 
+@@ -495,6 +510,8 @@
+                  end if
+              end do
+           end do
++
++
+       end if ! if .not. lastiter or no close grid points
+ 
+       t5 = t5 + mpi_wtime() - t1
+@@ -520,7 +537,7 @@
+                ! update perturbations.
+                anal_obchunk(:,nob2) = anal_obchunk(:,nob2) + kfgain*obganl
+                ! recompute ob space spread ratio if needed.
+-               if (iassim_order == 2 .and. iassim(nob2) == 0 .and. niter == 1) then
++               if (iassim_order == 2 .and. iassim(nob2) == 0) then
+                  ! recompute HPaHT/HPbHT for unassimilated obs on this task.
+                  paoverpb_chunk(nob2) = sum(anal_obchunk(:,nob2)**2)*r_nanalsm1
+                  nob3 = indxproc_obs(nproc+1,nob2) ! index in 1,....,nobsgood
+@@ -533,7 +550,7 @@
+ 
+       end if ! no close obs.
+ 
+-      if (iassim_order == 2 .and. nproc == npob .and. niter == 1) then
++      if (iassim_order == 2 .and. nproc == npob) then
+          ! set HPaHT/HPbHT for just assimilated ob, so it will not be used again.
+          paoverpb_chunk(indxob_chunk(nob)) = one
+       endif
+@@ -543,12 +560,30 @@
+   end do obsloop ! loop over obs to assimilate
+ 
+   tend = mpi_wtime()
+-  if (nproc == 0 .and. nskip > 0) print *,nskip,' out of',nobsgood,'obs skipped'
+-  if (nproc == 0 .and. nsame > 0) print *,nsame,' out of', nobsgood-nskip,' same lat/long'
+-  if (nproc == 0 .and. nrej >  0) print *,nrej,' obs rejected by varqc'
+-  if (nproc == 0 .or. nproc == numproc-1) write(6,8003) niter,'timing on proc',nproc,' = ',tend-tbegin,t2,t3,t4,t5,t6,nrej
+   8003  format(i2,1x,a14,1x,i5,1x,a3,6(f7.2,1x),i4)
+ 
++  if (nproc .eq. 0) then
++
++     write(6,8003) niter,'timing on proc',nproc,' = ',tend-tbegin,t2,t3,t4,t5,t6,nrej
++
++     nuse = 0; covl_fact = 0.
++     do nobx=1,nobsgood
++        nob = indxassim(nobx)
++        if (iskip(nob) .ne. 1) then
++           covl_fact = covl_fact + sqrt(corrlengthsq(nob)/corrlengthsq_orig(nob))
++           nuse = nuse + 1
++        endif
++     enddo
++     nskip = nobsgood-nuse
++     covl_fact = covl_fact/float(nuse)
++
++     if (nsame > 0) print *,nsame,' out of', nobsgood-nskip,' same lat/long'
++     if (nrej >  0) print *,nrej,' obs rejected by varqc'
++     if (nskip > 0) print *,nskip,' out of',nobsgood,'obs skipped,',nuse,' used'
++     print *,'mean covl_fact = ',covl_fact
++
++  endif
++
+   t1 = mpi_wtime()
+ ! distribute the O-A stats to all processors.
+   buffertmp=zero
+@@ -566,6 +601,8 @@
+ 
+ enddo ! niter loop
+ 
++!print *,'min/max mean ps inc',nproc,minval(ensmean_chunk(1:numptsperproc(nproc+1),ndim)-ensmean_chunk_prior(1:numptsperproc(nproc+1),ndim)),maxval(ensmean_chunk(1:numptsperproc(nproc+1),ndim)-ensmean_chunk_prior(1:numptsperproc(nproc+1),ndim))
++
+ ! distribute the HPaHT stats to all processors.
+ t1 = mpi_wtime()
+ buffertmp=zero
+@@ -578,12 +615,40 @@
+ 
+ predx = predx + deltapredx ! add increment to bias coeffs.
+ 
++! write out posterior ps obs stats.
++if (nproc .eq. 0) then
++    print *,'write out psobs_posterior.txt'
++    open(9,form='formatted',file='psobs_posterior.txt')
++    do nob=1,nobsgood
++       if (oberrvaruse(nob) .gt. 99.9999) oberrvaruse(nob) = 99.9999
++       if (oberrvar(nob) .gt. 99.9999) then
++           oberrvar_out = 99.9999
++       else
++           oberrvar_out = oberrvar(nob)
++       endif 
++       if (oberrvar_orig(nob) .gt. 99.9999) then
++           oberrvar_orig_out = 99.9999
++       else
++           oberrvar_orig_out = oberrvar_orig(nob)
++       endif 
++       if (oberrvar_orig(nob) .gt. 99.9999) oberrvar_orig(nob) = 99.9999
++       write(9,9802) indxassim(nob),stattype(nob),obloclon(nob),obloclat(nob),&
++       obtime(nob),ob(nob),iskip(nob),&
++       obfit_prior(nob),obfit_post(nob),obsprd_prior(nob),obsprd_post(nob),&
++       oberrvar_orig_out,oberrvar_out,oberrvaruse(nob)
++    enddo
++    9802 format(i5,1x,i3,1x,f7.2,1x,f6.2,1x,f6.2,1x,f8.2,1x,i1,1x,&
++                4(e10.3,1x),3(f7.4,1x))
++    close(9)
++end if
++
+ ! free temporary arrays.
+ deallocate(taper_disob,taper_disgrd)
+ deallocate(anal_obchunk) ! this one is allocated in loadbal
+-deallocate(anal_obchunk_prior)
++!deallocate(anal_obchunk_prior)
+ deallocate(sresults1,sresults2)
+-deallocate(indxassim,buffertmp,paoverpb_chunk,iassim)
++!deallocate(indxassim,buffertmp,paoverpb_chunk,iassim,iskip)
++deallocate(buffertmp,paoverpb_chunk)
+ deallocate(paoverpb_min,paoverpb_min1)
+ 
+ end subroutine enkf_update

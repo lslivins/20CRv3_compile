@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Wed Dec 17 13:08:40 2014
+        MODULE QUICKSORT__genmod
+          INTERFACE 
+            SUBROUTINE QUICKSORT(N,X,IND)
+              INTEGER(KIND=4), INTENT(IN) :: N
+              REAL(KIND=4), INTENT(IN) :: X(N)
+              INTEGER(KIND=4), INTENT(INOUT) :: IND(N)
+            END SUBROUTINE QUICKSORT
+          END INTERFACE 
+        END MODULE QUICKSORT__genmod

@@ -1,0 +1,39 @@
+common_mtx.o : common_mtx.f90 netlib.o kinds.o 
+constants.o : constants.f90 kinds.o 
+convinfo.o : convinfo.f90 constants.o kinds.o 
+covlocal.o : covlocal.f90 params.o kinds.o 
+enkf.o : enkf.F90 rnorm.o gridinfo.o radbias.o radinfo.o params.o constants.o obsmod.o statevec.o loadbal.o kdtree2.o kinds.o covlocal.o mpisetup.o sorting.o
+enkf_main.o : enkf_main.f90 inflation.o radinfo.o enkf.o letkf.o loadbal.o statevec.o gridinfo.o innovstats.o obsmod.o mpisetup.o params.o kinds.o 
+fftpack.o : fftpack.f90 
+genqsat1.o : genqsat1.f90 constants.o kinds.o 
+grdcrd.o : grdcrd.f90 constants.o kinds.o 
+gridinfo.o : gridinfo.F90 constants.o mpisetup.o obsmod.o params.o kinds.o specmod.o reducedgrid.o netcdf_io_wrf.o
+gridio.o : gridio.F90 constants.o params.o gridinfo.o mpisetup.o kinds.o  netcdf_io_wrf.o
+inflation.o : inflation.f90 smooth.o loadbal.o gridinfo.o statevec.o covlocal.o constants.o kinds.o params.o mpisetup.o 
+innovstats.o : innovstats.f90 constants.o radinfo.o kinds.o params.o obsmod.o 
+kdtree2.o : kdtree2.f90 kinds.o 
+kinds.o : kinds.f90 
+letkf.o : letkf.F90 common_mtx.o gridinfo.o radbias.o radinfo.o params.o constants.o obsmod.o statevec.o loadbal.o kinds.o covlocal.o mpisetup.o 
+loadbal.o : loadbal.f90 rnorm.o gridinfo.o kdtree2.o kinds.o obsmod.o params.o mpisetup.o 
+mpi_readobs.o : mpi_readobs.f90 mpisetup.o readozobs.o readsatobs.o readconvobs.o radinfo.o params.o kinds.o 
+mpisetup.o : mpisetup.f90 
+netcdf_io_wrf.o : netcdf_io_wrf.f90 
+netlib.o : netlib.f90 kinds.o 
+obsmod.o : obsmod.f90 covlocal.o ozinfo.o convinfo.o radinfo.o mpi_readobs.o params.o constants.o kinds.o mpisetup.o 
+ozinfo.o : ozinfo.f90 constants.o kinds.o 
+params.o : params.f90 radinfo.o kinds.o constants.o mpisetup.o 
+sorting.o : sorting.f90 kinds.o 
+radbias.o : radbias.f90 loadbal.o params.o obsmod.o radinfo.o kinds.o mpisetup.o 
+radinfo.o : radinfo.f90 constants.o kinds.o 
+read_diag.o : read_diag.f90 kinds.o 
+read_locinfo.o : read_locinfo.f90 mpisetup.o gridinfo.o constants.o kdtree2.o obsmod.o params.o kinds.o 
+readconvobs.o : readconvobs.f90 constants.o kinds.o 
+readozobs.o : readozobs.f90 params.o kinds.o 
+readsatobs.o : readsatobs.f90 radinfo.o params.o read_diag.o kinds.o 
+reducedgrid.o : reducedgrid.f90 
+rnorm.o : rnorm.f90 kinds.o 
+smooth.o : smooth.F90 gridinfo.o kinds.o params.o mpisetup.o 
+specmod.o : specmod.f90 kinds.o 
+statevec.o : statevec.f90 obsmod.o gridinfo.o gridio.o loadbal.o kinds.o params.o mpisetup.o 
+stop1.o : stop1.f90 mpisetup.o kinds.o 
+write_logfile.o : write_logfile.f90 params.o 

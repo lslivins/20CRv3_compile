@@ -1,0 +1,15 @@
+#!/bin/sh
+set -x
+export LIBDIR=../..
+export MOD_DIR=$LIBDIR/incmod/landsfcutil_4
+export LIBM=$LIBDIR/liblandsfcutil_4.a
+export FCMP=${1:-ftn}
+if [ $FCMP = xlf95_r ] ; then
+ export FFLAGSM=" -q64 -I${MOD_DIR} -qmoddir=${MOD_DIR} -qrealsize=4 -O3 -qstrict -qessl -qmaxmem=-1"
+ export AFLAGSM="-64"
+else
+ export FFLAGSM=" -O3 -xHOST -convert big_endian -traceback -FR"
+ export AFLAGSM=" "
+fi
+make -f makefile
+mv *.mod $MOD_DIR

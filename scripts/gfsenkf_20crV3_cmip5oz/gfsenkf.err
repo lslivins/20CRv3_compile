@@ -1,0 +1,428 @@
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-cray' is currently not loaded
+cray-shmem/7.2.1(7):ERROR:150: Module 'cray-shmem/7.2.1' conflicts with the currently loaded module(s) 'cray-shmem/7.0.4'
+cray-shmem/7.2.1(7):ERROR:102: Tcl command execution failed: conflict cray-shmem
+
+cray-mpich/7.2.1(30):ERROR:150: Module 'cray-mpich/7.2.1' conflicts with the currently loaded module(s) 'cray-mpich/7.0.4'
+cray-mpich/7.2.1(30):ERROR:102: Tcl command execution failed: conflict cray-mpich
+
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-cray' is currently not loaded
+cray-shmem/7.2.1(7):ERROR:150: Module 'cray-shmem/7.2.1' conflicts with the currently loaded module(s) 'cray-shmem/7.0.4'
+cray-shmem/7.2.1(7):ERROR:102: Tcl command execution failed: conflict cray-shmem
+
+cray-mpich/7.2.1(30):ERROR:150: Module 'cray-mpich/7.2.1' conflicts with the currently loaded module(s) 'cray-mpich/7.0.4'
+cray-mpich/7.2.1(30):ERROR:102: Tcl command execution failed: conflict cray-mpich
+
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-cray' is currently not loaded
+/global/project/projectdirs/incite11/whitaker/20CRV3/scripts/gfsenkf_20crV3_cmip5oz/get_biascorr.py:128: RuntimeWarning: invalid value encountered in double_scalars
+  corr = covmat[0,1]/sqrt(covmat[0,0]*covmat[1,1])
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040612/ensda.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040612/ensda_6.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040612/ensda_3.out': No such file or directory
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+cray-shmem/7.2.1(7):ERROR:150: Module 'cray-shmem/7.2.1' conflicts with the currently loaded module(s) 'cray-shmem/7.0.4'
+cray-shmem/7.2.1(7):ERROR:102: Tcl command execution failed: conflict cray-shmem
+
+cray-mpich/7.2.1(30):ERROR:150: Module 'cray-mpich/7.2.1' conflicts with the currently loaded module(s) 'cray-mpich/7.0.4'
+cray-mpich/7.2.1(30):ERROR:102: Tcl command execution failed: conflict cray-mpich
+
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-cray' is currently not loaded
+/global/project/projectdirs/incite11/whitaker/20CRV3/scripts/gfsenkf_20crV3_cmip5oz/get_biascorr.py:128: RuntimeWarning: invalid value encountered in double_scalars
+  corr = covmat[0,1]/sqrt(covmat[0,0]*covmat[1,1])
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040618/ensda.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040618/ensda_6.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040618/ensda_3.out': No such file or directory
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+cray-shmem/7.2.1(7):ERROR:150: Module 'cray-shmem/7.2.1' conflicts with the currently loaded module(s) 'cray-shmem/7.0.4'
+cray-shmem/7.2.1(7):ERROR:102: Tcl command execution failed: conflict cray-shmem
+
+cray-mpich/7.2.1(30):ERROR:150: Module 'cray-mpich/7.2.1' conflicts with the currently loaded module(s) 'cray-mpich/7.0.4'
+cray-mpich/7.2.1(30):ERROR:102: Tcl command execution failed: conflict cray-mpich
+
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-cray' is currently not loaded
+/global/project/projectdirs/incite11/whitaker/20CRV3/scripts/gfsenkf_20crV3_cmip5oz/get_biascorr.py:128: RuntimeWarning: invalid value encountered in double_scalars
+  corr = covmat[0,1]/sqrt(covmat[0,0]*covmat[1,1])
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040700/ensda.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040700/ensda_6.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040700/ensda_3.out': No such file or directory
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+cray-shmem/7.2.1(7):ERROR:150: Module 'cray-shmem/7.2.1' conflicts with the currently loaded module(s) 'cray-shmem/7.0.4'
+cray-shmem/7.2.1(7):ERROR:102: Tcl command execution failed: conflict cray-shmem
+
+cray-mpich/7.2.1(30):ERROR:150: Module 'cray-mpich/7.2.1' conflicts with the currently loaded module(s) 'cray-mpich/7.0.4'
+cray-mpich/7.2.1(30):ERROR:102: Tcl command execution failed: conflict cray-mpich
+
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-cray' is currently not loaded
+/global/project/projectdirs/incite11/whitaker/20CRV3/scripts/gfsenkf_20crV3_cmip5oz/get_biascorr.py:128: RuntimeWarning: invalid value encountered in double_scalars
+  corr = covmat[0,1]/sqrt(covmat[0,0]*covmat[1,1])
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040706/ensda.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040706/ensda_6.out': No such file or directory
+/bin/cp: cannot stat `/scratch2/scratchdirs/whitaker//logs/gfsenkf_20crV3_cmip5oz/ensda_out_1945040706/ensda_3.out': No such file or directory
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+/bin/rm: No match.
+=>> PBS: job killed: walltime 7226 exceeded limit 7200

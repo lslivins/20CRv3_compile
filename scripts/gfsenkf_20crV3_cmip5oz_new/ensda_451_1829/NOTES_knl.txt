@@ -1,0 +1,196 @@
+17 Feb
+
+Needed -N and the number nodes in srun sent to background
+to get each process to actually go to background.
+
+Using 2 or 4 OMP threads for the global_enkf and global_fcst did not seem to
+make a difference
+
+Try 3
+added
+#SBATCH --distribution=cyclic
+so that when number of tasks is larger than number of nodes, the tasks are
+distributed evenly in a round-robin fashion across the nodes. 
+
+4 openmp threads to global_enkf and global_fcst
+job id 3798979
+
+Failed. Not allowed
+
+
+Try 4
+added
+    setenv MPI_RANK_REORDER_METHOD 0
+
+3799210
+I think that this will not be the preferred method for 
+global_enkf and global_fcst but is for everything else? 
+
+useful job description and details info for knl
+sacct -a -S 2017-02-16 --partition knl -u compo --format="JobID,Start,JobName,Partition,Elapsed,NNodes,MaxRSS,AveCPU,NCPUS,NTasks,Layout"
+
+compare results with job id
+3795636 3782631 3782356
+
+It appears gribmeanp benefits greatly (3 x faster).
+getsfcens and getsigens seem more consistent between the different assignments and therefore a little faster. 
+
+Try 5
+added
+	setenv MPI---METHOD 1 
+in front and behind run_gefs_knl
+
+for job starting 3800494
+and lowered OMP threads for fg and enkf to 2 
+I don't think OMP is actually doing anything
+
+Seemed to make GFS run a little faster!
+
+
+Try 6
+increase MPI for gfs to 81
+starting with job id 3800598 
+
+gfs ran! 
+
+but time limit somehow exceeded
+try again 3800891
+gribmeanp.x very slow. changed corespermpi to 2 to accommodate GFS, maybe bring back to 4. 
+	or was it a fluke? 
+too slow overall
+try again another time
+reset MPI for gfs to 65
+
+Try 6
+increase NODES to 160
+GFS MPI should be 128 ranks per member (1 is IO, so 127 ranks for model. Expected to be
+the maximum scaling according to Moorthi).
+jobi id 3804232
+Did not work for GFS
+/global/cscratch1/sd/compo/logs/ensda_425_1915/ensda_out_1915012000/run_gefs.out.GFS_ESMF_error
+but global_ENKF did not speed up at all, either! 
+
+Try 7
+NODES back to 80
+setenv MPI---METHOD 1 
+in front and behind global_enkf
+
+no change
+
+Try 8
+Stage in and out to burst buffer (datawarp)
+No real change in speed
+
+
+Try 9
+Back to Lustre
+
+make sure speeds are consistent.
+They are
+
+
+Try 10
+Give -S 2 for OS.
+Then put some of the operations in the background, especially those after the 
+global_fcst_cmip5 into the background. 
+
+And try reducing MPI ranks for gfs and global_enkf
+
+global_enkf runs much faster with FEWER MPI ranks! 
+Used 32 and 8 corespermpi
+
+gfs ran about the same with 32 MPI ranks and 8 corespermpi
+
+But, inadvertently changed how many cores postgp thinks are available.
+
+
+For Try 11
+Also send lots of the clean up to background. 
+Put -S 3 just in case
+
+worked well.
+
+May need to put GFS back to more MPI and fewer corespermpi
+
+Oh, swap the order of global_cycle and psop
+
+try omp 2 for all
+4 for all
+
+Try 12
+Maybe got the switch of order of psobs and global_cycle in for job 3809232
+
+have the # of cores wrong for GFS specified 32 mpi tasks,
+ jog 3809301 - only 4 cores, decidedly slower
+ 
+ should be right for 3809436
+  
+Try 13
+8 cores for 32 GFS mpi tasks definitely faster
+But 4 cores for 65 GFS mpi tasks seems slightly faster
+
+Try 14
+put OMP_NUM_THREADS to a general omp number to be able to test the other
+OMP sensistive codes
+[need to compile shtns with omp to really test that]
+
+Also, at some point test if there is a difference using different options for
+OMP_PLACES environment variable
+
+
+
+Also, try using huge pages
+
+
+Try 15
+using gen_omp = 2 did not help
+but, have not tried with shtns compiled with omp
+
+
+Try 16
+26 Feb
+using gen_omp =2 with new shtns
+just on psop
+
+little change.
+Then tried 
+3895293.6    2017-02-26T18:38:44 psop_gfs_+              00:01:37       40                            10240     1280     Block 
+Super slow!
+Canceled the job after it was more than 4 minutes (shoud take 16 secornds or less)
+
+Try just 81*2 cpus
+(81*16 cores)
+Didn't work. BAck to 81 cpus
+
+Try just 81*2 for global_cyclep
+
+
+6 March
+recompiled using Intel v17
+seemed to get faster, with 6Z runs under 8minutes.
+
+Now try different OMP configurations.
+
+Default has been 
+setenv OMP_PROC_BIND true
+setenv OMP_PLACES threads
+
+Try
+
+setenv OMP_PROC_BIND close
+setenv OMP_PLACES cores
+
+did not seem to make faster or slower. 
+
+Next, try 4 threads for GFS and EnKF
+EnKF is supposed to not use more than 3.
+did not make a difference.
+
+Next try, cpu_bin=threads in GFS, since #MPI_per_node > 32, as per 
+http://www.nersc.gov/users/computational-systems/cori/running-jobs/general-running-jobs-recommendations/
+
+
+Not really a KNL thing, but I wanted to list all of the files, including subdirectories in time order.
+find -type f -print0 | xargs -0 ls -t
+eliminate all of the newer object files
+find -type f -print0 | xargs -0 ls -lt | egrep "([A-Za-z].o)" | more

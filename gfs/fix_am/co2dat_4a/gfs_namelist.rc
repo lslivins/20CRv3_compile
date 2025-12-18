@@ -1,0 +1,181 @@
+
+#nam_gfs +++++++++++++++++++++++++++
+NLUNIT:                  35
+DELTIM:                  1200.0
+FHROT:                   3
+NAMELIST:                gfs_namelist
+TOTAL_MEMBER:            1
+GRIB_INPUT:              0
+PE_MEMBER01:             0
+PE_MEMBER02:             
+PE_MEMBER03:             
+PE_MEMBER04:             
+PE_MEMBER05:             
+PE_MEMBER06:             
+PE_MEMBER07:             
+PE_MEMBER08:             
+PE_MEMBER09:             
+PE_MEMBER10:             
+PE_MEMBER11:             
+PE_MEMBER12:             
+PE_MEMBER13:             
+PE_MEMBER14:             
+PE_MEMBER14:             
+PE_MEMBER16:             
+PE_MEMBER17:             
+PE_MEMBER18:             
+PE_MEMBER19:             
+PE_MEMBER20:             
+PE_MEMBER21:             
+PE_MEMBER22:             
+PE_MEMBER23:             
+PE_MEMBER24:             
+PE_MEMBER24:             
+PE_MEMBER26:             
+PE_MEMBER27:             
+PE_MEMBER28:             
+PE_MEMBER29:             
+PE_MEMBER30:             
+PE_MEMBER31:             
+PE_MEMBER32:             
+PE_MEMBER33:             
+PE_MEMBER34:             
+PE_MEMBER34:             
+PE_MEMBER36:             
+PE_MEMBER37:             
+PE_MEMBER38:             
+PE_MEMBER39:             
+PE_MEMBER40:             
+PE_MEMBER41:             
+PE_MEMBER42:             
+PE_MEMBER43:             
+PE_MEMBER44:             
+PE_MEMBER44:             
+PE_MEMBER46:             
+PE_MEMBER47:             
+PE_MEMBER48:             
+PE_MEMBER49:             
+PE_MEMBER50:             
+PE_MEMBER51:             
+PE_MEMBER52:             
+PE_MEMBER53:             
+PE_MEMBER54:             
+PE_MEMBER54:             
+PE_MEMBER56:             
+PE_MEMBER57:             
+PE_MEMBER58:             
+PE_MEMBER59:             
+PE_MEMBER60:             
+PE_MEMBER61:             
+PE_MEMBER62:             
+PE_MEMBER63:             
+PE_MEMBER64:             
+
+# For stachastic purturbed runs -  added by dhou and wyang
+HH_INCREASE:             15
+HH_FINAL:                15
+HH_START:                03
+ADVANCECOUNT_SETUP:      0
+
+
+#ESMF_State_Namelist +++++++++++++++
+
+ENS_SPS:                          .false.
+HOUTASPS:                         10000
+
+IDATE1_IMPORT:                    .false.
+Z_IMPORT:                         .false.
+PS_IMPORT:                        .false.
+VOR_IMPORT:                       .false.
+DIV_IMPORT:                       .false.
+TEMP_IMPORT:                      .false.
+Q_IMPORT:                         .false.
+OZ_IMPORT:                        .false.
+SCLD_IMPORT:                      .false.
+TRIEO_IMPORT:                     .false.
+
+IDATE1_EXPORT:                    .false.
+Z_EXPORT:                         .false.
+PS_EXPORT:                        .false.
+VOR_EXPORT:                       .false.
+DIV_EXPORT:                       .false.
+TEMP_EXPORT:                      .false.
+Q_EXPORT:                         .false.
+OZ_EXPORT:                        .false.
+SCLD_EXPORT:                      .false.
+TRIEO_EXPORT:                     .true.
+
+# Surface state.
+#---------------
+OROGRAPHY_IMPORT:                 .false.
+T_SKIN_IMPORT:                    .false.
+SOIL_MOIS_IMPORT:                 .false.
+SNOW_DEPTH_IMPORT:                .false.
+SOIL_T_IMPORT:                    .false.
+DEEP_SOIL_T_IMPORT:               .false.
+ROUGHNESS_IMPORT:                 .false.
+CONV_CLOUD_COVER_IMPORT:          .false.
+CONV_CLOUD_BASE_IMPORT:           .false.
+CONV_CLOUD_TOP_IMPORT:            .false.
+ALBEDO_VISIBLE_SCATTERED_IMPORT:  .false.
+ALBEDO_VISIBLE_BEAM_IMPORT:       .false.
+ALBEDO_NEARIR_SCATTERED_IMPORT:   .false.
+ALBEDO_NEARIR_BEAM_IMPORT:        .false.
+SEA_LEVEL_ICE_MASK_IMPORT:        .false.
+VEGETATION_COVER_IMPORT:          .false.
+CANOPY_WATER_IMPORT:              .false.
+M10_WIND_FRACTION_IMPORT:         .false.
+VEGETATION_TYPE_IMPORT:           .false.
+SOIL_TYPE_IMPORT:                 .false.
+ZENEITH_ANGLE_FACSF_IMPORT:       .false.
+ZENEITH_ANGLE_FACWF_IMPORT:       .false.
+UUSTAR_IMPORT:                    .false.
+FFMM_IMPORT:                      .false.
+FFHH_IMPORT:                      .false.
+SEA_ICE_THICKNESS_IMPORT:         .false.
+SEA_ICE_CONCENTRATION_IMPORT:     .false.
+TPRCP_IMPORT:                     .false.
+SRFLAG_IMPORT:                    .false.
+ACTUAL_SNOW_DEPTH_IMPORT:         .false.
+LIQUID_SOIL_MOISTURE_IMPORT:      .false.
+VEGETATION_COVER_MIN_IMPORT:      .false.
+VEGETATION_COVER_MAX_IMPORT:      .false.
+SLOPE_TYPE_IMPORT:                .false.
+SNOW_ALBEDO_MAX_IMPORT:           .false.
+
+OROGRAPHY_EXPORT:                 .false.
+T_SKIN_EXPORT:                    .false.
+SOIL_MOIS_EXPORT:                 .false.
+SNOW_DEPTH_EXPORT:                .false.
+SOIL_T_EXPORT:                    .false.
+DEEP_SOIL_T_EXPORT:               .false.
+ROUGHNESS_EXPORT:                 .false.
+CONV_CLOUD_COVER_EXPORT:          .false.
+CONV_CLOUD_BASE_EXPORT:           .false.
+CONV_CLOUD_TOP_EXPORT:            .false.
+ALBEDO_VISIBLE_SCATTERED_EXPORT:  .false.
+ALBEDO_VISIBLE_BEAM_EXPORT:       .false.
+ALBEDO_NEARIR_SCATTERED_EXPORT:   .false.
+ALBEDO_NEARIR_BEAM_EXPORT:        .false.
+SEA_LEVEL_ICE_MASK_EXPORT:        .false.
+VEGETATION_COVER_EXPORT:          .false.
+CANOPY_WATER_EXPORT:              .false.
+M10_WIND_FRACTION_EXPORT:         .false.
+VEGETATION_TYPE_EXPORT:           .false.
+SOIL_TYPE_EXPORT:                 .false.
+ZENEITH_ANGLE_FACSF_EXPORT:       .false.
+ZENEITH_ANGLE_FACWF_EXPORT:       .false.
+UUSTAR_EXPORT:                    .false.
+FFMM_EXPORT:                      .false.
+FFHH_EXPORT:                      .false.
+SEA_ICE_THICKNESS_EXPORT:         .false.
+SEA_ICE_CONCENTRATION_EXPORT:     .false.
+TPRCP_EXPORT:                     .false.
+SRFLAG_EXPORT:                    .false.
+ACTUAL_SNOW_DEPTH_EXPORT:         .false.
+LIQUID_SOIL_MOISTURE_EXPORT:      .false.
+VEGETATION_COVER_MIN_EXPORT:      .false.
+VEGETATION_COVER_MAX_EXPORT:      .false.
+SLOPE_TYPE_EXPORT:                .false.
+SNOW_ALBEDO_MAX_EXPORT:           .false.
+

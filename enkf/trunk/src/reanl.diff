@@ -1,0 +1,329 @@
+enkf.F90.orig enkf.F90
+--- enkf.F90.orig	2013-03-13 12:21:16.138531000 -0700
++++ enkf.F90	2013-03-13 12:26:49.080206262 -0700
+@@ -105,7 +105,7 @@
+                   obfit_prior, obfit_post, obsprd_prior, obsprd_post, obtime,&
+                   obtype, oberrvarmean, numobspersat, deltapredx, biaspreds,&
+                   biasprednorm, oberrvar_orig, probgrosserr, prpgerr,&
+-                  corrlengthsq,lnsigl,obtimel,obloclat,obloclon
++                  corrlengthsq,lnsigl,obtimel,obloclat,obloclon,stattype
+ use constants, only: constants_initialized, pi, one, zero
+ use params, only: sprd_tol, paoverpb_thresh, ndim, datapath, nanals,&
+                   iassim_order,sortinc,deterministic,numiter,nlevs,nvars,&
+@@ -140,10 +140,10 @@
+ real(r_kind) buffer(nanals+2)
+ real(r_kind),allocatable, dimension(:,:) :: anal_obchunk
+ real(r_kind),dimension(nobsgood):: oberrvaruse
+-real(r_kind) r,paoverpb
++real(r_kind) r,paoverpb,oberrvar_out,oberrvar_orig_out
+ real(r_kind) taper1,taper3
+ real(r_kind),allocatable, dimension(:) :: rannum
+-integer(i_kind), allocatable, dimension(:) :: indxassim,iassim
++integer(i_kind), allocatable, dimension(:) :: indxassim,iassim,iskip
+ real(r_kind), allocatable, dimension(:) :: buffertmp,taper_disob,taper_disgrd,&
+   paoverpb_chunk
+ real(r_single), allocatable, dimension(:) :: paoverpb_min, paoverpb_min1
+@@ -165,7 +165,8 @@
+ allocate(sresults2(numobsperproc(nproc+1)),taper_disob(numobsperproc(nproc+1)))
+ allocate(buffertmp(nobsgood))
+ ! index array that controls assimilation order
+-allocate(indxassim(nobsgood))
++allocate(indxassim(nobsgood),iskip(nobsgood))
++iskip = 0 ! 1 if ob skipped in assimilation, 0 otherwise
+ allocate(paoverpb_min(2),paoverpb_min1(2))
+ allocate(paoverpb_chunk(numobsperproc(nproc+1)))
+ allocate(iassim(numobsperproc(nproc+1)))
+@@ -315,6 +316,7 @@
+       endif
+ 
+       if(oberrvar(nob) > 1.e10_r_kind)then
++        iskip(nob) = 1
+         nskip = nskip + 1
+         cycle obsloop
+       end if
+@@ -346,6 +348,7 @@
+ 
+       ! posterior variance over prior variance for ob prior.
+       if (hpfht < zero) then
++          iskip(nob) = 1
+           nskip = nskip + 1
+           cycle obsloop
+       end if
+@@ -578,6 +581,32 @@
+ 
+ predx = predx + deltapredx ! add increment to bias coeffs.
+ 
++! write out posterior ps obs stats.
++if (nproc .eq. 0) then
++    open(9,form='formatted',file='psobs_posterior.txt')
++    do nob=1,nobsgood
++       if (oberrvaruse(nob) .gt. 99.9999) oberrvaruse(nob) = 99.9999
++       if (oberrvar(nob) .gt. 99.9999) then
++           oberrvar_out = 99.9999
++       else
++           oberrvar_out = oberrvar(nob)
++       endif 
++       if (oberrvar_orig(nob) .gt. 99.9999) then
++           oberrvar_orig_out = 99.9999
++       else
++           oberrvar_orig_out = oberrvar(nob)
++       endif 
++       if (oberrvar_orig(nob) .gt. 99.9999) oberrvar_orig(nob) = 99.9999
++       write(9,9802) indxassim(nob),stattype(nob),obloclon(nob),obloclat(nob),&
++       obtime(nob),ob(nob),iskip(nob),&
++       obfit_prior(nob),obfit_post(nob),obsprd_prior(nob),obsprd_post(nob),&
++       oberrvar_orig_out,oberrvar_out,oberrvaruse(nob)
++    enddo
++    9802 format(i5,1x,i3,1x,f7.2,1x,f6.2,1x,f6.2,1x,f8.2,1x,i1,1x,&
++                4(e10.3,1x),3(f7.4,1x))
++    close(9)
++end if
++
+ ! free temporary arrays.
+ deallocate(taper_disob,taper_disgrd)
+ deallocate(anal_obchunk) ! this one is allocated in loadbal
+gridio.F90.orig gridio.F90
+--- gridio.F90.orig	2013-03-12 09:04:24.980692000 -0700
++++ gridio.F90	2013-03-13 12:14:11.578672693 -0700
+@@ -30,7 +30,7 @@
+ !
+ !$$$
+  use constants, only: zero,one,cp,rd,grav,constants_initialized,zero
+- use params, only: nlons,nlats,ndim,reducedgrid,nvars,nlevs,pseudo_rh, &
++ use params, only: nlons,nlats,ndim,reducedgrid,nvars,nlevs,pseudo_rh,use_height, &
+                    cliptracers,nlons,nlats,datestring,datapath,massbal_adjust,charfhr_anal,iau
+  use kinds, only: i_kind,r_double,r_kind,r_single
+  use gridinfo, only: sighead,npts ! sighead saved in gridinfo. This means gridinfo must be called first!
+@@ -55,10 +55,10 @@
+ 
+   real(r_kind) kap,kapr,kap1
+ 
+-  real(r_kind), allocatable, dimension(:,:) :: vmassdiv,pressi,pslg
++  real(r_kind), allocatable, dimension(:,:) :: vmassdiv,pressi,pslg,zg,psig
+   real(r_kind), dimension(nlons*nlats) :: ug,vg
+   real(r_kind), dimension(ndimspec) :: vrtspec,divspec
+-  real(r_kind), allocatable, dimension(:) :: psg,pstend,ak,bk
++  real(r_kind), allocatable, dimension(:) :: psg,pstend,ak,bk,zs
+   type(sigio_data) sigdata
+ 
+ 
+@@ -173,7 +173,6 @@
+   else
+      grdin(:,ndim) = psg
+   endif
+-  call sigio_axdata(sigdata,iret)
+ 
+   ! surface pressure tendency is next to last grid.
+   if (massbal_adjust) then
+@@ -203,7 +202,38 @@
+   else
+      qsat = 1._r_double
+   end if
+-  
++
++! compute z (geopot height) on interfaces, given 
++! pint (interface pressure in hPa),
++! pl (pressure at mid-layers in hPa), tv (virtual temp at mid-layers) and
++! zs (surface orog). 
++! z does not include surface height (k=1 is 1st level, k=nlevs is model top)
++! uses hydrostatic eqn d(phi)/d(pi) = -thetav, where phi is geopot. height,
++! pi is exner function and thetav is virtual potential temp.
++  if (use_height) then
++     allocate(zs(npts),zg(npts,nlevs))
++     ! surface orog
++     divspec = sigdata%hs
++     call sptez_s(divspec,ug,1)
++     if (reducedgrid) then
++        call regtoreduced(ug,zs)
++     else
++        zs = ug
++     endif
++     allocate(psig(npts,nlevs))
++     do k=1,nlevs+1
++       if (reducedgrid) then
++           call regtoreduced(pressi(:,k),psig(:,k))
++       else
++           psig(:,k) = pressi(:,k)
++       endif
++     enddo
++     call temptoz(npts,nlevs,psig,pslg,zs,grdin(:,2*nlevs+1:3*nlevs),zg)
++     grdin(:,2*nlevs+1:3*nlevs) = zg
++     deallocate(zs,zg,psig)
++  end if
++
++  call sigio_axdata(sigdata,iret)
+   deallocate(pressi,pslg)
+   deallocate(psg,pstend,ak,bk)
+   if (massbal_adjust) deallocate(vmassdiv)
+@@ -217,10 +247,10 @@
+   character(len=500):: filename
+   integer, intent(in) :: nanal
+   real(r_kind), dimension(npts,ndim), intent(inout) :: grdin
+-  real(r_kind), allocatable, dimension(:,:) :: vmassdiv,pressi
++  real(r_kind), allocatable, dimension(:,:) :: vmassdiv,pressi,tvg,pslg,psig
+   real(r_kind), allocatable, dimension(:,:) :: vmassdivinc
+   real(r_kind), allocatable,dimension(:) :: psg,pstend1,pstend2,pstendfg,vmass,&
+-                                            ak,bk
++                                            zs,ak,bk,psg2
+   real(r_kind), dimension(nlons*nlats) :: ug,vg,uginc,vginc,psfg
+   real(r_kind), dimension(ndimspec) :: vrtspec,divspec
+   integer iadate(4)
+@@ -292,6 +322,57 @@
+   if (.not. isinitialized) call init_spec_vars(nlons,nlats,sighead%jcap,4)
+   ! allocate new sigdata structure for increments.
+   call sigio_aldata(sighead,sigdata_inc,ierr) 
++
++  ! convert geopot. height increment to virt. temp increment is use_height is true.
++  if (use_height) then
++     allocate(zs(npts),tvg(npts,nlevs),pslg(npts,nlevs),psig(npts,nlevs),psg2(npts))
++     if (sighead%idvc .eq. 0) then ! sigma coordinate, old file format.
++         ak = zero
++         bk = sighead%si(1:nlevs+1)
++     else if (sighead%idvc == 1) then ! sigma coordinate
++         ak = zero
++         bk = sighead%vcoord(1:nlevs+1,2)
++     else if (sighead%idvc == 2 .or. sighead%idvc == 3) then ! hybrid coordinate
++         bk = sighead%vcoord(1:nlevs+1,2) 
++         ak = 0.01*sighead%vcoord(1:nlevs+1,1)  ! convert to mb
++     else
++         print *,'unknown vertical coordinate type',sighead%idvc
++         call stop2(23)
++     end if
++     divspec = sigdata%ps
++     call sptez_s(divspec,vg,1)
++     ! increment (in hPa) to reg grid.
++     if (reducedgrid) then
++       call reducedtoreg(grdin(:,ndim),ug)
++     else
++       ug = grdin(:,ndim)
++     endif
++     psfg = 10._r_kind*exp(vg)
++     vg = psfg + ug ! first guess + increment on reg grd
++     psg = vg
++     ! convert to reduced grid (psg2)
++     if (reducedgrid) then
++       call regtoreduced(psg,psg2)
++     else
++       psg2 = psg
++     endif
++     !==> pressure at interfaces (reduced grid).
++     do k=1,nlevs+1
++        psig(:,k)=ak(k)+bk(k)*psg2
++     enddo
++     ! layer pressure (reduced grid)
++     do k=1,nlevs
++       pslg(:,k) = ((psig(:,k)**kap1-psig(:,k+1)**kap1)/&
++                   (kap1*(psig(:,k)-psig(:,k+1))))**kapr
++     end do
++     ! surface orog zero, since we're dealing with increments.
++     zs = zero
++     if (nproc .eq. 0) print *,'min/max height increment ens. mem.',nanal,minval(grdin(:,2*nlevs+1:3*nlevs)),maxval(grdin(:,2*nlevs+1:3*nlevs))
++     call ztotemp(npts,nlevs,psig,pslg,zs,tvg,grdin(:,2*nlevs+1:3*nlevs))
++     if (nproc .eq. 0) print *,'min/max tv increment ens. mem.',nanal,minval(tvg),maxval(tvg)
++     grdin(:,2*nlevs+1:3*nlevs) = tvg ! virt temp increment
++     deallocate(zs,tvg,pslg,psig,psg2)
++  end if
+   ! convert to increment to spectral coefficients.
+ !$omp parallel do private(k,nt,ug,vg,divspec,vrtspec)  shared(grdin,sigdata_inc)
+   do k=1,nlevs
+@@ -422,7 +503,6 @@
+   call sigio_axdata(sigdata_inc,ierr)
+ 
+   if (massbal_adjust) then
+-
+     
+      vmassdivinc = vmassdiv - vmassdivinc ! analyis - first guess VIMFD
+      ! (VIMFD = vertically integrated mass flux divergence)
+@@ -527,6 +607,72 @@
+ 
+  end subroutine writegriddata
+ 
++ subroutine temptoz(npts,nlevs,pint,pl,zs,tv,z)
++! compute z (geopot height) on interfaces, given 
++! pint (interface pressure in hPa),
++! pl (pressure at mid-layers in hPa), tv (virtual temp at mid-layers) and
++! zs (surface orog). rd,cp,grav are gas constant, specific heat and gravity.
++! z does not include surface height (k=1 is 1st level, k=nlevs is model top)
++! uses hydrostatic eqn d(phi)/d(pi) = -thetav, where phi is geopot. height,
++! pi is exner function and thetav is virtual potential temp.
++  implicit none
++  integer, intent(in) :: npts,nlevs
++  real(r_kind), dimension(npts, nlevs) :: thetav,pil
++  real(r_kind), dimension(npts, nlevs+1) :: pii
++  real(r_kind), intent(in), dimension(npts,nlevs) :: tv,pl
++  real(r_kind), intent(in), dimension(npts,nlevs+1) :: pint
++  real(r_kind), intent(out), dimension(npts,nlevs) :: z
++  real(r_kind), intent(in), dimension(npts) :: zs
++  integer n,k
++  real dz
++ 
++  pii = cp*(pint/1000._r_kind)**(rd/cp)
++  pil = cp*(pl/1000._r_kind)**(rd/cp)
++  thetav = cp*tv/pil
++  do n=1,npts
++     dz = -thetav(n,1) * (pii(n,2)-pii(n,1))
++     z(n,1) = grav*zs(n) + dz
++     do k=3,nlevs+1
++        dz = -thetav(n,k-1) * (pii(n,k)-pii(n,k-1))
++        z(n,k-1) = z(n,k-2) + dz
++     end do
++  end do
++  z = z/grav
++ 
++ end subroutine temptoz
++
++ subroutine ztotemp(npts,nlevs,pint,pl,zs,tv,z)
++! compute virtual temp (tv) on mid-layers, given 
++! pint (interface pressure in hPa),
++! pl (pressure at mid-layers in hPa), z (z at interfaces) and
++! zs (surface orog). rd,cp.grav are  gas constant, specific heat and gravity.
++! z should not include surface height (k=1 is 1st level, k=nlevs is model top)
++! uses hydrostatic eqn d(phi)/d(pi) = -thetav, where phi is geopot. height,
++! pi is exner function and thetav is virtual potential temp.
++  implicit none
++  integer, intent(in) :: npts,nlevs
++  real(r_kind), dimension(npts, nlevs) :: thetav,pil
++  real(r_kind), dimension(npts, nlevs+1) :: pii
++  real(r_kind), intent(out), dimension(npts,nlevs) :: tv
++  real(r_kind), intent(in), dimension(npts,nlevs+1) :: pint
++  real(r_kind), intent(in), dimension(npts,nlevs) :: z,pl
++  real(r_kind), intent(in), dimension(npts) :: zs
++  integer n,k
++  real(r_kind) dz
++
++  pii = cp*(pint/1000._r_kind)**(rd/cp)
++  pil = cp*(pl/1000._r_kind)**(rd/cp)
++  do n=1,npts
++     dz = grav*(z(n,1) - zs(n))
++     thetav(n,1) = -dz/(pii(n,2)-pii(n,1))
++     do k=3,nlevs+1
++        dz = grav*(z(n,k-1) - z(n,k-2))
++        thetav(n,k-1) = -dz/(pii(n,k)-pii(n,k-1))
++     end do
++  end do
++  tv = thetav*pil/cp
++ end subroutine ztotemp
++
+  end module gridio
+ #endif
+ #ifdef WRF
+params.f90.orig params.f90
+--- params.f90.orig	2013-03-12 09:02:46.851492000 -0700
++++ params.f90	2013-03-12 13:11:16.007662657 -0700
+@@ -49,6 +49,7 @@
+ integer,public :: nhr_anal=6
+ character(len=2), public :: charfhr_anal
+ logical, public :: iau=.false. 
++logical, public :: use_height=.false. 
+ character(len=10), public ::  datestring
+ character(len=500),public :: datapath
+ character(len=20), public, dimension(nsatmax_rad) ::sattypes_rad, dsis
+@@ -95,7 +96,7 @@
+                    nlevs,nanals,nvars,saterrfact,univaroz,wrf_regional,&
+                    paoverpb_thresh,latbound,delat,pseudo_rh,numiter,biasvar,&
+                    lupd_satbiasc,cliptracers,simple_partition,adp_anglebc,angord,&
+-                   iau,nhr_anal,letkf_flag,boxsize,massbal_adjust
++                   iau,nhr_anal,letkf_flag,boxsize,massbal_adjust,use_height
+ namelist /nam_wrf/arw,nmm,doubly_periodic
+ namelist /satobs_enkf/sattypes_rad,dsis
+ namelist /ozobs_enkf/sattypes_oz

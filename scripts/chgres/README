@@ -1,0 +1,3 @@
+1) run hsi_retrieve_restart_for_v401use351_all.tcsh to extract 20CRV2C analysis spectral files.
+2) run cpfiles.csh to change file names and header dates.
+3) run run_chgres_ens.csh to change resolution to T254L64.

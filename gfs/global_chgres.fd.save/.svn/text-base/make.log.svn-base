@@ -1,0 +1,425 @@
+ifort -O3 -xP -FR -c sfcio_module.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -c sfcio_module.f
+*
+****************************************************************************
+
+sfcio_module.f(669) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcio_module.f(669) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcio_module.f(669) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcio_module.f(653) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcio_module.f(653) : (col. 7) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -FR -c gfsio_rst.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -c gfsio_rst.f
+*
+****************************************************************************
+
+ifort -O3 -xP -FR -c gfsio_module.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -c gfsio_module.f
+*
+****************************************************************************
+
+fortcom: Warning: gfsio_module.f, line 616: A dummy argument with an explicit INTENT(OUT) declaration is not given an explicit value.   [IDUSR]
+      idpp,idsl,idvc,idvm,idvt,idrun,idusr,pdryini,ncldt,ixgr,nvcoord,nmeta, &
+-------------------------------------^
+fortcom: Warning: gfsio_module.f, line 1908: A dummy argument with an explicit INTENT(OUT) declaration is not given an explicit value.   [IRET]
+  subroutine gfsio_admeta(gfile,iret)
+--------------------------------^
+gfsio_module.f(2236) : (col. 9) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(2202) : (col. 9) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(2149) : (col. 11) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(2154) : (col. 13) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(1732) : (col. 4) remark: BLOCK WAS VECTORIZED.
+gfsio_module.f(812) : (col. 4) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(939) : (col. 4) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(1504) : (col. 4) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(2088) : (col. 9) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(2054) : (col. 9) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(2001) : (col. 11) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(2006) : (col. 13) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(1549) : (col. 4) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(1091) : (col. 4) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(1255) : (col. 4) remark: LOOP WAS VECTORIZED.
+gfsio_module.f(1857) : (col. 4) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -FR  -c machine.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -c machine.f
+*
+****************************************************************************
+
+ifort -O3 -xP -FR  -c physcons.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -c physcons.f
+*
+****************************************************************************
+
+ifort -O3 -xP -FR  -c funcphys.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -c funcphys.f
+*
+****************************************************************************
+
+ifort -O3 -xP -c sfcsub.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -c sfcsub.f
+*
+****************************************************************************
+
+sfcsub.f(2570) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(5229) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(2705) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(2706) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(2708) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(2720) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(2728) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(2746) : (col. 8) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6797) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(6797) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(6797) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(6819) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6825) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6830) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6856) : (col. 10) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6857) : (col. 10) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6858) : (col. 10) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6914) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6924) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6925) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6926) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7004) : (col. 8) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7161) : (col. 15) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7187) : (col. 15) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7242) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7327) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7390) : (col. 15) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7471) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(7471) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(7485) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7490) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7505) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7501) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7516) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7511) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7523) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7534) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7529) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7541) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7547) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7553) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7562) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7568) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7574) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7580) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7587) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7593) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7662) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7663) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7665) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7675) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7687) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7704) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(2930) : (col. 13) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6017) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6011) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6007) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6024) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6030) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6387) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6372) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6357) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6342) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6326) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6305) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6273) : (col. 10) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6104) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6063) : (col. 10) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6463) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6457) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6637) : (col. 13) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6632) : (col. 13) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6625) : (col. 13) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6620) : (col. 13) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6612) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6607) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4404) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4396) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4388) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4380) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3106) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3070) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3544) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(3573) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3579) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3584) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3884) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3826) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3844) : (col. 8) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3845) : (col. 8) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3846) : (col. 8) remark: LOOP WAS VECTORIZED.
+sfcsub.f(3860) : (col. 10) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7817) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7818) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7819) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7859) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7860) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7862) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7872) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7885) : (col. 6) remark: LOOP WAS VECTORIZED.
+sfcsub.f(8032) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(7918) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(6705) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(5670) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(5721) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(5702) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4303) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4336) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(5740) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4656) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4687) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4693) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4741) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4799) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4902) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(4902) : (col. 7) remark: PARTIAL LOOP WAS VECTORIZED.
+sfcsub.f(5658) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4354) : (col. 7) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4358) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(4364) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(8229) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(8192) : (col. 9) remark: LOOP WAS VECTORIZED.
+sfcsub.f(8135) : (col. 11) remark: LOOP WAS VECTORIZED.
+sfcsub.f(8140) : (col. 13) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -FR -I ../incmod -g  -c surface_chgres.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -I ../incmod -g -c surface_chgres.f
+*
+****************************************************************************
+
+surface_chgres.f(351) : (col. 6) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2606) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2641) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2674) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2682) : (col. 5) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2682) : (col. 5) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2345) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2346) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2349) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2349) : (col. 15) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2349) : (col. 29) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2349) : (col. 43) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2350) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2350) : (col. 15) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2350) : (col. 29) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2350) : (col. 43) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2351) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2351) : (col. 15) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2351) : (col. 29) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2351) : (col. 43) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2352) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2352) : (col. 15) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2352) : (col. 29) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2352) : (col. 43) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2353) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2353) : (col. 15) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2353) : (col. 29) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2353) : (col. 43) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2354) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2354) : (col. 15) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2354) : (col. 29) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2354) : (col. 43) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2355) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2355) : (col. 15) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2355) : (col. 29) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2355) : (col. 43) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2376) : (col. 1) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2389) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2391) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2393) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2395) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2397) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2399) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2401) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2403) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2405) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2407) : (col. 3) remark: LOOP WAS VECTORIZED.
+surface_chgres.f(2409) : (col. 3) remark: LOOP WAS VECTORIZED.
+ifort -O3 -xP -FR -c rsearch.f
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -O3 -xP -fp-model precise -FR -c rsearch.f
+*
+****************************************************************************
+
+ifort -I ../incmod -O3 -xP -openmp chgres.f sfcio_module.o gfsio_rst.o gfsio_module.o funcphys.o physcons.o machine.o surface_chgres.o sfcsub.o rsearch.o -L../lib -lbacio_4 -lw3_4 -llandsfcutil_4 -lip_4 -lsp_4 -lsigio_4 -lsfcio_4  -o ../bin/global_chgres
+
+****************************************************************************
+*
+*  WARNING:
+*
+*  The '-x*' options require use of '-fp-model precise' in order to
+*  generate consistent results from compiled code.
+*  Additionally, use of the '-mp' option is incompatible with
+*  '-fp-model precise', and is being deprecated by Intel.
+*
+*  New command line args:
+*  -I ../incmod -O3 -xP -fp-model precise -openmp chgres.f sfcio_module.o gfsio_rst.o gfsio_module.o funcphys.o physcons.o machine.o surface_chgres.o sfcsub.o rsearch.o -L../lib -lbacio_4 -lw3_4 -llandsfcutil_4 -lip_4 -lsp_4 -lsigio_4 -lsfcio_4 -o ../bin/global_chgres
+*
+****************************************************************************
+
+chgres.f(2165) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(2161) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(2157) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(2178) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(2172) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(3452) : (col. 10) remark: LOOP WAS VECTORIZED.
+chgres.f(3447) : (col. 10) remark: LOOP WAS VECTORIZED.
+chgres.f(3386) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(3391) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(3394) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(3395) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(3421) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(3458) : (col. 10) remark: LOOP WAS VECTORIZED.
+chgres.f(3468) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(3604) : (col. 7) remark: LOOP WAS VECTORIZED.
+chgres.f(2467) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(2505) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(3508) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(3511) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(3512) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(2252) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(2269) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(2263) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(2859) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(2847) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(2919) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(2935) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(2937) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(2944) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(2956) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(2960) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(2964) : (col. 9) remark: LOOP WAS VECTORIZED.
+chgres.f(2968) : (col. 11) remark: LOOP WAS VECTORIZED.
+chgres.f(3040) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(3045) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(3078) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(3081) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(3094) : (col. 6) remark: LOOP WAS VECTORIZED.
+chgres.f(3189) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(3190) : (col. 8) remark: LOOP WAS VECTORIZED.
+chgres.f(3207) : (col. 15) remark: LOOP WAS VECTORIZED.
+chgres.f(3314) : (col. 7) remark: LOOP WAS VECTORIZED.
+ld: skipping incompatible /usr/lib/libm.so when searching for -lm
+ld: skipping incompatible /usr/lib/libm.a when searching for -lm
+ld: skipping incompatible /usr/lib/libpthread.so when searching for -lpthread
+ld: skipping incompatible /usr/lib/libpthread.a when searching for -lpthread
+ld: skipping incompatible /usr/lib/libc.so when searching for -lc
+ld: skipping incompatible /usr/lib/libc.a when searching for -lc
+ld: skipping incompatible /usr/lib/libdl.so when searching for -ldl
+ld: skipping incompatible /usr/lib/libdl.a when searching for -ldl
+ld: skipping incompatible /usr/lib/libc.so when searching for -lc
+ld: skipping incompatible /usr/lib/libc.a when searching for -lc

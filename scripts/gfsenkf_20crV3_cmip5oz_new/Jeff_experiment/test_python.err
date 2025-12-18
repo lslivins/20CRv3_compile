@@ -1,0 +1,23 @@
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-pgi' is currently not loaded
+ModuleCmd_Switch.c(172):ERROR:152: Module 'PrgEnv-pgi' is currently not loaded
+======== BEGIN EPILOGUE ========
+Moab JobID: gaea3.476087
+RM JobID:   124155.c3-sys0.ncrc.gov 
+State:      Running
+Name:       test_python
+User:       Jeffrey.S.Whitaker
+Group:      esrl
+Account:    cpo_ngrr_e
+Class:      debug
+Size:       1
+PList:      c3
+StartCount: 1
+StartTime:  Fri May 13 15:40:20 2016
+CurrTime:   Fri May 13 15:40:24 2016
+Walltime:   00:00:04 of 00:30:00
+ExitCode:   0
+BatchNode:  c3-batch1
+NodeList:   659-31
+StdOut:     /lustre/f1/unswept/Jeffrey.S.Whitaker/scripts/gfsenkf_20crV3_cmip5oz/test_python.out
+StdErr:     /lustre/f1/unswept/Jeffrey.S.Whitaker/scripts/gfsenkf_20crV3_cmip5oz/test_python.err
+========  END EPILOGUE  ========

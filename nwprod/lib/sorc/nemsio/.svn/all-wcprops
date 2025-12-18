@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/projects/!svn/ver/17262/gfs/branches/moorthi/para/lib/sorc/nemsio
+END
+nemsio_write.f90
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/nemsio/nemsio_write.f90
+END
+nemsio_read.f90
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/nemsio/nemsio_read.f90
+END
+bafrio.f
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/nemsio/bafrio.f
+END
+makefile.sh
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/projects/!svn/ver/17262/gfs/branches/moorthi/para/lib/sorc/nemsio/makefile.sh
+END
+nemsio_module.f90
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/projects/!svn/ver/16201/gfs/branches/moorthi/para/lib/sorc/nemsio/nemsio_module.f90
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/nemsio/Makefile
+END
+Makefile_AIX
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/nemsio/Makefile_AIX
+END
+nemsio_openclose.f90
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/projects/!svn/ver/16223/gfs/branches/moorthi/para/lib/sorc/nemsio/nemsio_openclose.f90
+END

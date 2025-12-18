@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src
+END
+test_baciof.f90
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_baciof.f90
+END
+test_baciof_le.f90
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_baciof_le.f90
+END
+test_wryte_mk
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_wryte_mk
+END
+test_wryte.f90
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_wryte.f90
+END
+test_bafrio_le_mk
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_bafrio_le_mk
+END
+test_bafrio_mk
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_bafrio_mk
+END
+test_baciof_le_mk
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_baciof_le_mk
+END
+test_baciof_mk
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_baciof_mk
+END
+test_bafrio.f90
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_bafrio.f90
+END
+test_bafrio_le.f90
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/projects/!svn/ver/56499/nwprod/branches/Theia/theia_bid_of_w_g05142015/bacio_v2.0.1/unit_test/src/test_bafrio_le.f90
+END

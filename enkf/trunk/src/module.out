@@ -1,0 +1,790 @@
+
+--------------------- /opt/cray/craype/default/modulefiles ---------------------
+craype-abudhabi            craype-intel-knc
+craype-abudhabi-cu         craype-interlagos
+craype-accel-host          craype-interlagos-cu
+craype-accel-nvidia20      craype-istanbul
+craype-accel-nvidia35      craype-ivybridge
+craype-barcelona           craype-mc12
+craype-haswell             craype-mc8
+craype-hugepages128M       craype-network-aries
+craype-hugepages16M        craype-network-gemini
+craype-hugepages256M       craype-network-infiniband
+craype-hugepages2M         craype-network-none
+craype-hugepages32M        craype-sandybridge
+craype-hugepages4M         craype-shanghai
+craype-hugepages512M       craype-target-compute_node
+craype-hugepages64M        craype-target-local_host
+craype-hugepages8M         craype-target-native
+
+-------------------------- /opt/cray/ari/modulefiles ---------------------------
+alps/5.1.0-2.0501.8351.1.1.ari
+alps/5.1.1-2.0501.8471.1.1.ari
+alps/5.1.1-2.0501.8507.1.1.ari
+alps/5.2.1-2.0502.8712.10.32.ari
+alps/5.2.1-2.0502.9041.11.6.ari
+alps/5.2.1-2.0502.9072.13.1.ari
+alps/5.2.3-2.0502.9295.14.14.ari(default)
+configuration/1.0-1.0500.41341.1.16.ari
+configuration/1.0-1.0501.46089.3.3.ari
+configuration/1.0-1.0501.47134.1.7.ari
+configuration/1.0-1.0502.51224.1.16.ari
+configuration/1.0-1.0502.53348.1.16.ari
+configuration/1.0-1.0502.57072.1.12.ari(default)
+crash/7.0.9-1.0502.59568.2.1.ari
+crash_utility/1.0-1.0502.59023.8.1.ari
+dmapp/6.0.1-1.0500.7263.9.31.ari
+dmapp/7.0.1-1.0501.7793.12.516.ari
+dmapp/7.0.1-1.0501.8315.8.4.ari
+dmapp/7.0.1-1.0502.10246.8.47.ari(default)
+dmapp/7.0.1-1.0502.9080.9.32.ari
+dmapp/7.0.1-1.0502.9501.5.219.ari
+dvs/2.3_0.9.0-1.0500.1522.1.180
+dvs/2.4_0.9.0-1.0501.1618.1.407.ari
+dvs/2.4_0.9.0-1.0501.1672.2.122.ari
+dvs/2.5_0.9.0-1.0502.1754.2.102.ari
+dvs/2.5_0.9.0-1.0502.1873.1.145.ari
+dvs/2.5_0.9.0-1.0502.1958.2.55.ari(default)
+gni-headers/3.0-1.0500.7161.11.4.ari
+gni-headers/3.0-1.0501.7838.16.3.ari
+gni-headers/3.0-1.0501.8317.12.1.ari
+gni-headers/3.0-1.0502.9038.7.4.ari
+gni-headers/3.0-1.0502.9684.5.2.ari
+gni-headers/4.0-1.0502.10317.9.2.ari(default)
+hosts/1.0-1.0500.41329.1.118.ari
+hosts/1.0-1.0501.42367.2.184.ari
+hosts/1.0-1.0501.47085.1.91.ari
+hosts/1.0-1.0502.51173.1.104.ari
+hosts/1.0-1.0502.53297.1.142.ari
+hosts/1.0-1.0502.57019.1.58.ari(default)
+krca/1.0.0-2.0500.41867.2.75.ari
+krca/1.0.0-2.0501.45613.7.57.ari
+krca/1.0.0-2.0501.47640.3.70.ari
+krca/1.0.0-2.0502.52773.6.7.ari
+krca/1.0.0-2.0502.53880.4.104.ari
+krca/1.0.0-2.0502.57202.2.45.ari(default)
+lbcd/2.1-1.0500.41354.1.7.ari
+lbcd/2.1-1.0501.42366.2.3.ari
+lbcd/2.1-1.0501.47079.1.3.ari
+lbcd/2.1-1.0502.51166.1.16.ari
+lbcd/2.1-1.0502.53290.1.15.ari
+lbcd/2.1-1.0502.57012.1.10.ari(default)
+logcb/1.0-1.0501.45115.3.3.ari
+logcb/1.0-1.0501.47074.1.2.ari
+logcb/1.0-1.0502.51162.1.1.ari
+logcb/1.0-1.0502.53286.1.1.ari
+logcb/1.0-1.0502.57008.1.1.ari(default)
+nodehealth/5.1-1.0500.42660.3.79.ari
+nodehealth/5.1-1.0501.46889.9.4.ari
+nodehealth/5.1-1.0501.48689.10.2.ari
+nodehealth/5.1-1.0502.52998.7.3.ari
+nodehealth/5.1-1.0502.56494.9.2.ari
+nodehealth/5.1-1.0502.59960.9.3.ari(default)
+nodestat/2.2-1.0500.41375.1.85.ari
+nodestat/2.2-1.0501.44872.3.74.ari
+nodestat/2.2-1.0501.47138.1.78.ari
+nodestat/2.2-1.0502.51228.1.86.ari
+nodestat/2.2-1.0502.53712.3.109.ari
+nodestat/2.2-1.0502.58998.2.7.ari(default)
+pdsh/2.26-1.0500.41333.1.1.ari
+pdsh/2.26-1.0501.42310.1.3.ari
+pdsh/2.26-1.0501.47126.1.2.ari
+pdsh/2.26-1.0502.51215.1.1.ari
+pdsh/2.26-1.0502.53339.1.1.ari
+pdsh/2.26-1.0502.57061.1.1.ari(default)
+pmi/4.0.1-1.0000.9725.84.2.ari
+pmi/4.0.1-1.0000.9753.86.2.ari
+pmi/5.0.1-1.0000.9799.94.6.ari
+pmi/5.0.3-1.0000.9981.128.2.ari
+pmi/5.0.4-1.0000.10161.132.4.ari
+pmi/5.0.5-1.0000.10300.134.8.ari
+pmi/5.0.6-1.0000.10439.140.2.ari(default)
+pmi/5.0.7-1.0000.10678.155.25.ari
+rca/1.0.0-2.0500.41336.1.120.ari
+rca/1.0.0-2.0501.46504.10.20.ari
+rca/1.0.0-2.0501.48090.7.46.ari
+rca/1.0.0-2.0502.51491.3.92.ari
+rca/1.0.0-2.0502.53711.3.127.ari
+rca/1.0.0-2.0502.57212.2.56.ari(default)
+sdb/1.0-1.0500.43793.6.11.ari
+sdb/1.0-1.0501.46303.9.31.ari
+sdb/1.0-1.0501.48084.4.48.ari
+sdb/1.0-1.0502.52592.3.23.ari
+sdb/1.0-1.0502.55976.5.27.ari
+sdb/1.0-1.0502.58450.3.27.ari(default)
+shared-root/1.0-1.0500.41330.1.86.ari
+shared-root/1.0-1.0501.46094.9.32.ari
+shared-root/1.0-1.0501.48693.3.2.ari
+shared-root/1.0-1.0502.51213.1.86.ari
+shared-root/1.0-1.0502.53337.1.119.ari
+shared-root/1.0-1.0502.57059.1.36.ari(default)
+switch/1.0-1.0500.41328.1.120.ari
+switch/1.0-1.0501.44893.3.92.ari
+switch/1.0-1.0501.47124.1.93.ari
+switch/1.0-1.0502.51632.2.84.ari
+switch/1.0-1.0502.54233.2.96.ari
+switch/1.0-1.0502.57058.1.58.ari(default)
+sysutils/1.0-1.0501.48075.5.2.ari
+sysutils/1.0-1.0502.51182.1.1.ari
+sysutils/1.0-1.0502.53306.1.1.ari
+sysutils/1.0-1.0502.57470.2.1.ari(default)
+udreg/2.3.2-1.0500.6756.2.10.ari
+udreg/2.3.2-1.0501.6955.1.28.ari
+udreg/2.3.2-1.0501.7914.1.13.ari
+udreg/2.3.2-1.0502.8763.1.11.ari
+udreg/2.3.2-1.0502.9275.1.12.ari
+udreg/2.3.2-1.0502.9889.2.20.ari(default)
+ugni/5.0-1.0500.0.3.306.ari
+ugni/5.0-1.0500.6415.7.120.ari
+ugni/5.0-1.0501.7836.12.36.ari
+ugni/5.0-1.0501.8253.10.22.ari
+ugni/5.0-1.0502.9037.7.26.ari
+ugni/5.0-1.0502.9685.4.24.ari
+ugni/6.0-1.0502.10245.9.9.ari(default)
+wlm_detect/1.0-1.0501.47908.2.2.ari
+wlm_detect/1.0-1.0502.51217.1.1.ari
+wlm_detect/1.0-1.0502.53341.1.1.ari
+wlm_detect/1.0-1.0502.57063.1.1.ari(default)
+wlm_trans/1.0-1.0501.48690.5.2.ari
+wlm_trans/1.0-1.0502.52439.2.36.ari
+wlm_trans/1.0-1.0502.55978.2.29.ari
+wlm_trans/1.0-1.0502.57172.2.59.ari(default)
+xpmem/0.1-2.0500.41356.1.11.ari
+xpmem/0.1-2.0501.43807.2.18.ari
+xpmem/0.1-2.0501.48424.3.3.ari
+xpmem/0.1-2.0502.51169.1.11.ari
+xpmem/0.1-2.0502.55507.3.2.ari
+xpmem/0.1-2.0502.57015.1.15.ari(default)
+
+---------------------------- /opt/cray/modulefiles -----------------------------
+PrgEnv-cray/5.0.41
+PrgEnv-cray/5.1.18
+PrgEnv-cray/5.1.29
+PrgEnv-cray/5.2.25
+PrgEnv-cray/5.2.40
+PrgEnv-cray/5.2.56(default)
+PrgEnv-gnu/5.0.41
+PrgEnv-gnu/5.1.18
+PrgEnv-gnu/5.1.29
+PrgEnv-gnu/5.2.25
+PrgEnv-gnu/5.2.40
+PrgEnv-gnu/5.2.56(default)
+PrgEnv-intel/5.0.41
+PrgEnv-intel/5.1.18
+PrgEnv-intel/5.1.29
+PrgEnv-intel/5.2.25
+PrgEnv-intel/5.2.40
+PrgEnv-intel/5.2.56(default)
+atp/1.6.1
+atp/1.6.3
+atp/1.7.0
+atp/1.7.1
+atp/1.7.2
+atp/1.7.3
+atp/1.7.5
+atp/1.8.0
+atp/1.8.2(default)
+capmc/1.0-1.0000.36230.35.1(default)
+ccm/2.2.0-1.0500.43485.5.54
+ccm/2.2.0-1.0501.46098.9.95
+ccm/2.2.0-1.0501.48422.4.56
+ccm/2.2.0-1.0502.52593.5.33
+ccm/2.2.0-1.0502.55200.8.95
+ccm/2.2.0-1.0502.59807.5.4(default)
+cray-ccdb/1.0.0
+cray-ccdb/1.0.2
+cray-ccdb/1.0.3
+cray-ccdb/1.0.5
+cray-ccdb/1.0.6(default)
+cray-ga/5.1.0.2
+cray-ga/5.1.0.4
+cray-ga/5.1.0.5
+cray-ga/5.3.0.1(default)
+cray-hdf5/1.8.11
+cray-hdf5/1.8.12
+cray-hdf5/1.8.13(default)
+cray-hdf5/1.8.14
+cray-hdf5/1.8.9
+cray-hdf5-parallel/1.8.11
+cray-hdf5-parallel/1.8.12
+cray-hdf5-parallel/1.8.13(default)
+cray-hdf5-parallel/1.8.14
+cray-hdf5-parallel/1.8.9
+cray-lgdb/2.0.1
+cray-lgdb/2.1.0
+cray-lgdb/2.2.0
+cray-lgdb/2.2.2
+cray-lgdb/2.2.3
+cray-lgdb/2.2.4
+cray-lgdb/2.3.0
+cray-lgdb/2.3.1
+cray-lgdb/2.3.2
+cray-lgdb/2.4.0
+cray-lgdb/2.4.1
+cray-lgdb/2.4.2(default)
+cray-lgdb/2.4.3
+cray-libsci/12.0.00
+cray-libsci/12.1.00
+cray-libsci/12.1.01
+cray-libsci/12.1.2
+cray-libsci/12.1.3
+cray-libsci/12.2.0
+cray-libsci/13.0.0
+cray-libsci/13.0.1
+cray-libsci/13.0.3(default)
+cray-libsci/13.0.4
+cray-mpich/6.0.0
+cray-mpich/6.0.2
+cray-mpich/6.1.1
+cray-mpich/6.2.0
+cray-mpich/6.2.1
+cray-mpich/6.3.0
+cray-mpich/6.3.1
+cray-mpich/6.3.1_orig
+cray-mpich/7.0.0
+cray-mpich/7.0.3
+cray-mpich/7.0.4
+cray-mpich/7.1.1
+cray-mpich/7.1.3
+cray-mpich/7.2.1(default)
+cray-mpich/7.2.2
+cray-mpich-abi/7.0.3
+cray-mpich-abi/7.0.4
+cray-mpich-abi/7.1.1
+cray-mpich-abi/7.1.3
+cray-mpich-abi/7.2.1(default)
+cray-mpich-abi/7.2.2
+cray-mpich-compat/v6
+cray-mpich-compat/v7
+cray-mpich2/5.6.1
+cray-mpich2/5.6.5
+cray-mpich2/6.0.0
+cray-mpich2/6.0.2
+cray-mpich2/6.1.1
+cray-mpich2/6.2.0
+cray-mpich2/6.2.1
+cray-mpich2/6.3.0
+cray-mpich2/6.3.1(default)
+cray-netcdf/4.2.1.1
+cray-netcdf/4.3.0
+cray-netcdf/4.3.1
+cray-netcdf/4.3.2(default)
+cray-netcdf/4.3.3.1
+cray-netcdf-hdf5parallel/4.2.1.1
+cray-netcdf-hdf5parallel/4.3.0
+cray-netcdf-hdf5parallel/4.3.1
+cray-netcdf-hdf5parallel/4.3.2(default)
+cray-netcdf-hdf5parallel/4.3.3.1
+cray-parallel-netcdf/1.3.1.1
+cray-parallel-netcdf/1.4.0
+cray-parallel-netcdf/1.4.1
+cray-parallel-netcdf/1.5.0
+cray-parallel-netcdf/1.6.0(default)
+cray-petsc/3.3.03
+cray-petsc/3.3.06
+cray-petsc/3.4.2.0
+cray-petsc/3.4.3.0
+cray-petsc/3.4.3.1
+cray-petsc/3.4.4.0
+cray-petsc/3.5.1.0
+cray-petsc/3.5.2.1
+cray-petsc/3.5.3.0(default)
+cray-petsc/3.5.3.1
+cray-petsc-64/3.5.3.1
+cray-petsc-complex/3.3.03
+cray-petsc-complex/3.3.06
+cray-petsc-complex/3.4.2.0
+cray-petsc-complex/3.4.3.0
+cray-petsc-complex/3.4.3.1
+cray-petsc-complex/3.4.4.0
+cray-petsc-complex/3.5.1.0
+cray-petsc-complex/3.5.2.1
+cray-petsc-complex/3.5.3.0(default)
+cray-petsc-complex/3.5.3.1
+cray-petsc-complex-64/3.5.3.1
+cray-shmem/5.6.1
+cray-shmem/5.6.5
+cray-shmem/6.0.0
+cray-shmem/6.0.2
+cray-shmem/6.1.1
+cray-shmem/6.2.0
+cray-shmem/6.2.1
+cray-shmem/6.3.0
+cray-shmem/6.3.1
+cray-shmem/7.0.0
+cray-shmem/7.0.3
+cray-shmem/7.0.4
+cray-shmem/7.1.1
+cray-shmem/7.1.3
+cray-shmem/7.2.1(default)
+cray-shmem/7.2.2
+cray-tpsl/1.3.01
+cray-tpsl/1.3.04
+cray-tpsl/1.4.0
+cray-tpsl/1.4.1
+cray-tpsl/1.4.2
+cray-tpsl/1.4.3
+cray-tpsl/1.4.4(default)
+cray-tpsl/1.5.0
+cray-tpsl-64/1.5.0
+cray-trilinos/10.12.1.1
+cray-trilinos/11.10.1.0
+cray-trilinos/11.12.1.0
+cray-trilinos/11.12.1.1
+cray-trilinos/11.12.1.2(default)
+cray-trilinos/11.12.1.3
+cray-trilinos/11.2.2.0
+cray-trilinos/11.4.1.0
+cray-trilinos/11.6.1.0
+cray-trilinos/11.8.1.0
+craype/1.01
+craype/1.05
+craype/1.06
+craype/2.01
+craype/2.03
+craype/2.04
+craype/2.1.0
+craype/2.1.1
+craype/2.1.2
+craype/2.2.0
+craype/2.2.1
+craype/2.3.1(default)
+craype/2.4.0
+craypkg-gen/1.0.0
+craypkg-gen/1.0.0.6509
+craypkg-gen/1.1.0
+craypkg-gen/1.1.1
+craypkg-gen/1.2.0
+craypkg-gen/1.2.1
+craypkg-gen/1.3.0
+craypkg-gen/1.3.1(default)
+craypkg-gen/1.3.2
+cudatoolkit/5.5.20-1.0501.7700.8.1
+cudatoolkit/5.5.20-1.0501.7945.8.2
+cudatoolkit/5.5.22-1.0502.7944.3.1
+cudatoolkit/5.5.51-1.0502.9594.2.1(default)
+cudatoolkit/6.5.14-1.0502.9836.9.1
+fftw/2.1.5.5
+fftw/2.1.5.6
+fftw/2.1.5.7
+fftw/3.3.0.1
+fftw/3.3.0.3
+fftw/3.3.0.4
+fftw/3.3.4.0
+fftw/3.3.4.1
+fftw/3.3.4.2(default)
+fftw/3.3.4.3
+hdf5/1.8.11(default)
+hdf5-parallel/1.8.11(default)
+iobuf/2.0.4
+iobuf/2.0.5(default)
+netcdf/4.3.0(default)
+netcdf-hdf5parallel/4.3.0(default)
+ntk/1.5.0
+onesided/1.5.0
+papi/5.0.1
+papi/5.1.1
+papi/5.1.2
+papi/5.2.0
+papi/5.3.0
+papi/5.3.1
+papi/5.3.2
+papi/5.3.2.1
+papi/5.4.0.1(default)
+papi/5.4.1.1
+parallel-netcdf/1.3.1(default)
+parallel-netcdf/1.3.1.1
+perftools/6.0.1
+perftools/6.1.1
+perftools/6.1.2
+perftools/6.1.3
+perftools/6.1.4
+perftools/6.2.0
+perftools/6.2.1
+perftools/6.2.2
+perftools/6.2.3(default)
+perftools/6.2.4
+perftools-lite/6.1.1
+perftools-lite/6.1.2
+perftools-lite/6.1.3
+perftools-lite/6.1.4
+perftools-lite/6.2.0
+perftools-lite/6.2.1
+perftools-lite/6.2.2
+perftools-lite/6.2.3(default)
+perftools-lite/6.2.4
+python3/3.3.2
+stat/2.1.0.1
+stat/2.1.0.2(default)
+xt-mpich2/5.6.1
+xt-mpich2/5.6.5(default)
+xt-shmem/5.6.1
+xt-shmem/5.6.5(default)
+
+------------------------------- /opt/modulefiles -------------------------------
+cce/8.1.3
+cce/8.1.9
+cce/8.2.1
+cce/8.2.2
+cce/8.2.3
+cce/8.2.5
+cce/8.2.6
+cce/8.3.0
+cce/8.3.11(default)
+cce/8.3.12
+cce/8.3.3
+cce/8.3.4
+cce/8.3.7
+cce/8.3.9
+cce/8.4.0.219
+cce/8.4.0.223
+chapel/1.6.0
+chapel/1.7.0.2(default)
+eswrap/1.1.0-1.020200.1130.0(default)
+fftw/2.1.5.4
+gcc/4.7.2
+gcc/4.8.0
+gcc/4.8.1
+gcc/4.8.2
+gcc/4.9.0
+gcc/4.9.1
+gcc/4.9.2(default)
+intel/12.1.5.339
+intel/13.0.1.117
+intel/13.1.2.183
+intel/13.1.3.192
+intel/14.0.0.080
+intel/14.0.1.106
+intel/14.0.2.144
+intel/15.0.1.133(default)
+java/jdk1.7.0_07
+java/jdk1.7.0_45(default)
+moab/7.2.0-r1-b63-SUSE11
+moab/7.2.1-r26-b93-SUSE11
+moab/7.2.2-r4-b98-SUSE11
+moab/7.2.3-r19-b121-SUSE11
+moab/7.2.7-e7c070d1-b3-SUSE11
+moab/8.0.1-2014110616-5c7a394-sles11(default)
+modules/3.2.10.2
+modules/3.2.10.3(default)
+modules/3.2.6.6
+modules/3.2.6.7
+slurm/14.03.10
+slurm/14.03.3-2
+slurm/14.11.7-1(default)
+torque/4.1.4
+torque/4.1.5.1
+torque/4.2.2
+torque/4.2.3.1
+torque/4.2.3.1_p1
+torque/4.2.3.h5
+torque/4.2.6
+torque/4.2.7
+torque/5.0.1(default)
+xc-sysroot/5.0.15
+xc-sysroot/5.0.29
+xc-sysroot/5.0.41
+xc-sysroot/5.1.18
+xc-sysroot/5.1.29
+xc-sysroot/5.2.25
+xc-sysroot/5.2.40
+xc-sysroot/5.2.56(default)
+
+--------------------- /usr/common/usg/Modules/modulefiles ----------------------
+abinit/7.0.5                         mercurial/2.4.2
+abinit/7.10.2                        mercurial/2.7.1
+abinit/7.10.4                        mercurial/3.2
+abinit/7.4.2                         mercurial/3.2.4(default)
+abinit/7.6.4(default)                mkl/13.0.1
+abinit/7.8.1                         mkl/13.0.3(default)
+abinit/7.8.2                         molpro/2010.1.26
+adios/1.4.1(default)                 molpro/2010.1.40
+adios/1.5.0                          molpro/2012.1.21
+adios/1.6.0                          mongodb/2.6.4(default)
+adiosplain/1.4.1(default)            mpi4py/1.3.1(default)
+advisor/2015.up2(default)            mpi4py-ccm/1.3.1(default)
+allineatools/5.1                     mpibash/1.2(default)
+allineatools/5.1-43629               mysql/5.1.63
+allineatools/5.1-43857(default)      mysql/5.6.21(default)
+allineatools-ccm/4.2-36237(default)  mysqlpython/1.2.3
+altd/1.0                             mysqlpython/1.2.5(default)
+altd/2.0(default)                    nag/24-gnu
+amber/14(default)                    nag/24-intel(default)
+asciidoc/8.6.8(default)              namd/2.10
+ase/3.6.0.2515                       namd/cvs_01032013
+ase/3.7.1.3184                       namd/cvs_20130727
+ase/3.9.0.4465(default)              namd/cvs_20130828(default)
+autoconf/2.69(default)               namd/cvs_20141119
+autohbw/20150805(default)            nano/2.2.6(default)
+automake/1.13.4(default)             ncar/6.1.1(default)
+automake/1.14                        ncl/6.1.1(default)
+bash/4.3(default)                    ncl/6.2.0
+berkeleygw/1.0.4(default)            ncl/6.3.0
+berkeleygw/1.0.6                     nco/4.2.5
+berkeleygw/1.1-beta2                 nco/4.3.1
+boost/1.53                           nco/4.3.8
+boost/1.54(default)                  nco/4.3.9
+boost/1.55                           nco/4.5.2(default)
+boost/1.59                           ncview/2.1.2(default)
+bzip2/1.0.6(default)                 netcdf/4.1.3-nersc
+cdat/5.2(default)                    netcdf4-python/1.0.2
+cdo/1.5.9                            netcdf4-python/1.0.6
+cdo/1.6.1                            netcdf4-python/1.1.7.1(default)
+cdo/1.6.5.2(default)                 numactl/2.0.10(default)
+cfitsio/3.31                         numexpr/2.0.1
+cfitsio/3.370-reentrant(default)     numexpr/2.2.2
+cmake/2.8.10.2                       numexpr/2.4(default)
+cmake/2.8.11.2(default)              numpy/1.6.2
+cmake/2.8.12.2                       numpy/1.7.1
+cmake/3.0.0                          numpy/1.9.0_mkl
+contrib/gvr                          numpy/1.9.1_mkl
+contrib/upcxx/20150907               numpy/1.9.2(default)
+cp2k/2.5.1                           nwchem/6.1.1
+cp2k/2.5.1-gcc(default)              nwchem/6.3
+cp2k/2.6.0-gcc                       nwchem/6.3.r25564
+cp2k/2.6.1-gcc                       nwchem/6.5(default)
+cpmd/3.17.1(default)                 octave/3.6.4(default)
+cray-trilinos/11.6.1.0.intel         octopus/4.1.2(default)
+ctss/1.0(default)                    openmpi-ccm/1.6.3
+curl/7.28.1(default)                 openmpi-ccm/1.6.5(default)
+cython/0.16                          openmpi-serial/1.8.2(default)
+cython/0.17.4                        otf2/1.5.1(default)
+cython/0.19.1                        p3dfft/2.7.2
+cython/0.21.2                        p3dfft/r599(default)
+cython/0.22(default)                 paratec/6.0.0(default)
+darshan/2.2.4                        parpack/3.1.5
+darshan/2.2.4-old                    parpack/3.1.5-20150731(default)
+darshan/2.2.5-pre1                   parpack/3.2.0-20150731
+darshan/2.2.5-pre3                   parpack/3.2.0-20150928-64
+darshan/2.2.5-pre3-104               perl/5.20.0(default)
+darshan/2.2.6                        pgplot/5.2(default)
+darshan/2.2.7-105                    phonopy/1.6.2
+darshan/2.2.7-106                    phonopy/1.8.4(default)
+darshan/2.2.8                        pil/1.1.7(default)
+darshan/2.3.0(default)               png/1.6.16(default)
+ddt/5.1                              pspline/nersc1.0
+ddt/5.1-43629                        pycdf/0.6-3b
+ddt/5.1-43857(default)               pyhdf/0.8.3(default)
+dfftpack/1.0(default)                pymatgen/3.1.0(default)
+dlfm/1.4(default)                    pympi/2.5b0(default)
+ds9/9.7.2(default)                   pynamic/2.6a1(default)
+dumpi/1.0(default)                   pysqlite/2.6.3(default)
+eigen3/3.2.0(default)                pytables/2.3.1
+emacs/24.2(default)                  pytables/3.0.0
+erlang-OTP/17.0(default)             pytables/3.1.1(default)
+espresso/5.0.0                       python/2.7
+espresso/5.0.2                       python/2.7-anaconda
+espresso/5.0.2-2                     python/2.7.3
+espresso/5.0.3                       python/2.7.5
+espresso/5.0.3-2(default)            python/2.7.9(default)
+espresso/5.1                         python/3.4
+espresso/5.1.1                       python/3.4-anaconda
+espresso/5.1.2                       python-libs/2.7.3
+espresso/5.2.0                       python-libs/2.7.9(default)
+fftw-ccm/3.3.3                       python_base/2.7.3
+fftw-ccm/3.3.4                       python_base/2.7.5
+fgsl/1.0.0(default)                  python_base/2.7.9(default)
+fireworks/0.95-2.7.5                 pyyaml/3.11(default)
+fireworks/1.05-2.7.9                 qbox/1.61.0(default)
+fireworks/1.07-2.7.9(default)        root/5.34(default)
+g09/b1                               root/5.34.20
+g09/c1(default)                      ruby/2.2.2(default)
+g09/d1                               scala/2.10.5(default)
+g09-slurm/c1(default)                scidb/14.8(default)
+g09-slurm/d1                         scipy/0.11.0
+gamess/1May2013R1                    scipy/0.12.0
+gcc/4.4.7                            scipy/0.14.0
+gcc/5.1.0                            scipy/0.14.0_mkl
+gdb/7.6.1(default)                   scipy/0.14.1_mkl
+git/1.8.1.1                          scipy/0.15.1(default)
+git/2.0.0                            scons/2.3.0(default)
+git/2.4.6(default)                   scorep/1.4.1(default)
+git-lfs/0.5.0(default)               sde/7.15.0
+globus/5.0.5(default)                siesta/3.1
+gnuplot/4.6.2                        siesta/3.2(default)
+gnuplot/4.6.3(default)               siesta/3.2-pl-5
+gnuplot/5.0.1                        silo/4.9.1(default)
+go/current(default)                  slatec/4.1(default)
+gpaw/0.10.0                          slepc/3.4.4
+gpaw/0.11.dev                        slepc/3.5.3(default)
+gpaw/0.9.0(default)                  slepc-64/3.5.3(default)
+grads/2.0.2(default)                 slepc-complex/3.4.4
+gromacs/4.6.5-dp(default)            slepc-complex/3.5.3(default)
+gromacs/5.0.4                        slepc-complex-64/3.5.3(default)
+gsl/1.15                             sparsehash/2.0.2(default)
+gsl/1.16(default)                    sprng/2.0
+gv/3.7.3                             subversion/1.7.9(default)
+h4h5tools/2.2.1                      superlu/2.5(default)
+h5py/2.0.1                           swig/3.0.2(default)
+h5py/2.2.0                           szip/2.1(default)
+h5py/2.4.0                           taskfarmer/1.6.0(default)
+h5py/2.5.0(default)                  tau/2.23
+h5py/2.5.0-parallel                  tau/2.24(default)
+haskell/7.8.4(default)               tcl/8.5.13(default)
+hdf/4.2.8(default)                   tcl/8.6.2
+heasoft/6.16(default)                texlive/2014
+hpctoolkit/4693(default)             tmux/1.9a(default)
+htop/1.0.2(default)                  totalview/8.15.0
+hwloc/1.7.2(default)                 totalview/8.15.4
+idl/8.0                              totalview/8.15.7(default)
+idl/8.2(default)                     totalview-support/1.2.0.4
+idl/8.3                              totalview-support/1.2.0.5
+imagemagick/6.8.8-7(default)         totalview-support/1.2.0.6(default)
+impi/5.0.2.044(default)              training/2013
+inspector/2015.update2(default)      training/2014
+intel/12.1.3                         training/2015(default)
+intel/15.0.090.test                  udunits/2.1.24(default)
+intel/15.1.133.test                  usg/1.1(default)
+ipm/2.0.3-3710b13                    usg-default-modules/1.0
+ipm/2.0.3-3710b13-20150806(default)  usg-default-modules/1.1(default)
+ipm/2.00                             valgrind/3.9.0(default)
+ipm-openmp/2.0.3-3710b13             vasp/4.6.35_vtst
+ipm-openmp/2.0.3-3710b13-20150806    vasp/5.3.2
+ipython/0.13.1                       vasp/5.3.2_vtst
+ipython/1.1.0                        vasp/5.3.5
+ipython/2.3.1                        vasp/5.3.5-cce(default)
+ipython/3.1.0(default)               vasp/5.3.5_vtst
+jasper/1.900.1(default)              vasp/5.3.5_vtst-cce
+jemalloc/3.5.1+mk3(default)          vasp/5.4.1
+jpeg/8d(default)                     vim/7.4(default)
+jython/2.5.3(default)                virtualenv/1.10.1
+lammps/20130106                      virtualenv/1.8.2
+lammps/20130727                      virtualenv/12.1.1(default)
+lammps/20140628(default)             virtualenvwrapper/3.6(default)
+latex/2012(default)                  vtune/2015.up2(default)
+latex/2013                           vtune/2015.up2.test
+libtool/2.4.6(default)               wannier90/1.2(default)
+libunwind/1.1(default)               wannier90/2.0
+lxml/3.3.4(default)                  wien2k-ccm/14.2(default)
+m4/1.4.17(default)                   wien2k-ccm/14.2.debug
+mathematica/8.0                      xalt/0.5.4(default)
+mathematica-nofonts/8.0(default)     xaltd/0.5.4(default)
+matplotlib/1.1.0                     xcrysden/1.5.25(default)
+matplotlib/1.3.0                     xemacs/21.4.22(default)
+matplotlib/1.4.2                     xpdf/3.03
+matplotlib/1.4.3(default)            xpdf/3.04(default)
+meep/1.2.1(default)                  yambo/4.0.1(default)
+memkind/0.2.1+dev3g1461f02           yt/2.6.1(default)
+memkind/0.2.2                        yt/3.1
+memkind/0.2.2+dev52gf73f5c9(default) zlib/1.2.7(default)
+mercurial/2.2.1
+
+------------------------- /usr/syscom/nsg/modulefiles --------------------------
+gpfs/1.1.0(default) nsg/1.2.0(default)
+
+----------------------- /usr/syscom/nsg/opt/modulefiles ------------------------
+BerkeleyDB/5.1.19(default) serial/1.0(default)
+alvaserial/1.0(default)    serial/1.0_template
+alvaserial/1.0_template    sudosh/3.2.0(default)
+cfengine/3.2.3(default)
+
+--------------------- /usr/common/das/Modules/modulefiles ----------------------
+dbxml/6.0.17(default)       spark/1.1.0-shm
+fiji/CD(default)            spark/1.2.1
+grace/5.1.25(default)       spark/1.2.1-breeze
+imod/4.7.13(default)        spark/1.2.1-scratch
+lsstDM/10.1                 spark/1.3.1
+mathematica/10.1.0(default) spark/1.3.1-scratch
+matlab/R2015a(default)      spark/1.4.1(default)
+matlab/R2015b               spark/1.5-rc1-inst
+neon/0.8.2                  spark/1.5.0
+neon/0.9.0(default)         spark/scratch
+neon/1.0.0rc1               spearmint/CD
+neon/CD                     spearmint/CR(default)
+postgresql/9.4.4(default)   spearmint/dev
+pylearn2/CD(default)        swift/0.94.1(default)
+relion/1.4.a(default)       swift/0.96.2
+spack/0.8.17                theano/0.7rc2(default)
+spark/1.0.0                 xmipp/3.1(default)
+spark/1.0.2                 zulu/1.8.0(default)
+spark/1.1.0
+
+--------------------- /usr/common/ftg/Modules/modulefiles ----------------------
+bupc/2.20.0
+bupc/2.20.0-5.2.25-cray-8.3.4
+bupc/2.20.0-5.2.25-gnu-4.9.1
+bupc/2.20.0-5.2.25-intel-14.0.2.144
+bupc/2.20.0-5.2.40-cray-8.3.4
+bupc/2.20.0-5.2.40-cray-8.3.7
+bupc/2.20.0-5.2.40-gnu-4.9.1
+bupc/2.20.0-5.2.40-gnu-4.9.2
+bupc/2.20.0-5.2.40-intel-14.0.2.144
+bupc/2.20.0-5.2.40-intel-15.0.1.133
+bupc/2.20.2(default)
+bupc/2.20.2-5.2.40-cray-8.3.7
+bupc/2.20.2-5.2.40-gnu-4.9.2
+bupc/2.20.2-5.2.40-intel-15.0.1.133
+bupc/2.20.2-5.2.56-cray-8.3.11
+bupc/2.20.2-5.2.56-gnu-4.9.2
+bupc/2.20.2-5.2.56-intel-15.0.1.133
+bupc-4Kpages/2.20.0
+bupc-4Kpages/2.20.0-5.2.40-cray-8.3.4
+bupc-4Kpages/2.20.0-5.2.40-cray-8.3.7
+bupc-4Kpages/2.20.0-5.2.40-gnu-4.9.1
+bupc-4Kpages/2.20.0-5.2.40-gnu-4.9.2
+bupc-4Kpages/2.20.0-5.2.40-intel-14.0.2.144
+bupc-4Kpages/2.20.0-5.2.40-intel-15.0.1.133
+bupc-4Kpages/2.20.2(default)
+bupc-4Kpages/2.20.2-5.2.40-cray-8.3.7
+bupc-4Kpages/2.20.2-5.2.40-gnu-4.9.2
+bupc-4Kpages/2.20.2-5.2.40-intel-15.0.1.133
+bupc-4Kpages/2.20.2-5.2.56-cray-8.3.11
+bupc-4Kpages/2.20.2-5.2.56-gnu-4.9.2
+bupc-4Kpages/2.20.2-5.2.56-intel-15.0.1.133
+bupc-narrow/2.20.0
+bupc-narrow/2.20.0-5.2.40-cray-8.3.4
+bupc-narrow/2.20.0-5.2.40-cray-8.3.7
+bupc-narrow/2.20.0-5.2.40-gnu-4.9.2
+bupc-narrow/2.20.0-5.2.40-intel-14.0.2.144
+bupc-narrow/2.20.0-5.2.40-intel-15.0.1.133
+bupc-narrow/2.20.2(default)
+bupc-narrow/2.20.2-5.2.40-cray-8.3.7
+bupc-narrow/2.20.2-5.2.40-gnu-4.9.2
+bupc-narrow/2.20.2-5.2.40-intel-15.0.1.133
+bupc-narrow/2.20.2-5.2.56-cray-8.3.11
+bupc-narrow/2.20.2-5.2.56-gnu-4.9.2
+bupc-narrow/2.20.2-5.2.56-intel-15.0.1.133
+bupc-narrow-4Kpages/2.20.0
+bupc-narrow-4Kpages/2.20.0-5.2.40-intel-15.0.1.133
+bupc-narrow-4Kpages/2.20.2(default)
+bupc-narrow-4Kpages/2.20.2-5.2.40-intel-15.0.1.133
+bupc-narrow-4Kpages/2.20.2-5.2.56-intel-15.0.1.133
+gcc-ftg/4.7.0
+gcc-ftg/4.9.2
+libfabric
+
+------------------- /usr/common/graphics/Modules/modulefiles -------------------
+ParaView/3.98.1              mesa/9.2.2-classic-dso
+ParaView/4.1.0               mesa/9.2.2-llvmpipe(default)
+ParaView/4.2.0               mesa/9.2.2-llvmpipe-dso
+ParaView/4.2.0-PDACS         netcdf/4.3.3.1
+ParaView/4.3.1               netcdf-cxx/4.2
+R/3.1.0                      povray/3.7.0
+R/3.1.1(default)             povray/3.7.1
+R/3.2.0                      sdav/0.1.0(default)
+R/devel                      swr/0.0.0
+VTK/5.10.1                   teca/1.0
+VTK/6.1.0                    uvcdat/1.2.0(default)
+boost/1.58.0                 uvcdat/2.1.0
+cascade/1.0(default)         uvcdat/trunk
+ffmpeg/2.4.4                 uvcdat/trunk-no-mpi
+fiji/1.47                    visit/2.6.3
+llvm/3.5(default)            visit/2.7.1
+llvm/3.5-dso                 visit/2.7.2
+mesa/10.1.0-llvmpipe-dso     visit/2.7.3
+mesa/10.4.3-classic          visit/2.8.0
+mesa/10.4.3-classic-dso      visit/2.8.1
+mesa/10.4.3-llvmpipe-dso     visit/2.8.2(default)
+mesa/9.2.0                   visit/2.9.0
+mesa/9.2.2-classic           visit/web
+
+--------------------- /usr/common/jgi/Modules/modulefiles ----------------------
+ABySS/1.3.6(default)     bowtie/0.12.9(default)   samtools/0.1.18
+Ray/2.2.0                bowtie2/2.0.6(default)   samtools/0.1.19(default)
+Ray/2.3.0(default)       bowtie2/2.2.5            tophat/2.0.7(default)
+
+--------------------- /usr/common/tig/Modules/modulefiles ----------------------
+hadoop/0.20.2+228             mysge/1.0
+hadoop/0.20.2-cdh3u2(default) taskfarmer/1.4
+hadoop/personal               taskfarmer/1.5(default)
+java/1.6.0_13                 taskfarmer/test

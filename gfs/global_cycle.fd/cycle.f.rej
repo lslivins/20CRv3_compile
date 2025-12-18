@@ -1,0 +1,280 @@
+***************
+*** 13,44 ****
+  !
+        Implicit none
+  !
+-       integer idim, jdim, lsoil, lugb, iy, im, id, ih, lensfc
+        real    fh,   deltsfc
+  !
+        NAMELIST/NAMCYC/ IDIM,JDIM,LSOIL,LUGB,IY,IM,ID,IH,FH
+-      1,                 DELTSFC
+  !
+- Cwu  change LSOIL: LSOIL=4
+  !     DATA IDIM,JDIM,LSOIL/192,94,2/
+        DATA IDIM,JDIM,LSOIL/192,94,4/
+        DATA IY,IM,ID,IH,FH/1997,8,2,0,0./
+-       DATA LUGB/51/, DELTSFC/0.0/
+- !
+  !     READ(5,NAMCYC)
+-       READ(912,NAMCYC)
+        WRITE(6,NAMCYC)
+  !
+-       CALL MAINSFC(IDIM,JDIM,LSOIL,LUGB,IY,IM,ID,IH,FH,DELTSFC)
+  !
+        STOP
+        END
+  !
+-       SUBROUTINE MAINSFC(IDIM,JDIM,LSOIL,LUGB,IY,IM,ID,IH,FH,DELTSFC)
+  !
+        implicit none
+  !
+-       integer idim, jdim, lsoil, lugb, iy, im, id, ih, lensfc
+        real    fh,   deltsfc
+  !
+        REAL TSFFCS(IDIM*JDIM), SNOFCS(IDIM*JDIM),
+--- 13,67 ----
+  !
+        Implicit none
+  !
++       integer idim, jdim, lsoil, lugb, iy, im, id, ih, lensfc, ialb,
++      & ierr,nproc,numproc
+        real    fh,   deltsfc
++       character(len=120) inputfile,stdoutfile
+  !
+        NAMELIST/NAMCYC/ IDIM,JDIM,LSOIL,LUGB,IY,IM,ID,IH,FH
++      1,                DELTSFC,ialb
+  !
++ !wu  change LSOIL: LSOIL=4
+  !     DATA IDIM,JDIM,LSOIL/192,94,2/
+        DATA IDIM,JDIM,LSOIL/192,94,4/
+        DATA IY,IM,ID,IH,FH/1997,8,2,0,0./
++       DATA LUGB/51/, DELTSFC/0.0/, ialb/1/
++ 
++ ! mpi definitions.
++       include 'mpif.h'
++       integer MPI_Status(MPI_STATUS_SIZE)
++      
++       call MPI_Init(ierr)
++       ! nproc is process number, numproc is total number of processes.
++       call MPI_Comm_rank(MPI_COMM_WORLD,nproc,ierr)
++       call MPI_Comm_size(MPI_COMM_WORLD,numproc,ierr)
++ 
++ ! redirect standard output to a file for each group
++       write(stdoutfile,"('stdoutfile.',i3.3)") nproc+1
++       open(unit=6,file=stdoutfile,action='write')
++       if (nproc.eq.0) print *, 'running on ',numproc, ' processors'
++  
+  !     READ(5,NAMCYC)
++       write(inputfile,"('global_cycle.nml.mem',i3.3)") nproc+1  
++       open(912,file=inputfile,form='formatted')
++       read(912,namcyc,iostat=ierr)
++       close(912)
+        WRITE(6,NAMCYC)
+  !
++       CALL MAINSFC(IDIM,JDIM,LSOIL,LUGB,IY,IM,ID,IH,FH,DELTSFC,
++      &  ialb,nproc)
+  !
++       call MPI_Barrier(MPI_COMM_WORLD,ierr)
++       call MPI_Finalize(ierr)
+        STOP
+        END
+  !
++       SUBROUTINE MAINSFC(IDIM,JDIM,LSOIL,LUGB,IY,IM,ID,IH,FH,DELTSFC
++      &,                                                      ialb,nproc)
+  !
+        implicit none
+  !
++       integer idim,jdim,lsoil,lugb,iy,im,id,ih,lensfc,ialb,nproc
+        real    fh,   deltsfc
+  !
+        REAL TSFFCS(IDIM*JDIM), SNOFCS(IDIM*JDIM),
+***************
+*** 67,74 ****
+  !
+        print *, LUGB,IDIM,JDIM,LSOIL,DELTSFC,LENSFC,
+       1            IY,IM,ID,IH,FH
+-       CALL SFCDRV(LUGB,IDIM,JDIM,LSOIL,SIG1T,DELTSFC,LENSFC,
+-      1            IY,IM,ID,IH,FH,
+  !Cwu  add SIHFCS & SICFCS
+  !    2            SLMASK, OROG,
+       2            SLMASK,  OROG,SIHFCS,SICFCS,SITFCS,
+--- 90,97 ----
+  !
+        print *, LUGB,IDIM,JDIM,LSOIL,DELTSFC,LENSFC,
+       1            IY,IM,ID,IH,FH
++       CALL SFCDRV(nproc,LUGB,IDIM,JDIM,LSOIL,SIG1T,DELTSFC,LENSFC,
++      1            IY,IM,ID,IH,FH,ialb,
+  !Cwu  add SIHFCS & SICFCS
+  !    2            SLMASK, OROG,
+       2            SLMASK,  OROG,SIHFCS,SICFCS,SITFCS,
+***************
+*** 82,89 ****
+  !
+        return
+        END
+-       SUBROUTINE SFCDRV(LUGB,IDIM,JDIM,LSOIL,SIG1T,DELTSFC,LENSFC
+-      *,                 IY,IM,ID,IH,FH
+  !Cwu  add SIHFCS & SICFCS
+  !    *,                 SLMASK,OROG
+       *,                 SLMASK,OROG,  SIHFCS,SICFCS,SITFCS
+--- 105,112 ----
+  !
+        return
+        END
++       SUBROUTINE SFCDRV(nproc,LUGB,IDIM,JDIM,LSOIL,SIG1T,DELTSFC,LENSFC
++      *,                 IY,IM,ID,IH,FH, ialb
+  !Cwu  add SIHFCS & SICFCS
+  !    *,                 SLMASK,OROG
+       *,                 SLMASK,OROG,  SIHFCS,SICFCS,SITFCS
+***************
+*** 100,105 ****
+        LOGICAL GAUS,   DEADS, QCMSK, ZNLST, MONCLM, MONANL,
+       1        MONFCS, MONMER, MONDIF, GRBORO, GRBMSK,
+       2        OROIBM, MSKIBM, BGIIBM, BGOIBM
+  !
+  !  THIS IS A DRIVER FOR VERSION II SURFACE PROGRAM.
+  !
+--- 123,130 ----
+        LOGICAL GAUS,   DEADS, QCMSK, ZNLST, MONCLM, MONANL,
+       1        MONFCS, MONMER, MONDIF, GRBORO, GRBMSK,
+       2        OROIBM, MSKIBM, BGIIBM, BGOIBM
++       integer ialb,nproc,ierr
++       character(len=120) inputfile
+  !
+  !  THIS IS A DRIVER FOR VERSION II SURFACE PROGRAM.
+  !
+***************
+*** 401,414 ****
+  !
+        DATA IFP/0/
+  !
+-       SAVE IFP, FNOROG,FNMASK, FNBGSI,FNBGSO,
+       C     LDEBUG, GAUS,   BLNOUT, BLTOUT, DEADS, QCMSK,
+       K     IGRDBG, GRBORO, GRBMSK, OROIBM, MSKIBM, BGIIBM, BGOIBM
+  !
+        IF(IFP.EQ.0) THEN
+          IFP = 1
+- !       READ (5,NAMSFCD)
+-         READ (912,NAMSFCD)
+          WRITE(6,NAMSFCD)
+        ENDIF
+  !
+--- 426,442 ----
+  !
+        DATA IFP/0/
+  !
++       SAVE IFP,    FNOROG, FNMASK, FNBGSI, FNBGSO,
+       C     LDEBUG, GAUS,   BLNOUT, BLTOUT, DEADS, QCMSK,
+       K     IGRDBG, GRBORO, GRBMSK, OROIBM, MSKIBM, BGIIBM, BGOIBM
+  !
+        IF(IFP.EQ.0) THEN
+          IFP = 1
++         !READ (5,NAMSFCD)
++         write(inputfile,"('global_cycle.nml.mem',i3.3)") nproc+1  
++         open(912,file=inputfile,form='formatted')
++         read(912,namsfcd,iostat=ierr)
++         !close(912)
+          WRITE(6,NAMSFCD)
+        ENDIF
+  !
+***************
+*** 551,557 ****
+       *,               CNPFCS,SMCFC,STCFC,SLIFCS,AISFCS
+       *,               F10M
+       *,               VEGFCS,VETFCS,SOTFCS,ALFFC
+-      *,               CVFCS,CVBFCS,CVTFCS,0,912)
+  !     print *,' tsfoup=',(tsffcs(419422+i),i=1,5)
+  !     print *,' sicoup=',(sicfcs(419422+i),i=1,5)
+  !
+--- 579,585 ----
+       *,               CNPFCS,SMCFC,STCFC,SLIFCS,AISFCS
+       *,               F10M
+       *,               VEGFCS,VETFCS,SOTFCS,ALFFC
++      *,               CVFCS,CVBFCS,CVTFCS,0,912,IALB)
+  !     print *,' tsfoup=',(tsffcs(419422+i),i=1,5)
+  !     print *,' sicoup=',(sicfcs(419422+i),i=1,5)
+  !
+***************
+*** 1118,1128 ****
+       1         ERR=920)
+            GO TO 921
+    920     CONTINUE
+-           WRITE(6,*) ' ERROR IN OPENING FILE ',FNMASK(1:50)
+-           PRINT *,'ERROR IN OPENING FILE ',FNMASK(1:50)
+            CALL ABORT
+    921     CONTINUE
+-           WRITE(6,*) ' FILE ',FNMASK(1:50),' opened. Unit=',LUGB
+            READ(LUGB) SLMASK
+          ENDIF
+          DO I=1,IJDIM
+--- 1146,1156 ----
+       1         ERR=920)
+            GO TO 921
+    920     CONTINUE
++           WRITE(6,*) ' ERROR IN OPENING FILE ',trim(FNMASK)
++           PRINT *,'ERROR IN OPENING FILE ',trim(FNMASK)
+            CALL ABORT
+    921     CONTINUE
++           WRITE(6,*) ' FILE ',trim(FNMASK),' opened. Unit=',LUGB
+            READ(LUGB) SLMASK
+          ENDIF
+          DO I=1,IJDIM
+***************
+*** 1139,1149 ****
+       1         ERR=910)
+           GO TO 911
+    910    CONTINUE
+-          WRITE(6,*) ' ERROR IN OPENING FILE ',FNOROG(1:50)
+-          PRINT *,'ERROR IN OPENING FILE ',FNOROG(1:50)
+           CALL ABORT
+    911    CONTINUE
+-          WRITE(6,*) ' FILE ',FNOROG(1:50),' opened. Unit=',LUGB
+           READ(LUGB) OROG
+          ENDIF
+        ENDIF
+--- 1167,1177 ----
+       1         ERR=910)
+           GO TO 911
+    910    CONTINUE
++          WRITE(6,*) ' ERROR IN OPENING FILE ',trim(FNOROG)
++          PRINT *,'ERROR IN OPENING FILE ',trim(FNOROG)
+           CALL ABORT
+    911    CONTINUE
++          WRITE(6,*) ' FILE ',trim(FNOROG),' opened. Unit=',LUGB
+           READ(LUGB) OROG
+          ENDIF
+        ENDIF
+***************
+*** 1277,1283 ****
+        call sfcio_srohdc(nread,fnbgsi,head,data,iret)
+  
+        if (iret .ne. 0) then
+-         WRITE(6,*) ' ERROR IN OPENING FILE ',FNBGSI(1:50),' iret=',iret
+          CALL ABORT
+        endif
+        if (head%lonb.ne.lonl.or.head%latb.ne.latd.or.
+--- 1305,1311 ----
+        call sfcio_srohdc(nread,fnbgsi,head,data,iret)
+  
+        if (iret .ne. 0) then
++         WRITE(6,*) ' ERROR IN OPENING FILE ',trim(FNBGSI),' iret=',iret
+          CALL ABORT
+        endif
+        if (head%lonb.ne.lonl.or.head%latb.ne.latd.or.
+***************
+*** 1550,1556 ****
+  
+        call sfcio_swohdc(nw,fnbgso,head,data,iret)
+        if(iret.ne.0) then
+-         WRITE(6,*) ' ERROR IN OPENING FILE ',FNBGSO(1:50)
+          CALL ABORT
+        endif
+  
+--- 1578,1584 ----
+  
+        call sfcio_swohdc(nw,fnbgso,head,data,iret)
+        if(iret.ne.0) then
++         WRITE(6,*) ' ERROR IN OPENING FILE ',trim(FNBGSO)
+          CALL ABORT
+        endif
+  

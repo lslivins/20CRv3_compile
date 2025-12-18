@@ -1,0 +1,23 @@
+SHELL=	/bin/ksh
+#LIBS    =-L$(LIBDIR) -lsfcio_4 -lw3_d -lbacio_4 -lessl -lsp_d
+#LIBS    =-L$(LIBDIR) -lsp_d -lsfcio_4 -lw3lib-2.0_d -lbacio_4
+FFLAGS	= $(FFLAGSM)
+FC=$(FCMP)
+OBJS	=num_parthds.o machine.o cycle.o sfcsub.o
+global_cycle:	$(OBJS)
+	${FC} $(FFLAGS) $(LDFLG) $(OBJS) $(LIBS) -o global_cycle
+
+num_parthds.o:	num_parthds.f
+	$(FC) $(FFLAGS) $(OMPFLAG) -c num_parthds.f
+
+machine.o:	machine.f
+	${FC} $(FFLAGS) -c machine.f
+
+sfcsub.o:	sfcsub.f
+	$(FC) $(FFLAGS) -c sfcsub.f
+
+cycle.o:	cycle.f
+	$(FC) $(FFLAGS) -c cycle.f
+
+clean:
+	-rm -f $(OBJS) *.mod

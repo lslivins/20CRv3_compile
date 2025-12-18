@@ -1,0 +1,283 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+/global/scratch/sd/whitaker/testens/2013060306 ~ 
+aprun -n 60 -N 2 -S 1 -d 1 /project/projectdirs/incite11/whitaker/edison/newstuff/bin/global_enkf
+ running on           60  processors ...
+
+
+* . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . 
+     PROGRAM ENKF_ANL HAS BEGUN. COMPILED 2011319.50     ORG: NP25
+     STARTING DATE-TIME  JUN 15,2013  21:43:10.951  166  SAT   2456459
+
+
+ number of satellite radiance files used          59
+ number of satellite ozone files used           7
+ namelist parameters:
+ --------------------
+ &NAM_ENKF
+ DATESTRING      = 2013060306,
+ DATAPATH        = /global/scratch/sd/whitaker/testens/2013060306/                                                                   
+                                                                                                                                     
+                                                                                                                                     
+                                                                                                                           ,
+ IASSIM_ORDER    =           0,
+ COVINFLATEMAX   =   100.0000    ,
+ COVINFLATEMIN   =   1.000000    ,
+ DETERMINISTIC   = T,
+ SORTINC = T,
+ CORRLENGTHNH    =   1600.000    ,
+ CORRLENGTHTR    =   1600.000    ,
+ CORRLENGTHSH    =   1600.000    ,
+ VARQC   = F,
+ HUBER   = F,
+ NLONS   =        1152,
+ NLATS   =         576,
+ SMOOTHPARM      =   35.00000    ,
+ READIN_LOCALIZATION     = T,
+ ZHUBERLEFT      =  1.0000000E+10,
+ ZHUBERRIGHT     =  1.0000000E+10,
+ OBTIMELNH       =  1.0000000E+30,
+ OBTIMELTR       =  1.0000000E+30,
+ OBTIMELSH       =  1.0000000E+30,
+ REDUCEDGRID     = F,
+ LNSIGCUTOFFNH   =   1.100000    ,
+ LNSIGCUTOFFTR   =   1.100000    ,
+ LNSIGCUTOFFSH   =   1.100000    ,
+ LNSIGCUTOFFSATNH        =   3.300000    ,
+ LNSIGCUTOFFSATTR        =   3.300000    ,
+ LNSIGCUTOFFSATSH        =   3.300000    ,
+ LNSIGCUTOFFPSNH =   1.500000    ,
+ LNSIGCUTOFFPSTR =   1.500000    ,
+ LNSIGCUTOFFPSSH =   1.500000    ,
+ ANALPERTWTNH    =  0.7500000    ,
+ ANALPERTWTSH    =  0.7500000    ,
+ ANALPERTWTTR    =  0.7500000    ,
+ SPRD_TOL        =  1.0000000E+30,
+ NLEVS   =          64,
+ NANALS  =          80,
+ NVARS   =           5,
+ SATERRFACT      =   1.000000    ,
+ UNIVAROZ        = T,
+ WRF_REGIONAL    = F,
+ PAOVERPB_THRESH =  0.9900000    ,
+ LATBOUND        =   25.00000    ,
+ DELAT   =   10.00000    ,
+ PSEUDO_RH       = T,
+ NUMITER =           2,
+ BIASVAR =  0.1000000    ,
+ LUPD_SATBIASC   = T,
+ CLIPTRACERS     = T,
+ SIMPLE_PARTITION        = T,
+ ADP_ANGLEBC     = F,
+ ANGORD  =           0,
+ IAU     = F,
+ NHR_ANAL        =           6,
+ LETKF_FLAG      = F,
+ BOXSIZE =   90.00000    ,
+ MASSBAL_ADJUST  = T,
+ USE_HEIGHT      = F
+ /
+ --------------------
+ total number of mpi tasks must be >= nanals
+ tasks, nanals =           60          80
+ ****STOP2****  ABORTING EXECUTION w/code=          19
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+[SHTns 2.3] build Mar  5 2013, 12:23:09, id: 
+        Lmax=574, Mmax*Mres=574, Mres=1, Nlm=165600  [1 threads, no Condon-Shortley phase, 4.pi normalized]
+        => using FFTW : Mmax=574, Nphi=1152, Nlat=576  (data layout : phi_inc=1, theta_inc=1152, phi_embed=1152)
+Application 589700 exit codes: 134
+Application 589700 exit signals: Killed
+Application 589700 resources: utime ~0s, stime ~1s, Rss ~7564, inblocks ~560009, outblocks ~1409017
+
+ + --------------------------------------------------------------------------
+ +        Job name: enkf
+ +          Job Id: 154978.edison06
+ +          System: edison
+ +     Queued Time:  Sat Jun 15 05:21:04 2013
+ +      Start Time:  Sat Jun 15 21:42:55 2013
+ + Completion Time:  Sat Jun 15 21:43:12 2013
+ +            User: whitaker
+ +           Group: whitaker
+ +        MOM Host: nid00264
+ +           Queue: reg_med
+ +  Req. Resources: walltime=02:00:00
+ +  Used Resources: cput=00:00:02,mem=0kb,vmem=0kb,walltime=00:00:19
+ +     Acct String: m958
+ +   PBS_O_WORKDIR: /global/project/projectdirs/incite11/whitaker/edison/newstuff/enkf/trunk/src
+ +     Submit Args:  run_enkf_gfs
+ +        Job Exit: 137
+ + --------------------------------------------------------------------------
+

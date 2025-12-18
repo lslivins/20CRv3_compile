@@ -1,0 +1,55 @@
+h5ftotxt - outputs feedback 3 hours before and after time
+h5totxt_v4 - outputs observations 3 hours before and after time
+
+To run h5totxt_v4 you need to have paths setup for finding incdat and Manip.pm
+
+Hopper/Edison:
+to find the observational data
+setenv obsdirh5 $SCRATCH2/../cmccoll/HDF5/V4/
+
+to find incdat
+setenv PATH "${PATH}:${HOME}/../cmccoll/h5readv4_edison"
+
+to find Manip.pm
+setenv PERLLIB "${PERLLIB}:${HOME}/../cmccoll/h5readv4_edison/
+
+Gaea:
+setenv PATH "${PATH}:/ncrc/home2/Chesley.Mccoll/bin"
+setenv PERLLIB "${PERLLIB}:/ncrc/home2/Chesley.Mccoll/bin"
+setenv obsdirh5 $CPERM/Chesley.Mccoll/HDF5/V4/
+
+FOR COMPILING:
+Cray serial HDF5 on Hopper and Edison
+
+% module swap PrgEnv-pgi PrgEnv-gnu (or similar command to use another compiler)
+% module load hdf5 
+% ftn  ...  (for Fortran code)
+% cc  ...   (for C code)
+% CC  ...   (for C++ code)
+
+Having the "quick look" tool HDFview is invaluable and can be downloaded from:
+
+http://www.hdfgroup.org/downloads/index.html
+
+The document International_Surface_Pressure_Data_Bank_format_v10_11.doc
+describes in depth what is contained in the entire HDF file.
+
+The document hdftotxt.doc describes each field that is found in the table 
+Data/AssimilationFeedback/AssimilationFeedBack of the HDF files.
+
+to run the hdftotxt program the environment variables must be set
+
+setenv obsdirh5 "the location of the directory containing the directories YYYY"
+                "with sub directory structure YYYY/MM/YYYYMMDDHH.h5"
+setenv PERLLIB "the location of perl libraries"
+setenv PERL5LIB "the location of 64bit perl libraries"
+
+Then the following command would dump all the feedback data from January 1st YYYY at 0 hours
+
+   h5ftotxt YYYY010100 
+
+
+Examples:
+
+setenv obsdirh5 $SCRATCH2/HDF5/V4/
+./h5ftotxt 1900010100

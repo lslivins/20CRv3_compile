@@ -1,0 +1,63 @@
+In sfcsub.f 
+
+FNACNA = name of sea ice concentration file
+
+CALL FIXRDA(LUGB,FNACNA,KPDACN,SLMASK,
+     &             IY,IM,ID,IH,FH,ACNANL,LEN,IRET
+     &,            IMSK, JMSK, SLMSKH, GAUS,BLNO, BLTO
+     &,            OUTLAT, OUTLON, me)
+     
+     
+ !
+!   First get SLMASK over input grid
+!
+ ;;;lines 8303    
+CALL SETRMSK(KPDS5,SLMSKH,IMSK,JMSK,WLON,RNLAT,
+     &               DATA,IMAX,JMAX,RLNGRB,RLTGRB,LMASK,RSLMSK
+!    &               DATA,IMAX,JMAX,ABS(DLON),ABS(DLAT),LMASK,RSLMSK
+!cggg     &,                  GAUS,BLNO, BLTO, kgds(1))
+     &,                  GAUS,BLNO, BLTO, kgds(1), kpds(4), lbms)
+!  Sea ice
+!
+
+IN SETRMSK
+      ELSEIF(KPDS5.EQ.KPDAIS) THEN
+        LMASK=.FALSE.
+!       CALL GA2LA(SLMASK,IGAUL,JGAUL,RSLMSK,IMAX,JMAX,WLON,RNLAT
+!    &,            DLON, DLAT, GAUS, BLNO, BLTO)
+!       CRIT=0.5
+!       CALL ROF01(RSLMSK,IJMAX,'GE',CRIT)
+!
+        data_max = 0.0
+        do j=1,jmax
+          do i=1,imax
+              rslmsk(i,j) = data(i,j)
+              data_max= max(data_max,data(i,j))
+          enddo
+        enddo
+        CRIT=1.0
+        if (data_max .gt. CRIT) then
+          CALL ROF01(RSLMSK,IJMAX,'GT',CRIT)
+          LMASK=.TRUE.
+        else
+          LMASK=.FALSE.
+        endif
+	
+	MERGING COEFFICIENTS
+!Cwu [+16L]---------------------------------------------------------------
+!
+        CsihL=0.                       !...  Sea ice thickness over land
+        IF(FsihL.GE.99999.) CsihL=1.
+        IF((FsihL.GT.0.).AND.(FsihL.LT.99999))  CsihL=EXP(-DELTF/FsihL)
+!
+        CsihS=0.                       !...  Sea ice thickness over sea
+        IF(FsihS.GE.99999.) CsihS=1.
+        IF((FsihS.GT.0.).AND.(FsihS.LT.99999))  CsihS=EXP(-DELTF/FsihS)
+!
+        CsicL=0.                       !...  Sea ice concentration over land
+        IF(FsicL.GE.99999.) CsicL=1.
+        IF((FsicL.GT.0.).AND.(FsicL.LT.99999))  CsicL=EXP(-DELTF/FsicL)
+!
+        CsicS=0.                       !...  Sea ice concentration over sea
+        IF(FsicS.GE.99999.) CsicS=1.
+        IF((FsicS.GT.0.).AND.(FsicS.LT.99999))  CsicS=EXP(-DELTF/FsicS)

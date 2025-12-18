@@ -1,0 +1,6 @@
+https://stackoverflow.com/questions/69686755/fortran-error-type-mismatch-between-actual-argument-at-1-and-actual-argument
+
+
+export FCFLAGS="-w -fallow-argument-mismatch -O2"
+export FFLAGS="-w -fallow-argument-mismatch -O2"
+

@@ -1,0 +1,453 @@
+ #11 Feb 2017
+
+# notes on build.csh
+
+# most changes made on Gaea 
+# for Haswell and then Broadwell
+
+# craype-haswell not loading automatically
+# 14 Feb added 
+#module load craype-mic-knl
+
+
+# important: 4 codes needed -xSSE4.2 on Gaea
+[sigio, sfcio, sighdr, sfchdr(not sure about this one, actually)]
+
+# particular intel compiler 16 worked well on Gaea
+#module switch intel intel/16.0.3.210 
+
+# 11 Feb. GFS seg faulted, so first try
+#module switch intel intel/16.0.3.210.nersc
+
+#! make sure driver script 
+# gfsenkf_20crV3_cmip5oz_new.csh has the same.
+
+# 11 Feb 7:32pm PST
+# And Try only compiling for Haswell, except shtns, psop, and enkf routines 
+
+# 12 Feb that didn't work
+
+# 12 Feb
+# So, try loading craype-mic-knl 
+# but put in directives for -xCORE-AVX2 (haswell, broadwell)
+# 14 Feb - that didn't work
+
+# Not getting out of get_topo_grid_grad.f
+# need to recompile with write = 1 in gloopa_tracers.f call to
+#get_topo_grid_grad
+
+
+#14 Feb : First, try using the Haswell binaries on KNL!
+# using script in /global/cscratch1/sd/compo/20CRV3_CoriI_stripe4/scripts/gfsenkf_20crV3_cmip5oz_new_tryOnCoriII/ensda_425_1915
+# failed to run GFS in same place in get_topo_grid_grad
+
+# Note that Haswell ENKF, psob worked!
+
+
+# Jack Deslippe suggested using 
+#module load cray-memkind
+#and -lmemkind in compilation
+# call using -mkl (only the gfs)
+
+# 15 Feb ->  module load cray-memkind, and -lmemkind worked****!!!!
+
+# 15 Feb, next try removing -g. It shouldn't change the speed, but let's test.
+# leave in -traceback
+
+#!!!!!!!!!!!!!!
+# first build shtns for KNL
+#module swap PrgEnv-intel PrgEnv-gnu/6.0.3
+
+#module swap craype-haswell craype-mic-knl
+#module load fftw
+# first 
+
+20CRV3_CoriII_stripe4/shtns> diff Makefile Makefile.Gaea 
+3,6c3,4
+< #module swap PrgEnv-intel PrgEnv-gnu/6.0.3
+< 
+< #module swap craype-haswell craype-mic-knl
+< #module load fftw
+---
+> #module swap PrgEnv-intel PrgEnv-gnu
+> #module load fftw/3.3.4.8
+8c6
+< PREFIX=/global/cscratch1/sd/compo/20CRV3_CoriII_stripe4
+---
+> PREFIX=/lustre/f1/unswept/Gilbert.P.Compo/20CRV3
+10c8
+< CC=gcc -march=knl
+---
+> CC=gcc -march=native
+#!!!!!!!!!!!!!!
+
+
+# 26 Feb 
+# tring to use new version of shtns with openmp
+# first test on just psop
+# worked for all 
+
+# 6 march
+# test using Intel v17
+# seems a little faster 
+# got a 7:54 cycle!
+
+#7march
+# next move newer bacio to before gfs compilation so that they are used 
+# made GFS slightly slower, not using CRAY wrapper cc
+# changed makebacio_nersc.sh to use cc
+
+#in build.csh
+module switch PrgEnv-cray PrgEnv-intel
+module swap craype-haswell craype-mic-knl
+#module switch intel intel/16.0.3.210 
+module load cray-netcdf/4.4.0
+module load cray-hdf5
+module load fftw
+module unload darshan
+# use particular hdf5 and netcdf modules based on 
+
+#testsin July 8 2017 were slower, no 7:54 cycles.
+Try using same version of Intelv17 as in March
+module switch intel intel/17.0.1.132
+
+#2017-02-01 04:12:26 PST - Jialin LiuAdditional comments
+#Hi Gilbert,
+#We replaced the default HDF51.10 with 1.8.16 as we recently found some bug in 1.10. However, cray's default netcdf is compiled with 1.10. We have been discussing with Cray to re-compile it. Sorry for the inconvenience.
+ 
+#Yes, you may either load hdf51.10, or use cray-netcdf/4.4.0.
+
+# and unload darshan based on 
+#http://www.nersc.gov/users/software/compilers/intel-fortran-c-and-c/intel-bug-reports/compiling-with-ipo-produces-unresolved-warning-messages-at-link-time-on-cray-systems/
+
+#8 July 2017
+#made changes to enkf/trunk/src [as on Gaea 20CRV3_c4 ] 
+#obsmod.f90 and enkf.F90 to give tropical cyclones
+# a free pass through QC.
+
+#9 July 2017
+GFS is about 1 minute per forecast slower
+# try recompiling with previous version of v17 compiler than is currently default
+intel/17.0.1.132
+instead of 
+intel/17.0.2.174(default)
+
+no difference
+
+#14 July 2017
+#T. Kurth recommended 
+# T. Kurth recommend craype-hugepages2M module
+#module load craype-hugepages2M
+
+#Also module load cray-memkind and -lmemkind in gfs no longer needed
+#as bug in MKL is fixed
+These changes put a cycle back to 8 minutes!
+
+Also T. Kurth recommends getting rid of -xSSE4.2, so will try again. 
+
+#15 July 2017
+Forgot to put module load craype-hugepages2M
+in run script. Testing now.  Works best with BurstBuffer 7.5 minute cycles!
+Get 8 to 8.5 minute cycles without BurstBuffer
+
+Need to 
+1) recompile shtns with hugepages and test 
+	25 July: worked. Some global_enkf cycles are faster than before
+	
+2) try removing the -xSSE4.2 where it still remains
+	25 July: worked removing it from 
+	pushd nwprod/lib/sorc/sigio; /bin/rm -f ../../libsigio*.a;   sh makefile.sh
+	pushd nwprod/lib/sorc/sfcio;  /bin/rm -f ../../libsfcio*.a; sh makefile.sh
+	
+3) see if putting -lfftw_omp helps in GFS
+
+18 November 2017
+	changed sfcsub.f to allow sea ice to have nearest neighbor interpolation
+	updated global_volcanic aerosols to crowley+untermann obtained from P. Brohan, UKMO
+
+# removed -xHOST that still remained (15 Feb)
+echo "building bacio"
+pushd nwprod/lib/sorc/bacio; /bin/rm -f ../../libbacio*a;  make -f makefile4
+popd
+
+# testing if this bacio causes any problems (7 March 2017)
+# seemed to make slightly slower, so returned to original place in build.csh
+#changed makebacio_nersc.sh to use "cc"
+#echo "build bacio_v2.0.1"
+#pushd nwprod/lib/sorc/bacio_v2.0.1/src; /bin/rm -f ../lib/libbacio*a; sh makebacio_nersc.sh ; /bin/cp -f ../lib/libbacio*a ../../../../lib
+#popd
+
+
+#Look at this for possible target to KNL
+echo "building esmf"
+pushd nwprod/lib/sorc/esmf_3_1_0rp5/esmf; sh compile_intel_unicos.sh
+popd
+
+#no change
+#could be a good target for more attention in optimization
+# such as using FFTW for the fftw, but probably need a wrapper interface. 
+echo "build sp"
+pushd nwprod/lib/sorc/sp; sh makelibsp.sh
+popd
+
+#no change
+echo "build w3lib"
+pushd nwprod/lib/sorc/w3lib-2.0; /bin/rm -f ../../libw3*a; make -f makefile_4 clean; make -f makefile_4; make -f makefile_d clean; make -f makefile_d
+cd ../..
+ln -fs libw3-2.0_4.a libw3lib-2.0_4.a
+ln -fs libw3-2.0_d.a libw3lib-2.0_d.a
+popd
+
+# still has -xSSE4.2 
+# try again removing on 25 July. Worked
+# remove -g
+echo "build sigio"
+pushd nwprod/lib/sorc/sigio; /bin/rm -f ../../libsigio*.a;   sh makefile.sh
+popd
+
+#still has -xSSE4.2
+# try again removing on 25 July. Worked
+# remove -g
+echo "build sfcio"
+pushd nwprod/lib/sorc/sfcio;  /bin/rm -f ../../libsfcio*.a; sh makefile.sh
+popd
+
+#no change
+echo "build ip"
+pushd nwprod/lib/sorc/ip; make clean; make; /bin/cp -f libip_4.a ../../; make -f Makefile_d clean; make -f Makefile_d; /bin/cp -f libip_d.a ../..
+popd
+
+#no change
+echo "build nemsio"
+pushd nwprod/lib/sorc/nemsio; sh makefile.sh
+popd
+
+# added option -lmemkind to makefile.sh after -mkl
+# added -g to OPTSB (remove later)
+# also changed line 320 of gloopa_tracers.f to 1 (write)
+
+# 15 Feb
+# removed -g
+# changed line 320 of gloopa_tracers.f to 0 (no write)
+echo "build gfs"
+pushd gfs/global_fcst.fd.v14.0.1 ; make clean; sh makefile.sh
+popd
+
+#changed -openmp to -qopenmp in Makefile, Makefilep
+echo "build global_cycle"
+pushd gfs/global_cycle.fd; /bin/rm -f *.o *.mod global_cycle*; make -f Makefile; make -f Makefilep
+popd
+
+#no changes
+echo "build global_postgp"
+pushd gfs/global_postgp.fd; /bin/rm -f global_postgp* *.o *.mod; make -f Makefile; make -f Makefile_p; /bin/cp -f global_postgp* ../../bin
+popd
+
+#still using xSSE4.2 as of 25 July 2017
+# changed -openmp to -qopenmp
+echo "build global_sfchdr"
+pushd gfs/global_sfchdr.fd; /bin/rm -f global_sfchdr; make; /bin/cp -f global_sfchdr ../../bin
+popd
+
+#still using xSSE4.2 as of 25 July 2017
+# changed -openmp to -qopenmp
+echo "build global_sighdr"
+pushd gfs/global_sighdr.fd; /bin/rm -f global_sighdr; make; /bin/cp -f global_sighdr ../../bin
+popd
+
+
+# 15 Feb, maybe try using Intel CC compiler with the wrappers to see if shtns speeds up
+# could use the openmp version of fftw?
+# first try using Intel compiler for codelets 
+[for some the of following, need shtns
+20CRV3_CoriII_stripe4/shtns> diff Makefile Makefile.Gaea
+3,6c3,4
+< #module swap PrgEnv-intel PrgEnv-gnu/6.0.3
+< 
+< #module swap craype-haswell craype-mic-knl
+< #module load fftw
+---
+> #module swap PrgEnv-intel PrgEnv-gnu
+> #module load fftw/3.3.4.8
+8c6
+< PREFIX=/global/cscratch1/sd/compo/20CRV3_CoriII_stripe4
+---
+> PREFIX=/lustre/f1/unswept/Gilbert.P.Compo/20CRV3
+10c8
+< CC=gcc -march=knl
+---
+> CC=gcc -march=native
+
+]
+[ 26 Feb, try using openmp version of shtns
+25 July recompiled with hugepages2M
+noticed that there is an openmp version of fftw - use that , too!
+/global/cscratch1/sd/compo/20CRV3_CoriII_stripe4/shtns-2.6.6-r535
+20CRV3_CoriII_stripe4/shtns-2.6.6-r535> diff Makefile Makefile.orig 
+2,10c2
+< # be sure to 
+< #module swap PrgEnv-intel PrgEnv-gnu/6.0.3
+< #module swap craype-haswell craype-mic-knl
+< #module load craype-hugepages2M
+< #module load fftw
+< #
+< 
+< #PREFIX=/usr/local
+< PREFIX=/global/cscratch1/sd/compo/20CRV3_CoriII_stripe4
+---
+> PREFIX=/usr/local
+13c5
+< CFLAGS=-O2 -I/usr/local/include -I$(FFTW_INC) -L/usr/local/lib -ffast-math -fomit-frame-pointer -std=gnu99 -fopenmp -L$(FFTW_DIR)
+---
+> CFLAGS=-O2 -I/usr/local/include -L/usr/local/lib -ffast-math -fomit-frame-pointer -std=gnu99 -fopenmp -L/opt/cray/pe/fftw/3.3.4.10/haswell/lib
+then 
+cp -f libshtns_omp_knl.a ../lib 
+cd ../lib
+ln -sf libshtns_omp_knl.a libshtns.a]
+
+
+
+#no change
+# using shtns -> speed it up and improve psop
+# add -lfftw3_omp
+echo "build psop"
+pushd psop; make clean; make; /bin/cp -f *.x ../bin
+popd
+
+#Removed -xHOST, -g in Makefile.conf
+# added -lfftw3_omp and using newer omp shtns
+echo "build enkf"
+pushd enkf/trunk/src; make clean; make
+popd
+
+#no change
+echo "build enkf utilities"
+pushd enkf/trunk/util/src; /bin/rm -f *.x *.o *.mod; make -f Makefile_gfs_nersc; /bin/cp -f *.x ../../../../bin
+popd
+
+# had to add
+module swap PrgEnv-intel PrgEnv-gnu
+
+echo "build h5 reader"
+pushd h5f_reader; make clean; make; /bin/cp -f h5ftotxt ../bin
+popd
+
+echo "build h5totxt_v4 reader"
+pushd h5f_reader_v4; make clean; make; /bin/cp -f h5totxt_v4 ../bin
+popd
+# had to add
+module swap PrgEnv-gnu PrgEnv-intel
+
+#no change
+echo "build gfsio"
+pushd nwprod/lib/sorc/gfsio; /bin/rm -f ../../libgfsio*a; make -f makefile_4
+popd
+
+#no change
+# what does this do? could we fix the snow build-up over greenland with this? 
+# removed -xHOST that remained in makefile_4 (not used though)
+echo "build landsfcutil"
+pushd nwprod/lib/sorc/landsfcutil; sh makefile_d
+popd
+
+#no change
+# but the configure looks like it is checking what host you are on.
+#How to change this for KNL? 
+echo "build w3emc"
+pushd nwprod/lib/sorc/w3emc_v2.2.0/sorc; make clean; make ; /bin/cp -f w3emc/v2.2.0/libw3emc*a ../../../; /bin/rm -rf ../../../incmod/w3emc*; /bin/cp -R w3emc/v2.2.0/incmod/* ../../../incmod
+popd
+
+#removed -g
+echo "build w3nco"
+pushd nwprod/lib/sorc/w3nco_v2.0.6; sh makelibw3_nco.sh
+popd
+
+#moved this to after bacio
+#Where is this used?  since it is compiled after the gfs and other codes above that link to libbacio
+# changed makebacio_nersc.sh to use cc
+# seemed to make gfs and enkf slightly slower on KNL. moved back to here
+echo "build bacio_v2.0.1"
+pushd nwprod/lib/sorc/bacio_v2.0.1/src; sh makebacio_nersc.sh
+popd
+
+#removed -g
+#what is using this library, since gfs is already compiled? 
+echo "build gfsio_v1.1.0"
+pushd nwprod/lib/sorc/gfsio_v1.1.0; /bin/rm -f ../../libgfsio*a; make -f makefile_4
+popd
+
+#
+moved build sig2grb
+down to global_chgres
+because we only want Haswell binaries for those.
+
+# build everything else for haswell
+module swap craype-mic-knl craype-haswell
+
+echo "build sig2grb"
+pushd sig2grb; make clean; make; /bin/cp -f sig2grb ../bin
+popd
+
+echo "build global_chgres"
+pushd gfs/global_chgres.fd; make clean
+sh makefile.sh
+popd
+
+# 20 October 2019
+change 
+/global/cscratch1/sd/compo/20CRV3_CoriII_stripe4/nwprod/lib/sorc/esmf_3_1_0rp5/esmf/build_config/Unicos.intel.default/build_rules.mk
+to a setting of 
+##ESMF_PTHREADS := OFF
+ESMF_PTHREADS := ON
+
+Try changing back to OFF but make it OFF everywhere
+
+But the "common header" being found is now conflicing with a header in /usr/include/bits/pthreadtypes.h
+So, in /global/cscratch1/sd/compo/20CRV3_CoriII_stripe4/nwprod/lib/sorc/esmf_3_1_0rp5/esmf/build/common.mk
+# even when compiling with ESMF_PTHREADS=ON we need to find common header
+# common hearder is automatically found by CC (20 October 2019 gcompo)
+#ESMF_CXXCOMPILEPATHSLOCAL += -I$(ESMF_DIR)/src/Infrastructure/stubs/pthread
+
+# that did not work
+the /global/cscratch1/sd/compo/20CRV3_CoriII_stripe4/nwprod/lib/sorc/esmf_3_1_0rp5/esmf/src/Infrastructure/stubs/pthread/ESMF_Pthread.h 
+has to be used.
+but, it could be set to use a real pthreads library 
+
+# try setting pthreads to ON and using that library! BNOPE
+
+# 21 October 2019
+
+# since /usr/include/bits/pthreadtypes.h is somehow being included
+# change /global/cscratch1/sd/compo/20CRV3_CoriII_stripe4/nwprod/lib/sorc/esmf_3_1_0rp5/esmf/src/Infrastructure/stubs/pthread/pthread_stubs.h
+# to use the same definition _BITS_PTHREADTYPES_COMMON_H instead of _BITS_PTHREADTYPES_H
+
+# ESMF compiled successfully with these module files loaded
+Currently Loaded Modulefiles:
+  1) modules/3.2.11.1                                  7) udreg/2.3.2-7.0.0.1_4.31__g8175d3d.ari           13) job/2.2.4-7.0.0.1_3.36__g36b56f4.ari             19) craype-mic-knl
+  2) nsg/1.2.0                                         8) ugni/6.0.14.0-7.0.0.1_7.35__ge78e5b0.ari         14) dvs/2.11_2.2.140-7.0.0.1_13.5__gdf9ebba2         20) cray-mpich/7.7.6
+  3) intel/19.0.3.199                                  9) pmi/5.0.14                                       15) alps/6.6.50-7.0.0.1_3.44__g962f7108.ari          21) craype-hugepages2M
+  4) craype-network-aries                             10) dmapp/7.1.1-7.0.0.1_5.29__g25e5077.ari           16) rca/2.2.20-7.0.0.1_4.42__g8e3fb5b.ari            22) altd/2.0
+  5) craype/2.5.18                                    11) gni-headers/5.0.12.0-7.0.0.1_7.46__g3b1768f.ari  17) atp/2.1.3
+  6) cray-libsci/19.02.1                              12) xpmem/2.2.17-7.0.0.1_3.28__g7acee3a.ari          18) PrgEnv-intel/6.0.5
+
+# it did not compile using /global/cscratch1/sd/compo/20CRV3_CoriII_stripe4/build.csh 
+# which had esmf build after bacio and also use intel 17. Try with intel 19 and put before bacio.
+
+
+# 22 October 2019
+
+# intel 19 works!
+# complete build works!
+
+# 23 October 2019
+
+# try using NERSC wrapped gcc 
+# esmf specifically has gcc as the default
+
+# 11:21 am - Compiled!
+# 24 October 2019 do not use the NERSC wrapped gcc 
+#made system slower by factor of 2 
+#module load gcc
+
+# if want a different cc, change in nwprod/lib/sorc/esmf_3_1_0rp5/esmf/compile_intel_unicos.sh
+# test that next

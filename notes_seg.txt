@@ -1,0 +1,72 @@
+build global_chgres
+~/20CRV3/gfs/global_chgres.fd ~/20CRV3 
+
+OK until here
+
+ftn -i4 -O3 -r8  -convert big_endian -fp-model precise -qopenmp -auto -I ../../nwprod/lib/incmod/sigio_4               -I ../../nwprod/lib/incmod/sfcio_4              -I ../../nwprod/lib/incmod/landsfcutil_d              -I ../../nwprod/lib/incmod/gfsio_4 -c chgres.f
+ftn -i4 -O3 -r8  -convert big_endian -fp-model precise  -c -o chk_endianc.o chk_endianc.f
+ftn -qopenmp -auto num_parthds.o nstio_module.o nsst_chgres.o gfsio_rst.o funcphys.o physcons.o machine_8.o surface_chgres.o sfcsub.o vintg_idea.o nrlmsise00_sub.o chgres.o chk_endianc.o -L../../nwprod/lib -lgfsio_4 -L../../nwprod/lib -lsigio_4 -L../../nwprod/lib -lsfcio_4 -L../../nwprod/lib/sorc/bacio_v2.0.1/lib -lbacio_4 -L../../nwprod/lib -llandsfcutil_d -L../../nwprod/lib -lip_d -L../../nwprod/lib -lsp_d -L../../nwprod/lib -lw3emc_v2.2.0_d -L../../nwprod/lib -lw3nco_d -L../../nwprod/lib -lnemsio -o global_chgres
+ld: ../../nwprod/lib/libw3nco_d.a(w3tagb.o): in function `w3tage_':
+w3tagb.f:(.text+0x219): undefined reference to `summary_'
+ld: ../../nwprod/lib/libw3nco_d.a(w3tagb.o): in function `w3tagb_':
+w3tagb.f:(.text+0x24c): undefined reference to `start_'
+make: *** [Makefile:22: global_chgres] Error 1
+~/20CRV3 
+
+
+w3tagb.f
+
+CALL START()
+
+CALL SUMMARY()
+
+Where are these?
+
+
+This has previosuly (successfully) compiles as the libw3nco_d.a library
+
+C 1999-08-24  Gilbert     added call to START() in W3TAGB and a call
+C                         to SUMMARY() in W3TAGE to print out a 
+C                         resource summary list for the program using
+
+
+Files available. Not compiled/linked???
+summary.f
+start.f
+
+
+build.log # Build output
+
+6 warnings and 1 error generated.
+make: *** [make.libw3nco:11: ../../libw3nco_4.a(summary.o)] Error 1 
+
+But is this summary.c?
+
+
+
+Yep 
+c -c  -O3 -DLINUX summary.c
+summary.c:189:5: warning: a function definition without a prototype is deprecated in all versions of C and is not supported in C2x [-Wdeprecated-non-prototype]
+int bucket (lng) 
+
+Added 
+# include <sys/times.h>
+to
+nwprod/lib/sorc/w3nco_v2.0.6/summary.c
+
+
+Also need shtns (wtf?)
+shtns-2.6.6-r535 
+compiles OK. Over options are missing fftw3.h
+
+Creates libshtns_omp_knl.a
+What uses this?
+Need to install it (just done "make" - no configure or make install)
+OK. Have linked to (in ./lib) and old version
+
+There is a new version in ./lib now.
+
+Haven't relinked the bugger yet.
+
+
+

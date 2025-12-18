@@ -1,0 +1,30 @@
+SHELL=/bin/sh
+
+LIB     = libg2tmpl.a
+
+INCMOD  = ../../incmod/g2tmpl
+
+FC =	ftn
+CC =	cc
+FFLAGS  = -O3 -I$(INCMOD)
+AR      = ar
+ARFLAGS = -ruv
+
+$(LIB): $(LIB)(process_4dot2.o) $(LIB)(grib2_all_tables_module.o)
+
+$(LIB)(process_4dot2.o):	process_4dot2.c
+	$(CC) -O3 -c -DUNDERSCORE $<
+	$(AR) $(ARFLAGS) $@ $*.o
+	rm -f $*.o
+
+$(LIB)(grib2_all_tables_module.o): grib2_all_tables_module.f90
+	$(FC) -c $(FFLAGS) $<
+	$(AR) $(ARFLAGS) $@ $*.o
+	rm -f $*.o
+	mv $*.mod $(INCMOD)
+
+clean:
+	rm -f process_4dot2.o
+
+realclean:	clean
+	rm -f test_* core
